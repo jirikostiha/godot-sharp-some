@@ -1,2 +1,3 @@
-# godot-sharp-drawing
-Custom drawing extensions for Godot engine
+# Godot Sharp Drawing
+
+Is set of extensions for custom drawing in Godot engine.
