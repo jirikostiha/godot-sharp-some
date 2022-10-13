@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{8ABEA7BE-2CB6-499A-A09E-7D836F189422}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		directory.build.props = directory.build.props
+		..\license = ..\license
+		..\participants.props = ..\participants.props
+		..\product.props = ..\product.props
+		..\product_version.props = ..\product_version.props
+		..\readme.md = ..\readme.md
+		source code.ruleset = source code.ruleset
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D", "GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj", "{F36FE7E6-0989-4985-831D-C5B4D3B03343}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
+	EndGlobalSection
+EndGlobal

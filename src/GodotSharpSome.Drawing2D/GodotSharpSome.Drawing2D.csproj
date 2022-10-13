@@ -1,0 +1,32 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+
+    <Import Project="..\..\product.props" />
+    <Import Project="..\..\participants.props" />
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <NoWarn>CS1591</NoWarn>
+        
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+        <Title>Godot Sharp 2D Drawing Extensions</Title>
+        <Description>Set of drawing extensions for Godot engine.</Description>
+        <PackageTags> godot; drawing; csharp; 2D</PackageTags>
+        <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <VersionPrefix>0.1.0</VersionPrefix>
+        <VersionSuffix>devel</VersionSuffix>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="icon.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+        <None Include="readme.md" />
+    </ItemGroup>
+
+</Project>
