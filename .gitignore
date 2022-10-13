@@ -1,5 +1,6 @@
 [Bb]in/
 [Ll]ib/
+[Aa]sm/
 
 #---binaries---
 *.dll
@@ -45,6 +46,9 @@ _ReSharper.*
 *.nuget.targets
 project.lock.json
 project.assets.json
+
+#---Godot---
+.mono
 
 #---other---
 sh.exe.stackdump
