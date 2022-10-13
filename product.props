@@ -1,0 +1,14 @@
+<Project>
+
+	<PropertyGroup>
+
+		<Product>Godot Sharp Some</Product>
+		<Copyright>Copyright © 2022 Jiri Kostiha</Copyright>
+		<Company />
+		<RepositoryUrl>https://github.com/jirikostiha/godot-sharp-some</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+	</PropertyGroup>
+
+</Project>
