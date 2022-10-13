@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '3.1.x', '6.0.x' ]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v3
+      with:
+         dotnet-version: ${{ matrix.dotnet-version }}
+
+    - name: Restore dependencies 
+      run: dotnet restore "./src/godot sharp some.sln"
+
+    - name: Build
+      run: dotnet build "./src/godot sharp some.sln" --no-restore
