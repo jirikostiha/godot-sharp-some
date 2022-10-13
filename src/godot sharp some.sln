@@ -17,6 +17,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D", "GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj", "{F36FE7E6-0989-4985-831D-C5B4D3B03343}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cmd", "cmd", "{7DBCFF33-12D2-4899-BEA8-575BBE0DCE93}"
+	ProjectSection(SolutionItems) = preProject
+		..\cmd\increase product build version.ps1 = ..\cmd\increase product build version.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +43,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DBCFF33-12D2-4899-BEA8-575BBE0DCE93} = {8ABEA7BE-2CB6-499A-A09E-7D836F189422}
+		{C40B03A5-B655-4E3D-8B42-1E8B87B1D43F} = {8ABEA7BE-2CB6-499A-A09E-7D836F189422}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
