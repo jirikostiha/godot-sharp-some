@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
 
     <Import Project="..\..\product.props" />
+    <Import Project="..\..\product_version.props" />
     <Import Project="..\..\participants.props" />
 
     <PropertyGroup>
@@ -17,8 +18,6 @@
         <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
-        <VersionPrefix>0.1.0</VersionPrefix>
-        <VersionSuffix>devel</VersionSuffix>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,7 +25,10 @@
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>
-        <None Include="readme.md" />
+        <None Include="readme.md">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>
