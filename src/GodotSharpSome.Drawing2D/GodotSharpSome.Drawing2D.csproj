@@ -18,6 +18,7 @@
         <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
