@@ -1,4 +1,7 @@
-name: CI
+name: Build
+
+env:
+  sln-path: "./src/godot sharp some.sln"
 
 on: [push]
 
@@ -8,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: [ '3.1.x', '6.0.x' ]
+        dotnet-version: [ '2.0.x', '3.1.x', '6.0.x' ]
 
     steps:
     - name: Checkout
@@ -19,8 +22,8 @@ jobs:
       with:
          dotnet-version: ${{ matrix.dotnet-version }}
 
-    - name: Restore dependencies 
-      run: dotnet restore "./src/godot sharp some.sln"
+    - name: Restore dependencies
+      run: dotnet restore "${{ env.sln-path }}"
 
     - name: Build
-      run: dotnet build "./src/godot sharp some.sln" --no-restore
+      run: dotnet build "${{ env.sln-path }}" --no-restore
