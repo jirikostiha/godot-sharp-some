@@ -23,8 +23,25 @@
         public static Vector2[] DoubleArrow(Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
             => AppendDoubleArrow(new List<Vector2>(2 * 5), start, top, headRadius, arrowAngle).ToArray();
 
+        public static Vector2[] Rectangle(Vector2 center, float length, float width, float angle)
+        => AppendRectangle(new List<Vector2>(2 * 4), center, length, width, angle).ToArray();
+
 
         #region append
+
+        private static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float angle)
+        {
+            var vertice1 = center + new Vector2(-halfLength, -halfWidth).Rotated(angle);
+            var vertice2 = center + new Vector2(-halfLength, halfWidth).Rotated(angle);
+            var vertice3 = center + new Vector2(halfLength, -halfWidth).Rotated(angle);
+            var vertice4 = center + new Vector2(halfLength, halfWidth).Rotated(angle);
+            AppendLine(points, vertice1, vertice2);
+            AppendLine(points, vertice2, vertice3);
+            AppendLine(points, vertice3, vertice4);
+            AppendLine(points, vertice4, vertice1);
+
+            return points;
+        }
 
         private static IList<Vector2> AppendCross(IList<Vector2> points, Vector2 center, float radius)
         {
