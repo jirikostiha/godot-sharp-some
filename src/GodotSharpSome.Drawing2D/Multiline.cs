@@ -26,6 +26,33 @@
         public static Vector2[] Rectangle(Vector2 center, float length, float width, float angle)
         => AppendRectangle(new List<Vector2>(2 * 4), center, length, width, angle).ToArray();
 
+        public static Vector2[] SegmentedLine(Vector2 start, Vector2 end, int segmentCount)
+        {
+            var length = (end - start).Length();
+            var points = new List<Vector2>(2 + 2 * (segmentCount + 1));
+            var distances = Enumerable.Range(0, segmentCount).Select(i => length / segmentCount).ToArray();
+            
+            return AppendSegmentedLine(points, start, end, distances).ToArray();
+        }
+
+        public static Vector2[] SegmentedArrow(Vector2 start, Vector2 top, float segmentSize, float headRadius, float arrowAngle = DefaultArrowAngle)
+        {
+            var segmentCount = (int)((top - start).Length() / segmentSize);
+            
+            return SegmentedArrow(start, top,
+                Enumerable.Repeat(segmentSize, segmentCount - 1).ToArray(),
+                headRadius, arrowAngle)
+                .ToArray();
+        }
+
+        public static Vector2[] SegmentedArrow(Vector2 start, Vector2 top, IList<float> distances, float headRadius, float arrowAngle = DefaultArrowAngle)
+        {
+            var points = new List<Vector2>(6 + 2 * (distances.Count + 1));
+            AppendArrow(points, start, top, headRadius, arrowAngle);
+            AppendSeparators(points, start, start.DirectionTo(top), distances);
+
+            return points.ToArray();
+        }
 
         #region append
 
@@ -83,6 +110,36 @@
             AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
             //side line 2
             AppendLine(points, top, top + direction.Rotated(Pi - arrowAngle) * headRadius);
+
+            return points;
+        }
+
+        public static IList<Vector2> AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 end, IList<float> distances)
+        {
+            AppendLine(points, start, end);
+            AppendSeparators(points, start, start.DirectionTo(end), distances);
+
+            return points;
+        }
+
+        private static IList<Vector2> AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
+        {
+            var dir = direction.Normalized();
+            var normal = new Vector2(dir.y, -dir.x);
+
+            // zero line
+            AppendLine(points,
+                (start + dir) + normal * 3,
+                (start + dir) - normal * 3);
+
+            var distSum = 0f;
+            foreach (var distance in distances)
+            {
+                distSum += distance;
+                AppendLine(points,
+                    (start + dir * distSum) + normal * 2,
+                    (start + dir * distSum) - normal * 2);
+            }
 
             return points;
         }
