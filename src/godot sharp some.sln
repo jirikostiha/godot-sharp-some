@@ -33,6 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CAFF78B8-7F6
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usage", "usage", "{09E66851-03DE-4738-987B-043566FA2EEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Examples", "usage\GodotSharpSome.Examples.csproj", "{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,9 +50,18 @@ Global
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
