@@ -27,4 +27,13 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Update="GodotSharp">
+        <Private>True</Private>
+      </Reference>
+      <Reference Update="GodotSharpEditor">
+        <Private>True</Private>
+      </Reference>
+    </ItemGroup>
+
 </Project>
