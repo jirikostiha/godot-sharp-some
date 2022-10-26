@@ -16,17 +16,12 @@
         <Description>Set of drawing extensions for Godot engine.</Description>
         <PackageTags> godot; drawing; csharp; 2D; game-dev</PackageTags>
         <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="icon.png">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-        </None>
-        <None Include="..\..\README.md">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>
