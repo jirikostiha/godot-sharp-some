@@ -56,7 +56,7 @@
 
         #region append
 
-        private static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float angle)
+        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float angle)
         {
             var vertice1 = center + new Vector2(halfWidth, -halfLength).Rotated(angle);
             var vertice2 = center + new Vector2(halfWidth, halfLength).Rotated(angle);
@@ -70,7 +70,7 @@
             return points;
         }
 
-        private static IList<Vector2> AppendCross(IList<Vector2> points, Vector2 center, float radius)
+        public static IList<Vector2> AppendCross(IList<Vector2> points, Vector2 center, float radius)
         {
             AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
             AppendLine(points, center.x, center.y - radius, center.x, center.y + radius);
@@ -78,7 +78,7 @@
             return points;
         }
 
-        private static IList<Vector2> AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
+        public static IList<Vector2> AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
         {
             AppendLine(points, center.x - innerRadius, center.y, center.x - outerRadius, center.y);
             AppendLine(points, center.x + innerRadius, center.y, center.x + outerRadius, center.y);
@@ -87,7 +87,8 @@
 
             return points;
         }
-        private static IList<Vector2> AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
+
+        public static IList<Vector2> AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
@@ -95,7 +96,7 @@
             return points;
         }
 
-        private static IList<Vector2> AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
+        public static IList<Vector2> AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
@@ -104,7 +105,7 @@
             return points;
         }
 
-        private static IList<Vector2> AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
+        public static IList<Vector2> AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
         {
             //side line 1
             AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
@@ -122,7 +123,7 @@
             return points;
         }
 
-        private static IList<Vector2> AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
+        public static IList<Vector2> AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
             var dir = direction.Normalized();
             var normal = new Vector2(dir.y, -dir.x);
@@ -144,13 +145,13 @@
             return points;
         }
 
-        private static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
+        public static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
         {
             points.Add(start);
             points.Add(end);
         }
 
-        private static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
+        public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
             => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
 
         #endregion
