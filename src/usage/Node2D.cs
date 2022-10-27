@@ -1,15 +1,17 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
+using V = Godot.Vector2;
 
 public class Node2D : Godot.ColorRect
 {
     private static Color BackColor = Color.ColorN("white");
     private static Color LineColor = Color.ColorN("black");
     private static Color AreaColor = Color.ColorN("lightgray");
-
+    private static Color TextColor = Color.ColorN("black");
     private Grid _grid = new Grid(10, 100, 100);
 
     public override void _Ready()
@@ -52,6 +54,17 @@ public class Node2D : Godot.ColorRect
         DrawMultiline(
             Multiline.DoubleArrow(_grid.LeftBottom(row, column: 3), _grid.RightTop(row, column: 3), headRadius: 15),
             LineColor);
+
+        // dimmension length example
+        var column = 4;
+        var a = _grid.LeftMiddle(row, column);
+        var b = _grid.RightMiddle(row, column);
+        var points = new List<Vector2>(14);
+        Multiline.AppendLine(points, a + new V(0, 8), a + new V(0, -4));
+        Multiline.AppendLine(points, b + new V(0, 8), b + new V(0, -4));
+        Multiline.AppendDoubleArrow(points, a, b, 16);
+        DrawMultiline(points.ToArray(), LineColor);
+        DrawString(GetFont(null), _grid.Middle(row, column) + new V(-8, -3), "42", TextColor);
     }
 
     private void DrawSegmenedLines(int row)
