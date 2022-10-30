@@ -55,16 +55,19 @@ public class Node2D : Godot.ColorRect
             Multiline.DoubleArrow(_grid.LeftBottom(row, column: 3), _grid.RightTop(row, column: 3), headRadius: 15),
             LineColor);
 
-        // dimmension length example
-        var column = 4;
-        var a = _grid.LeftMiddle(row, column);
-        var b = _grid.RightMiddle(row, column);
-        var points = new List<Vector2>(14);
-        Multiline.AppendLine(points, a + new V(0, 8), a + new V(0, -4));
-        Multiline.AppendLine(points, b + new V(0, 8), b + new V(0, -4));
-        Multiline.AppendDoubleArrow(points, a, b, 16);
-        DrawMultiline(points.ToArray(), LineColor);
-        DrawString(GetFont(null), _grid.Middle(row, column) + new V(-8, -3), "42", TextColor);
+        DrawDimmensionLength(4);
+
+        void DrawDimmensionLength(int column)
+        {
+            var a = _grid.LeftMiddle(row, column);
+            var b = _grid.RightMiddle(row, column);
+            var points = new List<Vector2>(14);
+            Multiline.AppendLine(points, a + new V(0, 8), a + new V(0, -4));
+            Multiline.AppendLine(points, b + new V(0, 8), b + new V(0, -4));
+            Multiline.AppendDoubleArrow(points, a, b, 16);
+            DrawMultiline(points.ToArray(), LineColor);
+            DrawString(GetFont(null), _grid.Middle(row, column) + new V(-8, -3), "42", TextColor);
+        }
     }
 
     private void DrawSegmenedLines(int row)
