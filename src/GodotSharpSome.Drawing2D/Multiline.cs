@@ -54,7 +54,24 @@
             return points.ToArray();
         }
 
+        public static Vector2[] CandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+            => AppendCandleBar(new List<Vector2>(2 * 6), bottom, bottomOffset, top, topOffset, bodyHalfWidth).ToArray();
+
         #region append
+
+        public static IList<Vector2> AppendCandleBar(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        {
+            var dirVector = (top - bottom).Normalized();
+            var rectBottom = bottom + dirVector * bottomOffset;
+            var rectTop = top - dirVector * topOffset;
+            var rectCenter = (rectBottom + rectTop) / 2;
+
+            AppendLine(points, bottom, rectBottom);
+            AppendLine(points, top, rectTop);
+            AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
+
+            return points;
+        }
 
         public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float angle)
         {

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -28,6 +28,8 @@ public class Node2D : Godot.ColorRect
         DrawSegmenedLines(3);
 
         DrawRectangles(4);
+
+        DrawCandleBars(5);
     }
 
     private void DrawCrosses(int row)
@@ -85,6 +87,15 @@ public class Node2D : Godot.ColorRect
     {
         DrawMultiline(
            Multiline.Rectangle(_grid.Middle(row, column: 1), halfLength: 40, halfWidth: 20, angle: Pi/5),
+           LineColor);
+    }
+
+    private void DrawCandleBars(int row)
+    {
+        DrawMultiline(
+           Multiline.CandleBar(
+                _grid.BottomMiddle(row, column: 1), bottomOffset: 30,
+                _grid.TopMiddle(row, column: 1), topOffset: 16, 4f),
            LineColor);
     }
 }
