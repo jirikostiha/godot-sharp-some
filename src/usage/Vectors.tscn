@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Vectors.cs" type="Script" id=1]
-
-[node name="VectorsNode" type="ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.45098, 0.427451, 0.427451, 1 )
-script = ExtResource( 1 )
