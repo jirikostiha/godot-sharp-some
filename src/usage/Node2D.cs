@@ -86,7 +86,7 @@ public class Node2D : Godot.ColorRect
     private void DrawRectangles(int row)
     {
         DrawMultiline(
-           Multiline.Rectangle(_grid.Middle(row, column: 1), halfLength: 40, halfWidth: 20, angle: Pi/5),
+           Multiline.Rectangle(_grid.Middle(row, column: 1), halfLength: 34, halfWidth: 12, angle: Pi/5),
            LineColor);
     }
 
