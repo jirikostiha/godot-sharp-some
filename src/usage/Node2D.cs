@@ -32,6 +32,8 @@ public class Node2D : Godot.ColorRect
         DrawCandleBars(5);
 
         DrawCircles(6);
+
+        DrawConnections(7);
     }
 
     private void DrawCrosses(int row)
@@ -116,5 +118,43 @@ public class Node2D : Godot.ColorRect
         this.DrawCircleArea(_grid.Middle(row, column: 2), radius, AreaColor);
 
         this.DrawCircle(_grid.Middle(row, column: 3), radius, LineColor, AreaColor);
+    }
+
+    private void DrawConnections(int row)
+    {
+        DrawSingleConnection(
+            _grid.LeftMiddle(row, column: 1) + new V(15, 0), 8f, 
+            _grid.RightMiddle(row, column: 1) + new V(-15, 0), 12f);
+
+        DrawTriangleConnection(
+            _grid.LeftBottom(row, column: 2) + new V(15, 16), 8f,
+            _grid.RightBottom(row, column: 2) + new V(-15, 16), 8f,
+            _grid.TopMiddle(row, column: 2) + new V(0, -16), 8f);
+
+        void DrawTriangleConnection(V a, float ar, V b, float br, V c, float cr)
+        {
+            DrawArc(a, ar, 0, Pi * 2, 64, LineColor);
+            DrawArc(b, br, 0, Pi * 2, 64, LineColor);
+            DrawArc(c, cr, 0, Pi * 2, 64, LineColor);
+
+            var points = new List<Vector2>();
+            Multiline.AppendLine(points, a, ar, c, cr);
+            Multiline.AppendLine(points, b, br, c, cr);
+
+            Multiline.AppendLine(points, a, ar, a + new V(0, -16), 0);
+            Multiline.AppendLine(points, b, br, b + new V(0, -16), 0);
+            Multiline.AppendLine(points, c, cr, c + new V(0, 16), 0);
+
+            DrawMultiline(points.ToArray(), LineColor);
+        }
+
+        void DrawSingleConnection(V a, float ar, V b, float br)
+        {
+            DrawArc(a, ar, 0, Pi * 2, 64, LineColor);
+            DrawArc(b, br, 0, Pi * 2, 64, LineColor);
+            DrawMultiline(
+                Multiline.AppendLine(new List<Vector2>(2), a, ar, b, br).ToArray(),
+                LineColor);
+        }
     }
 }

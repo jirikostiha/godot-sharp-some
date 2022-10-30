@@ -179,6 +179,15 @@
             return points;
         }
 
+        public static IList<Vector2> AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
+        {
+            var dirVector = (end - start).Normalized();
+            points.Add(start + dirVector * startOffset);
+            points.Add(end - dirVector * endOffset);
+
+            return points;
+        }
+
         public static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
         {
             points.Add(start);
