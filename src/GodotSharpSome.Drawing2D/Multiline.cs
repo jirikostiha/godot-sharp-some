@@ -71,6 +71,22 @@
             return points;
         }
 
+
+        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float angle)
+        {
+            var vertice1 = leftBottomVertice.Rotated(angle);
+            var vertice2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(angle);
+            var vertice3 = topRightVertice.Rotated(angle);
+            var vertice4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(angle);
+            
+            AppendLine(points, vertice1, vertice2);
+            AppendLine(points, vertice2, vertice3);
+            AppendLine(points, vertice3, vertice4);
+            AppendLine(points, vertice4, vertice1);
+
+            return points;
+        }
+
         public static IList<Vector2> AppendCross(IList<Vector2> points, Vector2 center, float radius)
         {
             AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
