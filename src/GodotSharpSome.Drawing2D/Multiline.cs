@@ -172,6 +172,17 @@
             return this;
         }
 
+        public Multiline AppendLayeredGraph(Vector2 firstNodeCenter, )
+        {
+            AppendLine(_points, aCenter, aRadius, bCenter, bRadius);
+            if (aHeadRadius is not null)
+                AppendArrowHead(_points, bCenter.DirectionTo(aCenter), aCenter, aHeadRadius.Value);
+            if (bHeadRadius is not null)
+                AppendArrowHead(_points, aCenter.DirectionTo(bCenter), bCenter, bHeadRadius.Value);
+
+            return this;
+        }
+
         public Multiline Clear()
         {
             _points.Clear();
