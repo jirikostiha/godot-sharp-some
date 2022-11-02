@@ -6,6 +6,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
         <AnalysisLevel>latest-recommended</AnalysisLevel>
         <NoWarn>CS1591</NoWarn>
         
