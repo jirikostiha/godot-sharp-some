@@ -109,10 +109,12 @@ public class Node2D : Godot.ColorRect
 
     private void DrawCircles(int row)
     {
-        this.DrawCircleLine(_grid.Middle(row, column: 1), 20, LineColor);
+        var radius = 20;
 
-        this.DrawCircleArea(_grid.Middle(row, column: 2), 20, AreaColor);
+        this.DrawCircleLine(_grid.Middle(row, column: 1), radius, LineColor);
 
-        this.DrawCircle(_grid.Middle(row, column: 3), 20, LineColor, AreaColor);
+        this.DrawCircleArea(_grid.Middle(row, column: 2), radius, AreaColor);
+
+        this.DrawCircle(_grid.Middle(row, column: 3), radius, LineColor, AreaColor);
     }
 }

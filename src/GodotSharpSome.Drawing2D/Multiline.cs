@@ -24,7 +24,7 @@
             => AppendDoubleArrow(new List<Vector2>(2 * 5), start, top, headRadius, arrowAngle).ToArray();
 
         public static Vector2[] Rectangle(Vector2 center, float halfLength, float halfWidth, float angle)
-        => AppendRectangle(new List<Vector2>(2 * 4), center, halfLength, halfWidth, angle).ToArray();
+            => AppendRectangle(new List<Vector2>(2 * 4), center, halfLength, halfWidth, angle).ToArray();
 
         public static Vector2[] SegmentedLine(Vector2 start, Vector2 end, int segmentCount)
         {
