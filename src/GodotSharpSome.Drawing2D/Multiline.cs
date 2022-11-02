@@ -23,8 +23,8 @@
         public static Vector2[] DoubleArrow(Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
             => AppendDoubleArrow(new List<Vector2>(2 * 5), start, top, headRadius, arrowAngle).ToArray();
 
-        public static Vector2[] Rectangle(Vector2 center, float halfLength, float halfWidth, float angle)
-            => AppendRectangle(new List<Vector2>(2 * 4), center, halfLength, halfWidth, angle).ToArray();
+        public static Vector2[] Rectangle(Vector2 center, float halfLength, float halfWidth, float rotationAngle)
+            => AppendRectangle(new List<Vector2>(2 * 4), center, halfLength, halfWidth, rotationAngle).ToArray();
 
         public static Vector2[] SegmentedLine(Vector2 start, Vector2 end, int segmentCount)
         {
@@ -73,12 +73,12 @@
             return points;
         }
 
-        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float angle)
+        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
-            var vertice1 = center + new Vector2(halfLength, -halfWidth).Rotated(angle);
-            var vertice2 = center + new Vector2(halfLength, halfWidth).Rotated(angle);
-            var vertice3 = center + new Vector2(-halfLength, halfWidth).Rotated(angle);
-            var vertice4 = center + new Vector2(-halfLength, -halfWidth).Rotated(angle);
+            var vertice1 = center + new Vector2(halfLength, -halfWidth).Rotated(rotationAngle);
+            var vertice2 = center + new Vector2(halfLength, halfWidth).Rotated(rotationAngle);
+            var vertice3 = center + new Vector2(-halfLength, halfWidth).Rotated(rotationAngle);
+            var vertice4 = center + new Vector2(-halfLength, -halfWidth).Rotated(rotationAngle);
 
             AppendLine(points, vertice1, vertice2);
             AppendLine(points, vertice2, vertice3);
@@ -89,12 +89,12 @@
         }
 
 
-        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float angle)
+        public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float rotationAngle)
         {
-            var vertice1 = leftBottomVertice.Rotated(angle);
-            var vertice2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(angle);
-            var vertice3 = topRightVertice.Rotated(angle);
-            var vertice4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(angle);
+            var vertice1 = leftBottomVertice.Rotated(rotationAngle);
+            var vertice2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(rotationAngle);
+            var vertice3 = topRightVertice.Rotated(rotationAngle);
+            var vertice4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(rotationAngle);
             
             AppendLine(points, vertice1, vertice2);
             AppendLine(points, vertice2, vertice3);
