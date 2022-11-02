@@ -30,6 +30,8 @@ public class Node2D : Godot.ColorRect
         DrawRectangles(4);
 
         DrawCandleBars(5);
+
+        DrawCircles(6);
     }
 
     private void DrawCrosses(int row)
@@ -97,5 +99,14 @@ public class Node2D : Godot.ColorRect
                 _grid.BottomMiddle(row, column: 1), bottomOffset: 30,
                 _grid.TopMiddle(row, column: 1), topOffset: 16, 4f),
            LineColor);
+    }
+
+    private void DrawCircles(int row)
+    {
+        this.DrawCircleLine(_grid.Middle(row, column: 1), 20, LineColor);
+
+        this.DrawCircleArea(_grid.Middle(row, column: 2), 20, AreaColor);
+
+        this.DrawCircle(_grid.Middle(row, column: 3), 20, LineColor, AreaColor);
     }
 }
