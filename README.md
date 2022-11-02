@@ -3,9 +3,6 @@ Is set of extensions for custom drawing in Godot engine version 3.3 and higher.
 
 **Note: Godot currently does not support parameters 'width' and 'antialiased' of 'DrawMultiline' method so they have no effect for now.**
 
-## Features  
-![features image](./doc/images/features2D_1.png "Features")  
-
 ## Setup
 Add [nuget package](https://www.nuget.org/packages/GodotSharpSome.Drawing2D)
 to your project.
@@ -22,6 +19,10 @@ Godot project's `.csproj` file should look like this:
   </ItemGroup>
 </Project>
 ```
+
+## Features  
+![features 1](./doc/images/features2D_1.png "Features")  
+![features 2](./doc/images/features2D_2.png "Features")  
 
 ## Usage
 See [example project](./src/usage/) for details.
