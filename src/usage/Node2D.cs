@@ -87,9 +87,15 @@ public class Node2D : Godot.ColorRect
 
     private void DrawRectangles(int row)
     {
-        DrawMultiline(
-           Multiline.Rectangle(_grid.Middle(row, column: 1), halfLength: 34, halfWidth: 12, angle: Pi/5),
-           LineColor);
+        var length = 68f;
+        var width = 24f;
+        var rotationAngle = Pi / 5.1f;
+
+        this.DrawRectangleLine(_grid.Middle(row, column: 1), length, width, rotationAngle, LineColor);
+
+        this.DrawRectangleArea(_grid.Middle(row, column: 2), length, width, rotationAngle, AreaColor);
+
+        this.DrawRectangle(_grid.Middle(row, column: 3), length, width, rotationAngle, LineColor, AreaColor);
     }
 
     private void DrawCandleBars(int row)
