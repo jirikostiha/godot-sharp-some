@@ -7,15 +7,49 @@
     using Godot;
     using static Godot.Mathf;
 
-    public static class Multiline
+    public class Multiline
     {
         private const float DefaultArrowAngle = Pi / 14;
 
+        private List<Vector2> _points;
+
+        public Multiline(int capacity)
+        {
+            _points = new List<Vector2>(capacity);
+        }
+
+        public Multiline(List<Vector2> points = null)
+        {
+            _points = points ?? new List<Vector2>();
+        }
+
+        public Multiline AppendCross(Vector2 center, float radius)
+        {
+            AppendCross(_points, center, radius);
+            return this;
+        }
+
+        public Multiline AppendCross2(Vector2 center, float outerRadius, float innerRadius)
+        {
+            AppendCross2(_points, center, outerRadius, innerRadius);
+            return this;
+        }
+
+        #region static 
+
         public static Vector2[] Cross(Vector2 center, float radius)
-            => AppendCross(new List<Vector2>(2 * 2), center, radius).ToArray();
+        {
+            var points = new List<Vector2>(2 * 2);
+            AppendCross(points, center, radius);
+            return points.ToArray();
+        }
 
         public static Vector2[] Cross2(Vector2 center, float outerRadius, float innerRadius)
-            => AppendCross2(new List<Vector2>(2 * 4), center, outerRadius, innerRadius).ToArray();
+        {
+            var points = new List<Vector2>(2 * 4);
+            AppendCross2(points, center, outerRadius, innerRadius);
+            return points.ToArray();
+        }
 
         public static Vector2[] Arrow(Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
             => AppendArrow(new List<Vector2>(2 * 3), start, top, headRadius, arrowAngle).ToArray();
@@ -57,7 +91,9 @@
         public static Vector2[] CandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
             => AppendCandleBar(new List<Vector2>(2 * 6), bottom, bottomOffset, top, topOffset, bodyHalfWidth).ToArray();
 
-        #region append
+        #endregion
+
+        #region static appending
 
         public static IList<Vector2> AppendCandleBar(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
         {
@@ -104,22 +140,18 @@
             return points;
         }
 
-        public static IList<Vector2> AppendCross(IList<Vector2> points, Vector2 center, float radius)
+        public static void AppendCross(IList<Vector2> points, Vector2 center, float radius)
         {
             AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
             AppendLine(points, center.x, center.y - radius, center.x, center.y + radius);
-
-            return points;
         }
 
-        public static IList<Vector2> AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
+        public static void AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
         {
             AppendLine(points, center.x - innerRadius, center.y, center.x - outerRadius, center.y);
             AppendLine(points, center.x + innerRadius, center.y, center.x + outerRadius, center.y);
             AppendLine(points, center.x, center.y - innerRadius, center.x, center.y - outerRadius);
             AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
-
-            return points;
         }
 
         public static IList<Vector2> AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, float arrowAngle = DefaultArrowAngle)
