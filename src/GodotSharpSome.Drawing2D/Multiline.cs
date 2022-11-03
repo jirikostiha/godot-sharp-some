@@ -75,15 +75,15 @@
 
         public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
-            var vertice1 = center + new Vector2(halfLength, -halfWidth).Rotated(rotationAngle);
-            var vertice2 = center + new Vector2(halfLength, halfWidth).Rotated(rotationAngle);
-            var vertice3 = center + new Vector2(-halfLength, halfWidth).Rotated(rotationAngle);
-            var vertice4 = center + new Vector2(-halfLength, -halfWidth).Rotated(rotationAngle);
+            var vertex1 = center + new Vector2(halfLength, -halfWidth).Rotated(rotationAngle);
+            var vertex2 = center + new Vector2(halfLength, halfWidth).Rotated(rotationAngle);
+            var vertex3 = center + new Vector2(-halfLength, halfWidth).Rotated(rotationAngle);
+            var vertex4 = center + new Vector2(-halfLength, -halfWidth).Rotated(rotationAngle);
 
-            AppendLine(points, vertice1, vertice2);
-            AppendLine(points, vertice2, vertice3);
-            AppendLine(points, vertice3, vertice4);
-            AppendLine(points, vertice4, vertice1);
+            AppendLine(points, vertex1, vertex2);
+            AppendLine(points, vertex2, vertex3);
+            AppendLine(points, vertex3, vertex4);
+            AppendLine(points, vertex4, vertex1);
 
             return points;
         }
@@ -91,15 +91,15 @@
 
         public static IList<Vector2> AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float rotationAngle)
         {
-            var vertice1 = leftBottomVertice.Rotated(rotationAngle);
-            var vertice2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(rotationAngle);
-            var vertice3 = topRightVertice.Rotated(rotationAngle);
-            var vertice4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(rotationAngle);
+            var vertex1 = leftBottomVertice.Rotated(rotationAngle);
+            var vertex2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(rotationAngle);
+            var vertex3 = topRightVertice.Rotated(rotationAngle);
+            var vertex4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(rotationAngle);
             
-            AppendLine(points, vertice1, vertice2);
-            AppendLine(points, vertice2, vertice3);
-            AppendLine(points, vertice3, vertice4);
-            AppendLine(points, vertice4, vertice1);
+            AppendLine(points, vertex1, vertex2);
+            AppendLine(points, vertex2, vertex3);
+            AppendLine(points, vertex3, vertex4);
+            AppendLine(points, vertex4, vertex1);
 
             return points;
         }
