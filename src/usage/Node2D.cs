@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -133,9 +133,9 @@ public class Node2D : Godot.ColorRect
 
         void DrawTriangleConnection(V a, float ar, V b, float br, V c, float cr)
         {
-            DrawArc(a, ar, 0, Pi * 2, 64, LineColor);
-            DrawArc(b, br, 0, Pi * 2, 64, LineColor);
-            DrawArc(c, cr, 0, Pi * 2, 64, LineColor);
+            this.DrawCircleLine(a, ar, LineColor);
+            this.DrawCircleLine(b, br, LineColor);
+            this.DrawCircleLine(c, cr, LineColor);
 
             var points = new List<Vector2>();
             Multiline.AppendLine(points, a, ar, c, cr);
@@ -150,11 +150,12 @@ public class Node2D : Godot.ColorRect
 
         void DrawSingleConnection(V a, float ar, V b, float br)
         {
-            DrawArc(a, ar, 0, Pi * 2, 64, LineColor);
-            DrawArc(b, br, 0, Pi * 2, 64, LineColor);
-            DrawMultiline(
-                Multiline.AppendLine(new List<Vector2>(2), a, ar, b, br).ToArray(),
-                LineColor);
+            this.DrawCircleLine(a, ar, LineColor);
+            this.DrawCircleLine(b, br, LineColor);
+            
+            var points = new List<Vector2>(2 * 2);
+            Multiline.AppendLine(points, a, ar, b, br);
+            DrawMultiline(points.ToArray(), LineColor);
         }
     }
 }
