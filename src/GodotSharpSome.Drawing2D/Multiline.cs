@@ -23,6 +23,26 @@
             _points = points ?? new List<Vector2>();
         }
 
+        public Vector2[] Points => _points.ToArray();
+
+        public Multiline AppendDot(Vector2 position)
+        {
+            AppendDot(_points, position);
+            return this;
+        }
+
+        public Multiline AppendDots(IEnumerable<Vector2> positions)
+        {
+            AppendDots(_points, positions);
+            return this;
+        }
+
+        public Multiline AppendLine(Vector2 start, Vector2 end)
+        {
+            AppendLine(_points, start, end);
+            return this;
+        }
+
         public Multiline AppendCross(Vector2 center, float radius)
         {
             AppendCross(_points, center, radius);
@@ -95,6 +115,27 @@
         }
 
         #region static 
+
+        public static Vector2[] Dot(Vector2 position)
+        {
+            var points = new List<Vector2>(2);
+            AppendDot(points, position);
+            return points.ToArray();
+        }
+
+        public static Vector2[] Dots(IEnumerable<Vector2> positions)
+        {
+            var points = new List<Vector2>(2 + positions.Count());
+            AppendDots(points, positions);
+            return points.ToArray();
+        }
+
+        public static Vector2[] Line(Vector2 start, Vector2 end)
+        {
+            var points = new List<Vector2>(2);
+            AppendLine(points, start, end);
+            return points.ToArray();
+        }
 
         public static Vector2[] Cross(Vector2 center, float radius)
         {
@@ -303,6 +344,21 @@
                     (start + dir * distSum) + normal * 2,
                     (start + dir * distSum) - normal * 2);
             }
+        }
+
+        public static void AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
+        {
+            foreach (var position in positions)
+            {
+                points.Add(position);
+                points.Add(position + Vector2.Down);
+            }
+        }
+
+        public static void AppendDot(IList<Vector2> points, Vector2 position)
+        {
+            points.Add(position);
+            points.Add(position + Vector2.Down);
         }
 
         public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)

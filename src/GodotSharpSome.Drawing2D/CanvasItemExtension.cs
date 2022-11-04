@@ -8,6 +8,16 @@
 
     public static class CanvasItemExtension
     {
+        public static void DrawDot(this CanvasItem canvas, Vector2 position, Color color, bool antialiased = false)
+        {
+            canvas.DrawMultiline(Multiline.Dot(position), color, 1, antialiased);
+        }
+
+        public static void DrawDots(this CanvasItem canvas, IEnumerable<Vector2> positions, Color color, bool antialiased = false)
+        {
+            canvas.DrawMultiline(Multiline.Dots(positions), color, 1, antialiased);
+        }
+
         public static void DrawCircleLine(this CanvasItem canvas, Vector2 center, float radius, Color lineColor, float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawArc(center, radius, 0, Pi * 2, (int)radius * 16, lineColor, lineWidth, antialiased);

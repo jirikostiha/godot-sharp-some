@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -36,6 +37,8 @@ public class Node2D : Godot.ColorRect
         DrawConnections(7);
 
         DrawTriangles(8);
+
+        DrawFunctions(9);
     }
 
     private void DrawCrosses(int row)
@@ -125,7 +128,7 @@ public class Node2D : Godot.ColorRect
     private void DrawConnections(int row)
     {
         DrawSingleConnection(
-            _grid.LeftMiddle(row, column: 1) + new V(15, 0), 8f, 
+            _grid.LeftMiddle(row, column: 1) + new V(15, 0), 8f,
             _grid.RightMiddle(row, column: 1) + new V(-15, 0), 12f);
 
         DrawTriangleConnection(
@@ -154,10 +157,37 @@ public class Node2D : Godot.ColorRect
         {
             this.DrawCircleLine(a, ar, LineColor);
             this.DrawCircleLine(b, br, LineColor);
-            
+
             var points = new List<Vector2>(2 * 2);
             Multiline.AppendLine(points, a, ar, b, br);
             DrawMultiline(points.ToArray(), LineColor);
+        }
+    }
+
+    private void DrawFunctions(int row)
+    {
+        DrawPower(_grid.BottomMiddle(row, column: 1));
+
+        DrawSin(_grid.LeftMiddle(row, column: 2));
+        
+
+        void DrawSin(Vector2 start)
+        {
+            var points = Enumerable.Range(0, 160).Select(i => start + new V(2 * i, 40 * Sin(0.1f * i)));
+            DrawMultiline(Multiline.Dots(points), LineColor);
+        }
+
+        void DrawPower(Vector2 origin)
+        {
+            var functionPoints = Enumerable.Range(-25, 51)
+                .Select(i => origin + new V(i, (i/10f)*(i/10f) * 10));
+
+            var m = new Multiline()
+                .AppendLine(origin + new V(0, -4), origin + new V(0, 70))
+                .AppendLine(origin + new V(-30, 0), origin + new V(30, 0))
+                .AppendDots(functionPoints);
+
+            DrawMultiline(m.Points, LineColor);
         }
     }
 
