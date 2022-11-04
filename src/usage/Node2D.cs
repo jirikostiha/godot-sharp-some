@@ -88,7 +88,7 @@ public class Node2D : Godot.ColorRect
             LineColor);
 
         DrawMultiline(
-            Multiline.SegmentedArrow(_grid.LeftTop(row, column: 2), _grid.RightBottom(row, column: 3), segmentSize: 20, headRadius: 15),
+            Multiline.SegmentedArrow(_grid.LeftTop(row, column: 2), _grid.RightBottom(row, column: 3), segmentLength: 20, headRadius: 15),
             LineColor);
     }
 
