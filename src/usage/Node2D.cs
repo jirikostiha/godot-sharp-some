@@ -34,6 +34,8 @@ public class Node2D : Godot.ColorRect
         DrawCircles(6);
 
         DrawConnections(7);
+
+        DrawTriangles(8);
     }
 
     private void DrawCrosses(int row)
@@ -157,5 +159,23 @@ public class Node2D : Godot.ColorRect
             Multiline.AppendLine(points, a, ar, b, br);
             DrawMultiline(points.ToArray(), LineColor);
         }
+    }
+
+    private void DrawTriangles(int row)
+    {
+        this.DrawTriangleLine(_grid.LeftTop(row, column: 1), 
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            LineColor);
+
+        this.DrawTriangleArea(_grid.LeftTop(row, column: 1),
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            AreaColor);
+
+        this.DrawTriangle(_grid.LeftTop(row, column: 1),
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            LineColor, AreaColor);
     }
 }

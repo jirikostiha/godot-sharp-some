@@ -24,6 +24,26 @@
             canvas.DrawCircleLine(center, radius, lineColor, lineWidth, antialiased);
         }
 
+        public static void DrawTriangleLine(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawMultiline(
+                Multiline.Triangle(a, b, c),
+                lineColor, lineWidth, antialiased);
+        }
+
+        public static void DrawTriangleArea(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color areaColor)
+        {
+            canvas.DrawPolygon(
+                Multiline.Triangle(a, b, c),
+                new Color[] { areaColor });
+        }
+
+        public static void DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color areaColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawTriangleArea(a, b, c, areaColor);
+            canvas.DrawTriangleLine(a, b, c, lineColor, lineWidth, antialiased);
+        }
+
         public static void DrawRectangleLine(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(

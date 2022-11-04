@@ -59,6 +59,12 @@
             return this;
         }
 
+        public Multiline AppendTriangle(Vector2 a, Vector2 b, Vector2 c)
+        {
+            AppendTriangle(_points, a, b, c);
+            return this;
+        }
+
         public Multiline AppendRectangle(Vector2 originVertex, Vector2 directionVertex, float height)
         {
             AppendRectangle(_points, originVertex, directionVertex, height);
@@ -115,6 +121,13 @@
         {
             var points = new List<Vector2>(2 * 5);
             AppendDoubleArrow(points, start, top, headRadius, arrowAngle);
+            return points.ToArray();
+        }
+
+        public static Vector2[] Triangle(Vector2 a, Vector2 b, Vector2 c)
+        {
+            var points = new List<Vector2>(2 * 3);
+            AppendTriangle(points, a, b, c);
             return points.ToArray();
         }
 
@@ -189,6 +202,12 @@
             AppendLine(points, vertex4, vertex1);
         }
 
+        public static void AppendTriangle(IList<Vector2> points, Vector2 a, Vector2 b, Vector2 c)
+        {
+            AppendLine(points, a, b);
+            AppendLine(points, b, c);
+            AppendLine(points, c, a);
+        }
 
         //todo public static void AppendRectangle(IList<Vector2> points, Vector2 originVertex, Vector2 directionVertex, float height)
         public static void AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float rotationAngle)
