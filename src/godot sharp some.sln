@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cmd", "cmd", "{7DBCFF33-12D2-4899-BEA8-575BBE0DCE93}"
 	ProjectSection(SolutionItems) = preProject
-		..\cmd\increase product build version.ps1 = ..\cmd\increase product build version.ps1
+		..\cmd\increaseProductVersion.ps1 = ..\cmd\increaseProductVersion.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}"
