@@ -189,6 +189,14 @@
             AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
         }
 
+        /// <summary>
+        /// Append rectangle by center, half sizes and orientation.
+        /// </summary>
+        /// <param name="points"> Existing points collection. </param>
+        /// <param name="center"> Rectangle center. </param>
+        /// <param name="halfLength"> Half size of rectangle length. </param>
+        /// <param name="halfWidth"> Half size of rectangle width. </param>
+        /// <param name="rotationAngle"> Orientation in radians. </param>
         public static void AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
             var vertex1 = center + new Vector2(halfLength, -halfWidth).Rotated(rotationAngle);
@@ -202,25 +210,32 @@
             AppendLine(points, vertex4, vertex1);
         }
 
+        /// <summary>
+        /// Append rectangle by two vertices and height.
+        /// </summary>
+        /// <param name="points"> Existing points collection. </param>
+        /// <param name="originVertex"> Primary vertex. </param>
+        /// <param name="directionVertex"> Vertex relative to origin vertex setting up base side of rectangle. </param>
+        /// <param name="height"> Distance of other side from base side. Positive is on left side of direction vertex/vector. </param>
+        public static void AppendRectangle(IList<Vector2> points, Vector2 originVertex, Vector2 directionVertex, float height)
+        {
+            var normalVector = new Vector2(-directionVertex.x, directionVertex.y).Normalized();
+            var vertex1 = originVertex;
+            var vertex2 = originVertex + directionVertex;
+            var vertex3 = vertex2 + normalVector * height;
+            var vertex4 = vertex1 + normalVector * height;
+
+            AppendLine(points, vertex1, vertex2);
+            AppendLine(points, vertex2, vertex3);
+            AppendLine(points, vertex3, vertex4);
+            AppendLine(points, vertex4, vertex1);
+        }
+
         public static void AppendTriangle(IList<Vector2> points, Vector2 a, Vector2 b, Vector2 c)
         {
             AppendLine(points, a, b);
             AppendLine(points, b, c);
             AppendLine(points, c, a);
-        }
-
-        //todo public static void AppendRectangle(IList<Vector2> points, Vector2 originVertex, Vector2 directionVertex, float height)
-        public static void AppendRectangle(IList<Vector2> points, Vector2 leftBottomVertice, Vector2 topRightVertice, float rotationAngle)
-        {
-            var vertex1 = leftBottomVertice.Rotated(rotationAngle);
-            var vertex2 = (leftBottomVertice + new Vector2(topRightVertice.x, 0)).Rotated(rotationAngle);
-            var vertex3 = topRightVertice.Rotated(rotationAngle);
-            var vertex4 = (topRightVertice + new Vector2(0, topRightVertice.y)).Rotated(rotationAngle);
-            
-            AppendLine(points, vertex1, vertex2);
-            AppendLine(points, vertex2, vertex3);
-            AppendLine(points, vertex3, vertex4);
-            AppendLine(points, vertex4, vertex1);
         }
 
         public static void AppendCross(IList<Vector2> points, Vector2 center, float radius)
