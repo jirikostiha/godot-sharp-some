@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Cell.cs" type="Script" id=1]
+
+[node name="CellRoot" type="Control"]
+margin_right = 114.0
+margin_bottom = 57.0
+script = ExtResource( 1 )
+
+[node name="Cell" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="Cell"]
+margin_right = 114.0
+margin_bottom = 14.0
+text = "cell title"
+
+[node name="Content" type="ColorRect" parent="Cell"]
+margin_top = 18.0
+margin_right = 114.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 100, 40 )
+color = Color( 0.45098, 0.427451, 0.427451, 1 )

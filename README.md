@@ -24,11 +24,27 @@ Godot project's `.csproj` file should look like this:
 ```
 
 ## Features  
-**Multiline**  
-arrow, vector, axes, cross, dots, dotted line, dashed line, triangle, rectangle, polygon, candlestick  
+[features 1](./doc/images/features2D_1.png "Features")  
+[features 2](./doc/images/features2D_2.png "Features")  
 
 **CanvasItem extensions**  
 triangle line, triangle area, rectangle line, rectangle area, polygon line, polygon area, circle line, circle area  
 
 ## Usage
-See [example project](./src/usage/) for details.
+There are three ways how to use Multiline class.  
+1. Using preset shapes   
+
+```csharp
+canvas.DrawMultiline(
+    Multiline.Cross(new Vector2(100,100), 20),
+    Color.ColorN("red"));
+```
+
+2. As a builder
+
+
+
+3. Static methods
+
+
+For details and exapmles see [example project](./src/usage/).
