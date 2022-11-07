@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using Godot;
     using static Godot.Mathf;
 
@@ -72,6 +73,27 @@
         {
             canvas.DrawRectangleArea(center, length, width, rotationAngle, areaColor);
             canvas.DrawRectangleLine(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
+        }
+
+        public static void DrawRegularConvexPolygonLine(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawMultiline(
+                Multiline.RegularConvexPolygon(center, radius, verticesCount, rotationAngle),
+                lineColor, lineWidth, antialiased);
+        }
+
+        public static void DrawRegularConvexPolygonArea(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color areaColor)
+        {
+            canvas.DrawPolygon(
+                Multiline.RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
+                    .ToArray(),
+                new Color[] { areaColor });
+        }
+
+        public static void DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color areaColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawRegularConvexPolygonArea(center, radius, verticesCount, rotationAngle, areaColor);
+            canvas.DrawRegularConvexPolygonLine(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
         }
     }
 }

@@ -41,6 +41,8 @@ public class Node2D : Godot.ColorRect
         DrawFunctions(9);
 
         //vectors 10
+
+        DrawPolygons(10);
     }
 
     private void DrawCrosses(int row)
@@ -209,5 +211,14 @@ public class Node2D : Godot.ColorRect
             _grid.RightTop(row, column: 1),
             _grid.BottomMiddle(row, column: 1),
             LineColor, AreaColor);
+    }
+
+    private void DrawPolygons(int row)
+    {
+        this.DrawRegularConvexPolygonLine(_grid.Middle(row, column: 1), 30, 5, 0.2f, LineColor);
+
+        this.DrawRegularConvexPolygonArea(_grid.Middle(row, column: 2), 30, 5, 0.2f, AreaColor);
+
+        this.DrawRegularConvexPolygon(_grid.Middle(row, column: 3), 30, 5, 0.2f, LineColor, AreaColor);
     }
 }

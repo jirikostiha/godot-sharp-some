@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using Godot;
     using static Godot.Mathf;
@@ -106,6 +107,12 @@
         public Multiline AppendRectangle(Vector2 originVertex, Vector2 directionVertex, float height)
         {
             AppendRectangle(_points, originVertex, directionVertex, height);
+            return this;
+        }
+
+        public Multiline AppendRegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
+        {
+            AppendRegularConvexPolygon(_points, center, radius, verticesCount, rotationAngle);
             return this;
         }
 
@@ -258,6 +265,13 @@
             return points.ToArray();
         }
 
+        public static Vector2[] RegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
+        {
+            var points = new List<Vector2>((verticesCount + 1) * 2);
+            AppendRegularConvexPolygon(points, center, radius, verticesCount, rotationAngle);
+            return points.ToArray();
+        }
+
         #endregion
 
         #region static appending
@@ -272,6 +286,29 @@
             AppendLine(points, bottom, rectBottom);
             AppendLine(points, top, rectTop);
             AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
+        }
+
+        public static void AppendRegularConvexPolygon(IList<Vector2> points, Vector2 center, float radius, int verticesCount, float rotationAngle)
+        {
+            var vertices = RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
+                .ToArray();
+
+            for (int i = 1; i < vertices.Length; i++)
+                AppendLine(points, vertices[i-1], vertices[i]);
+
+            // closing line
+            AppendLine(points, vertices[verticesCount-1], vertices[0]);
+        }
+
+        public static IEnumerable<Vector2> RegularConvexPolygonVertices(Vector2 center, float radius, int verticesCount, float rotationAngle)
+        {
+            var segmentAngle = 2 * Pi / verticesCount;
+            float angle;
+            for (int i = 0; i < verticesCount; i++)
+            {
+                angle = rotationAngle + segmentAngle * i;
+                yield return new Vector2(radius * Cos(angle) + center.x, radius * Sin(angle) + center.y);
+            }
         }
 
         /// <summary>
