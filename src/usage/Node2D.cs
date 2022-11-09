@@ -39,6 +39,8 @@ public class Node2D : Godot.ColorRect
         DrawTriangles(8);
 
         DrawFunctions(9);
+
+        //vectors 10
     }
 
     private void DrawCrosses(int row)
