@@ -98,6 +98,12 @@
             return this;
         }
 
+        public Multiline AppendAxes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
+            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+        {
+            AppendAxes(_points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
+            return this;
+        }
         public Multiline AppendTriangle(Vector2 a, Vector2 b, Vector2 c)
         {
             AppendTriangle(_points, a, b, c);
