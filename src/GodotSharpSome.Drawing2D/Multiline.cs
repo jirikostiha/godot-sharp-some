@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Linq;
     using Godot;
     using static Godot.Mathf;
@@ -104,6 +103,7 @@
             AppendAxes(_points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
             return this;
         }
+
         public Multiline AppendTriangle(Vector2 a, Vector2 b, Vector2 c)
         {
             AppendTriangle(_points, a, b, c);
@@ -198,28 +198,6 @@
             return points.ToArray();
         }
 
-        public static Vector2[] Triangle(Vector2 a, Vector2 b, Vector2 c)
-        {
-            var points = new List<Vector2>(2 * 3);
-            AppendTriangle(points, a, b, c);
-            return points.ToArray();
-        }
-
-        public static Vector2[] Axes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
-        {
-            var points = new List<Vector2>(2 * 3 * 2);
-            AppendAxes(points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
-            return points.ToArray();
-        }
-
-        public static Vector2[] Rectangle(Vector2 center, float halfLength, float halfWidth, float rotationAngle)
-        {
-            var points = new List<Vector2>(2 * 4);
-            AppendRectangle(points, center, halfLength, halfWidth, rotationAngle);
-            return points.ToArray();
-        }
-
         public static Vector2[] SegmentedLine(Vector2 start, Vector2 end, int segmentCount)
         {
             var segmentLength = (end - start).Length() / segmentCount;
@@ -264,46 +242,26 @@
             return points.ToArray();
         }
 
-        public static Vector2[] CandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static Vector2[] Axes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
+            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
         {
-            var points = new List<Vector2>(6 * 2);
-            AppendCandleBar(points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            var points = new List<Vector2>(2 * 3 * 2);
+            AppendAxes(points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
             return points.ToArray();
         }
 
-        public static Vector2[] RegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
+        public static Vector2[] Triangle(Vector2 a, Vector2 b, Vector2 c)
         {
-            var points = new List<Vector2>((verticesCount + 1) * 2);
-            AppendRegularConvexPolygon(points, center, radius, verticesCount, rotationAngle);
+            var points = new List<Vector2>(2 * 3);
+            AppendTriangle(points, a, b, c);
             return points.ToArray();
         }
 
-        #endregion
-
-        #region static appending
-
-        public static void AppendCandleBar(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static Vector2[] Rectangle(Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
-            var dirVector = (top - bottom).Normalized();
-            var rectBottom = bottom + dirVector * bottomOffset;
-            var rectTop = top - dirVector * topOffset;
-            var rectCenter = (rectBottom + rectTop) / 2;
-
-            AppendLine(points, bottom, rectBottom);
-            AppendLine(points, top, rectTop);
-            AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
-        }
-
-        public static void AppendRegularConvexPolygon(IList<Vector2> points, Vector2 center, float radius, int verticesCount, float rotationAngle)
-        {
-            var vertices = RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
-                .ToArray();
-
-            for (int i = 1; i < vertices.Length; i++)
-                AppendLine(points, vertices[i-1], vertices[i]);
-
-            // closing line
-            AppendLine(points, vertices[verticesCount-1], vertices[0]);
+            var points = new List<Vector2>(2 * 4);
+            AppendRectangle(points, center, halfLength, halfWidth, rotationAngle);
+            return points.ToArray();
         }
 
         public static IEnumerable<Vector2> RegularConvexPolygonVertices(Vector2 center, float radius, int verticesCount, float rotationAngle)
@@ -315,6 +273,149 @@
                 angle = rotationAngle + segmentAngle * i;
                 yield return new Vector2(radius * Cos(angle) + center.x, radius * Sin(angle) + center.y);
             }
+        }
+
+        public static Vector2[] RegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
+        {
+            var points = new List<Vector2>((verticesCount + 1) * 2);
+            AppendRegularConvexPolygon(points, center, radius, verticesCount, rotationAngle);
+            return points.ToArray();
+        }
+
+        public static Vector2[] CandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        {
+            var points = new List<Vector2>(6 * 2);
+            AppendCandleBar(points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            return points.ToArray();
+        }
+
+        #endregion
+
+        #region static appending
+
+        public static void AppendDot(IList<Vector2> points, Vector2 position)
+        {
+            points.Add(position);
+            points.Add(position + Vector2.Down);
+        }
+
+        public static void AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
+        {
+            foreach (var position in positions)
+            {
+                points.Add(position);
+                points.Add(position + Vector2.Down);
+            }
+        }
+
+        public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
+        {
+            var dirVector = (end - start).Normalized();
+            points.Add(start + dirVector * startOffset);
+            points.Add(end - dirVector * endOffset);
+        }
+
+        public static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
+        {
+            points.Add(start);
+            points.Add(end);
+        }
+
+        public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
+            => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
+
+        public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
+        {
+            var dir = direction.Normalized();
+            var normal = new Vector2(dir.y, -dir.x);
+
+            var distSum = 0f;
+            foreach (var distance in distances)
+            {
+                distSum += distance;
+                AppendLine(points,
+                    (start + dir * distSum) + normal * 2,
+                    (start + dir * distSum) - normal * 2);
+            }
+        }
+
+        public static void AppendCross(IList<Vector2> points, Vector2 center, float radius)
+        {
+            AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
+            AppendLine(points, center.x, center.y - radius, center.x, center.y + radius);
+        }
+
+        public static void AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
+        {
+            AppendLine(points, center.x - innerRadius, center.y, center.x - outerRadius, center.y);
+            AppendLine(points, center.x + innerRadius, center.y, center.x + outerRadius, center.y);
+            AppendLine(points, center.x, center.y - innerRadius, center.x, center.y - outerRadius);
+            AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
+        }
+
+        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
+            float arrowAngle = DefaultArrowHeadAngle)
+        {
+            AppendLine(points, start, top);
+            AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
+        }
+
+        public static void AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
+            float arrowAngle = DefaultArrowHeadAngle)
+        {
+            AppendLine(points, start, top);
+            AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
+            AppendArrowHead(points, top.DirectionTo(start), start, headRadius, arrowAngle);
+        }
+
+        public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius, 
+            float arrowAngle = DefaultArrowHeadAngle)
+        {
+            //side line 1
+            AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
+            //side line 2
+            AppendLine(points, top, top + direction.Rotated(Pi - arrowAngle) * headRadius);
+        }
+
+        public static void AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
+        {
+            var dir = direction.Normalized();
+            AppendLine(points, start, start + dir * distances.Sum());
+            AppendSeparators(points, start, dir, distances);
+        }
+
+        public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances, 
+            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+        {
+            var dir = direction.Normalized();
+            AppendArrow(points, start, start + dir * (distances.Sum() + 2 * headRadius), headRadius, arrowAngle);
+            AppendSeparators(points, start, dir, distances);
+        }
+
+        public static void AppendVectorsRelatively(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
+            float arrowAngle = DefaultArrowHeadAngle)
+        {
+            var offset = zero;
+            foreach (var vector in vectors)
+                AppendArrow(points, offset, offset += vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
+        }
+
+        public static void AppendVectorsAbsolutely(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
+            float arrowAngle = DefaultArrowHeadAngle)
+        {
+            foreach (var vector in vectors)
+                AppendArrow(points, zero, zero + vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
+        }
+
+        public static void AppendAxes(IList<Vector2> points, Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
+            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+        {
+            var xDistances = Enumerable.Range(0, xUnitCount).Select(i => xUnitLength).ToArray();
+            var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
+
+            AppendSegmentedArrow(points, origin, xDirection, xDistances, headRadius, arrowAngle);
+            var yDirection = new Vector2(-xDirection.y, xDirection.x);
+            AppendSegmentedArrow(points, origin, yDirection, yDistances, headRadius, arrowAngle);
         }
 
         /// <summary>
@@ -366,130 +467,29 @@
             AppendLine(points, c, a);
         }
 
-        public static void AppendCross(IList<Vector2> points, Vector2 center, float radius)
+        public static void AppendRegularConvexPolygon(IList<Vector2> points, Vector2 center, float radius, int verticesCount, float rotationAngle)
         {
-            AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
-            AppendLine(points, center.x, center.y - radius, center.x, center.y + radius);
+            var vertices = RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
+                .ToArray();
+
+            for (int i = 1; i < vertices.Length; i++)
+                AppendLine(points, vertices[i - 1], vertices[i]);
+
+            // closing line
+            AppendLine(points, vertices[verticesCount - 1], vertices[0]);
         }
 
-        public static void AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
+        public static void AppendCandleBar(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
         {
-            AppendLine(points, center.x - innerRadius, center.y, center.x - outerRadius, center.y);
-            AppendLine(points, center.x + innerRadius, center.y, center.x + outerRadius, center.y);
-            AppendLine(points, center.x, center.y - innerRadius, center.x, center.y - outerRadius);
-            AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
+            var dirVector = (top - bottom).Normalized();
+            var rectBottom = bottom + dirVector * bottomOffset;
+            var rectTop = top - dirVector * topOffset;
+            var rectCenter = (rectBottom + rectTop) / 2;
+
+            AppendLine(points, bottom, rectBottom);
+            AppendLine(points, top, rectTop);
+            AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
         }
-
-        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
-        {
-            AppendLine(points, start, top);
-            AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
-        }
-
-        public static void AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
-        {
-            AppendLine(points, start, top);
-            AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
-            AppendArrowHead(points, top.DirectionTo(start), start, headRadius, arrowAngle);
-        }
-
-        public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
-        {
-            //side line 1
-            AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
-            //side line 2
-            AppendLine(points, top, top + direction.Rotated(Pi - arrowAngle) * headRadius);
-        }
-
-        public static void AppendAxes(IList<Vector2> points, Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
-        {
-            var xDistances = Enumerable.Range(0, xUnitCount).Select(i => xUnitLength).ToArray();
-            var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
-
-            AppendSegmentedArrow(points, origin, xDirection, xDistances, headRadius, arrowAngle);
-            var yDirection = new Vector2(-xDirection.y, xDirection.x);
-            AppendSegmentedArrow(points, origin, yDirection, yDistances, headRadius, arrowAngle);
-        }
-
-        public static void AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
-        {
-            var dir = direction.Normalized();
-            AppendLine(points, start, start + dir * distances.Sum());
-            AppendSeparators(points, start, dir, distances);
-        }
-
-        public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
-        {
-            var dir = direction.Normalized();
-            AppendArrow(points, start, start + dir * (distances.Sum() + 2 * headRadius), headRadius, arrowAngle);
-            AppendSeparators(points, start, dir, distances);
-        }
-
-        public static void AppendVectorsRelatively(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
-        {
-            var offset = zero;
-            foreach (var vector in vectors)
-                AppendArrow(points, offset, offset += vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
-        }
-
-        public static void AppendVectorsAbsolutely(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
-        {
-            foreach (var vector in vectors)
-                AppendArrow(points, zero, zero + vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
-        }
-
-        public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
-        {
-            var dir = direction.Normalized();
-            var normal = new Vector2(dir.y, -dir.x);
-
-            var distSum = 0f;
-            foreach (var distance in distances)
-            {
-                distSum += distance;
-                AppendLine(points,
-                    (start + dir * distSum) + normal * 2,
-                    (start + dir * distSum) - normal * 2);
-            }
-        }
-
-        public static void AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
-        {
-            foreach (var position in positions)
-            {
-                points.Add(position);
-                points.Add(position + Vector2.Down);
-            }
-        }
-
-        public static void AppendDot(IList<Vector2> points, Vector2 position)
-        {
-            points.Add(position);
-            points.Add(position + Vector2.Down);
-        }
-
-        public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
-        {
-            var dirVector = (end - start).Normalized();
-            points.Add(start + dirVector * startOffset);
-            points.Add(end - dirVector * endOffset);
-        }
-
-        public static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
-        {
-            points.Add(start);
-            points.Add(end);
-        }
-
-        public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
-            => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
 
         #endregion
     }
