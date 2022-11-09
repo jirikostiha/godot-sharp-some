@@ -2,7 +2,7 @@ param(
     [switch] $Minor
 )
 
-$scriptDescription = "update product version, commit, push"
+$scriptDescription = "update product version, commit"
 $scriptVersion = "1.2"
 $svn = "git"
 
@@ -27,4 +27,3 @@ $versionFileXml.Save($versionFile)
 git add $versionFile
 $message = "product: increase version $oldVersion -> $newVersion"
 git commit -m $message
-git push
