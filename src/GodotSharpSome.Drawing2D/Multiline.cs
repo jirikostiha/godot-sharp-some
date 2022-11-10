@@ -9,8 +9,8 @@
 
     public class Multiline
     {
-        private const float DefaultArrowHeadAngle = Pi / 14;
-        private const float DefaultArrowHeadRadius = 20;
+        private const float Default_Arrow_HeadAngle = Pi / 14;
+        private const float Default_Arrow_HeadRadius = 20;
 
         private List<Vector2> _points;
 
@@ -57,14 +57,14 @@
         }
 
         public Multiline AppendArrow(Vector2 start, Vector2 top, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendArrow(_points, start, top, headRadius, arrowAngle);
             return this;
         }
 
         public Multiline AppendDoubleArrow(Vector2 start, Vector2 top, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendDoubleArrow(_points, start, top, headRadius, arrowAngle);
             return this;
@@ -77,28 +77,28 @@
         }
 
         public Multiline AppendSegmentedArrow(Vector2 start, Vector2 direction, IList<float> distances, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendSegmentedArrow(_points, start, direction, distances, headRadius, arrowAngle);
             return this;
         }
 
         public Multiline AppendVectorsRelatively(Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendVectorsRelatively(_points, zero, vectors, arrowAngle);
             return this;
         }
 
         public Multiline AppendVectorsAbsolutely(Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendVectorsAbsolutely(_points, zero, vectors, arrowAngle);
             return this;
         }
 
         public Multiline AppendAxes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendAxes(_points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
             return this;
@@ -183,7 +183,7 @@
         }
 
         public static Vector2[] Arrow(Vector2 start, Vector2 top, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(2 * 3);
             AppendArrow(points, start, top, headRadius, arrowAngle);
@@ -191,7 +191,7 @@
         }
 
         public static Vector2[] DoubleArrow(Vector2 start, Vector2 top, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(2 * 5);
             AppendDoubleArrow(points, start, top, headRadius, arrowAngle);
@@ -209,7 +209,7 @@
         }
 
         public static Vector2[] SegmentedArrow(Vector2 start, Vector2 top, float segmentLength, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var segmentCount = (int)((top - start).Length() / segmentLength);
 
@@ -219,7 +219,7 @@
         }
 
         public static Vector2[] SegmentedArrow(Vector2 start, Vector2 direction, IList<float> distances, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(6 + 2 * (distances.Count + 1));
             AppendSegmentedArrow(points, start, direction, distances, headRadius, arrowAngle);
@@ -227,7 +227,7 @@
         }
 
         public static Vector2[] VectorsRelatively(Vector2 zero, IList<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(2 * 3 * vectors.Count);
             AppendVectorsRelatively(points, zero, vectors, arrowAngle);
@@ -235,7 +235,7 @@
         }
 
         public static Vector2[] VectorsAbsolutely(Vector2 zero, IList<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(2 * 3 * vectors.Count);
             AppendVectorsAbsolutely(points, zero, vectors, arrowAngle);
@@ -243,7 +243,7 @@
         }
 
         public static Vector2[] Axes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var points = new List<Vector2>(2 * 3 * 2);
             AppendAxes(points, origin, xDirection, xUnitLength, xUnitCount, yUnitLength, yUnitCount, headRadius, arrowAngle);
@@ -354,14 +354,14 @@
         }
 
         public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
         }
 
         public static void AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
@@ -369,7 +369,7 @@
         }
 
         public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             //side line 1
             AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
@@ -385,7 +385,7 @@
         }
 
         public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances, 
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var dir = direction.Normalized();
             AppendArrow(points, start, start + dir * (distances.Sum() + 2 * headRadius), headRadius, arrowAngle);
@@ -393,7 +393,7 @@
         }
 
         public static void AppendVectorsRelatively(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             var offset = zero;
             foreach (var vector in vectors)
@@ -401,14 +401,14 @@
         }
 
         public static void AppendVectorsAbsolutely(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors, 
-            float arrowAngle = DefaultArrowHeadAngle)
+            float arrowAngle = Default_Arrow_HeadAngle)
         {
             foreach (var vector in vectors)
                 AppendArrow(points, zero, zero + vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
         }
 
         public static void AppendAxes(IList<Vector2> points, Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
-            float headRadius = DefaultArrowHeadRadius, float arrowAngle = DefaultArrowHeadAngle)
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             var xDistances = Enumerable.Range(0, xUnitCount).Select(i => xUnitLength).ToArray();
             var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
