@@ -22,27 +22,54 @@ public class Node2D : Godot.ColorRect
 
     public override void _Draw()
     {
-        DrawCrosses(1);
+        DrawFunctions(1); //dots
 
-        DrawArrows(2);
+        DrawCrosses(2);
 
-        DrawSegmenedLines(3);
+        DrawArrows(3);
 
-        DrawRectangles(4);
+        DrawSegmenedLines(4);
 
-        DrawCandleBars(5);
+        //vectors 5
 
         DrawCircles(6);
 
-        DrawConnections(7);
+        DrawTriangles(7);
 
-        DrawTriangles(8);
+        DrawRectangles(8);
 
-        DrawFunctions(9);
+        DrawPolygons(9);
 
-        //vectors 10
+        DrawCandleBars(10);
 
-        DrawPolygons(10);
+        DrawConnections(11);
+    }
+
+    private void DrawFunctions(int row)
+    {
+        DrawPower(_grid.BottomMiddle(row, column: 1));
+
+        DrawSin(_grid.LeftMiddle(row, column: 2));
+
+
+        void DrawSin(Vector2 start)
+        {
+            var points = Enumerable.Range(0, 160).Select(i => start + new V(2 * i, 40 * Sin(0.1f * i)));
+            DrawMultiline(Multiline.Dots(points), LineColor);
+        }
+
+        void DrawPower(Vector2 origin)
+        {
+            var functionPoints = Enumerable.Range(-25, 51)
+                .Select(i => origin + new V(i, (i / 10f) * (i / 10f) * 10));
+
+            var m = new Multiline()
+                .AppendLine(origin + new V(0, -4), origin + new V(0, 70))
+                .AppendLine(origin + new V(-30, 0), origin + new V(30, 0))
+                .AppendDots(functionPoints);
+
+            DrawMultiline(m.Points, LineColor);
+        }
     }
 
     private void DrawCrosses(int row)
@@ -96,6 +123,35 @@ public class Node2D : Godot.ColorRect
             LineColor);
     }
 
+    private void DrawCircles(int row)
+    {
+        var radius = 20;
+
+        this.DrawCircleLine(_grid.Middle(row, column: 1), radius, LineColor);
+
+        this.DrawCircleArea(_grid.Middle(row, column: 2), radius, AreaColor);
+
+        this.DrawCircle(_grid.Middle(row, column: 3), radius, LineColor, AreaColor);
+    }
+
+    private void DrawTriangles(int row)
+    {
+        this.DrawTriangleLine(_grid.LeftTop(row, column: 1),
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            LineColor);
+
+        this.DrawTriangleArea(_grid.LeftTop(row, column: 1),
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            AreaColor);
+
+        this.DrawTriangle(_grid.LeftTop(row, column: 1),
+            _grid.RightTop(row, column: 1),
+            _grid.BottomMiddle(row, column: 1),
+            LineColor, AreaColor);
+    }
+
     private void DrawRectangles(int row)
     {
         var length = 68f;
@@ -109,6 +165,15 @@ public class Node2D : Godot.ColorRect
         this.DrawRectangle(_grid.Middle(row, column: 3), length, width, rotationAngle, LineColor, AreaColor);
     }
 
+    private void DrawPolygons(int row)
+    {
+        this.DrawRegularConvexPolygonLine(_grid.Middle(row, column: 1), 30, 5, 0.2f, LineColor);
+
+        this.DrawRegularConvexPolygonArea(_grid.Middle(row, column: 2), 30, 5, 0.2f, AreaColor);
+
+        this.DrawRegularConvexPolygon(_grid.Middle(row, column: 3), 30, 5, 0.2f, LineColor, AreaColor);
+    }
+
     private void DrawCandleBars(int row)
     {
         DrawMultiline(
@@ -116,17 +181,6 @@ public class Node2D : Godot.ColorRect
                 _grid.BottomMiddle(row, column: 1), bottomOffset: 30,
                 _grid.TopMiddle(row, column: 1), topOffset: 16, 4f),
            LineColor);
-    }
-
-    private void DrawCircles(int row)
-    {
-        var radius = 20;
-
-        this.DrawCircleLine(_grid.Middle(row, column: 1), radius, LineColor);
-
-        this.DrawCircleArea(_grid.Middle(row, column: 2), radius, AreaColor);
-
-        this.DrawCircle(_grid.Middle(row, column: 3), radius, LineColor, AreaColor);
     }
 
     private void DrawConnections(int row)
@@ -166,59 +220,5 @@ public class Node2D : Godot.ColorRect
             Multiline.AppendLine(points, a, ar, b, br);
             DrawMultiline(points.ToArray(), LineColor);
         }
-    }
-
-    private void DrawFunctions(int row)
-    {
-        DrawPower(_grid.BottomMiddle(row, column: 1));
-
-        DrawSin(_grid.LeftMiddle(row, column: 2));
-        
-
-        void DrawSin(Vector2 start)
-        {
-            var points = Enumerable.Range(0, 160).Select(i => start + new V(2 * i, 40 * Sin(0.1f * i)));
-            DrawMultiline(Multiline.Dots(points), LineColor);
-        }
-
-        void DrawPower(Vector2 origin)
-        {
-            var functionPoints = Enumerable.Range(-25, 51)
-                .Select(i => origin + new V(i, (i/10f)*(i/10f) * 10));
-
-            var m = new Multiline()
-                .AppendLine(origin + new V(0, -4), origin + new V(0, 70))
-                .AppendLine(origin + new V(-30, 0), origin + new V(30, 0))
-                .AppendDots(functionPoints);
-
-            DrawMultiline(m.Points, LineColor);
-        }
-    }
-
-    private void DrawTriangles(int row)
-    {
-        this.DrawTriangleLine(_grid.LeftTop(row, column: 1), 
-            _grid.RightTop(row, column: 1),
-            _grid.BottomMiddle(row, column: 1),
-            LineColor);
-
-        this.DrawTriangleArea(_grid.LeftTop(row, column: 1),
-            _grid.RightTop(row, column: 1),
-            _grid.BottomMiddle(row, column: 1),
-            AreaColor);
-
-        this.DrawTriangle(_grid.LeftTop(row, column: 1),
-            _grid.RightTop(row, column: 1),
-            _grid.BottomMiddle(row, column: 1),
-            LineColor, AreaColor);
-    }
-
-    private void DrawPolygons(int row)
-    {
-        this.DrawRegularConvexPolygonLine(_grid.Middle(row, column: 1), 30, 5, 0.2f, LineColor);
-
-        this.DrawRegularConvexPolygonArea(_grid.Middle(row, column: 2), 30, 5, 0.2f, AreaColor);
-
-        this.DrawRegularConvexPolygon(_grid.Middle(row, column: 3), 30, 5, 0.2f, LineColor, AreaColor);
     }
 }
