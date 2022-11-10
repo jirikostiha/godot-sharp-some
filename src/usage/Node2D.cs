@@ -22,7 +22,7 @@ public class Node2D : Godot.ColorRect
 
     public override void _Draw()
     {
-        DrawFunctions(1); //dots
+        DrawDots(1);
 
         DrawCrosses(2);
 
@@ -45,12 +45,15 @@ public class Node2D : Godot.ColorRect
         DrawConnections(11);
     }
 
-    private void DrawFunctions(int row)
+    private void DrawDots(int row)
     {
-        DrawPower(_grid.BottomMiddle(row, column: 1));
+        DrawMultiline(
+            Multiline.DotLine(_grid.LeftBottom(row, column: 1), _grid.RightTop(row, column: 1)),
+            LineColor);
 
-        DrawSin(_grid.LeftMiddle(row, column: 2));
+        DrawPower(_grid.BottomMiddle(row, column: 2));
 
+        DrawSin(_grid.LeftMiddle(row, column: 3));
 
         void DrawSin(Vector2 start)
         {
@@ -64,8 +67,8 @@ public class Node2D : Godot.ColorRect
                 .Select(i => origin + new V(i, (i / 10f) * (i / 10f) * 10));
 
             var m = new Multiline()
-                .AppendLine(origin + new V(0, -4), origin + new V(0, 70))
-                .AppendLine(origin + new V(-30, 0), origin + new V(30, 0))
+                .AppendDotLine(origin + new V(0, -4), origin + new V(0, 70), 8)
+                .AppendDotLine(origin + new V(-30, 0), origin + new V(30, 0), 8)
                 .AppendDots(functionPoints);
 
             DrawMultiline(m.Points, LineColor);
