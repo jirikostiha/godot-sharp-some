@@ -7,10 +7,6 @@ using GodotSharpSome.Drawing2D;
 
 public class Dots : ExampleNodeBase
 {
-    public Dots()
-    {
-    }
-
     public override void _Draw()
     {
         DrawMultiline(
@@ -18,6 +14,9 @@ public class Dots : ExampleNodeBase
             LineColor);
         DrawMultiline(
             Multiline.DashedLine(LeftMiddle(1), RightMiddle(1)),
+            LineColor);
+        DrawMultiline(
+            Multiline.DashDottedLine(LeftTop(1), RightTop(1)),
             LineColor);
 
         DrawPower(BottomMiddle(2));

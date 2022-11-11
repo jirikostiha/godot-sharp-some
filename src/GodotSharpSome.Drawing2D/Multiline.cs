@@ -14,6 +14,8 @@
         private const float Default_DottedLine_SpaceLength = 4;
         private const float Default_DashedLine_DashLength = 12;
         private const float Default_DashedLine_SpaceLength = 8;
+        private const float Default_DashDottedLine_DashLength = 16;
+        private const float Default_DashDottedLine_SpaceLength = 6;
 
         private List<Vector2> _points;
 
@@ -52,6 +54,13 @@
             float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
             AppendDashedLine(_points, start, end, dashLength, spaceLength);
+            return this;
+        }
+
+        public Multiline AppendDashDottedLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashDottedLine_DashLength, float spaceLength = Default_DashDottedLine_SpaceLength)
+        {
+            AppendDashDottedLine(_points, start, end, dashLength, spaceLength);
             return this;
         }
 
@@ -195,6 +204,16 @@
             AppendDashedLine(points, start, end, dashLength, spaceLength);
             return points.ToArray();
         }
+
+        public static Vector2[] DashDottedLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashDottedLine_DashLength, float spaceLength = Default_DashDottedLine_SpaceLength)
+        {
+            var count = (end - start).Length() / (dashLength + spaceLength + 1 + spaceLength);
+            var points = new List<Vector2>(2 * ((int)count + 1));
+            AppendDashDottedLine(points, start, end, dashLength, spaceLength);
+            return points.ToArray();
+        }
+
 
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
@@ -369,6 +388,31 @@
             {
                 var segmentStart = start + dir * i * segmentLength;
                 AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+            }
+        }
+
+        public static void AppendDashDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float dashLength = Default_DashDottedLine_DashLength, float spaceLength = Default_DashDottedLine_SpaceLength)
+        {
+            float segmentLength = dashLength + spaceLength + 1 + spaceLength;
+            float segmentCount = (end - start).Length() / segmentLength;
+            var dir = start.DirectionTo(end);
+
+            for (int i = 0; i < (int)segmentCount; i++)
+            {
+                var segmentStart = start + dir * i * segmentLength;
+                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+                AppendDot(points, segmentStart + dir * (dashLength + spaceLength));
+            }
+
+            var lastEnd = (int)segmentCount * segmentLength;
+            var restLength = segmentCount * segmentLength - lastEnd;
+            if (restLength > 0)
+            {
+                if (restLength >= dashLength)
+                    AppendLine(points, start + dir * lastEnd, start + dir * (lastEnd + dashLength));
+                else
+                    AppendLine(points, start + dir * lastEnd, start + dir * (lastEnd + restLength));
             }
         }
 
