@@ -48,7 +48,10 @@ public class Node2D : Godot.ColorRect
     private void DrawDots(int row)
     {
         DrawMultiline(
-            Multiline.DotLine(_grid.LeftMiddle(row, column: 1), _grid.RightMiddle(row, column: 1)),
+            Multiline.DotLine(_grid.LeftBottom(row, column: 1), _grid.RightBottom(row, column: 1)), 
+            LineColor);
+        DrawMultiline(
+            Multiline.DashLine(_grid.LeftMiddle(row, column: 1), _grid.RightMiddle(row, column: 1)), 
             LineColor);
 
         DrawPower(_grid.BottomMiddle(row, column: 2));

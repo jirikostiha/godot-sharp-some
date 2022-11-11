@@ -12,6 +12,8 @@
         private const float Default_Arrow_HeadAngle = Pi / 14;
         private const float Default_Arrow_HeadRadius = 20;
         private const float Default_DotLine_SpaceLength = 4;
+        private const float Default_DashLine_DashLength = 12;
+        private const float Default_DashLine_SpaceLength = 8;
 
         private List<Vector2> _points;
 
@@ -43,6 +45,13 @@
             float spaceLength = Default_DotLine_SpaceLength)
         {
             AppendDotLine(_points, start, end, spaceLength);
+            return this;
+        }
+
+        public Multiline AppendDashLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        {
+            AppendDashLine(_points, start, end, dashLength, spaceLength);
             return this;
         }
 
@@ -175,6 +184,15 @@
             var count = (end - start).Length() / (1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
             AppendDotLine(points, start, end, spaceLength);
+            return points.ToArray();
+        }
+
+        public static Vector2[] DashLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        {
+            var count = (end - start).Length() / (1 + spaceLength);
+            var points = new List<Vector2>(2 * ((int)count + 1));
+            AppendDashLine(points, start, end, dashLength, spaceLength);
             return points.ToArray();
         }
 
@@ -338,6 +356,20 @@
             // last dot
             if (segmentCount > (int)segmentCount)
                 AppendDot(points, end);
+        }
+
+        public static void AppendDashLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        {
+            float segmentLength = dashLength + spaceLength;
+            float segmentCount = (end - start).Length() / (dashLength + spaceLength);
+            var dir = start.DirectionTo(end);
+
+            for (int i = 0; i < (int)segmentCount; i++)
+            {
+                var segmentStart = start + dir * i * segmentLength;
+                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+            }
         }
 
         public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
