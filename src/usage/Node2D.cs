@@ -40,7 +40,7 @@ public class Node2D : Godot.ColorRect
 
         DrawPolygons(9);
 
-        DrawCandleBars(10);
+        DrawCandlesticks(10);
 
         DrawConnections(11);
     }
@@ -48,10 +48,10 @@ public class Node2D : Godot.ColorRect
     private void DrawDots(int row)
     {
         DrawMultiline(
-            Multiline.DotLine(_grid.LeftBottom(row, column: 1), _grid.RightBottom(row, column: 1)), 
+            Multiline.DottedLine(_grid.LeftBottom(row, column: 1), _grid.RightBottom(row, column: 1)), 
             LineColor);
         DrawMultiline(
-            Multiline.DashLine(_grid.LeftMiddle(row, column: 1), _grid.RightMiddle(row, column: 1)), 
+            Multiline.DashedLine(_grid.LeftMiddle(row, column: 1), _grid.RightMiddle(row, column: 1)), 
             LineColor);
 
         DrawPower(_grid.BottomMiddle(row, column: 2));
@@ -70,8 +70,8 @@ public class Node2D : Godot.ColorRect
                 .Select(i => origin + new V(i, (i / 10f) * (i / 10f) * 10));
 
             var m = new Multiline()
-                .AppendDotLine(origin + new V(0, -4), origin + new V(0, 70), 8)
-                .AppendDotLine(origin + new V(-30, 0), origin + new V(30, 0), 8)
+                .AppendDottedLine(origin + new V(0, -4), origin + new V(0, 70), 8)
+                .AppendDottedLine(origin + new V(-30, 0), origin + new V(30, 0), 8)
                 .AppendDots(functionPoints);
 
             DrawMultiline(m.Points, LineColor);
@@ -180,10 +180,10 @@ public class Node2D : Godot.ColorRect
         this.DrawRegularConvexPolygon(_grid.Middle(row, column: 3), 30, 5, 0.2f, LineColor, AreaColor);
     }
 
-    private void DrawCandleBars(int row)
+    private void DrawCandlesticks(int row)
     {
         DrawMultiline(
-           Multiline.CandleBar(
+           Multiline.Candlestick(
                 _grid.BottomMiddle(row, column: 1), bottomOffset: 30,
                 _grid.TopMiddle(row, column: 1), topOffset: 16, 4f),
            LineColor);

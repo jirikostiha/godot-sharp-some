@@ -11,9 +11,9 @@
     {
         private const float Default_Arrow_HeadAngle = Pi / 14;
         private const float Default_Arrow_HeadRadius = 20;
-        private const float Default_DotLine_SpaceLength = 4;
-        private const float Default_DashLine_DashLength = 12;
-        private const float Default_DashLine_SpaceLength = 8;
+        private const float Default_DottedLine_SpaceLength = 4;
+        private const float Default_DashedLine_DashLength = 12;
+        private const float Default_DashedLine_SpaceLength = 8;
 
         private List<Vector2> _points;
 
@@ -41,17 +41,17 @@
             return this;
         }
 
-        public Multiline AppendDotLine(Vector2 start, Vector2 end,
-            float spaceLength = Default_DotLine_SpaceLength)
+        public Multiline AppendDottedLine(Vector2 start, Vector2 end,
+            float spaceLength = Default_DottedLine_SpaceLength)
         {
-            AppendDotLine(_points, start, end, spaceLength);
+            AppendDottedLine(_points, start, end, spaceLength);
             return this;
         }
 
-        public Multiline AppendDashLine(Vector2 start, Vector2 end,
-            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        public Multiline AppendDashedLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
-            AppendDashLine(_points, start, end, dashLength, spaceLength);
+            AppendDashedLine(_points, start, end, dashLength, spaceLength);
             return this;
         }
 
@@ -139,9 +139,9 @@
             return this;
         }
 
-        public Multiline AppendCandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public Multiline AppendCandlestick(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
         {
-            AppendCandleBar(_points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            AppendCandlestick(_points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
             return this;
         }
 
@@ -178,21 +178,21 @@
             return points.ToArray();
         }
 
-        public static Vector2[] DotLine(Vector2 start, Vector2 end, 
-            float spaceLength = Default_DotLine_SpaceLength)
+        public static Vector2[] DottedLine(Vector2 start, Vector2 end, 
+            float spaceLength = Default_DottedLine_SpaceLength)
         {
             var count = (end - start).Length() / (1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
-            AppendDotLine(points, start, end, spaceLength);
+            AppendDottedLine(points, start, end, spaceLength);
             return points.ToArray();
         }
 
-        public static Vector2[] DashLine(Vector2 start, Vector2 end,
-            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        public static Vector2[] DashedLine(Vector2 start, Vector2 end,
+            float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
             var count = (end - start).Length() / (1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
-            AppendDashLine(points, start, end, dashLength, spaceLength);
+            AppendDashedLine(points, start, end, dashLength, spaceLength);
             return points.ToArray();
         }
 
@@ -317,10 +317,10 @@
             return points.ToArray();
         }
 
-        public static Vector2[] CandleBar(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static Vector2[] Candlestick(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
         {
             var points = new List<Vector2>(6 * 2);
-            AppendCandleBar(points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            AppendCandlestick(points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
             return points.ToArray();
         }
 
@@ -343,8 +343,8 @@
             }
         }
 
-        public static void AppendDotLine(IList<Vector2> points, Vector2 start, Vector2 end,
-            float spaceLength = Default_DotLine_SpaceLength)
+        public static void AppendDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float spaceLength = Default_DottedLine_SpaceLength)
         {
             float segmentLength = 1 + spaceLength;
             float segmentCount = (end - start).Length() / segmentLength;
@@ -358,8 +358,8 @@
                 AppendDot(points, end);
         }
 
-        public static void AppendDashLine(IList<Vector2> points, Vector2 start, Vector2 end,
-            float dashLength = Default_DashLine_DashLength, float spaceLength = Default_DashLine_SpaceLength)
+        public static void AppendDashedLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
             float segmentLength = dashLength + spaceLength;
             float segmentCount = (end - start).Length() / (dashLength + spaceLength);
@@ -543,7 +543,7 @@
             AppendLine(points, vertices[verticesCount - 1], vertices[0]);
         }
 
-        public static void AppendCandleBar(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
         {
             var dirVector = (top - bottom).Normalized();
             var rectBottom = bottom + dirVector * bottomOffset;
