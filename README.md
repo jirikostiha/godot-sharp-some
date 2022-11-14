@@ -21,8 +21,11 @@ Godot project's `.csproj` file should look like this:
 ```
 
 ## Features  
-![features 1](./doc/images/features2D_1.png "Features")  
-![features 2](./doc/images/features2D_2.png "Features")  
+**Multiline**  
+arrow, vector, axes, cross, dots, dotted line, dashed line, triangle, rectangle, polygon, candlestick  
+
+**CanvasItem extensions**  
+triangle line, triangle area, rectangle line, rectangle area, polygon line, polygon area, circle line, circle area  
 
 ## Usage
 See [example project](./src/usage/) for details.
