@@ -4,12 +4,9 @@ using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 
-public class Vectors : Godot.ColorRect
+public class Vectors : ExampleNodeBase
 {
-    private static Color BackColor = Color.ColorN("white");
-    private static Color TextColor = Color.ColorN("black");
     private static Color AxesColor = Color.ColorN("gray");
-    private static Color VectorColor = Color.ColorN("black");
     private static Color VectorSumColor = Color.ColorN("magenta");
 
     private List<Vector2> _vectors;
@@ -28,16 +25,11 @@ public class Vectors : Godot.ColorRect
         _vectors.Add(new Vector2(-90, 40));
     }
 
-    public override void _Ready()
-    {
-        Color = BackColor;
-    }
-
     public override void _Draw()
     {
         DrawMultiline(
             Multiline.VectorsAbsolutely(new Vector2(100, 100), _vectors),
-            VectorColor);
+            LineColor);
 
         var origin = new Vector2(300, 10);
         DrawMultiline(
@@ -46,7 +38,7 @@ public class Vectors : Godot.ColorRect
 
         DrawMultiline(
             Multiline.VectorsRelatively(origin, _vectors),
-            VectorColor);
+            LineColor);
 
         DrawMultiline(
             Multiline.Arrow(origin, origin + _vectors.Aggregate((a, b) => a + b)),
