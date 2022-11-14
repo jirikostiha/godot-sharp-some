@@ -15,7 +15,7 @@ Godot project's `.csproj` file should look like this:
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GodotSharpSome.Drawing2D" Version="0.12.0" />
+    <PackageReference Include="GodotSharpSome.Drawing2D" Version="0.13.0" />
   </ItemGroup>
 </Project>
 ```
