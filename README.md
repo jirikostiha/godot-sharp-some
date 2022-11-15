@@ -1,4 +1,6 @@
 # Godot Sharp Drawing
+[![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
+
 Is set of extensions for custom drawing in Godot engine version 3.3 and higher.  
 
 **Note: Godot currently does not support parameters 'width' and 'antialiased' of 'DrawMultiline' method so they have no effect for now.**
