@@ -380,14 +380,18 @@
         public static void AppendDashedLine(IList<Vector2> points, Vector2 start, Vector2 end,
             float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
+            float length = (end - start).Length();
             float segmentLength = dashLength + spaceLength;
-            float segmentCount = (end - start).Length() / (dashLength + spaceLength);
+            float segmentCount = length / segmentLength;
+            int adaptedSegmentCount = RoundToInt(segmentCount);
+            float adaptedSegmentLength = (length + spaceLength) / adaptedSegmentCount;
+            float adaptedDashLength = adaptedSegmentLength - spaceLength;
             var dir = start.DirectionTo(end);
 
-            for (int i = 0; i < (int)segmentCount; i++)
+            for (int i = 0; i < adaptedSegmentCount; i++)
             {
-                var segmentStart = start + dir * i * segmentLength;
-                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+                var segmentStart = start + dir * i * adaptedSegmentLength;
+                AppendLine(points, segmentStart, segmentStart + dir * adaptedDashLength);
             }
         }
 
