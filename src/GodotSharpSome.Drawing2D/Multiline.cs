@@ -388,26 +388,17 @@
         public static void AppendDashDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
             float dashLength = Default_DashDottedLine_DashLength, float spaceLength = Default_DashDottedLine_SpaceLength)
         {
-            float segmentLength = dashLength + spaceLength + 1 + spaceLength;
-            float segmentCount = (end - start).Length() / segmentLength;
+            AdaptSubinterval((end - start).Length(), spaceLength + 1 + spaceLength, ref dashLength, out int count);
             var dir = start.DirectionTo(end);
 
-            for (int i = 0; i < (int)segmentCount; i++)
+            for (int i = 0; i < count - 1; i++)
             {
-                var segmentStart = start + dir * i * segmentLength;
+                var segmentStart = start + dir * i * (dashLength + spaceLength + 1 + spaceLength);
                 AppendLine(points, segmentStart, segmentStart + dir * dashLength);
                 AppendDot(points, segmentStart + dir * (dashLength + spaceLength));
             }
 
-            var lastEnd = (int)segmentCount * segmentLength;
-            var restLength = segmentCount * segmentLength - lastEnd;
-            if (restLength > 0)
-            {
-                if (restLength >= dashLength)
-                    AppendLine(points, start + dir * lastEnd, start + dir * (lastEnd + dashLength));
-                else
-                    AppendLine(points, start + dir * lastEnd, start + dir * (lastEnd + restLength));
-            }
+            AppendLine(points, start + dir * (count - 1) * (dashLength + spaceLength + 1 + spaceLength), end);
         }
 
         private static void AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
