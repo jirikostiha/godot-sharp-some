@@ -380,18 +380,13 @@
         public static void AppendDashedLine(IList<Vector2> points, Vector2 start, Vector2 end,
             float dashLength = Default_DashedLine_DashLength, float spaceLength = Default_DashedLine_SpaceLength)
         {
-            float length = (end - start).Length();
-            float segmentLength = dashLength + spaceLength;
-            float segmentCount = length / segmentLength;
-            int adaptedSegmentCount = RoundToInt(segmentCount);
-            float adaptedSegmentLength = (length + spaceLength) / adaptedSegmentCount;
-            float adaptedDashLength = adaptedSegmentLength - spaceLength;
+            AdaptSubinterval((end - start).Length(), spaceLength, ref dashLength, out int count);
             var dir = start.DirectionTo(end);
 
-            for (int i = 0; i < adaptedSegmentCount; i++)
+            for (int i = 0; i < count; i++)
             {
-                var segmentStart = start + dir * i * adaptedSegmentLength;
-                AppendLine(points, segmentStart, segmentStart + dir * adaptedDashLength);
+                var segmentStart = start + dir * i * (dashLength + spaceLength);
+                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
             }
         }
 
@@ -418,6 +413,15 @@
                 else
                     AppendLine(points, start + dir * lastEnd, start + dir * (lastEnd + restLength));
             }
+        }
+
+        private static void AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
+        {
+            float segmentLength = adaptingInterval + fixedInterval;
+            float segmentCount = totalLength / segmentLength;
+            count = RoundToInt(segmentCount);
+            float adaptedSegmentLength = (totalLength + fixedInterval) / count;
+            adaptingInterval = adaptedSegmentLength - fixedInterval;
         }
 
         public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
