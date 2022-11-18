@@ -365,16 +365,11 @@
         public static void AppendDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
             float spaceLength = Default_DottedLine_SpaceLength)
         {
-            float segmentLength = 1 + spaceLength;
-            float segmentCount = (end - start).Length() / segmentLength;
+            AdaptSubinterval((end - start).Length(), 1, ref spaceLength, out int count);
             var dir = start.DirectionTo(end);
 
-            for (int i = 0; i <= (int)segmentCount; i++)
-                AppendDot(points, start + dir * segmentLength * i);
-
-            // last dot
-            if (segmentCount > (int)segmentCount)
-                AppendDot(points, end);
+            for (int i = 0; i <= count; i++)
+                AppendDot(points, start + dir * i * (1 + spaceLength));
         }
 
         public static void AppendDashedLine(IList<Vector2> points, Vector2 start, Vector2 end,
