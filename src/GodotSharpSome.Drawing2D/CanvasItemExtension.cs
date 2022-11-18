@@ -95,5 +95,20 @@
             canvas.DrawRegularConvexPolygonArea(center, radius, verticesCount, rotationAngle, areaColor);
             canvas.DrawRegularConvexPolygonLine(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
         }
+
+        public static void DrawCandlestick(this CanvasItem canvas, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, Color lineColor, Color bodyColor, float lineWidth = 1, bool antialiased = false)
+        {
+            var vector = high - low;
+            canvas.DrawRectangleArea(
+                center: low + vector.Normalized() * (vector.Length() + lowOffset - highOffset) / 2f,
+                length: vector.Length() - lowOffset - highOffset,
+                width: halfWidth * 2,
+                rotationAngle: vector.Angle(),
+                areaColor: bodyColor);
+
+            canvas.DrawMultiline(
+                Multiline.Candlestick(low, lowOffset, high, highOffset, halfWidth),
+                lineColor, lineWidth, antialiased);
+        }
     }
 }

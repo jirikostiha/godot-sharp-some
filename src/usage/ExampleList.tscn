@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://ExampleList.cs" type="Script" id=1]
 [ext_resource path="res://example scripts/Rectangles.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://example scripts/Triangles.cs" type="Script" id=9]
 [ext_resource path="res://example scripts/Connections.cs" type="Script" id=10]
 [ext_resource path="res://example scripts/Circles.cs" type="Script" id=11]
+[ext_resource path="res://example scripts/CandlestickCharts.cs" type="Script" id=12]
 
 [node name="ExampleList" type="Control"]
 anchor_right = 1.0
@@ -23,7 +24,7 @@ anchor_bottom = 1.0
 
 [node name="Rows" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 700.0
-margin_bottom = 1866.0
+margin_bottom = 1988.0
 
 [node name="Dots" type="VBoxContainer" parent="ScrollContainer/Rows"]
 margin_right = 700.0
@@ -173,7 +174,7 @@ script = ExtResource( 8 )
 [node name="Candlesticks" type="VBoxContainer" parent="ScrollContainer/Rows"]
 margin_top = 1326.0
 margin_right = 700.0
-margin_bottom = 1744.0
+margin_bottom = 1444.0
 
 [node name="Name" type="Label" parent="ScrollContainer/Rows/Candlesticks"]
 margin_right = 700.0
@@ -183,15 +184,33 @@ text = "Candlesticks"
 [node name="Content" type="ColorRect" parent="ScrollContainer/Rows/Candlesticks"]
 margin_top = 18.0
 margin_right = 700.0
-margin_bottom = 418.0
-rect_min_size = Vector2( 100, 400 )
+margin_bottom = 118.0
+rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 5 )
 
-[node name="Connections" type="VBoxContainer" parent="ScrollContainer/Rows"]
-margin_top = 1748.0
+[node name="Candlestick charts" type="VBoxContainer" parent="ScrollContainer/Rows"]
+margin_top = 1448.0
 margin_right = 700.0
 margin_bottom = 1866.0
+
+[node name="Name" type="Label" parent="ScrollContainer/Rows/Candlestick charts"]
+margin_right = 700.0
+margin_bottom = 14.0
+text = "Candlestick charts"
+
+[node name="Content" type="ColorRect" parent="ScrollContainer/Rows/Candlestick charts"]
+margin_top = 18.0
+margin_right = 700.0
+margin_bottom = 418.0
+rect_min_size = Vector2( 100, 400 )
+color = Color( 0.45098, 0.427451, 0.427451, 1 )
+script = ExtResource( 12 )
+
+[node name="Connections" type="VBoxContainer" parent="ScrollContainer/Rows"]
+margin_top = 1870.0
+margin_right = 700.0
+margin_bottom = 1988.0
 
 [node name="Name" type="Label" parent="ScrollContainer/Rows/Connections"]
 margin_right = 700.0

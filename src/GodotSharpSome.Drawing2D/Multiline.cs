@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using Godot;
     using static Godot.Mathf;
@@ -148,9 +149,15 @@
             return this;
         }
 
-        public Multiline AppendCandlestick(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public Multiline AppendCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
-            AppendCandlestick(_points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            AppendCandlestick(_points, low, lowOffset, high, highOffset, halfWidth);
+            return this;
+        }
+
+        public Multiline AppendCrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        {
+            AppendCrossedCandlestick(_points, low, lowOffset, high, highOffset, halfWidth, upDirrection);
             return this;
         }
 
@@ -336,10 +343,17 @@
             return points.ToArray();
         }
 
-        public static Vector2[] Candlestick(Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static Vector2[] Candlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
             var points = new List<Vector2>(6 * 2);
-            AppendCandlestick(points, bottom, bottomOffset, top, topOffset, bodyHalfWidth);
+            AppendCandlestick(points, low, lowOffset, high, highOffset, halfWidth);
+            return points.ToArray();
+        }
+
+        public static Vector2[] CrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        {
+            var points = new List<Vector2>(7 * 2);
+            AppendCrossedCandlestick(points, low, lowOffset, high, highOffset, halfWidth, upDirrection);
             return points.ToArray();
         }
 
@@ -581,16 +595,41 @@
             AppendLine(points, vertices[verticesCount - 1], vertices[0]);
         }
 
-        public static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, float bottomOffset, Vector2 top, float topOffset, float bodyHalfWidth)
+        public static void AppendCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
-            var dirVector = (top - bottom).Normalized();
-            var rectBottom = bottom + dirVector * bottomOffset;
-            var rectTop = top - dirVector * topOffset;
+            var dirVector = low.DirectionTo(high);
+            var rectBottom = low + dirVector * lowOffset;
+            var rectTop = high - dirVector * highOffset;
             var rectCenter = (rectBottom + rectTop) / 2;
 
+            AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
+        }
+
+        public static void AppendCrossedCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        {
+            var dirVector = low.DirectionTo(high);
+            var rectBottom = low + dirVector * lowOffset;
+            var rectTop = high - dirVector * highOffset;
+            var rectCenter = (rectBottom + rectTop) / 2;
+
+            AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
+            if (upDirrection)
+            {
+                AppendLine(points, 
+                    new Vector2(rectBottom.x - halfWidth, rectBottom.y),
+                    new Vector2(rectTop.x + halfWidth, rectTop.y));
+            }
+            else
+                AppendLine(points,
+                    new Vector2(rectBottom.x + halfWidth, rectBottom.y),
+                    new Vector2(rectTop.x - halfWidth, rectTop.y));
+        }
+
+        private static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, Vector2 top, Vector2 rectBottom, Vector2 rectCenter, Vector2 rectTop, float bodyHalfWidth)
+        {
             AppendLine(points, bottom, rectBottom);
             AppendLine(points, top, rectTop);
-            AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, dirVector.Angle());
+            AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, bottom.DirectionTo(top).Angle());
         }
 
         #endregion
