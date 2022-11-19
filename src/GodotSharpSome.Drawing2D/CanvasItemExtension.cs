@@ -155,6 +155,8 @@
             return canvas;
         }
 
+        #region rectangles
+
         /// <summary>
         /// Draw a perimeter of a rectangle.
         /// </summary>
@@ -228,6 +230,51 @@
 
             return canvas;
         }
+
+        public static void DrawTiledRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, StackedBondOptions tilingOptions,
+            float lineWidth = 1, bool antialiased = false)
+        {
+            DrawRectangleLine(canvas, vertex1, vertex2, height, lineColor, lineWidth, antialiased);
+
+            var subHeight = height / tilingOptions.XCount;
+            var dir = vertex1.DirectionTo(vertex2);
+            var normal = new Vector2(dir.y, -dir.x);
+
+            for (int i = 0; i < tilingOptions.XCount; i++)
+            {
+                for (int j = 0; j < tilingOptions.YCount; j++)
+                {
+                    var v1 = vertex1 + dir * i;
+                    var v2 = vertex2 + normal * j;
+                    if ((i + j) % 2 == 0)
+                    {
+                        if (tilingOptions.OddColor is null)
+                            DrawRectangleLine(canvas, v1, v2, subHeight, lineColor, lineWidth, antialiased);
+                        else
+                            DrawRectangle(canvas, v1, v2, subHeight, lineColor, tilingOptions.OddColor.Value, lineWidth, antialiased);
+                    }
+                    else
+                    {
+                        if (tilingOptions.EvenColor is null)
+                            DrawRectangleLine(canvas, v1, v2, subHeight, lineColor, lineWidth, antialiased);
+                        else
+                            DrawRectangle(canvas, v1, v2, subHeight, lineColor, tilingOptions.EvenColor.Value, lineWidth, antialiased);
+                    }
+                }
+
+            }
+        }
+
+        public record StackedBondOptions
+        {
+            public int XCount { get; set; } = 4;
+            public int YCount { get; set; } = 1;
+
+            public Color? OddColor { get; set; }
+            public Color? EvenColor { get; set; }
+        }
+
+        #endregion
 
         /// <summary>
         /// Draw a perimeter of a regular convex polygon.
