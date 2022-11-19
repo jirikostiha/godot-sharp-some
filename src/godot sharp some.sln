@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usage", "usage", "{09E66851
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Examples", "usage\GodotSharpSome.Examples.csproj", "{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Charts2D", "GodotSharpSome.Charts2D\GodotSharpSome.Charts2D.csproj", "{9E938875-5ED5-42E4-81C4-8894391B04E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,12 @@ Global
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

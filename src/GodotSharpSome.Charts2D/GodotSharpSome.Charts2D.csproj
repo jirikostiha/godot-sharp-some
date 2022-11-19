@@ -1,0 +1,39 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+
+    <Import Project="..\..\product.props" />
+    <Import Project="..\..\product_version.props" />
+    <Import Project="..\..\participants.props" />
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <Nullable>enable</Nullable>
+        <NoWarn>CS1591</NoWarn>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+        <Title>Godot Sharp 2D Charts</Title>
+        <VersionPrefix>0.1.0</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+        <Description>Set of drawing extensions for Godot engine.</Description>
+        <PackageTags> godot; drawing; charts; csharp; 2D; game-dev</PackageTags>
+        <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Update="GodotSharp">
+        <Private>True</Private>
+      </Reference>
+      <Reference Update="GodotSharpEditor">
+        <Private>True</Private>
+      </Reference>
+    </ItemGroup>
+
+</Project>

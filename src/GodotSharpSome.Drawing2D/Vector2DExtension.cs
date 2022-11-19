@@ -27,5 +27,9 @@
             foreach (var vector in vectors)
                 yield return (vector + center).Rotated(angle) - center;
         }
+        public static Vector2 LeftNormal(this Vector2 direction) 
+            => new Vector2(-direction.y, direction.x).Normalized();
+        public static Vector2 RightNormal(this Vector2 direction) 
+            => new Vector2(direction.y, -direction.x).Normalized();
     }
 }
