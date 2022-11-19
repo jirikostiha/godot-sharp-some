@@ -5,7 +5,7 @@ using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Arrows: ExampleNodeBase
+public class Arrows : ExampleNodeBase
 {
     public override void _Draw()
     {
@@ -21,18 +21,10 @@ public class Arrows: ExampleNodeBase
             Multiline.DoubleArrow(LeftBottom(3), RightTop(3), headRadius: 15),
             LineColor);
 
-        DrawDimmensionLength(4);
-    }
-
-    void DrawDimmensionLength(int column)
-    {
-        var a = LeftMiddle(column);
-        var b = RightMiddle(column);
-        var points = new List<Vector2>(14);
-        Multiline.AppendLine(points, a + new Vector2(0, 8), a + new Vector2(0, -4));
-        Multiline.AppendLine(points, b + new Vector2(0, 8), b + new Vector2(0, -4));
-        Multiline.AppendDoubleArrow(points, a, b, 16);
-        DrawMultiline(points.ToArray(), LineColor);
-        DrawString(GetFont(null), Middle(column) + new Vector2(-8, -3), "42", TextColor);
+        var v1 = LeftBottom(4);
+        var v2 = BottomMiddle(5);
+        var h = TopMiddle(5) - Middle(5);
+        this.DrawRectangleLine(v1, v2, h.Length(), LineColor);
+        this.DrawInnerDimmensionLength(v1, v2, Color.ColorN("darkgray"), GetFont(null), Color.ColorN("darkgray"));
     }
 }

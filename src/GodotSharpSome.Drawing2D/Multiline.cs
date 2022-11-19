@@ -12,6 +12,9 @@
     {
         private const float Default_Arrow_HeadAngle = Pi / 14;
         private const float Default_Arrow_HeadRadius = 20;
+        private const float Default_DimmensionArrow_HeadAngle = Pi / 18;
+        private const float Default_DimmensionArrow_HeadRadius = 11;
+        private const float Default_Dimmension_Distance = 16;
         private const float Default_DottedLine_SpaceLength = 4;
         private const float Default_DashedLine_DashLength = 12;
         private const float Default_DashedLine_SpaceLength = 8;
@@ -227,7 +230,6 @@
             return points.ToArray();
         }
 
-
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
             var points = new List<Vector2>(2);
@@ -262,6 +264,14 @@
         {
             var points = new List<Vector2>(2 * 5);
             AppendDoubleArrow(points, start, top, headRadius, arrowAngle);
+            return points.ToArray();
+        }
+
+        public static Vector2[] InnerDimmensionLength(Vector2 point1, Vector2 point2, 
+            float dimDistance = Default_Dimmension_Distance, float headRadius = Default_DimmensionArrow_HeadRadius, float arrowAngle = Default_DimmensionArrow_HeadAngle)
+        {
+            var points = new List<Vector2>(2 * 7);
+            AppendInnerDimmensionLength(points, point1, point2, dimDistance, headRadius, arrowAngle);
             return points.ToArray();
         }
 
@@ -482,7 +492,7 @@
             AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
         }
 
-        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius,
+        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius, //todo
             float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
@@ -497,6 +507,7 @@
             AppendArrowHead(points, top.DirectionTo(start), start, headRadius, arrowAngle);
         }
 
+        //private
         public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius,
             float arrowAngle = Default_Arrow_HeadAngle)
         {
@@ -505,6 +516,28 @@
             //side line 2
             AppendLine(points, top, top + direction.Rotated(Pi - arrowAngle) * headRadius);
         }
+
+        private static void AppendInnerDimmensionLength(IList<Vector2> points, Vector2 point1, Vector2 point2, 
+            float dimDistance = Default_Dimmension_Distance, float headRadius = Default_DimmensionArrow_HeadRadius, float arrowAngle = Default_DimmensionArrow_HeadAngle)
+        {
+            var dirVector = point1.DirectionTo(point2);
+            var normalVector = new Vector2(dirVector.y, -dirVector.x);
+
+            AppendLine(points, point1, point1 + normalVector * (dimDistance + 4));
+            AppendLine(points, point2, point2 + normalVector * (dimDistance + 4));
+            AppendDoubleArrow(points, point1 + normalVector * dimDistance, point2 + normalVector * dimDistance, headRadius, arrowAngle);
+        }
+
+        //private static void AppendOuterDimmensionLength(IList<Vector2> points, Vector2 point1, Vector2 point2, float dimDistance,
+        //    float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
+        //{
+        //    var dirVector = point1.DirectionTo(point2);
+        //    var normalVector = new Vector2(dirVector.y, -dirVector.x);
+
+        //    AppendLine(points, point1, point1 + normalVector * (dimDistance + 4));
+        //    AppendLine(points, point2, point2 + normalVector * (dimDistance + 4));
+        //    AppendDoubleArrow(points, point1 + normalVector * dimDistance, point2 + normalVector * dimDistance, headRadius, arrowAngle);
+        //}
 
         public static void AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
