@@ -550,34 +550,30 @@
         /// <summary>
         /// Append rectangle by center, half sizes and orientation.
         /// </summary>
-        /// <param name="points"> Existing points collection. </param>
+        /// <param name="points"> Existing collection of points. </param>
         /// <param name="center"> Rectangle center. </param>
         /// <param name="halfLength"> Half size of rectangle length. </param>
         /// <param name="halfWidth"> Half size of rectangle width. </param>
         /// <param name="rotationAngle"> Orientation in radians. </param>
         public static void AppendRectangle(IList<Vector2> points, Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
-            var vertex1 = center + new Vector2(halfLength, -halfWidth).Rotated(rotationAngle);
-            var vertex2 = center + new Vector2(halfLength, halfWidth).Rotated(rotationAngle);
-            var vertex3 = center + new Vector2(-halfLength, halfWidth).Rotated(rotationAngle);
-            var vertex4 = center + new Vector2(-halfLength, -halfWidth).Rotated(rotationAngle);
+            var vertex1 = center + new Vector2(-halfLength, -halfWidth).Rotated(rotationAngle);
+            var vertex2 = center + new Vector2(-halfLength, halfWidth).Rotated(rotationAngle);
 
-            AppendLine(points, vertex1, vertex2);
-            AppendLine(points, vertex2, vertex3);
-            AppendLine(points, vertex3, vertex4);
-            AppendLine(points, vertex4, vertex1);
+            AppendRectangle(points, vertex1, vertex2, 2 * halfLength);
         }
 
         /// <summary>
         /// Append rectangle by two vertices and height.
         /// </summary>
-        /// <param name="points"> Existing points collection. </param>
+        /// <param name="points"> Existing collection of points. </param>
         /// <param name="vertex1"> Primary vertex. </param>
         /// <param name="vertex2"> Secondary vertex setting up base side of the rectangle. </param>
         /// <param name="height"> Distance of other side from base side. Positive is on left side of direction vertex/vector. </param>
         public static void AppendRectangle(IList<Vector2> points, Vector2 vertex1, Vector2 vertex2, float height)
         {
-            var normalVector = new Vector2(-vertex2.x, vertex2.y).Normalized();
+            var dirVector = vertex1.DirectionTo(vertex2);
+            var normalVector = new Vector2(dirVector.y, -dirVector.x);
             var vertex3 = vertex2 + normalVector * height;
             var vertex4 = vertex1 + normalVector * height;
 
