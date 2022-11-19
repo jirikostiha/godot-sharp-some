@@ -62,6 +62,13 @@
                 lineColor, lineWidth, antialiased);
         }
 
+        public static void DrawRectangleLine(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawMultiline(
+                Multiline.Rectangle(vertex1, vertex2, height),
+                lineColor, lineWidth, antialiased);
+        }
+
         public static void DrawRectangleArea(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color areaColor)
         {
             canvas.DrawPolygon(
@@ -69,10 +76,23 @@
                 new Color[] { areaColor });
         }
 
+        public static void DrawRectangleArea(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color areaColor)
+        {
+            canvas.DrawPolygon(
+                Multiline.Rectangle(vertex1, vertex2, height),
+                new Color[] { areaColor });
+        }
+
         public static void DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color areaColor, float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawRectangleArea(center, length, width, rotationAngle, areaColor);
             canvas.DrawRectangleLine(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
+        }
+
+        public static void DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color areaColor, float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawRectangleArea(vertex1, vertex2, height, areaColor);
+            canvas.DrawRectangleLine(vertex1, vertex2, height, lineColor, lineWidth, antialiased);
         }
 
         public static void DrawRegularConvexPolygonLine(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, float lineWidth = 1, bool antialiased = false)

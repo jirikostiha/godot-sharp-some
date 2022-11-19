@@ -137,9 +137,15 @@
             return this;
         }
 
-        public Multiline AppendRectangle(Vector2 originVertex, Vector2 directionVertex, float height)
+        public Multiline AppendRectangle(Vector2 center, float halfLength, float halfWidth, float rotationAngle)
         {
-            AppendRectangle(_points, originVertex, directionVertex, height);
+            AppendRectangle(_points, center, halfLength, halfWidth, rotationAngle);
+            return this;
+        }
+
+        public Multiline AppendRectangle(Vector2 vertex1, Vector2 vertex2, float height)
+        {
+            AppendRectangle(_points, vertex1, vertex2, height);
             return this;
         }
 
@@ -322,6 +328,13 @@
         {
             var points = new List<Vector2>(2 * 4);
             AppendRectangle(points, center, halfLength, halfWidth, rotationAngle);
+            return points.ToArray();
+        }
+
+        public static Vector2[] Rectangle(Vector2 vertex1, Vector2 vertex2, float height)
+        {
+            var points = new List<Vector2>(2 * 4);
+            AppendRectangle(points, vertex1, vertex2, height);
             return points.ToArray();
         }
 
@@ -559,14 +572,12 @@
         /// Append rectangle by two vertices and height.
         /// </summary>
         /// <param name="points"> Existing points collection. </param>
-        /// <param name="originVertex"> Primary vertex. </param>
-        /// <param name="directionVertex"> Vertex relative to origin vertex setting up base side of rectangle. </param>
+        /// <param name="vertex1"> Primary vertex. </param>
+        /// <param name="vertex2"> Secondary vertex setting up base side of the rectangle. </param>
         /// <param name="height"> Distance of other side from base side. Positive is on left side of direction vertex/vector. </param>
-        public static void AppendRectangle(IList<Vector2> points, Vector2 originVertex, Vector2 directionVertex, float height)
+        public static void AppendRectangle(IList<Vector2> points, Vector2 vertex1, Vector2 vertex2, float height)
         {
-            var normalVector = new Vector2(-directionVertex.x, directionVertex.y).Normalized();
-            var vertex1 = originVertex;
-            var vertex2 = originVertex + directionVertex;
+            var normalVector = new Vector2(-vertex2.x, vertex2.y).Normalized();
             var vertex3 = vertex2 + normalVector * height;
             var vertex4 = vertex1 + normalVector * height;
 
