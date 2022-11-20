@@ -482,23 +482,23 @@
             AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
         }
 
-        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius,
-            float arrowAngle = Default_Arrow_HeadAngle)
+        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, 
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
         }
 
-        public static void AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top, float headRadius,
-            float arrowAngle = Default_Arrow_HeadAngle)
+        public static void AppendDoubleArrow(IList<Vector2> points, Vector2 start, Vector2 top,
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
             AppendArrowHead(points, start.DirectionTo(top), top, headRadius, arrowAngle);
             AppendArrowHead(points, top.DirectionTo(start), start, headRadius, arrowAngle);
         }
 
-        public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top, float headRadius,
-            float arrowAngle = Default_Arrow_HeadAngle)
+        public static void AppendArrowHead(IList<Vector2> points, Vector2 direction, Vector2 top,
+            float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             //side line 1
             AppendLine(points, top, top + direction.Rotated(Pi + arrowAngle) * headRadius);
