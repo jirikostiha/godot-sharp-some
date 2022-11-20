@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Godot;
-using static Godot.Mathf;
 using GodotSharpSome.Drawing2D;
+using static Godot.Mathf;
 
 public class Dots : ExampleNodeBase
 {

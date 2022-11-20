@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Godot;
-using GodotSharpSome.Drawing2D;
+﻿using GodotSharpSome.Drawing2D;
 
 public class Polygons : ExampleNodeBase
 {

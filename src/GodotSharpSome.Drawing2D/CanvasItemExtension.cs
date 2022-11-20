@@ -1,7 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -58,7 +56,7 @@
         public static void DrawRectangleLine(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(
-                Multiline.Rectangle(center, length/2, width/2, rotationAngle),
+                Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
                 lineColor, lineWidth, antialiased);
         }
 

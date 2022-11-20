@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
-using GodotSharpSome.Drawing2D;
 
 public class ExampleNodeBase : Godot.ColorRect
 {
@@ -21,7 +18,7 @@ public class ExampleNodeBase : Godot.ColorRect
     }
 
     public Vector2 LeftBottom(int column) => new Vector2(Margin + (column - 1) * CellWidth, Margin);
-    
+
     public Vector2 LeftTop(int column) => new Vector2(Margin + (column - 1) * CellWidth, RowHeight - Margin);
 
     public Vector2 RightBottom(int column) => new Vector2(column * CellWidth - Margin, Margin);
@@ -33,7 +30,7 @@ public class ExampleNodeBase : Godot.ColorRect
     public Vector2 LeftMiddle(int column) => new Vector2(Margin + (column - 1) * CellWidth, Convert.ToInt32(0.5 * RowHeight));
 
     public Vector2 RightMiddle(int column) => new Vector2(column * CellWidth - Margin, Convert.ToInt32(0.5 * RowHeight));
-    
+
     public Vector2 MiddleTop(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), RowHeight - Margin);
 
     public Vector2 MiddleBottom(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), Margin);

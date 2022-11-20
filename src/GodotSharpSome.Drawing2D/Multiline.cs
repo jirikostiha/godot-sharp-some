@@ -1,9 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using Godot;
     using static Godot.Mathf;
@@ -200,7 +197,7 @@
             return points.ToArray();
         }
 
-        public static Vector2[] DottedLine(Vector2 start, Vector2 end, 
+        public static Vector2[] DottedLine(Vector2 start, Vector2 end,
             float spaceLength = Default_DottedLine_SpaceLength)
         {
             var count = (end - start).Length() / (1 + spaceLength);
@@ -482,7 +479,7 @@
             AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
         }
 
-        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top, 
+        public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top,
             float headRadius = Default_Arrow_HeadRadius, float arrowAngle = Default_Arrow_HeadAngle)
         {
             AppendLine(points, start, top);
@@ -622,7 +619,7 @@
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
             if (upDirrection)
             {
-                AppendLine(points, 
+                AppendLine(points,
                     new Vector2(rectBottom.x - halfWidth, rectBottom.y),
                     new Vector2(rectTop.x + halfWidth, rectTop.y));
             }
