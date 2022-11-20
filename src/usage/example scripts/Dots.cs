@@ -19,7 +19,7 @@ public class Dots : ExampleNodeBase
             Multiline.DashDottedLine(LeftTop(1), RightTop(1)),
             LineColor);
 
-        DrawPower(BottomMiddle(2));
+        DrawPower(MiddleBottom(2));
 
         DrawSin(LeftMiddle(3));
     }

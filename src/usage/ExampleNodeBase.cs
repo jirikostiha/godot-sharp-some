@@ -34,7 +34,7 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public Vector2 RightMiddle(int column) => new Vector2(column * CellWidth - Margin, Convert.ToInt32(0.5 * RowHeight));
     
-    public Vector2 TopMiddle(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), RowHeight - Margin);
+    public Vector2 MiddleTop(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), RowHeight - Margin);
 
-    public Vector2 BottomMiddle(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), Margin);
+    public Vector2 MiddleBottom(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), Margin);
 }

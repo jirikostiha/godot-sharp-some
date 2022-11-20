@@ -15,7 +15,7 @@ public class Connections : ExampleNodeBase
         DrawTriangleConnection(
             LeftBottom(2) + new Vector2(15, 16), 8f,
             RightBottom(2) + new Vector2(-15, 16), 8f,
-            TopMiddle(2) + new Vector2(0, -16), 8f);
+            MiddleTop(2) + new Vector2(0, -16), 8f);
     }
 
     void DrawTriangleConnection(Vector2 a, float ar, Vector2 b, float br, Vector2 c, float cr)
