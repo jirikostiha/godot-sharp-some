@@ -8,20 +8,22 @@ public class Vectors : ExampleNodeBase
     private static Color AxesColor = Color.ColorN("gray");
     private static Color VectorSumColor = Color.ColorN("magenta");
 
-    private List<Vector2> _vectors;
+    private readonly List<Vector2> _vectors;
 
     public Vectors()
     {
-        _vectors = new List<Vector2>();
-        _vectors.Add(new Vector2(40, 40));
-        _vectors.Add(new Vector2(170, 60));
-        _vectors.Add(new Vector2(80, 120));
-        _vectors.Add(new Vector2(40, -40));
-        _vectors.Add(new Vector2(0, 130));
-        _vectors.Add(new Vector2(-80, 20));
-        _vectors.Add(new Vector2(-20, -50));
-        _vectors.Add(new Vector2(-50, 5));
-        _vectors.Add(new Vector2(-90, 40));
+        _vectors = new List<Vector2>
+        {
+            new Vector2(40, 40),
+            new Vector2(170, 60),
+            new Vector2(80, 120),
+            new Vector2(40, -40),
+            new Vector2(0, 130),
+            new Vector2(-80, 20),
+            new Vector2(-20, -50),
+            new Vector2(-50, 5),
+            new Vector2(-90, 40)
+        };
     }
 
     public override void _Draw()
