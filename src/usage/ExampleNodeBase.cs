@@ -6,6 +6,7 @@ public class ExampleNodeBase : Godot.ColorRect
     protected static readonly Color BackColor = Color.ColorN("white");
     protected static readonly Color TextColor = Color.ColorN("black");
     protected static readonly Color LineColor = Color.ColorN("black");
+    protected static readonly Color LineColor2 = Color.ColorN("orange");
     protected static readonly Color AreaColor = Color.ColorN("gray");
 
     protected static int Margin { get; set; } = 10;
@@ -56,8 +57,8 @@ public class ExampleNodeBase : Godot.ColorRect
         NextFloat(yMin, yMax));
 
     public Vector2 NextVectorBetween(Vector2 a, Vector2 b) => new Vector2(
-        NextFloat(a.x, a.y),
-        NextFloat(b.x, b.y));
+        NextFloat(a.x, b.x),
+        NextFloat(a.y, b.y));
 
     public Vector2 NextVectorInsideCell(int column) => new Vector2(
         NextInt(Left(column), Right(column) + 1),
