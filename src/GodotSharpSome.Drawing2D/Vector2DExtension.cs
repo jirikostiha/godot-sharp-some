@@ -27,5 +27,12 @@
             foreach (var vector in vectors)
                 yield return (vector + center).Rotated(angle) - center;
         }
+
+
+
+        public static Vector2 Lerp(this Vector2 from, Vector2 to, float weight)
+            => new Vector2(
+                Mathf.Lerp(from.x, to.x, weight),
+                Mathf.Lerp(from.y, to.y, weight));
     }
 }

@@ -8,30 +8,68 @@ public class ExampleNodeBase : Godot.ColorRect
     protected static Color LineColor = Color.ColorN("black");
     protected static Color AreaColor = Color.ColorN("gray");
 
-    protected static int Margin = 10;
-    protected static int RowHeight = 100;
-    protected static int CellWidth = 100;
+    protected static int Margin { get; set; } = 10;
+    protected static int RowHeight { get; set; } = 100;
+    protected static int CellWidth { get; set; } = 100;
+
+    protected static Vector2 CellWidthVector => new Vector2(CellWidth, 0);
+
+    protected static Random UinProvider { get; set; } = new Random(0);
+
+    protected bool Animate { get; set; }
 
     public override void _Ready()
     {
         Color = BackColor;
     }
 
-    public Vector2 LeftBottom(int column) => new Vector2(Margin + (column - 1) * CellWidth, Margin);
+    public override void _Input(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventMouseButton mbe && inputEvent.IsPressed() && mbe.ButtonIndex == (int)ButtonList.Left)
+            Animate = !Animate;
+    }
 
-    public Vector2 LeftTop(int column) => new Vector2(Margin + (column - 1) * CellWidth, RowHeight - Margin);
+    public float NextUin() => (float)UinProvider.NextDouble();
 
-    public Vector2 RightBottom(int column) => new Vector2(column * CellWidth - Margin, Margin);
+    public float NextFloat(float inclusiveMin, float exclusiveMax) => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);
+    
+    public int NextInt(int inclusiveMin, int exclusiveMax) => (int)NextFloat(inclusiveMin, exclusiveMax);
 
-    public Vector2 RightTop(int column) => new Vector2(column * CellWidth - Margin, RowHeight - Margin);
+    public Vector2 NextVector(float xMin, float xMax, float yMin, float yMax) => new Vector2(
+        NextFloat(xMin, xMax),
+        NextFloat(yMin, yMax));
 
-    public Vector2 Middle(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), Convert.ToInt32(0.5 * RowHeight));
+    public Vector2 NextVectorInsideCell(int column) => new Vector2(
+        NextInt(Left(column), Right(column) + 1),
+        NextInt(Bottom(), Top()));
 
-    public Vector2 LeftMiddle(int column) => new Vector2(Margin + (column - 1) * CellWidth, Convert.ToInt32(0.5 * RowHeight));
+    public int Left(int column) => Margin + (column - 1) * CellWidth;
 
-    public Vector2 RightMiddle(int column) => new Vector2(column * CellWidth - Margin, Convert.ToInt32(0.5 * RowHeight));
+    public int Right(int column) => column * CellWidth - Margin;
 
-    public Vector2 MiddleTop(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), RowHeight - Margin);
+    public int Top() => RowHeight - Margin;
 
-    public Vector2 MiddleBottom(int column) => new Vector2(Convert.ToInt32((column - 0.5) * CellWidth), Margin);
+    public int Bottom() => Margin;
+
+    public int MiddleX(int column) => Convert.ToInt32((column - 0.5) * CellWidth);
+
+    public int MiddleY() => Convert.ToInt32(0.5 * RowHeight);
+
+    public Vector2 LeftBottom(int column) => new Vector2(Left(column), Bottom());
+
+    public Vector2 LeftTop(int column) => new Vector2(Left(column), Top());
+
+    public Vector2 RightBottom(int column) => new Vector2(Right(column), Bottom());
+
+    public Vector2 RightTop(int column) => new Vector2(Right(column), Top());
+
+    public Vector2 LeftMiddle(int column) => new Vector2(Left(column), MiddleY());
+
+    public Vector2 RightMiddle(int column) => new Vector2(Right(column), MiddleY());
+
+    public Vector2 MiddleTop(int column) => new Vector2(MiddleX(column), Top());
+
+    public Vector2 MiddleBottom(int column) => new Vector2(MiddleX(column), Bottom());
+
+    public Vector2 Middle(int column) => new Vector2(MiddleX(column), MiddleY());
 }
