@@ -69,6 +69,13 @@
             return this;
         }
 
+        /// <summary> Append a continuation line from the last point. </summary>
+        public Multiline AppendLine(Vector2 end)
+        {
+            AppendLine(_points, end);
+            return this;
+        }
+
         public Multiline AppendCross(Vector2 center, float radius)
         {
             AppendCross(_points, center, radius);
@@ -448,8 +455,19 @@
             points.Add(end);
         }
 
+        /// <summary> Append a continuation line from the last point. </summary>
+        public static void AppendLine(IList<Vector2> points, Vector2 end)
+        {
+            points.Add(points[points.Count - 1]);
+            points.Add(end);
+        }
+
         public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
             => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
+
+        /// <summary> Append a continuation line from the last point. </summary>
+        public static void AppendLine(IList<Vector2> points, float endX, float endY)
+            => AppendLine(points, new Vector2(endX, endY));
 
         public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
