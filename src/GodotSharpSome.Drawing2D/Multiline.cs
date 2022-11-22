@@ -23,7 +23,7 @@
             _points = new List<Vector2>(capacity);
         }
 
-        public Multiline(List<Vector2> points = null)
+        public Multiline(List<Vector2>? points = null)
         {
             _points = points ?? new List<Vector2>();
         }
