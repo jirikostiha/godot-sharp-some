@@ -45,4 +45,6 @@ public class Triangles : ExampleNodeBase
 
         this.DrawTriangle(_p1 + 2 * CellWidthVector, _p2 + 2 * CellWidthVector, _p3 + 2 * CellWidthVector, LineColor, AreaColor);
     }
+
+    public void _on_Animate_pressed() => Animate = !Animate;
 }
