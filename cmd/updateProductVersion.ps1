@@ -25,5 +25,5 @@ $versionFileXml.Save($versionFile)
 
 "publishing product version.."
 git add $versionFile
-$message = "product: increase version $oldVersion -> $newVersion"
+$message = "product: update version $oldVersion -> $newVersion"
 git commit -m $message
