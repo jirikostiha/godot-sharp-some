@@ -3,10 +3,10 @@ using Godot;
 
 public class ExampleNodeBase : Godot.ColorRect
 {
-    protected static Color BackColor = Color.ColorN("white");
-    protected static Color TextColor = Color.ColorN("black");
-    protected static Color LineColor = Color.ColorN("black");
-    protected static Color AreaColor = Color.ColorN("gray");
+    protected static readonly Color BackColor = Color.ColorN("white");
+    protected static readonly Color TextColor = Color.ColorN("black");
+    protected static readonly Color LineColor = Color.ColorN("black");
+    protected static readonly Color AreaColor = Color.ColorN("gray");
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;
@@ -23,21 +23,19 @@ public class ExampleNodeBase : Godot.ColorRect
         Color = BackColor;
     }
 
-    public override void _Input(InputEvent inputEvent)
-    {
-        if (inputEvent is InputEventMouseButton mbe && inputEvent.IsPressed() && mbe.ButtonIndex == (int)ButtonList.Left)
-            Animate = !Animate;
-    }
-
     public float NextUin() => (float)UinProvider.NextDouble();
 
     public float NextFloat(float inclusiveMin, float exclusiveMax) => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);
-    
+
     public int NextInt(int inclusiveMin, int exclusiveMax) => (int)NextFloat(inclusiveMin, exclusiveMax);
 
     public Vector2 NextVector(float xMin, float xMax, float yMin, float yMax) => new Vector2(
         NextFloat(xMin, xMax),
         NextFloat(yMin, yMax));
+
+    public Vector2 NextVectorBetween(Vector2 a, Vector2 b) => new Vector2(
+        NextFloat(a.x, a.y),
+        NextFloat(b.x, b.y));
 
     public Vector2 NextVectorInsideCell(int column) => new Vector2(
         NextInt(Left(column), Right(column) + 1),
