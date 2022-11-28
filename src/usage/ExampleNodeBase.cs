@@ -14,7 +14,7 @@ public class ExampleNodeBase : Godot.ColorRect
 
     protected static Vector2 CellWidthVector => new Vector2(CellWidth, 0);
 
-    protected static Random UinProvider { get; set; } = new Random(0);
+    protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 
     protected bool Animate { get; set; }
 
@@ -23,11 +23,22 @@ public class ExampleNodeBase : Godot.ColorRect
         Color = BackColor;
     }
 
-    public float NextUin() => (float)UinProvider.NextDouble();
+    public float NextUin() => Rng.Randf();
 
     public float NextFloat(float inclusiveMin, float exclusiveMax) => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);
 
     public int NextInt(int inclusiveMin, int exclusiveMax) => (int)NextFloat(inclusiveMin, exclusiveMax);
+
+    public Color NextColor(int inclusiveMin, int exclusiveMax) => new(
+        NextFloat(inclusiveMin, exclusiveMax),
+        NextFloat(inclusiveMin, exclusiveMax),
+        NextFloat(inclusiveMin, exclusiveMax));
+
+    public Color NextColorWithAlpha(float inclusiveMin, float exclusiveMax) => new(
+        NextFloat(inclusiveMin, exclusiveMax),
+        NextFloat(inclusiveMin, exclusiveMax),
+        NextFloat(inclusiveMin, exclusiveMax),
+        NextFloat(inclusiveMin, exclusiveMax));
 
     public Vector2 NextVector(float xMin, float xMax, float yMin, float yMax) => new Vector2(
         NextFloat(xMin, xMax),
