@@ -1,5 +1,6 @@
 # Godot Sharp Drawing
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
+![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/godot-sharp-some)  
 
 Is set of extensions for custom drawing in Godot engine version 3.3 and higher.  
 
