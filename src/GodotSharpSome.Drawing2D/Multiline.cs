@@ -76,6 +76,26 @@
             return this;
         }
 
+        /// <summary> Append a continuation line parallel to line from given points. </summary>
+        public Multiline AppendParalleLine(Vector2 start, Vector2 end, float distance, int count)
+        {
+            AppendParalleLines(_points, start, end, distance, count);
+            return this;
+        }
+
+        /// <summary> Append a continuation line parallel to line from given points. </summary>
+        public Multiline AppendParalleLine(Vector2 start, Vector2 end, float distance, float length)
+        {
+            AppendParalleLine(_points, start, end, distance, length);
+            return this;
+        }
+
+        public Multiline AppendPerpendicularLine(Vector2 start, Vector2 end, float length)
+        {
+            AppendPerpendicularLine(_points, start, end, length);
+            return this;
+        }
+
         public Multiline AppendCross(Vector2 center, float radius)
         {
             AppendCross(_points, center, radius);
@@ -232,11 +252,31 @@
             return points.ToArray();
         }
 
-
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
             var points = new List<Vector2>(2);
             AppendLine(points, start, end);
+            return points.ToArray();
+        }
+
+        public static Vector2[] ParallelLines(Vector2 start, Vector2 end, float distance, int count)
+        {
+            var points = new List<Vector2>(2 * count);
+            AppendParalleLines(points, start, end, distance, count);
+            return points.ToArray();
+        }
+
+        public static Vector2[] ParallelLine(Vector2 start, Vector2 end, float distance, float length)
+        {
+            var points = new List<Vector2>(2);
+            AppendParalleLine(points, start, end, distance, length);
+            return points.ToArray();
+        }
+
+        public static Vector2[] PerpendicularLine(Vector2 start, Vector2 end, float length)
+        {
+            var points = new List<Vector2>(2);
+            AppendPerpendicularLine(points, start, end, length);
             return points.ToArray();
         }
 
@@ -468,6 +508,36 @@
         /// <summary> Append a continuation line from the last point. </summary>
         public static void AppendLine(IList<Vector2> points, float endX, float endY)
             => AppendLine(points, new Vector2(endX, endY));
+
+        /// <summary> Append a continuation line parallel to line from given points. </summary>
+        public static void AppendParalleLines(IList<Vector2> points, Vector2 start, Vector2 end, float distance, int count)
+        {
+            var dir = start.DirectionTo(end);
+            var normal = new Vector2(dir.y, -dir.x);
+
+            for (int i = 0; i < count; i++)
+            {
+                AppendLine(points,
+                    start + normal * i * distance,
+                    end + normal * i * distance);
+            }
+        }
+
+        /// <summary> Append a continuation line parallel to line from given points. </summary>
+        public static void AppendParalleLine(IList<Vector2> points, Vector2 start, Vector2 end, float distance, float length)
+        {
+            var dir = start.DirectionTo(end);
+            var normal = new Vector2(dir.y, -dir.x);
+
+            AppendLine(points,
+                start + normal * distance,
+                (start + dir * length) + normal * distance);
+        }
+
+        public static void AppendPerpendicularLine(IList<Vector2> points, Vector2 start, Vector2 end, float length)
+        {
+
+        }
 
         public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
