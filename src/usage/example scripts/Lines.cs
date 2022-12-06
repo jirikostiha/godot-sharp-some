@@ -26,6 +26,15 @@ public class Lines : ExampleNodeBase
 
         // II
         DrawContinuationLine(LeftBottom(2));
+
+        // III
+        DrawLineFromRef(LeftBottom(3));
+
+        // IV
+        DrawParallelLine(LeftBottom(4));
+
+        // V
+        DrawParallelLines(LeftBottom(5), RightTop(5));
     }
 
     private void DrawLineTypes(Vector2 origin, float ystep, float minLength, float maxLength)
@@ -59,6 +68,55 @@ public class Lines : ExampleNodeBase
             .Points;
             
         DrawMultiline(points, LineColor);
+    }
+
+    private void DrawLineFromRef(Vector2 start)
+    {
+        var ml = new Multiline(6 * 2);
+
+        for (int i = 0; i < 8; i++)
+            ml.AppendLineFromRef(start, start + Vector2.Right, i * Pi/2f/7, 60);
+
+        DrawMultiline(ml.Points, LineColor);
+    }
+
+    private void DrawParallelLine(Vector2 start)
+    {
+        var end = start + new Vector2(70, 20);
+        DrawMultiline(
+            Multiline.Line(start, end),
+            LineColor.Lightened(0.3f));
+
+        DrawMultiline(
+            Multiline.ParallelLine(start, end, 10),
+            LineColor);
+
+        DrawMultiline(
+            Multiline.ParallelLine(start, end, 20, 10, -10),
+            LineColor);
+
+        DrawMultiline(
+            Multiline.ParallelLine(start, end, 30, -10, 10),
+            LineColor);
+    }
+
+    private void DrawParallelLines(Vector2 corner1, Vector2 corner2)
+    {
+        DrawMultiline(
+            Multiline.ParallelLines(
+                corner1, 
+                corner1 + new Vector2(corner2.x - corner1.x, 0), 
+                (corner2.y - corner1.y) / 7f,
+                8),
+            LineColor);
+
+        DrawMultiline(
+            Multiline.ParallelLines(
+                corner1,
+                corner1 + new Vector2(0, corner2.y - corner1.y),
+                -(corner2.x - corner1.x) / 7f,
+                8),
+            LineColor);
     }
 
     public void Interpolate(float value)
