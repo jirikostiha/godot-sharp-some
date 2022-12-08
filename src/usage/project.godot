@@ -14,6 +14,14 @@ config/name="GodotSharpSome.Examples"
 run/main_scene="res://ExampleList.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
+[global]
+
+color=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
