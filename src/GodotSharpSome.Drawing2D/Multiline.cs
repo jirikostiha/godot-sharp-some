@@ -19,14 +19,14 @@
 
         private static readonly Vector2 DotVector = Vector2.Down;
 
-        private List<Vector2> _points;
+        private IList<Vector2> _points;
 
         public Multiline(int capacity)
         {
             _points = new List<Vector2>(capacity);
         }
 
-        public Multiline(List<Vector2>? points = null)
+        public Multiline(IList<Vector2>? points = null)
         {
             _points = points ?? new List<Vector2>();
         }

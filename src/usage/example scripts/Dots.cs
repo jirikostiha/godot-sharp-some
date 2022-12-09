@@ -69,6 +69,9 @@ public class Dots : ExampleNodeBase
             new Vector2(x, (x / 10f) * (x / 10f) * 10));
 
         var m = new Multiline()
+            .AppendRectangle(new Vector2(0,0), 50, 50, 0)
+            .AppendDashDottedLine(new Vector2(-60, 0), new Vector2(60, 0))
+            .AppendDashDottedLine(new Vector2(0, 60), new Vector2(0, -60))
             .AppendDottedLine(origin + new Vector2(0, -4), origin + new Vector2(0, 70), 8)
             .AppendDottedLine(origin + new Vector2(-30, 0), origin + new Vector2(30, 0), 8)
             .AppendDots(functionPoints);
