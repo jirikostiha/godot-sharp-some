@@ -23,6 +23,17 @@ public class ExampleNodeBase : Godot.ColorRect
         Color = BackColor;
     }
 
+    public override void _PhysicsProcess(float delta)
+    {
+        if (Animate)
+        {
+            NextState();
+            Update();
+        }
+    }
+
+    protected virtual void NextState() { }
+
     public float NextUin() => Rng.Randf();
 
     public float NextFloat(float inclusiveMin, float exclusiveMax) => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);

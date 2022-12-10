@@ -18,11 +18,8 @@ public class Triangles : ExampleNodeBase
         _areaColor = _areaColorNext = AreaColor;
     }
 
-    public override void _PhysicsProcess(float delta)
+    protected override void NextState()
     {
-        if (!Animate)
-            return;
-
         if (_p1.DistanceTo(_p1Next) < Tolerance)
             _p1Next = NextVectorInsideCell(1);
 
@@ -39,8 +36,6 @@ public class Triangles : ExampleNodeBase
         _p2 = _p2.Lerp(_p2Next, 0.20f);
         _p3 = _p3.LinearInterpolate(_p3Next, 0.07f);
         _areaColor = _areaColor.LinearInterpolate(_areaColorNext, 0.01f);
-
-        Update();
     }
 
     public override void _Draw()
