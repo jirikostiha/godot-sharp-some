@@ -30,6 +30,8 @@
 
         public Vector2[] Points => _points.ToArray();
 
+        #region instance as builder
+
         public Multiline AppendDot(Vector2 position)
         {
             AppendDot(_points, position);
@@ -189,6 +191,8 @@
             return this;
         }
 
+        #endregion
+
         #region static 
 
         public static Vector2[] Dot(Vector2 position)
@@ -232,12 +236,10 @@
             return points.ToArray();
         }
 
-
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
-            var points = new List<Vector2>(2);
-            AppendLine(points, start, end);
-            return points.ToArray();
+            return new Vector2[2] { start, end };
+            //todo .net6: Span<Vector2> points = stackalloc Vector2[2] { start, end }; //avoid heap allocation and GC
         }
 
         public static Vector2[] Cross(Vector2 center, float radius)
@@ -468,6 +470,12 @@
         /// <summary> Append a continuation line from the last point. </summary>
         public static void AppendLine(IList<Vector2> points, float endX, float endY)
             => AppendLine(points, new Vector2(endX, endY));
+
+        private static void AppendLine(Vector2[] points, int index, Vector2 start, Vector2 end)
+        {
+            points[index] = start;
+            points[index + 1] = end;
+        }
 
         public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
