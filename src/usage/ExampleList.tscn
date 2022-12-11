@@ -39,6 +39,12 @@ margin_bottom = 17.0
 text = "Fps:"
 script = ExtResource( 13 )
 
+[node name="AnimateAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
+margin_left = 30.0
+margin_right = 117.0
+margin_bottom = 20.0
+text = "Animate All"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 1024.0
@@ -60,7 +66,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Dots"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Dots"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Dots" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -78,7 +84,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Crosses"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Crosses"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Crosses" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -96,7 +102,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Arrows"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Arrows"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Arrows" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -115,7 +121,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Vectors"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Vectors"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Vectors" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 468.0
@@ -133,7 +139,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Circles"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Circles"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Circles" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -163,7 +169,7 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Triangles"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Triangles" groups=["ExampleContents"]]
 margin_top = 24.0
 margin_right = 700.0
 margin_bottom = 124.0
@@ -181,7 +187,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Rectangles"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Rectangles"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Rectangles" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -199,7 +205,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Polygons"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Polygons"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Polygons" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -217,7 +223,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Candlesticks"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -235,7 +241,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Candlestick charts"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 418.0
@@ -253,7 +259,7 @@ margin_right = 700.0
 margin_bottom = 14.0
 text = "Connections"
 
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Connections"]
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Connections" groups=["ExampleContents"]]
 margin_top = 18.0
 margin_right = 700.0
 margin_bottom = 118.0
@@ -261,4 +267,5 @@ rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 10 )
 
+[connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Animate_pressed"]

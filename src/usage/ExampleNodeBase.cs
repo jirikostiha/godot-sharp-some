@@ -16,7 +16,7 @@ public class ExampleNodeBase : Godot.ColorRect
 
     protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 
-    protected bool Animate { get; set; }
+    public bool Animate { get; set; }
 
     public override void _Ready()
     {
