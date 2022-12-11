@@ -32,8 +32,8 @@ public class Triangles : ExampleNodeBase
         if (Abs(_areaColor.r - _areaColorNext.r) < 0.02)
             _areaColorNext = NextColorWithAlpha(0.1f, 1);
 
-        _p1 = _p1.Lerp(_p1Next, 0.13f);
-        _p2 = _p2.Lerp(_p2Next, 0.20f);
+        _p1 = _p1.LinearInterpolate(_p1Next, 0.13f);
+        _p2 = _p2.LinearInterpolate(_p2Next, 0.20f);
         _p3 = _p3.LinearInterpolate(_p3Next, 0.07f);
         _areaColor = _areaColor.LinearInterpolate(_areaColorNext, 0.01f);
     }
