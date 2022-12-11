@@ -1,10 +1,19 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
 public class Dots : ExampleNodeBase
 {
+    private float[] _samplePointsX = Enumerable.Range(0, 150).Select(i => 2f * i).ToArray();
+    private float _offset;
+    
+    protected override void NextState()
+    {
+        _offset += 0.02f;
+    }
+
     public override void _Draw()
     {
         DrawMultiline(
@@ -23,7 +32,7 @@ public class Dots : ExampleNodeBase
     }
     void DrawSin(Vector2 start)
     {
-        var points = Enumerable.Range(0, 160).Select(i => start + new Vector2(2 * i, 40 * Sin(0.1f * i)));
+        var points = _samplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_offset + 0.1f * x)));
         DrawMultiline(Multiline.Dots(points), LineColor);
     }
 
@@ -39,4 +48,6 @@ public class Dots : ExampleNodeBase
 
         DrawMultiline(m.Points, LineColor);
     }
+
+    public void _on_Animate_pressed() => Animate = !Animate;
 }

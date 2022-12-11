@@ -54,30 +54,42 @@ size_flags_vertical = 3
 
 [node name="Rows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 700.0
-margin_bottom = 1994.0
+margin_bottom = 2000.0
 
 [node name="Dots" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_right = 700.0
-margin_bottom = 118.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 600, 0 )
 
-[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Dots"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Dots"]
 margin_right = 700.0
-margin_bottom = 14.0
+margin_bottom = 20.0
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer"]
+margin_top = 3.0
+margin_right = 30.0
+margin_bottom = 17.0
 text = "Dots"
 
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer"]
+margin_left = 34.0
+margin_right = 100.0
+margin_bottom = 20.0
+hint_tooltip = "Toggle animation"
+text = "Animate"
+
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Dots" groups=["ExampleContents"]]
-margin_top = 18.0
+margin_top = 24.0
 margin_right = 700.0
-margin_bottom = 118.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 7 )
 
 [node name="Crosses" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 122.0
+margin_top = 128.0
 margin_right = 700.0
-margin_bottom = 240.0
+margin_bottom = 246.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Crosses"]
 margin_right = 700.0
@@ -93,9 +105,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 6 )
 
 [node name="Arrows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 244.0
+margin_top = 250.0
 margin_right = 700.0
-margin_bottom = 362.0
+margin_bottom = 368.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Arrows"]
 margin_right = 700.0
@@ -111,9 +123,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 4 )
 
 [node name="Vectors" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 366.0
+margin_top = 372.0
 margin_right = 700.0
-margin_bottom = 834.0
+margin_bottom = 840.0
 rect_min_size = Vector2( 600, 400 )
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Vectors"]
@@ -130,9 +142,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 3 )
 
 [node name="Circles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 838.0
+margin_top = 844.0
 margin_right = 700.0
-margin_bottom = 956.0
+margin_bottom = 962.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Circles"]
 margin_right = 700.0
@@ -148,9 +160,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 11 )
 
 [node name="Triangles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 960.0
+margin_top = 966.0
 margin_right = 700.0
-margin_bottom = 1084.0
+margin_bottom = 1090.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Triangles"]
 margin_right = 700.0
@@ -178,9 +190,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 9 )
 
 [node name="Rectangles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1088.0
+margin_top = 1094.0
 margin_right = 700.0
-margin_bottom = 1206.0
+margin_bottom = 1212.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Rectangles"]
 margin_right = 700.0
@@ -196,9 +208,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 2 )
 
 [node name="Polygons" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1210.0
+margin_top = 1216.0
 margin_right = 700.0
-margin_bottom = 1328.0
+margin_bottom = 1334.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Polygons"]
 margin_right = 700.0
@@ -214,9 +226,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 8 )
 
 [node name="Candlesticks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1332.0
+margin_top = 1338.0
 margin_right = 700.0
-margin_bottom = 1450.0
+margin_bottom = 1456.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
 margin_right = 700.0
@@ -232,9 +244,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 5 )
 
 [node name="Candlestick charts" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1454.0
+margin_top = 1460.0
 margin_right = 700.0
-margin_bottom = 1872.0
+margin_bottom = 1878.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts"]
 margin_right = 700.0
@@ -250,9 +262,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 12 )
 
 [node name="Connections" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1876.0
+margin_top = 1882.0
 margin_right = 700.0
-margin_bottom = 1994.0
+margin_bottom = 2000.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Connections"]
 margin_right = 700.0
@@ -268,4 +280,5 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 10 )
 
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Animate_pressed"]

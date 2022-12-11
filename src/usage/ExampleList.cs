@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System.Linq;
 
 public class ExampleList : Godot.Control
