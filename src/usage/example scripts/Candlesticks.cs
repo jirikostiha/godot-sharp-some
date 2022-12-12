@@ -13,7 +13,6 @@ public class Candlesticks : ExampleNodeBase
     public Candlesticks()
     {
         _size = Top() - Bottom();
-        GD.Print("open:  " + _size);
     }
 
     protected override void NextState()
