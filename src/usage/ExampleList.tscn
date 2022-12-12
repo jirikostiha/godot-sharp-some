@@ -54,7 +54,7 @@ size_flags_vertical = 3
 
 [node name="Rows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 700.0
-margin_bottom = 2000.0
+margin_bottom = 2006.0
 
 [node name="Dots" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_right = 700.0
@@ -228,25 +228,37 @@ script = ExtResource( 8 )
 [node name="Candlesticks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_top = 1338.0
 margin_right = 700.0
-margin_bottom = 1456.0
+margin_bottom = 1462.0
 
-[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
 margin_right = 700.0
-margin_bottom = 14.0
+margin_bottom = 20.0
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
+margin_top = 3.0
+margin_right = 80.0
+margin_bottom = 17.0
 text = "Candlesticks"
 
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
+margin_left = 84.0
+margin_right = 150.0
+margin_bottom = 20.0
+hint_tooltip = "Toggle animation"
+text = "Animate"
+
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks" groups=["ExampleContents"]]
-margin_top = 18.0
+margin_top = 24.0
 margin_right = 700.0
-margin_bottom = 118.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 5 )
 
 [node name="Candlestick charts" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1460.0
+margin_top = 1466.0
 margin_right = 700.0
-margin_bottom = 1878.0
+margin_bottom = 1884.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts"]
 margin_right = 700.0
@@ -262,9 +274,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 12 )
 
 [node name="Connections" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1882.0
+margin_top = 1888.0
 margin_right = 700.0
-margin_bottom = 2000.0
+margin_bottom = 2006.0
 
 [node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Connections"]
 margin_right = 700.0
@@ -282,3 +294,4 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Animate_pressed"]
