@@ -6,12 +6,24 @@ using static Godot.Mathf;
 
 public class Dots : ExampleNodeBase
 {
-    private float[] _samplePointsX = Enumerable.Range(0, 150).Select(i => 2f * i).ToArray();
-    private float _offset;
-    
+    private float[] _sinSamplePointsX = Enumerable.Range(0, 150).Select(i => 2f * i).ToArray();
+    private float _sinOffset;
+
+    private int[] _powerSamplePointsX = Enumerable.Range(-25, 51).ToArray();
+    private int _powerPointCount;
+
+    public Dots()
+    {
+        _powerPointCount = _powerSamplePointsX.Length;
+    }
+
     protected override void NextState()
     {
-        _offset += 0.02f;
+        _sinOffset += 0.02f;
+
+        _powerPointCount = _powerPointCount <= _powerSamplePointsX.Length
+            ? _powerPointCount + 1
+            : 0;
     }
 
     public override void _Draw()
@@ -32,14 +44,14 @@ public class Dots : ExampleNodeBase
     }
     void DrawSin(Vector2 start)
     {
-        var points = _samplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_offset + 0.1f * x)));
+        var points = _sinSamplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_sinOffset + 0.1f * x)));
         DrawMultiline(Multiline.Dots(points), LineColor);
     }
 
     void DrawPower(Vector2 origin)
     {
-        var functionPoints = Enumerable.Range(-25, 51)
-            .Select(i => origin + new Vector2(i, (i / 10f) * (i / 10f) * 10));
+        var functionPoints = _powerSamplePointsX.Take(_powerPointCount).Select(x => origin + 
+            new Vector2(x, (x / 10f) * (x / 10f) * 10));
 
         var m = new Multiline()
             .AppendDottedLine(origin + new Vector2(0, -4), origin + new Vector2(0, 70), 8)
