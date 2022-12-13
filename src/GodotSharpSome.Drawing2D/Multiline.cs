@@ -1,5 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -15,6 +16,8 @@
         private const float DashedLine_SpaceLength = 8;
         private const float DashDottedLine_DashLength = 16;
         private const float DashDottedLine_SpaceLength = 6;
+
+        private static readonly Vector2 DotVector = Vector2.Down;
 
         private List<Vector2> _points;
 
@@ -197,9 +200,8 @@
 
         public static Vector2[] Dot(Vector2 position)
         {
-            var points = new List<Vector2>(2);
-            AppendDot(points, position);
-            return points.ToArray();
+            return new Vector2[2] { position, position + DotVector };
+            //todo .net6: Span<Vector2> points = stackalloc Vector2[2] { start, end }; //avoid heap allocation and GC
         }
 
         public static Vector2[] Dots(IEnumerable<Vector2> positions)
@@ -384,7 +386,7 @@
         public static void AppendDot(IList<Vector2> points, Vector2 position)
         {
             points.Add(position);
-            points.Add(position + Vector2.Down);
+            points.Add(position + DotVector);
         }
 
         public static void AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
