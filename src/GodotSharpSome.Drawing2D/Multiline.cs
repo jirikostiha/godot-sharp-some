@@ -204,11 +204,15 @@
             //todo .net6: Span<Vector2> points = stackalloc Vector2[2] { start, end }; //avoid heap allocation and GC
         }
 
-        public static Vector2[] Dots(IEnumerable<Vector2> positions)
+        public static Vector2[] Dots(IList<Vector2> positions)
         {
-            var points = new List<Vector2>(2 + positions.Count());
-            AppendDots(points, positions);
-            return points.ToArray();
+            var points = new Vector2[2 + positions.Count];
+            for (int i = 0; i < positions.Count; i =+ 2)
+            {
+                points[i] = positions[i];
+                points[i+1] = positions[i] + Vector2.Down;
+            }
+            return points;
         }
 
         public static Vector2[] DottedLine(Vector2 start, Vector2 end,
