@@ -205,11 +205,11 @@
 
         public static Vector2[] Dots(IList<Vector2> positions)
         {
-            var points = new Vector2[2 + positions.Count];
-            for (int i = 0; i < positions.Count; i =+ 2)
+            var points = new Vector2[2 * positions.Count];
+            for (int i = 0; i < positions.Count; i++)
             {
-                points[i] = positions[i];
-                points[i+1] = positions[i] + Vector2.Down;
+                points[2*i] = positions[i];
+                points[2*i+1] = positions[i] + Vector2.Down;
             }
             return points;
         }

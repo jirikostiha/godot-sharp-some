@@ -19,7 +19,7 @@
         /// <summary>
         /// Draw series of dots.
         /// </summary>
-        public static void DrawDots(this CanvasItem canvas, List<Vector2> positions, Color color,
+        public static void DrawDots(this CanvasItem canvas, IList<Vector2> positions, Color color,
             bool antialiased = false)
         {
             canvas.DrawMultiline(Multiline.Dots(positions), color, 1, antialiased);
