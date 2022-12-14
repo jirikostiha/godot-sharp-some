@@ -28,12 +28,12 @@ public class ExampleNodeBase : Godot.ColorRect
     {
         if (Animate)
         {
-            NextState();
+            NextState(delta);
             Update();
         }
     }
 
-    protected virtual void NextState() { }
+    protected virtual void NextState(float delta) { }
 
     public float NextUin() => Rng.Randf();
 

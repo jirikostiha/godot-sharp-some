@@ -34,7 +34,7 @@ public class Vectors : ExampleNodeBase
             _targetVectors.Add(_vectors[i]);
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         for (int i = 0; i < _vectors.Count; i++)
         {

@@ -18,7 +18,7 @@ public class Triangles : ExampleNodeBase
         _areaColor = _areaColorNext = AreaColor;
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         if (_p1.DistanceTo(_p1Next) < Tolerance)
             _p1Next = NextVectorInsideCell(1);

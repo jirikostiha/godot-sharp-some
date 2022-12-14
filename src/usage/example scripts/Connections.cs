@@ -20,7 +20,7 @@ public class Connections : ExampleNodeBase
         _r5 = 13;
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         _y += 0.1f;
     }

@@ -25,7 +25,7 @@ public class Crosses : ExampleNodeBase
         _cross2 = _target2 = Middle(3);
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         //move shots
         for (int i = _shots.Count - 1; i >= 0; i--)

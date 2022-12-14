@@ -5,7 +5,7 @@ public class Polygons : ExampleNodeBase
 {
     private float _angle = 0;
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         _angle += 0.1f;
     }

@@ -15,7 +15,7 @@ public class Candlesticks : ExampleNodeBase
         _size = Top() - Bottom();
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         _openDelta = UpdateDelta(_open, _openDelta);
         _open += _openDelta;

@@ -8,9 +8,9 @@ public class Circles : ExampleNodeBase
     private float _baseRadius = 40;
     private float _value;
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
-        _value += 0.1f;
+        _value += delta * 5;
     }
 
     public override void _Draw()

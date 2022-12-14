@@ -17,7 +17,7 @@ public class Dots : ExampleNodeBase
         _powerPointCount = _powerSamplePointsX.Length;
     }
 
-    protected override void NextState()
+    protected override void NextState(float delta)
     {
         _sinOffset += 0.02f;
 
