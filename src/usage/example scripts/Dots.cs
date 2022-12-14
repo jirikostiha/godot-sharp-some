@@ -45,7 +45,7 @@ public class Dots : ExampleNodeBase
     void DrawSin(Vector2 start)
     {
         var points = _sinSamplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_sinOffset + 0.1f * x)));
-        DrawMultiline(Multiline.Dots(points), LineColor);
+        DrawMultiline(Multiline.Dots(points.ToArray()), LineColor);
     }
 
     void DrawPower(Vector2 origin)
