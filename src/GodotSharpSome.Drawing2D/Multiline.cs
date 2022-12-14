@@ -201,7 +201,6 @@
         public static Vector2[] Dot(Vector2 position)
         {
             return new Vector2[2] { position, position + DotVector };
-            //todo .net6: Span<Vector2> points = stackalloc Vector2[2] { start, end }; //avoid heap allocation and GC
         }
 
         public static Vector2[] Dots(IList<Vector2> positions)
@@ -245,7 +244,6 @@
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
             return new Vector2[2] { start, end };
-            //todo .net6: Span<Vector2> points = stackalloc Vector2[2] { start, end }; //avoid heap allocation and GC
         }
 
         public static Vector2[] Cross(Vector2 center, float radius)
