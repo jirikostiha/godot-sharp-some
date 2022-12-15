@@ -1,51 +1,91 @@
 ﻿using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using static Godot.Mathf;
 
 public class CandlestickCharts : ExampleNodeBase
 {
+    private Queue<(float Open, float Low, float High, float Close)> _frames = new();
+    private int _countLimit = 40;
+    private float _speedCounter = 0;
+    private float _speedTreshold = 0.05f;
+    private float _candleHalfWidth = 4f;
+    private float _lastClose;
+
+    public CandlestickCharts()
+    {
+        for (int i = 0; i < _countLimit; i++)
+        {
+            var frame = NextFrame(_lastClose, 5, 20);
+            _lastClose = frame.Close;
+            _frames.Enqueue(frame);
+        }
+    }
+
+    protected override void NextState(float delta)
+    {
+        _speedCounter += delta;
+        if (_speedCounter < _speedTreshold)
+            return;
+
+        _speedCounter = 0;
+
+        if (_frames.Count >= _countLimit)
+            _frames.Dequeue();
+
+        var frame = NextFrame(_lastClose, 0, 17);
+        _lastClose = frame.Close;
+        _frames.Enqueue(frame);
+    }
+
     public override void _Draw()
     {
         DrawChart(LeftBottom(1));
     }
 
-    public void DrawChart(Vector2 origin)
+    public void _on_Animate_pressed() => Animate = !Animate;
+
+    private (float Open, float Low, float High, float Close) NextFrame(float open, float min, float max)
+    {
+        var low = Max(open - NextFloat(0, 2), min);
+        var high = Min(open + NextFloat(0, 2), max);
+        return (
+            open,
+            low,
+            high,
+            low + NextFloat(0, high - low));
+    }
+
+    private void DrawChart(Vector2 origin)
     {
         var points = new List<Vector2>();
         var xUnit = 12;
         Multiline.AppendAxes(points, origin, Vector2.Right, xUnit, 52, 10, 34);
-        AppendCandles(points, origin, xUnit, 20);
-
         DrawMultiline(points.ToArray(), LineColor);
+
+        DrawColoredCandles(origin, xUnit, 20, 20);
     }
 
-    public void AppendCandles(IList<Vector2> points, Vector2 origin, float xUnitStep, float yUnitStep)
+    private void DrawColoredCandles(Vector2 origin, float xUnitStep, float yUnitStep, int yOffset)
     {
-        var rand = new Godot.RandomNumberGenerator() { Seed = 2 };
-        var bodyHalfWidth = 4f;
-
-        var lastClose = 5f;
-        for (int i = 1; i <= 50; i++)
+        int i = 1;
+        foreach (var frame in _frames)
         {
-            var open = lastClose;
-            var low = open - rand.Randf() * 2;
-            var high = open + rand.Randf() * 3;
-            var close = low + rand.Randf() * (high - low);
+            var lowPoint = origin + new Vector2(i * xUnitStep, yOffset + frame.Low * yUnitStep);
+            var highPoint = origin + new Vector2(i * xUnitStep, yOffset + frame.High * yUnitStep);
+            var bottomOffset = (Min(frame.Open, frame.Close) - frame.Low) * yUnitStep;
+            var topOffset = (frame.High - Max(frame.Open, frame.Close)) * yUnitStep;
 
-            var lowPoint = origin + new Vector2(i * xUnitStep, low * yUnitStep);
-            var highPoint = origin + new Vector2(i * xUnitStep, high * yUnitStep);
-            var bottomOffset = (Mathf.Min(open, close) - low) * yUnitStep;
-            var topOffset = (high - Mathf.Max(open, close)) * yUnitStep;
-
-            Multiline.AppendCrossedCandlestick(points,
+            this.DrawCandlestick(
                 low: lowPoint,
                 lowOffset: bottomOffset,
                 high: highPoint,
                 highOffset: topOffset,
-                halfWidth: bodyHalfWidth,
-                upDirrection: close > open);
+                halfWidth: _candleHalfWidth,
+                lineColor: LineColor,
+                bodyColor: frame.Close > frame.Open ? Color.ColorN("green") : Color.ColorN("red"));
 
-            lastClose = close;
+            i++;
         }
     }
 }
