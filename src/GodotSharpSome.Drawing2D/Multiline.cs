@@ -81,6 +81,12 @@
             return this;
         }
 
+        public Multiline AppendLine(Vector2 start, float startOffset, Vector2 end, float endOffset)
+        {
+            AppendLine(_points, start, startOffset, end, endOffset);
+            return this;
+        }
+
         public Multiline AppendCross(Vector2 center, float radius)
         {
             AppendCross(_points, center, radius);
@@ -244,6 +250,13 @@
         public static Vector2[] Line(Vector2 start, Vector2 end)
         {
             return new Vector2[2] { start, end };
+        }
+
+        public static Vector2[] Line(Vector2 start, float startOffset, Vector2 end, float endOffset)
+        {
+            var points = new List<Vector2>(2);
+            AppendLine(points, start, startOffset, end, endOffset);
+            return points.ToArray();
         }
 
         public static Vector2[] Cross(Vector2 center, float radius)
