@@ -41,6 +41,8 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public int NextInt(int inclusiveMin, int exclusiveMax) => (int)NextFloat(inclusiveMin, exclusiveMax);
 
+    public bool NextBool() => NextUin() >= 0.5f;
+
     public Color NextColor(int inclusiveMin, int exclusiveMax) => new(
         NextFloat(inclusiveMin, exclusiveMax),
         NextFloat(inclusiveMin, exclusiveMax),
