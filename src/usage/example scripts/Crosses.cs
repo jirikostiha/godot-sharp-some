@@ -102,8 +102,11 @@ public class Crosses : ExampleNodeBase
         DrawMultiline(Multiline.Cross2(_cross2, 7, 2), _color2);
 
         //guns
-        this.DrawRectangle(_origin1, 18, 8, _origin1.DirectionTo(_cross1).Angle(), LineColor, _color1);
-        this.DrawRectangle(_origin2, 10, 4, _origin2.DirectionTo(_cross2).Angle(), LineColor, _color2);
+        if (_shots.Count != 0)
+        {
+            this.DrawRectangle(_origin1, 18, 8, _origin1.DirectionTo(_cross1).Angle(), LineColor, _color1);
+            this.DrawRectangle(_origin2, 10, 4, _origin2.DirectionTo(_cross2).Angle(), LineColor, _color2);
+        }
 
         //shots
         foreach (var shot in _shots)
