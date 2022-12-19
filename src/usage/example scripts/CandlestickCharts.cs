@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
@@ -10,7 +11,7 @@ public class CandlestickCharts : ExampleNodeBase
     private float _speedCounter = 0;
     private float _speedTreshold = 0.05f;
     private float _candleHalfWidth = 4f;
-    private float _lastClose;
+    private float _lastClose = 7;
 
     public CandlestickCharts()
     {
@@ -59,7 +60,7 @@ public class CandlestickCharts : ExampleNodeBase
         var points = new List<Vector2>();
         var xUnit = 12;
         Multiline.AppendAxes(points, origin, Vector2.Right, xUnit, 52, 10, 34);
-        DrawMultiline(points.ToArray(), LineColor);
+        DrawMultiline(points.Select(FlipY).ToArray(), LineColor);
 
         DrawColoredCandles(origin, xUnit, 20, 20);
     }
@@ -75,9 +76,9 @@ public class CandlestickCharts : ExampleNodeBase
             var topOffset = (frame.High - Max(frame.Open, frame.Close)) * yUnitStep;
 
             this.DrawCandlestick(
-                low: lowPoint,
+                low: FlipY(lowPoint),
                 lowOffset: bottomOffset,
-                high: highPoint,
+                high: FlipY(highPoint),
                 highOffset: topOffset,
                 halfWidth: _candleHalfWidth,
                 lineColor: LineColor,
@@ -86,4 +87,6 @@ public class CandlestickCharts : ExampleNodeBase
             i++;
         }
     }
+
+    private Vector2 FlipY(Vector2 position) => new (position.x, RectSize.y - position.y);
 }
