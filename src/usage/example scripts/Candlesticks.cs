@@ -50,8 +50,6 @@ public class Candlesticks : ExampleNodeBase
             _open < _close ? Color.ColorN("green") : Color.ColorN("red"));
     }
 
-    public void _on_Animate_pressed() => Animate = !Animate;
-
     private float UpdateDelta(float value, float delta)
     {
         if (value > _size)

@@ -93,8 +93,6 @@ public class Crosses : ExampleNodeBase
         DrawShooting();
     }
 
-    public void _on_Animate_pressed() => Animate = !Animate;
-
     private void DrawShooting()
     {
         //aiming crosses

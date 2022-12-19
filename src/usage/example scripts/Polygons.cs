@@ -23,6 +23,4 @@ public class Polygons : ExampleNodeBase
             this.DrawRegularConvexPolygon(Middle(3), r, n, angle, LineColor, areaColor);
         }
     }
-
-    public void _on_Animate_pressed() => Animate = !Animate;
 }

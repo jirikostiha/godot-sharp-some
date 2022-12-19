@@ -43,8 +43,6 @@ public class CandlestickCharts : ExampleNodeBase
         DrawChart(LeftBottom(1));
     }
 
-    public void _on_Animate_pressed() => Animate = !Animate;
-
     private (float Open, float Low, float High, float Close) NextFrame(float open, float min, float max)
     {
         var low = Max(open - NextFloat(0, 2), min);

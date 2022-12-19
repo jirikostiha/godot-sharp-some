@@ -60,6 +60,4 @@ public class Dots : ExampleNodeBase
 
         DrawMultiline(m.Points, LineColor);
     }
-
-    public void _on_Animate_pressed() => Animate = !Animate;
 }

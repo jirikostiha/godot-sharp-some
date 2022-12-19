@@ -80,6 +80,4 @@ public class Vectors : ExampleNodeBase
             Multiline.Arrow(_origin3, _origin3 + sumVector),
             LineColor2);
     }
-
-    public void _on_Animate_pressed() => Animate = !Animate;
 }

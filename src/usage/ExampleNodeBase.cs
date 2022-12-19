@@ -97,6 +97,8 @@ public class ExampleNodeBase : Godot.ColorRect
     public Vector2 MiddleBottom(int column) => new Vector2(MiddleX(column), Bottom());
 
     public Vector2 Middle(int column) => new Vector2(MiddleX(column), MiddleY());
+    
+    public void _on_Animate_pressed() => Animate = !Animate;
 
     public void _on_Inverse_pressed() => InverseColors();
 

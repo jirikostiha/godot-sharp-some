@@ -39,8 +39,6 @@ public class Connections : ExampleNodeBase
         DrawChain(Middle(3));
     }
 
-    public void _on_Animate_pressed() => Animate = !Animate;
-
     private float _xOffset = 60;
     private void DrawChain(Vector2 start)
     {

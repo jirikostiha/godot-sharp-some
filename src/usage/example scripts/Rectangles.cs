@@ -64,6 +64,4 @@ public class Rectangles : ExampleNodeBase
             this.DrawRectangle(Middle(3), item.Length, item.Width, item.Angle, lineColor, areaColor);
         }
     }
-
-    public void _on_Animate_pressed() => Animate = !Animate;
 }

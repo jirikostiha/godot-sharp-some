@@ -25,6 +25,4 @@ public class Circles : ExampleNodeBase
             this.DrawCircle(Middle(3), radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
         }
     }
-
-    public void _on_Animate_pressed() => Animate = !Animate;
 }
