@@ -10,25 +10,42 @@ public class Circles : ExampleNodeBase
 
     protected override void NextState(float delta)
     {
-        _time += delta * 5;
+        _time += delta;
     }
 
     public override void _Draw()
     {
-        var count = Max(1, (int)(Sin(_time) * (_baseRadius / _radiusStep)));
+        // I, II, III
+        DrawSizing();
+
+        // IV
+        DrawKittLightEffect();
+    }
+
+    private void DrawSizing()
+    {
+        var count = Max(1, (int)(Sin(_time * 5) * (_baseRadius / _radiusStep)));
 
         for (int i = 0; i < count; i++)
         {
             var radius = _baseRadius - i * _radiusStep;
-
+            
             // I
             this.DrawCircleLine(Middle(1), radius, LineColor.Lightened(0.08f * i));
-
+            
             // II
             this.DrawCircleArea(Middle(2), radius, AreaColor.Lightened(0.08f * i));
-
+            
             // III
             this.DrawCircle(Middle(3), radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
+        }
+    }
+
+    private void DrawKittLightEffect()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            this.DrawCircleLine(LeftMiddle(4), radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
         }
     }
 }
