@@ -1,11 +1,18 @@
-using Godot;
+﻿using Godot;
 using System.Linq;
 
-public class ExampleList : Godot.Control
+public sealed class ExampleList : Godot.Control
 {
-    private static readonly Color BackColor = Color.ColorN("white");
+    public static readonly Color LightBack = Color.ColorN("white");
+    public static readonly Color DarkBack = Color.ColorN("black");
+    public static readonly Color LightStroke = Color.ColorN("white");
+    public static readonly Color DarkStroke = Color.ColorN("black");
+    public static readonly Color LightRegion = Color.ColorN("lightgray");
+    public static readonly Color DarkRegion = Color.ColorN("darkgray");
 
     public bool AnimateAll { get; set; }
+
+    public bool InverseAll { get; set; }
 
     public void _on_AnimateAll_pressed()
     {
@@ -13,5 +20,30 @@ public class ExampleList : Godot.Control
         var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
         foreach (var node in nodes)
             node.Animate = AnimateAll;
+    }
+
+    public void _on_InverseAll_pressed()
+    {
+        InverseAll = !InverseAll;
+        if (!InverseAll)
+        {
+            var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
+            foreach (var node in nodes)
+                node.Color = LightBack;
+
+            ExampleNodeBase.LineColor = DarkStroke;
+            ExampleNodeBase.AreaColor = LightRegion;
+            ExampleNodeBase.TextColor = DarkStroke;
+        }
+        else
+        {
+            var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
+            foreach (var node in nodes)
+                node.Color = DarkBack;
+            
+            ExampleNodeBase.LineColor = LightStroke;
+            ExampleNodeBase.AreaColor = DarkRegion;
+            ExampleNodeBase.TextColor = LightStroke;
+        }
     }
 }

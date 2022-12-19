@@ -3,11 +3,10 @@ using Godot;
 
 public class ExampleNodeBase : Godot.ColorRect
 {
-    protected static readonly Color BackColor = Color.ColorN("white");
-    protected static readonly Color TextColor = Color.ColorN("black");
-    protected static readonly Color LineColor = Color.ColorN("black");
-    protected static readonly Color LineColor2 = Color.ColorN("orange");
-    protected static readonly Color AreaColor = Color.ColorN("gray");
+    public static Color TextColor = Color.ColorN("black");
+    public static Color LineColor = Color.ColorN("black");
+    public static Color LineColor2 = Color.ColorN("orange");
+    public static Color AreaColor = Color.ColorN("gray");
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;
@@ -21,7 +20,7 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public override void _Ready()
     {
-        Color = BackColor;
+        Color = ExampleList.LightBack;
     }
 
     public override void _PhysicsProcess(float delta)

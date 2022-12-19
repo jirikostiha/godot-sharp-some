@@ -46,6 +46,12 @@ margin_right = 117.0
 margin_bottom = 20.0
 text = "Animate All"
 
+[node name="InverseAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
+margin_left = 121.0
+margin_right = 202.0
+margin_bottom = 20.0
+text = "Inverse All"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 1024.0
@@ -407,6 +413,7 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 14 )
 
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
+[connection signal="pressed" from="VBoxContainer/Header/HeaderItems/InverseAll" to="." method="_on_InverseAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Vectors/Content" method="_on_Animate_pressed"]
