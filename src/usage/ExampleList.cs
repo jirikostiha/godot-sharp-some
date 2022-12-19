@@ -29,21 +29,23 @@ public sealed class ExampleList : Godot.Control
         {
             var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
             foreach (var node in nodes)
+            {
                 node.Color = LightBack;
-
-            ExampleNodeBase.LineColor = DarkStroke;
-            ExampleNodeBase.AreaColor = LightRegion;
-            ExampleNodeBase.TextColor = DarkStroke;
+                node.LineColor = DarkStroke;
+                node.AreaColor = LightRegion;
+                node.TextColor = DarkStroke;
+            }
         }
         else
         {
             var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
             foreach (var node in nodes)
+            {
                 node.Color = DarkBack;
-            
-            ExampleNodeBase.LineColor = LightStroke;
-            ExampleNodeBase.AreaColor = DarkRegion;
-            ExampleNodeBase.TextColor = LightStroke;
+                node.LineColor = LightStroke;
+                node.AreaColor = DarkRegion;
+                node.TextColor = LightStroke;
+            }
         }
     }
 }

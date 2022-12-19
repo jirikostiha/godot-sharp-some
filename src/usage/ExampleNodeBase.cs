@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Linq;
 using Godot;
 
 public class ExampleNodeBase : Godot.ColorRect
 {
-    public static Color TextColor = Color.ColorN("black");
-    public static Color LineColor = Color.ColorN("black");
-    public static Color LineColor2 = Color.ColorN("orange");
-    public static Color AreaColor = Color.ColorN("gray");
+    public Color TextColor = Color.ColorN("black");
+    public Color LineColor = Color.ColorN("black");
+    public Color LineColor2 = Color.ColorN("orange");
+    public Color AreaColor = Color.ColorN("gray");
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;
@@ -17,6 +18,8 @@ public class ExampleNodeBase : Godot.ColorRect
     protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 
     public bool Animate { get; set; }
+
+    public bool Inverse { get; set; }
 
     public override void _Ready()
     {
@@ -94,4 +97,25 @@ public class ExampleNodeBase : Godot.ColorRect
     public Vector2 MiddleBottom(int column) => new Vector2(MiddleX(column), Bottom());
 
     public Vector2 Middle(int column) => new Vector2(MiddleX(column), MiddleY());
+
+    public void _on_Inverse_pressed() => InverseColors();
+
+    public void InverseColors()
+    {
+        Inverse = !Inverse;
+        if (!Inverse)
+        {
+            Color = ExampleList.LightBack;
+            LineColor = ExampleList.DarkStroke;
+            AreaColor = ExampleList.LightRegion;
+            TextColor = ExampleList.DarkStroke;
+        }
+        else
+        {
+            Color = ExampleList.DarkBack;
+            LineColor = ExampleList.LightStroke;
+            AreaColor = ExampleList.DarkRegion;
+            TextColor = ExampleList.LightStroke;
+        }
+    }
 }
