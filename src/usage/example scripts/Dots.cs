@@ -28,6 +28,7 @@ public class Dots : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I
         DrawMultiline(
             Multiline.DottedLine(LeftBottom(1), RightBottom(1)),
             LineColor);
@@ -38,8 +39,10 @@ public class Dots : ExampleNodeBase
             Multiline.DashDottedLine(LeftTop(1), RightTop(1)),
             LineColor);
 
+        // II
         DrawPower(MiddleBottom(2));
 
+        // III
         DrawSin(LeftMiddle(3));
     }
     void DrawSin(Vector2 start)

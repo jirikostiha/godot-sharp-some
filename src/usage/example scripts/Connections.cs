@@ -6,7 +6,7 @@ using static Godot.Mathf;
 
 public class Connections : ExampleNodeBase
 {
-    private float _y = 0;
+    private float _time;
     private float _r1, _r2, _r3, _r4, _r5;
     private Vector2 _v1;
 
@@ -22,29 +22,32 @@ public class Connections : ExampleNodeBase
 
     protected override void NextState(float delta)
     {
-        _y += 0.1f;
+        _time += 0.1f;
     }
 
     public override void _Draw()
     {
+        // I
         DrawSingleConnection(
             LeftMiddle(1) + new Vector2(15, 0), 8f,
             RightMiddle(1) + new Vector2(-15, 0), 12f);
 
+        // II
         DrawTriangleConnection(
             LeftBottom(2) + new Vector2(15, 16), 8f,
             RightBottom(2) + new Vector2(-15, 16), 8f,
             MiddleTop(2) + new Vector2(0, -16), 8f);
 
+        /// III
         DrawChain(Middle(3));
     }
 
     private float _xOffset = 60;
     private void DrawChain(Vector2 start)
     {
-        var v2 = _v1 + new Vector2(_xOffset, Sin(_y) * 20);
-        var v3 = _v1 + new Vector2(2 * _xOffset, Sin(_y) * 28);
-        var v4 = _v1 + new Vector2(3 * _xOffset, Sin(_y) * 15);
+        var v2 = _v1 + new Vector2(_xOffset, Sin(_time) * 20);
+        var v3 = _v1 + new Vector2(2 * _xOffset, Sin(_time) * 28);
+        var v4 = _v1 + new Vector2(3 * _xOffset, Sin(_time) * 15);
         var v5 = _v1 + new Vector2(4 * _xOffset, 0);
 
         this.DrawCircle(_v1, _r1, LineColor, AreaColor);

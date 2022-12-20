@@ -58,26 +58,39 @@ public class Vectors : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I
         DrawMultiline(
             Multiline.VectorsAbsolutely(_origin1, _vectors),
             LineColor);
 
+        // II
+        DrawVectorSummation(_origin2);
+
+        // III
+        DrawVectorSummationOrdered(_origin3);
+    }
+
+    private void DrawVectorSummation(Vector2 origin)
+    {
         DrawMultiline(
-            Multiline.VectorsRelatively(_origin2, _vectors),
-            LineColor);
+           Multiline.VectorsRelatively(origin, _vectors),
+           LineColor);
 
         var sumVector = _vectors.Aggregate((a, b) => a + b);
-
         DrawMultiline(
-            Multiline.Arrow(_origin2, _origin2 + sumVector),
+            Multiline.Arrow(origin, origin + sumVector),
             LineColor2);
+    }
 
+    private void DrawVectorSummationOrdered(Vector2 origin)
+    {
         DrawMultiline(
-          Multiline.VectorsRelatively(_origin3, _vectors.OrderBy(x => x.Angle()).ToArray()),
+          Multiline.VectorsRelatively(origin, _vectors.OrderBy(x => x.Angle()).ToArray()),
           LineColor);
 
+        var sumVector = _vectors.Aggregate((a, b) => a + b);
         DrawMultiline(
-            Multiline.Arrow(_origin3, _origin3 + sumVector),
+            Multiline.Arrow(origin, origin + sumVector),
             LineColor2);
     }
 }

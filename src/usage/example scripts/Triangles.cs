@@ -40,10 +40,13 @@ public class Triangles : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I
         this.DrawTriangleLine(_p1, _p2, _p3, LineColor);
 
+        // II
         this.DrawTriangleArea(_p1 + CellWidthVector, _p2 + CellWidthVector, _p3 + CellWidthVector, _areaColor);
 
+        // III
         this.DrawTriangle(_p1 + 2 * CellWidthVector, _p2 + 2 * CellWidthVector, _p3 + 2 * CellWidthVector, LineColor, _areaColor);
     }
 }

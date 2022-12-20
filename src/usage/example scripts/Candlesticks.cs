@@ -26,10 +26,12 @@ public class Candlesticks : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I
         DrawMultiline(
             Multiline.Candlestick(MiddleTop(1), 20, MiddleBottom(1), 10, 5),
             LineColor);
 
+        // II
         DrawMultiline(
             Multiline.CrossedCandlestick(
                 MiddleTop(2),
@@ -40,6 +42,7 @@ public class Candlesticks : ExampleNodeBase
                 _open < _close),
             LineColor);
 
+        // III
         this.DrawCandlestick(
             MiddleTop(3),
             Min(_open, _close),

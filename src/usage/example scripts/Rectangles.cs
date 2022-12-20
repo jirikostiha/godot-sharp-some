@@ -43,12 +43,16 @@ public class Rectangles : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I
         this.DrawRectangleLine(Middle(1), _length, _width, _angle, LineColor);
 
+        // II
         this.DrawRectangleArea(Middle(2), _length, _width, _angle, AreaColor);
 
+        // III
         this.DrawRectangle(Middle(3), _length, _width, _angle, LineColor, AreaColor);
 
+        // I, II, III
         _DrawTracks();
     }
 

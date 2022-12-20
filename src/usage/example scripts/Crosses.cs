@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
-using static Godot.Mathf;
 
 public class Crosses : ExampleNodeBase
 {
@@ -20,7 +19,7 @@ public class Crosses : ExampleNodeBase
     private Vector2 _target1, _target2;
     private Color _color1 = Color.ColorN("blue");
     private Color _color2 = Color.ColorN("red");
-    private int _counter;
+    private int _time;
 
     public Crosses()
     {
@@ -68,13 +67,13 @@ public class Crosses : ExampleNodeBase
             _target2 = NextVectorBetween(LeftBottom(4), RightMiddle(4));
 
         // Fire 2
-        if (_counter % 5 == 0)
+        if (_time % 5 == 0)
         {
             var shot = new Shot() { Position = _origin2, Destination = _cross2, Type = 2 };
             _shots.Add(shot);
         }
 
-        _counter++;
+        _time++;
     }
 
     public override void _Draw()

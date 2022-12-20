@@ -11,15 +11,13 @@ public class Arrows: ExampleNodeBase
 
     protected override void NextState(float delta)
     {
-        if (_time < 0.5)
-        {
-            _time += delta;
-            return;
-        }
+        _time = _time < 0.5 ? _time + delta : 0;
 
-        _time = 0;
-        _headRadius = NextFloat(4, 25);
-        _arrowAngle = NextFloat(Pi * 0.04f, Pi * 0.25f);
+        if (_time == 0)
+        {
+            _headRadius = NextFloat(4, 25);
+            _arrowAngle = NextFloat(Pi * 0.04f, Pi * 0.25f);
+        }
     }
 
     public override void _Draw()

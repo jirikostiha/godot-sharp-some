@@ -3,11 +3,11 @@ using GodotSharpSome.Drawing2D;
 
 public class Polygons : ExampleNodeBase
 {
-    private float _angle = 0;
+    private float _time = 0;
 
     protected override void NextState(float delta)
     {
-        _angle += 0.1f;
+        _time += 0.1f;
     }
 
     public override void _Draw()
@@ -16,10 +16,16 @@ public class Polygons : ExampleNodeBase
         {
             var r = 5 + i * 10;
             var n = i + 3;
-            var angle = i % 2 == 0 ? _angle : -_angle;
+            var angle = i % 2 == 0 ? _time : -_time;
             var areaColor = AreaColor.Darkened(i * 0.1f);
+
+            // I
             this.DrawRegularConvexPolygonLine(Middle(1), r, n, angle, LineColor);
+
+            // II
             this.DrawRegularConvexPolygonArea(Middle(2), r, n, angle, areaColor);
+
+            // III
             this.DrawRegularConvexPolygon(Middle(3), r, n, angle, LineColor, areaColor);
         }
     }

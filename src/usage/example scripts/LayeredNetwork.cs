@@ -76,6 +76,7 @@ public class LayeredNetwork : ExampleNodeBase
                 }
             }
         }
+
         DrawMultiline(m.Points, new Color(LineColor, 0.1f));
     }
 }
