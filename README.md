@@ -30,7 +30,7 @@ arrow, vector, axes, cross, dots, dotted line, dashed line, triangle, rectangle,
 **CanvasItem extensions**  
 triangle line, triangle area, rectangle line, rectangle area, polygon line, polygon area, circle line, circle area  
 
-[Would you like to know more?](./src/GodotSharpSome.Drawing2D/readme.md)
+Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)?
 
 ## Usage  
 
@@ -71,4 +71,17 @@ public override void _Draw()
 }
 ```  
 \
-[Would you like to know more?](./src/usage/)
+
+Would you like to know [more](./src/usage/)?
+
+## Contributing
+bugs  
+
+https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue
+
+Any contributions are welcome!
+[Conventions](./doc/conventions.md)  
+
+
+## License  
+Project is under [MIT](./LICENSE) license.
