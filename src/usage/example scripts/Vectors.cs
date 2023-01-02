@@ -10,12 +10,6 @@ public class Vectors : ExampleNodeBase
     private readonly List<Vector2> _vectors;
     private readonly List<Vector2> _targetVectors;
 
-    private Vector2 _origin1 = new Vector2(100, 200);
-
-    private Vector2 _origin2 = new Vector2(300, 200);
-
-    private Vector2 _origin3 = new Vector2(500, 200);
-
     public Vectors()
     {
         _vectors = new List<Vector2>
@@ -60,14 +54,14 @@ public class Vectors : ExampleNodeBase
     {
         // I
         DrawMultiline(
-            Multiline.VectorsAbsolutely(_origin1, _vectors),
+            Multiline.VectorsAbsolutely(new Vector2(100, 200), _vectors),
             LineColor);
 
         // II
-        DrawVectorSummation(_origin2);
+        DrawVectorSummation(new Vector2(300, 200));
 
         // III
-        DrawVectorSummationOrdered(_origin3);
+        DrawVectorSummationOrdered(new Vector2(500, 200));
     }
 
     private void DrawVectorSummation(Vector2 origin)

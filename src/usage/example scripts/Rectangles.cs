@@ -53,19 +53,19 @@ public class Rectangles : ExampleNodeBase
         this.DrawRectangle(Middle(3), _length, _width, _angle, LineColor, AreaColor);
 
         // I, II, III
-        _DrawTracks();
+        _DrawTracks(Middle(1), Middle(2), Middle(3));
     }
 
-    public void _DrawTracks()
+    public void _DrawTracks(Vector2 center1, Vector2 center2, Vector2 center3)
     {
         var lineColor = new Color(LineColor, 0.1f);
         var areaColor = new Color(AreaColor, 0.1f);
         foreach (var item in _tracking)
         {
             lineColor = lineColor.Lightened(1 / (float)_tracking.Count);
-            this.DrawRectangleLine(Middle(1), item.Length, item.Width, item.Angle, lineColor);
-            this.DrawRectangleArea(Middle(2), item.Length, item.Width, item.Angle, areaColor);
-            this.DrawRectangle(Middle(3), item.Length, item.Width, item.Angle, lineColor, areaColor);
+            this.DrawRectangleLine(center1, item.Length, item.Width, item.Angle, lineColor);
+            this.DrawRectangleArea(center2, item.Length, item.Width, item.Angle, areaColor);
+            this.DrawRectangle(center3, item.Length, item.Width, item.Angle, lineColor, areaColor);
         }
     }
 }

@@ -56,7 +56,7 @@ public class Candlesticks : ExampleNodeBase
     private float UpdateDelta(float value, float delta)
     {
         if (value > _size)
-            return -delta; //switch direction
+            return -delta; //switch directionf
         if (value < 0)
             return -delta; //switch direction
 
