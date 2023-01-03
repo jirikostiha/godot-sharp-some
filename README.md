@@ -24,11 +24,13 @@ Godot project's `.csproj` file should look like this:
 ```
 
 ## Features  
-**Multiline**  
-arrow, vector, axes, cross, dots, dotted line, dashed line, triangle, rectangle, polygon, candlestick  
+Includes CanvasItem extensions for drawing plane region and Multiline class extending possibilities of custom drawing API.  
+**CanvasItem Extensions**  
 
-**CanvasItem extensions**  
-triangle line, triangle area, rectangle line, rectangle area, polygon line, polygon area, circle line, circle area  
+**Multiline**  
+
+#video
+![examples](./doc/images/examples_full.gif)?
 
 Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)?
 
