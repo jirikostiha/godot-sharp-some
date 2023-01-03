@@ -25,12 +25,9 @@ Godot project's `.csproj` file should look like this:
 
 ## Features  
 Includes CanvasItem extensions for drawing plane region and Multiline class extending possibilities of custom drawing API.  
-**CanvasItem Extensions**  
 
-**Multiline**  
-
-#video
-![examples](./doc/images/examples_full.gif)?
+**Examples**  
+![pic](./doc/images/examples_all.gif)
 
 Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)?
 
@@ -81,7 +78,8 @@ bugs
 
 https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue
 
-Any contributions are welcome!
+Any contributions are welcome!  
+
 [Conventions](./doc/conventions.md)  
 
 
