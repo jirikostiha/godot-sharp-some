@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://ExampleList.cs" type="Script" id=1]
 [ext_resource path="res://example scripts/Rectangles.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://example scripts/CandlestickCharts.cs" type="Script" id=12]
 [ext_resource path="res://Fps.gd" type="Script" id=13]
 [ext_resource path="res://example scripts/LayeredNetwork.cs" type="Script" id=14]
+[ext_resource path="res://example scripts/Ellipses.cs" type="Script" id=15]
 
 [node name="ExampleList" type="Control"]
 anchor_right = 1.0
@@ -61,7 +62,7 @@ size_flags_vertical = 3
 
 [node name="Rows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 margin_right = 700.0
-margin_bottom = 2562.0
+margin_bottom = 2690.0
 
 [node name="Dots" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_right = 700.0
@@ -244,10 +245,46 @@ rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 11 )
 
-[node name="Triangles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+[node name="Ellipses" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_top = 990.0
 margin_right = 700.0
 margin_bottom = 1114.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Ellipses"]
+margin_right = 700.0
+margin_bottom = 20.0
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer"]
+margin_top = 3.0
+margin_right = 49.0
+margin_bottom = 17.0
+text = "Ellipses"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer"]
+margin_left = 53.0
+margin_right = 119.0
+margin_bottom = 20.0
+hint_tooltip = "Toggle animation"
+text = "Animate"
+
+[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer"]
+margin_left = 123.0
+margin_right = 183.0
+margin_bottom = 20.0
+text = "Inverse"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Ellipses" groups=["ExampleContents"]]
+margin_top = 24.0
+margin_right = 700.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 100, 100 )
+color = Color( 0.45098, 0.427451, 0.427451, 1 )
+script = ExtResource( 15 )
+
+[node name="Triangles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+margin_top = 1118.0
+margin_right = 700.0
+margin_bottom = 1242.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Triangles"]
 margin_right = 700.0
@@ -281,9 +318,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 9 )
 
 [node name="Rectangles" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1118.0
+margin_top = 1246.0
 margin_right = 700.0
-margin_bottom = 1242.0
+margin_bottom = 1370.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Rectangles"]
 margin_right = 700.0
@@ -317,9 +354,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 2 )
 
 [node name="Polygons" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1246.0
+margin_top = 1374.0
 margin_right = 700.0
-margin_bottom = 1370.0
+margin_bottom = 1498.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Polygons"]
 margin_right = 700.0
@@ -353,9 +390,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 8 )
 
 [node name="Candlesticks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1374.0
+margin_top = 1502.0
 margin_right = 700.0
-margin_bottom = 1498.0
+margin_bottom = 1626.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
 margin_right = 700.0
@@ -389,9 +426,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 5 )
 
 [node name="Candlestick charts" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1502.0
+margin_top = 1630.0
 margin_right = 700.0
-margin_bottom = 1926.0
+margin_bottom = 2054.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts"]
 margin_right = 700.0
@@ -425,9 +462,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 12 )
 
 [node name="Connections" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 1930.0
+margin_top = 2058.0
 margin_right = 700.0
-margin_bottom = 2054.0
+margin_bottom = 2182.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Connections"]
 margin_right = 700.0
@@ -461,9 +498,9 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 10 )
 
 [node name="Layered networks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-margin_top = 2058.0
+margin_top = 2186.0
 margin_right = 700.0
-margin_bottom = 2562.0
+margin_bottom = 2690.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Layered networks"]
 margin_right = 700.0
@@ -508,6 +545,8 @@ script = ExtResource( 14 )
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Vectors/Content" method="_on_Inverse_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Circles/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Circles/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Ellipses/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Ellipses/Content" method="_on_Inverse_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Inverse_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Rectangles/Content" method="_on_Animate_pressed"]
