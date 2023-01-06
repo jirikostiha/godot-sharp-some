@@ -1,5 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -50,6 +51,55 @@
         {
             canvas.DrawCircleArea(center, radius, areaColor);
             canvas.DrawCircleLine(center, radius, lineColor, lineWidth, antialiased);
+        }
+
+        /// <summary>
+        /// Draw a circumference of an ellipse.
+        /// </summary>
+        public static void DrawEllipseLine(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
+            float lineWidth = 1, bool antialiased = false)
+        {
+            var originTransform = canvas.GetCanvasTransform();
+            
+            Transform2D t = Transform2D.Identity;
+            t.origin = center;
+            t.x.x = t.y.y = Cos(angle);
+            t.x.y = t.y.x = Sin(angle);
+            t.y.x *= -1;
+            t.y *= radiusB / radiusA;
+
+            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawCircleLine(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
+            canvas.DrawSetTransformMatrix(originTransform);
+        }
+
+        /// <summary>
+        /// Draw a plane region of an ellipse.
+        /// </summary>
+        public static void DrawEllipseArea(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color areaColor)
+        {
+            var originTransform = canvas.GetCanvasTransform();
+
+            Transform2D t = Transform2D.Identity;
+            t.origin = center;
+            t.x.x = t.y.y = Cos(angle);
+            t.x.y = t.y.x = Sin(angle);
+            t.y.x *= -1;
+            t.y *= radiusB / radiusA;
+
+            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawCircleArea(Vector2.Zero, radiusA, areaColor);
+            canvas.DrawSetTransformMatrix(originTransform);
+        }
+
+        /// <summary>
+        /// Draw a circumference and plane region of an ellipse.
+        /// </summary>
+        public static void DrawEllipse(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor, Color areaColor,
+            float lineWidth = 1, bool antialiased = false)
+        {
+            canvas.DrawEllipseArea(center, radiusA, radiusB, angle, areaColor);
+            canvas.DrawEllipseLine(center, radiusA, radiusB, angle, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
