@@ -1,0 +1,26 @@
+name: Lint Source Code and Fix
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-linters:
+    name: Run source code linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          commit_message: "style(code): code style issues with ${linter}"
+          dotnet_format: true
+          dotnet_format_dir: src
+          dotnet_format_auto_fix: true
+          auto_fix: true
+          git_name: "C# linter"
