@@ -60,7 +60,7 @@
             float lineWidth = 1, bool antialiased = false)
         {
             var originTransform = canvas.GetCanvasTransform();
-            
+
             Transform2D t = Transform2D.Identity;
             t.origin = center;
             t.x.x = t.y.y = Cos(angle);

@@ -18,7 +18,7 @@ public class LayeredNetwork : ExampleNodeBase
             var layer = new List<int>();
             for (int nodeIndex = 0; nodeIndex < _layerSizes[layerIndex]; nodeIndex++)
                 layer.Add(NextInt(0, 4));
-            
+
             layers.Add(layer);
         }
         _layers = layers;

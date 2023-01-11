@@ -214,8 +214,8 @@
             var points = new Vector2[2 * positions.Count];
             for (int i = 0; i < positions.Count; i++)
             {
-                points[2*i] = positions[i];
-                points[2*i+1] = positions[i] + Vector2.Down;
+                points[2 * i] = positions[i];
+                points[2 * i + 1] = positions[i] + Vector2.Down;
             }
             return points;
         }

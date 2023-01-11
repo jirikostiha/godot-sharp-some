@@ -24,7 +24,7 @@ public class Rectangles : ExampleNodeBase
     {
         if (_tracking.Count > 10)
             _tracking.Dequeue();
-        
+
         _tracking.Enqueue((_length, _width, _angle));
 
         if (Abs(_nextLength - _length) < Tolerance)

@@ -88,5 +88,5 @@ public class CandlestickCharts : ExampleNodeBase
         }
     }
 
-    private Vector2 FlipY(Vector2 position) => new (position.x, RectSize.y - position.y);
+    private Vector2 FlipY(Vector2 position) => new(position.x, RectSize.y - position.y);
 }

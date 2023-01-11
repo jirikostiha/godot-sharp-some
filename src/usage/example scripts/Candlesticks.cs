@@ -48,7 +48,7 @@ public class Candlesticks : ExampleNodeBase
             Min(_open, _close),
             MiddleBottom(3),
             Min(_size - _open, _size - _close),
-            5, 
+            5,
             LineColor,
             _open < _close ? Color.ColorN("green") : Color.ColorN("red"));
     }

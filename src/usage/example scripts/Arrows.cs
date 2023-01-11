@@ -3,7 +3,7 @@ using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Arrows: ExampleNodeBase
+public class Arrows : ExampleNodeBase
 {
     private float _time;
     private float _headRadius = 15;

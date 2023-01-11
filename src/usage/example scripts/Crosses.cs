@@ -5,10 +5,12 @@ using GodotSharpSome.Drawing2D;
 
 public class Crosses : ExampleNodeBase
 {
-    protected record Shot { 
-        public Vector2 Position; 
-        public Vector2 Destination; 
-        public int Type; }
+    protected record Shot
+    {
+        public Vector2 Position;
+        public Vector2 Destination;
+        public int Type;
+    }
 
     private List<Shot> _shots = new();
 
@@ -41,7 +43,7 @@ public class Crosses : ExampleNodeBase
                 _markers.Enqueue((shot.Position, shot.Type));
                 if (_markers.Count > 4)
                     _markers.Dequeue();
-                
+
                 _shots.RemoveAt(i);
             }
         }
@@ -61,7 +63,7 @@ public class Crosses : ExampleNodeBase
 
         // Aim 2
         if (_cross2.DistanceTo(_target2) > 0.5f)
-            _cross2 =  _cross2.LinearInterpolate(_target2, 0.1f);
+            _cross2 = _cross2.LinearInterpolate(_target2, 0.1f);
         else
             //new target 2
             _target2 = NextVectorBetween(LeftBottom(4), RightMiddle(4));

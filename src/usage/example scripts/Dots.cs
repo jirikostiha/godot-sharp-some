@@ -53,7 +53,7 @@ public class Dots : ExampleNodeBase
 
     void DrawPower(Vector2 origin)
     {
-        var functionPoints = _powerSamplePointsX.Take(_powerPointCount).Select(x => origin + 
+        var functionPoints = _powerSamplePointsX.Take(_powerPointCount).Select(x => origin +
             new Vector2(x, (x / 10f) * (x / 10f) * 10));
 
         var m = new Multiline()
