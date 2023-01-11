@@ -1,6 +1,11 @@
 [Bb]in/
+[Oo]bj/
 [Ll]ib/
 [Aa]sm/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
 
 #---binaries---
 *.dll
@@ -18,24 +23,28 @@
 *.orig
 
 #---Visual Studio---
-[Oo]bj/
 .vs/
-.vscode/
 /src/.vs/
 *.cache
 *.vs10x
 *.vsmdi
-*.user
 *.DotSettings.user
+*.csproj.DotSettings
+*.sln.DotSettings
+
+# User-specific files
 *.suo
 *.user
-*.userprefs
+*.userosscache
+*.sln.docstates
+
+#---Visual Studio Code---
+.vscode/
 
 #---ReSharper---
-_ReSharper.*
+_ReSharper*/
 *.[Rr]e[Ss]harper
-*.ReSharper.user
-*.resharper.user
+*.DotSettings.user
 
 #---Nuget---
 [Pp]ackages/
@@ -48,8 +57,11 @@ project.lock.json
 project.assets.json
 
 #---Godot---
-.mono
-
-#---other---
-sh.exe.stackdump
-*.bak
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+*.translation
+.mono/
+data_*/
+mono_crash.*.json

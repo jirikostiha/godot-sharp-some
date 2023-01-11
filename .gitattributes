@@ -2,15 +2,15 @@
 * text=auto
 
 *.doc  diff=astextplain
-*.DOC	diff=astextplain
-*.docx	diff=astextplain
-*.DOCX	diff=astextplain
-*.dot	diff=astextplain
-*.DOT	diff=astextplain
-*.pdf	diff=astextplain
-*.PDF	diff=astextplain
-*.rtf	diff=astextplain
-*.RTF	diff=astextplain
+*.DOC  diff=astextplain
+*.docx diff=astextplain
+*.DOCX diff=astextplain
+*.dot  diff=astextplain
+*.DOT  diff=astextplain
+*.pdf  diff=astextplain
+*.PDF  diff=astextplain
+*.rtf  diff=astextplain
+*.RTF  diff=astextplain
 
 # Force bash scripts to always use lf line endings so that if a repo is accessed
 # in Unix via a file share from Windows, the scripts will work.
@@ -22,52 +22,155 @@
 *.{cmd,[cC][mM][dD]} text eol=crlf
 *.{bat,[bB][aA][tT]} text eol=crlf
 
-*.cs text diff=csharp eol=crlf
-*.vb text
-*.c text
-*.cpp text diff=cpp
-*.cxx text
-*.h text
-*.hxx text
-*.py text
-*.rb text
-*.java text
-*.html text diff=html
-*.htm text diff=html
-*.css text diff=css
-*.scss text
-*.sass text
-*.less text
-*.js text
-*.lisp text
-*.clj text
-*.sql text
-*.php text
-*.lua text
-*.m text
-*.asm text
-*.erl text
-*.fs text
-*.fsx text
-*.hs text
-*.ps1 text eol=crlf
-*.psm1 text
-*.md text diff=markdown
+# Languages
+*.cs    text diff=csharp
+*.vb    text
+*.resx  text
+*.c     text
+*.cpp   text diff=cpp
+*.cxx   text
+*.h     text
+*.hxx   text
+*.py    text diff=python
+*.rb    text diff=ruby
+*.java  text
+*.html  text diff=html
+*.htm   text diff=html
+*.xml   text
+*.xhtml text diff=html
+*.css   text diff=css
+*.scss  text diff=css
+*.sass  text
+*.less  text
+*.js    text
+*.lisp  text
+*.clj   text
+*.sql   text
+*.php   text diff=php
+*.lua   text
+*.m     text
+*.asm   text
+*.erl   text
+*.fs    text
+*.fsx   text
+*.hs    text
+*.ps1   text eol=crlf
+*.psm1  text
 
+# Documentation
+*.md    text diff=markdown
+*.txt   text
+
+# Configs
+*.config          text
+.editorconfig     text
+.env              text
+*.toml            text
+*.yaml            text
+*.yml             text
+
+# Ignore files (like .npmignore or .gitignore)
+*.*ignore         text
+
+# DotNet projects
 *.csproj text merge=union
 *.vbproj text merge=union
 *.fsproj text merge=union
 *.dbproj text merge=union
-*.props text merge=union
-*.sln text eol=crlf merge=union
+*.props  text merge=union
+*.sln    text merge=union eol=crlf 
 
-*.png binary
-*.jpg binary
-*.gif binary
+# Images
+*.bmp  binary
+*.exr  binary
+*.gif  binary
+*.hdr  binary
+*.iff  binary
+*.jpeg binary
+*.jpg  binary
+*.pict binary
+*.png  binary
+*.psd  binary
+*.tga  binary
+*.tif  binary
+*.tiff binary
+*.png  binary
+*.jpg  binary
+*.gif  binary
+
+# Fonts
+*.otf binary
+*.ttf binary
+
+# Compiled
 *.dll binary
+*.pdb binary
+*.so  binary
+
+# Audio
+*.aif  binary
+*.aiff binary
+*.it   binary
+*.mod  binary
+*.mp3  binary
+*.ogg  binary
+*.s3m  binary
+*.wav  binary
+*.xm   binary
+
+# Video
+*.asf  binary
+*.avi  binary
+*.flv  binary
+*.mov  binary
+*.mp4  binary
+*.mpeg binary
+*.mpg  binary
+*.ogv  binary
+*.wmv  binary
+
+# Compressed Archive
+*.7z  binary
+*.gz  binary
+*.rar binary
+*.tar binary
+*.zip binary
 
 #---Godot---
 *.godot text merge=union
 *.gd text merge=union
 *.tres text merge=union
 *.png.import text merge=union
+
+
+###############################
+# Git Large File System (LFS) #
+###############################
+
+# Archives
+#*.7z  filter=lfs diff=lfs merge=lfs -text
+#*.gz  filter=lfs diff=lfs merge=lfs -text
+#*.rar filter=lfs diff=lfs merge=lfs -text
+#*.tar filter=lfs diff=lfs merge=lfs -text
+#*.zip filter=lfs diff=lfs merge=lfs -text
+
+# Documents
+#*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Images
+#*.gif  filter=lfs diff=lfs merge=lfs -text
+#*.ico  filter=lfs diff=lfs merge=lfs -text
+#*.jpg  filter=lfs diff=lfs merge=lfs -text
+#*.pdf  filter=lfs diff=lfs merge=lfs -text
+#*.png  filter=lfs diff=lfs merge=lfs -text
+#*.psd  filter=lfs diff=lfs merge=lfs -text
+#*.webp filter=lfs diff=lfs merge=lfs -text
+
+# Fonts
+#*.woff2 filter=lfs diff=lfs merge=lfs -text
+
+# Other
+#*.exe filter=lfs diff=lfs merge=lfs -text
+
+########
+#note: The built-in macro attribute 'binary' is equivalent to: [attr]binary -diff -merge -text
