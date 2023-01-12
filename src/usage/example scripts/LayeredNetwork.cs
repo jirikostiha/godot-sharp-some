@@ -45,7 +45,7 @@ public class LayeredNetwork : ExampleNodeBase
                 if (layerIndex == 0)
                     this.DrawCircle(center, _nodeRadius, LineColor, AreaColor);
                 else
-                    this.DrawCircleLine(center, _nodeRadius, LineColor);
+                    this.DrawCircleOutline(center, _nodeRadius, LineColor);
 
                 var value = _layers[layerIndex][nodeIndex] + NextInt(0, 2);
                 DrawString(GetFont(null), center + new Vector2(-5, 5), value.ToString(), TextColor);

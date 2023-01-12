@@ -29,7 +29,7 @@
         /// <summary>
         /// Draw a circumference of a circle.
         /// </summary>
-        public static void DrawCircleLine(this CanvasItem canvas, Vector2 center, float radius, Color lineColor,
+        public static void DrawCircleOutline(this CanvasItem canvas, Vector2 center, float radius, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawArc(center, radius, 0, Pi * 2, (int)radius * 16, lineColor, lineWidth, antialiased);
@@ -38,7 +38,7 @@
         /// <summary>
         /// Draw a plane region of a circle or disc.
         /// </summary>
-        public static void DrawCircleArea(this CanvasItem canvas, Vector2 center, float radius, Color areaColor)
+        public static void DrawCircleRegion(this CanvasItem canvas, Vector2 center, float radius, Color areaColor)
         {
             canvas.DrawCircle(center, radius, areaColor);
         }
@@ -49,14 +49,14 @@
         public static void DrawCircle(this CanvasItem canvas, Vector2 center, float radius, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawCircleArea(center, radius, areaColor);
-            canvas.DrawCircleLine(center, radius, lineColor, lineWidth, antialiased);
+            canvas.DrawCircleRegion(center, radius, areaColor);
+            canvas.DrawCircleOutline(center, radius, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
         /// Draw a circumference of an ellipse.
         /// </summary>
-        public static void DrawEllipseLine(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
+        public static void DrawEllipseOutline(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             var originTransform = canvas.GetCanvasTransform();
@@ -69,14 +69,14 @@
             t.y *= radiusB / radiusA;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawCircleLine(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
+            canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
             canvas.DrawSetTransformMatrix(originTransform);
         }
 
         /// <summary>
         /// Draw a plane region of an ellipse.
         /// </summary>
-        public static void DrawEllipseArea(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color areaColor)
+        public static void DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color areaColor)
         {
             var originTransform = canvas.GetCanvasTransform();
 
@@ -88,7 +88,7 @@
             t.y *= radiusB / radiusA;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawCircleArea(Vector2.Zero, radiusA, areaColor);
+            canvas.DrawCircleRegion(Vector2.Zero, radiusA, areaColor);
             canvas.DrawSetTransformMatrix(originTransform);
         }
 
@@ -98,14 +98,14 @@
         public static void DrawEllipse(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawEllipseArea(center, radiusA, radiusB, angle, areaColor);
-            canvas.DrawEllipseLine(center, radiusA, radiusB, angle, lineColor, lineWidth, antialiased);
+            canvas.DrawEllipseRegion(center, radiusA, radiusB, angle, areaColor);
+            canvas.DrawEllipseOutline(center, radiusA, radiusB, angle, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
         /// Draw a perimeter of a triangle.
         /// </summary>
-        public static void DrawTriangleLine(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor,
+        public static void DrawTriangleOutline(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(
@@ -116,7 +116,7 @@
         /// <summary>
         /// Draw a plane region of a triangle.
         /// </summary>
-        public static void DrawTriangleArea(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color areaColor)
+        public static void DrawTriangleRegion(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color areaColor)
         {
             canvas.DrawPolygon(
                 Multiline.Triangle(a, b, c),
@@ -129,14 +129,14 @@
         public static void DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawTriangleArea(a, b, c, areaColor);
-            canvas.DrawTriangleLine(a, b, c, lineColor, lineWidth, antialiased);
+            canvas.DrawTriangleRegion(a, b, c, areaColor);
+            canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
         /// Draw a perimeter of a rectangle.
         /// </summary>
-        public static void DrawRectangleLine(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor,
+        public static void DrawRectangleOutline(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(
@@ -147,7 +147,7 @@
         /// <summary>
         /// Draw a perimeter of a rectangle.
         /// </summary>
-        public static void DrawRectangleLine(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor,
+        public static void DrawRectangleOutline(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(
@@ -158,7 +158,7 @@
         /// <summary>
         /// Draw a plane region of a rectangle.
         /// </summary>
-        public static void DrawRectangleArea(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color areaColor)
+        public static void DrawRectangleRegion(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color areaColor)
         {
             canvas.DrawPolygon(
                 Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
@@ -168,7 +168,7 @@
         /// <summary>
         /// Draw a perimeter of a rectangle.
         /// </summary>
-        public static void DrawRectangleArea(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color areaColor)
+        public static void DrawRectangleRegion(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color areaColor)
         {
             canvas.DrawPolygon(
                 Multiline.Rectangle(vertex1, vertex2, height),
@@ -181,8 +181,8 @@
         public static void DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawRectangleArea(center, length, width, rotationAngle, areaColor);
-            canvas.DrawRectangleLine(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
+            canvas.DrawRectangleRegion(center, length, width, rotationAngle, areaColor);
+            canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
@@ -191,14 +191,14 @@
         public static void DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawRectangleArea(vertex1, vertex2, height, areaColor);
-            canvas.DrawRectangleLine(vertex1, vertex2, height, lineColor, lineWidth, antialiased);
+            canvas.DrawRectangleRegion(vertex1, vertex2, height, areaColor);
+            canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
         /// Draw a perimeter of a regular convex polygon.
         /// </summary>
-        public static void DrawRegularConvexPolygonLine(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor,
+        public static void DrawRegularConvexPolygonOutline(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawMultiline(
@@ -209,7 +209,7 @@
         /// <summary>
         /// Draw a plane region of a regular convex polygon.
         /// </summary>
-        public static void DrawRegularConvexPolygonArea(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color areaColor)
+        public static void DrawRegularConvexPolygonRegion(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color areaColor)
         {
             canvas.DrawPolygon(
                 Multiline.RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
@@ -223,8 +223,8 @@
         public static void DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color areaColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            canvas.DrawRegularConvexPolygonArea(center, radius, verticesCount, rotationAngle, areaColor);
-            canvas.DrawRegularConvexPolygonLine(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
+            canvas.DrawRegularConvexPolygonRegion(center, radius, verticesCount, rotationAngle, areaColor);
+            canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@
             float lineWidth = 1, bool antialiased = false)
         {
             var vector = high - low;
-            canvas.DrawRectangleArea(
+            canvas.DrawRectangleRegion(
                 center: low + vector.Normalized() * (vector.Length() + lowOffset - highOffset) / 2f,
                 length: vector.Length() - lowOffset - highOffset,
                 width: halfWidth * 2,

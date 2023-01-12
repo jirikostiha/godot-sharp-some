@@ -112,7 +112,7 @@ public class Crosses : ExampleNodeBase
             switch (shot.Type)
             {
                 case 1:
-                    this.DrawCircleArea(shot.Position, 3, _color1);
+                    this.DrawCircleRegion(shot.Position, 3, _color1);
                     break;
                 case 2:
                     DrawMultiline(Multiline.Dot(shot.Position), _color2);

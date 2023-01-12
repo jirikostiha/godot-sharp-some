@@ -44,10 +44,10 @@ public class Rectangles : ExampleNodeBase
     public override void _Draw()
     {
         // I
-        this.DrawRectangleLine(Middle(1), _length, _width, _angle, LineColor);
+        this.DrawRectangleOutline(Middle(1), _length, _width, _angle, LineColor);
 
         // II
-        this.DrawRectangleArea(Middle(2), _length, _width, _angle, AreaColor);
+        this.DrawRectangleRegion(Middle(2), _length, _width, _angle, AreaColor);
 
         // III
         this.DrawRectangle(Middle(3), _length, _width, _angle, LineColor, AreaColor);
@@ -63,8 +63,8 @@ public class Rectangles : ExampleNodeBase
         foreach (var item in _tracking)
         {
             lineColor = lineColor.Lightened(1 / (float)_tracking.Count);
-            this.DrawRectangleLine(Middle(1), item.Length, item.Width, item.Angle, lineColor);
-            this.DrawRectangleArea(Middle(2), item.Length, item.Width, item.Angle, areaColor);
+            this.DrawRectangleOutline(Middle(1), item.Length, item.Width, item.Angle, lineColor);
+            this.DrawRectangleRegion(Middle(2), item.Length, item.Width, item.Angle, areaColor);
             this.DrawRectangle(Middle(3), item.Length, item.Width, item.Angle, lineColor, areaColor);
         }
     }

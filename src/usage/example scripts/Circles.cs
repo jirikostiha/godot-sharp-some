@@ -22,10 +22,10 @@ public class Circles : ExampleNodeBase
             var radius = _baseRadius - i * _radiusStep;
 
             // I
-            this.DrawCircleLine(Middle(1), radius, LineColor.Lightened(0.08f * i));
+            this.DrawCircleOutline(Middle(1), radius, LineColor.Lightened(0.08f * i));
 
             // II
-            this.DrawCircleArea(Middle(2), radius, AreaColor.Lightened(0.08f * i));
+            this.DrawCircleRegion(Middle(2), radius, AreaColor.Lightened(0.08f * i));
 
             // III
             this.DrawCircle(Middle(3), radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));

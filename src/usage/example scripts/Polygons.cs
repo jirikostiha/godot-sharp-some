@@ -20,10 +20,10 @@ public class Polygons : ExampleNodeBase
             var areaColor = AreaColor.Darkened(i * 0.1f);
 
             // I
-            this.DrawRegularConvexPolygonLine(Middle(1), r, n, angle, LineColor);
+            this.DrawRegularConvexPolygonOutline(Middle(1), r, n, angle, LineColor);
 
             // II
-            this.DrawRegularConvexPolygonArea(Middle(2), r, n, angle, areaColor);
+            this.DrawRegularConvexPolygonRegion(Middle(2), r, n, angle, areaColor);
 
             // III
             this.DrawRegularConvexPolygon(Middle(3), r, n, angle, LineColor, areaColor);

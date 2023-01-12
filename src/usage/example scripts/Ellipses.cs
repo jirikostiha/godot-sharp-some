@@ -15,10 +15,10 @@ public class Ellipses : ExampleNodeBase
     public override void _Draw()
     {
         // I
-        this.DrawEllipseLine(Middle(1), _radius, _radius * Sin(_time + 0.5f), _time * 3.3f, LineColor);
+        this.DrawEllipseOutline(Middle(1), _radius, _radius * Sin(_time + 0.5f), _time * 3.3f, LineColor);
 
         // II
-        this.DrawEllipseArea(Middle(2), _radius, _radius * Sin(_time + 0.5f), _time * 3.3f, AreaColor);
+        this.DrawEllipseRegion(Middle(2), _radius, _radius * Sin(_time + 0.5f), _time * 3.3f, AreaColor);
 
         // III
         this.DrawEllipse(Middle(3), _radius, _radius * Sin(_time + 0.5f), _time * 3.3f, LineColor, AreaColor);

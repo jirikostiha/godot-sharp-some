@@ -51,9 +51,9 @@ public class Connections : ExampleNodeBase
         var v5 = _v1 + new Vector2(4 * _xOffset, 0);
 
         this.DrawCircle(_v1, _r1, LineColor, AreaColor);
-        this.DrawCircleLine(v2, _r2, LineColor);
-        this.DrawCircleLine(v3, _r3, LineColor);
-        this.DrawCircleLine(v4, _r4, LineColor);
+        this.DrawCircleOutline(v2, _r2, LineColor);
+        this.DrawCircleOutline(v3, _r3, LineColor);
+        this.DrawCircleOutline(v4, _r4, LineColor);
         this.DrawCircle(v5, _r5, LineColor, AreaColor);
 
         //connections
@@ -67,9 +67,9 @@ public class Connections : ExampleNodeBase
 
     private void DrawTriangleConnection(Vector2 a, float ar, Vector2 b, float br, Vector2 c, float cr)
     {
-        this.DrawCircleLine(a, ar, LineColor);
-        this.DrawCircleLine(b, br, LineColor);
-        this.DrawCircleLine(c, cr, LineColor);
+        this.DrawCircleOutline(a, ar, LineColor);
+        this.DrawCircleOutline(b, br, LineColor);
+        this.DrawCircleOutline(c, cr, LineColor);
 
         var points = new List<Vector2>();
         Multiline.AppendLine(points, a, ar, c, cr);
@@ -84,8 +84,8 @@ public class Connections : ExampleNodeBase
 
     private void DrawSingleConnection(Vector2 a, float ar, Vector2 b, float br)
     {
-        this.DrawCircleLine(a, ar, LineColor);
-        this.DrawCircleLine(b, br, LineColor);
+        this.DrawCircleOutline(a, ar, LineColor);
+        this.DrawCircleOutline(b, br, LineColor);
 
         var points = new List<Vector2>(2 * 2);
         Multiline.AppendLine(points, a, ar, b, br);
