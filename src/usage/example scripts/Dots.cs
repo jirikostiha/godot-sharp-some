@@ -47,13 +47,13 @@ public class Dots : ExampleNodeBase
     {
         DrawMultiline(
             Multiline.DottedLine(
-                origin, 
+                origin,
                 origin + (minLength + Abs(Cos(_time)) * (maxLength - minLength)) * Vector2.Right),
             LineColor);
 
         DrawMultiline(
             Multiline.DashedLine(
-                origin + ystep * Vector2.Down, 
+                origin + ystep * Vector2.Down,
                 origin + ystep * Vector2.Down + (minLength + Abs(Cos(_time)) * (maxLength - minLength)) * Vector2.Right),
             LineColor);
 
