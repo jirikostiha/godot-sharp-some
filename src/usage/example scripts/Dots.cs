@@ -6,8 +6,9 @@ using static Godot.Mathf;
 
 public class Dots : ExampleNodeBase
 {
+    private float _time;
+
     private float[] _sinSamplePointsX = Enumerable.Range(0, 150).Select(i => 2f * i).ToArray();
-    private float _sinOffset;
 
     private int[] _powerSamplePointsX = Enumerable.Range(-25, 51).ToArray();
     private int _powerPointCount;
@@ -19,7 +20,7 @@ public class Dots : ExampleNodeBase
 
     protected override void NextState(float delta)
     {
-        _sinOffset += 0.02f;
+        _time += 0.02f;
 
         _powerPointCount = _powerPointCount <= _powerSamplePointsX.Length
             ? _powerPointCount + 1
@@ -29,15 +30,11 @@ public class Dots : ExampleNodeBase
     public override void _Draw()
     {
         // I
-        DrawMultiline(
-            Multiline.DottedLine(LeftBottom(1), RightBottom(1)),
-            LineColor);
-        DrawMultiline(
-            Multiline.DashedLine(LeftMiddle(1), RightMiddle(1)),
-            LineColor);
-        DrawMultiline(
-            Multiline.DashDottedLine(LeftTop(1), RightTop(1)),
-            LineColor);
+        Drawlines(
+            LeftBottom(1),
+            RowHeight / 3,
+            CellWidth / 2,
+            CellWidth);
 
         // II
         DrawPower(MiddleBottom(2));
@@ -45,10 +42,26 @@ public class Dots : ExampleNodeBase
         // III
         DrawSin(LeftMiddle(3));
     }
-    void DrawSin(Vector2 start)
+
+    void Drawlines(Vector2 origin, float ystep, float minLength, float maxLength)
     {
-        var points = _sinSamplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_sinOffset + 0.1f * x)));
-        this.DrawDots(points.ToArray(), LineColor);
+        DrawMultiline(
+            Multiline.DottedLine(
+                origin, 
+                origin + (minLength + Abs(Cos(_time)) * (maxLength - minLength)) * Vector2.Right),
+            LineColor);
+
+        DrawMultiline(
+            Multiline.DashedLine(
+                origin + ystep * Vector2.Down, 
+                origin + ystep * Vector2.Down + (minLength + Abs(Cos(_time)) * (maxLength - minLength)) * Vector2.Right),
+            LineColor);
+
+        DrawMultiline(
+            Multiline.DashDottedLine(
+                origin + 2 * ystep * Vector2.Down,
+                origin + 2 * ystep * Vector2.Down + (minLength + Abs(Cos(_time)) * (maxLength - minLength)) * Vector2.Right),
+            LineColor);
     }
 
     void DrawPower(Vector2 origin)
@@ -62,5 +75,11 @@ public class Dots : ExampleNodeBase
             .AppendDots(functionPoints);
 
         DrawMultiline(m.Points, LineColor);
+    }
+
+    void DrawSin(Vector2 start)
+    {
+        var points = _sinSamplePointsX.Select(x => start + new Vector2(x, 40 * Sin(_time + 0.1f * x)));
+        this.DrawDots(points.ToArray(), LineColor);
     }
 }
