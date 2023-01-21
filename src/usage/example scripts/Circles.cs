@@ -10,12 +10,12 @@ public class Circles : ExampleNodeBase
 
     protected override void NextState(float delta)
     {
-        _time += delta * 5;
+        _time += delta;
     }
 
     public override void _Draw()
     {
-        var count = Max(1, (int)(Sin(_time) * (_baseRadius / _radiusStep)));
+        var count = Max(1, (int)(Sin(_time * 5) * (_baseRadius / _radiusStep)));
 
         for (int i = 0; i < count; i++)
         {
