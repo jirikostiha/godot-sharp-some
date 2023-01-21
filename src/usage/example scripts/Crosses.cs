@@ -31,8 +31,19 @@ public class Crosses : ExampleNodeBase
         _cross2 = _target2 = Middle(4);
     }
 
+    [Export] public float MovementSpeed { get; set; } = 100;
+
+    protected PathFollow2D PathFollow { get; set; }
+
+    public override void _Ready()
+    {
+        PathFollow = GetNode<PathFollow2D>("Path2D/PathFollow2D");
+    }
+
     protected override void NextState(float delta)
     {
+        PathFollow.Offset = PathFollow.Offset + delta * MovementSpeed;
+
         //move shots
         for (int i = _shots.Count - 1; i >= 0; i--)
         {
@@ -80,18 +91,32 @@ public class Crosses : ExampleNodeBase
 
     public override void _Draw()
     {
+        // I, II
+        DrawCrossMovement(Middle(2) - Middle(1));
+
+        // III
+        DrawShooting();
+    }
+
+    private void DrawCrossMovement(Vector2 offset)
+    {
+        var pos = PathFollow.Position;
+        var sizeCoef = Mathf.Abs(0.5f - PathFollow.UnitOffset);
+
         // I
         DrawMultiline(
-            Multiline.Cross(Middle(1), radius: 15),
+            Multiline.Cross(
+                pos,
+                radius: 8 + sizeCoef * 10f),
             LineColor);
 
         // II
         DrawMultiline(
-            Multiline.Cross2(Middle(2), outerRadius: 15, innerRadius: 5),
+            Multiline.Cross2(
+                offset + pos,
+                outerRadius: 10 + sizeCoef * 8f,
+                innerRadius: 2 + sizeCoef * 4f),
             LineColor, width: 2);
-
-        // III
-        DrawShooting();
     }
 
     private void DrawShooting()

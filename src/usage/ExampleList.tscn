@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://ExampleList.cs" type="Script" id=1]
 [ext_resource path="res://example scripts/Rectangles.cs" type="Script" id=2]
@@ -15,6 +15,11 @@
 [ext_resource path="res://Fps.gd" type="Script" id=13]
 [ext_resource path="res://example scripts/LayeredNetwork.cs" type="Script" id=14]
 [ext_resource path="res://example scripts/Ellipses.cs" type="Script" id=15]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 31.4667, 45.0938, 0, 0, 0, 0, 50, 19, 0, 0, 0, 0, 76.2667, 47.4561, 0, 0, 0, 0, 62, 53, 0, 0, 0, 0, 64.5333, 68.1228, 0, 0, 0, 0, 40, 39, 0, 0, 0, 0, 17, 79, 0, 0, 0, 0, 41.0667, 57.6875, 0, 0, 0, 0, 15.4667, 60.5088, 0, 0, 0, 0, 18, 17, 0, 0, 0, 0, 31.4667, 45.0938 )
+}
 
 [node name="ExampleList" type="Control"]
 anchor_right = 1.0
@@ -135,6 +140,19 @@ margin_bottom = 124.0
 rect_min_size = Vector2( 100, 100 )
 color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 6 )
+
+[node name="Path2D" type="Path2D" parent="VBoxContainer/ScrollContainer/Rows/Crosses/Content"]
+show_behind_parent = true
+use_parent_material = true
+position = Vector2( 9.5, 5.37096 )
+scale = Vector2( 0.9375, 0.919355 )
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="VBoxContainer/ScrollContainer/Rows/Crosses/Content/Path2D"]
+show_behind_parent = true
+use_parent_material = true
+position = Vector2( 31.4667, 45.0938 )
+rotate = false
 
 [node name="Arrows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 margin_top = 256.0
