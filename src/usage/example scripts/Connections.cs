@@ -27,7 +27,7 @@ public class Connections : ExampleNodeBase
     {
         // I
         DrawSingleConnection(
-            Middle(1), 
+            Middle(1),
             CellWidth / 2f - 20,
             8f,
             CellWidth / 2f - 28,
@@ -49,7 +49,7 @@ public class Connections : ExampleNodeBase
         var bb = b + 6 * Sin(_time * 1.13f);
         var acenter = rotationCenter + (aa * Vector2.Left).Rotated(_time);
         var bcenter = rotationCenter + (bb * Vector2.Right).Rotated(_time);
-        
+
         this.DrawCircleOutline(acenter, ar, LineColor);
         this.DrawCircleOutline(bcenter, br, LineColor);
 
