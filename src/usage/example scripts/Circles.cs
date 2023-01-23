@@ -27,13 +27,13 @@ public class Circles : ExampleNodeBase
         for (int i = 0; i < count; i++)
         {
             var radius = baseRadius - i * radiusStep;
-            
+
             // I
             this.DrawCircleOutline(origin, radius, LineColor.Lightened(0.08f * i));
-            
+
             // II
             this.DrawCircleRegion(origin + offset, radius, AreaColor.Lightened(0.08f * i));
-            
+
             // III
             this.DrawCircle(origin + 2 * offset, radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
         }
