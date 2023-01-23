@@ -273,7 +273,7 @@
             t.y.x *= -1;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawString(font, new Vector2(-textSize.x/2f,0), text, color);
+            canvas.DrawString(font, new Vector2(-textSize.x / 2f, 0), text, color);
             canvas.DrawSetTransformMatrix(originTransform);
         }
     }

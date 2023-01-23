@@ -39,7 +39,7 @@ public class Arrows : ExampleNodeBase
         DrawTextRotation(Middle(4), "vadis?");
 
         DrawTextRotationCentered(Middle(5), "Quo vadis?");
-        
+
         DrawDimensiong(Middle(6) + 15 * Vector2.Down);
     }
 
