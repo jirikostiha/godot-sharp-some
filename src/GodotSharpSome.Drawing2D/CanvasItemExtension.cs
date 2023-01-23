@@ -260,5 +260,21 @@
             canvas.DrawString(font, Vector2.Zero, text, color);
             canvas.DrawSetTransformMatrix(originTransform);
         }
+
+        public static void DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
+        {
+            var originTransform = canvas.GetCanvasTransform();
+            var textSize = font.GetStringSize(text);
+
+            Transform2D t = Transform2D.Identity;
+            t.origin = position;
+            t.x.x = t.y.y = Cos(angle);
+            t.x.y = t.y.x = Sin(angle);
+            t.y.x *= -1;
+
+            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawString(font, new Vector2(-textSize.x/2f,0), text, color);
+            canvas.DrawSetTransformMatrix(originTransform);
+        }
     }
 }
