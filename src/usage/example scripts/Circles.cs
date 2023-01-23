@@ -5,8 +5,6 @@ using static Godot.Mathf;
 public class Circles : ExampleNodeBase
 {
     private float _time;
-    private float _radiusStep = 3;
-    private float _baseRadius = 40;
 
     protected override void NextState(float delta)
     {
@@ -15,20 +13,45 @@ public class Circles : ExampleNodeBase
 
     public override void _Draw()
     {
-        var count = Max(1, (int)(Sin(_time * 5) * (_baseRadius / _radiusStep)));
+        // I, II, III
+        DrawSizing(Middle(1), CellWidth * Vector2.Right, 40, 3);
+
+        // IV
+        DrawNightRiderEffect(LeftMiddle(4), 12, 3 * CellWidth - Margin - 12, 10);
+    }
+
+    private void DrawSizing(Vector2 origin, Vector2 offset, float baseRadius, float radiusStep)
+    {
+        var count = Max(1, (int)(Sin(_time * 5) * (baseRadius / radiusStep)));
 
         for (int i = 0; i < count; i++)
         {
-            var radius = _baseRadius - i * _radiusStep;
-
+            var radius = baseRadius - i * radiusStep;
+            
             // I
-            this.DrawCircleOutline(Middle(1), radius, LineColor.Lightened(0.08f * i));
-
+            this.DrawCircleOutline(origin, radius, LineColor.Lightened(0.08f * i));
+            
             // II
-            this.DrawCircleRegion(Middle(2), radius, AreaColor.Lightened(0.08f * i));
-
+            this.DrawCircleRegion(origin + offset, radius, AreaColor.Lightened(0.08f * i));
+            
             // III
-            this.DrawCircle(Middle(3), radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
+            this.DrawCircle(origin + 2 * offset, radius, LineColor.Lightened(0.08f * i), AreaColor.Lightened(0.08f * i));
+        }
+    }
+
+    private void DrawNightRiderEffect(Vector2 refPoint, float baseRadius, float distance, int count)
+    {
+        var cmin = refPoint + baseRadius * Vector2.Right;
+        var relDist = distance * (1 + Sin(_time * 4)) / 2f;
+
+        var step = distance / (count - 1);
+        for (int i = 0; i < count; i++)
+        {
+            var dist = step * i;
+            var c = cmin + dist * Vector2.Right;
+            var refDist = Abs(relDist - dist);
+            var r = Max(3, baseRadius * (1 - refDist / (distance * 0.7f)));
+            this.DrawCircleOutline(c, r, LineColor);
         }
     }
 }
