@@ -12,7 +12,7 @@ public sealed class ExampleList : Godot.Control
 
     public bool AnimateAll { get; set; }
 
-    public bool InverseAll { get; set; }
+    public bool InvertAll { get; set; }
 
     public void _on_AnimateAll_pressed()
     {
@@ -22,10 +22,10 @@ public sealed class ExampleList : Godot.Control
             node.Animate = AnimateAll;
     }
 
-    public void _on_InverseAll_pressed()
+    public void _on_InvertAll_pressed()
     {
-        InverseAll = !InverseAll;
-        if (!InverseAll)
+        InvertAll = !InvertAll;
+        if (!InvertAll)
         {
             var nodes = GetTree().GetNodesInGroup("ExampleContents").OfType<ExampleNodeBase>();
             foreach (var node in nodes)

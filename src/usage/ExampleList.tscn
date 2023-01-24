@@ -52,11 +52,11 @@ margin_right = 117.0
 margin_bottom = 20.0
 text = "Animate All"
 
-[node name="InverseAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
+[node name="InvertAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
 margin_left = 121.0
-margin_right = 202.0
+margin_right = 192.0
 margin_bottom = 20.0
-text = "Inverse All"
+text = "Invert All"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 24.0
@@ -91,11 +91,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer"]
 margin_left = 169.0
-margin_right = 229.0
+margin_right = 219.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Dots" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -127,11 +127,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer"]
 margin_left = 124.0
-margin_right = 184.0
+margin_right = 174.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Crosses" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -176,11 +176,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer"]
 margin_left = 118.0
-margin_right = 178.0
+margin_right = 168.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Arrows" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -213,11 +213,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer"]
 margin_left = 122.0
-margin_right = 182.0
+margin_right = 172.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Vectors" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -249,11 +249,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer"]
 margin_left = 117.0
-margin_right = 177.0
+margin_right = 167.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Circles" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -285,11 +285,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer"]
 margin_left = 123.0
-margin_right = 183.0
+margin_right = 173.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Ellipses" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -321,11 +321,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer"]
 margin_left = 131.0
-margin_right = 191.0
+margin_right = 181.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Triangles" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -357,11 +357,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer"]
 margin_left = 143.0
-margin_right = 203.0
+margin_right = 193.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Rectangles" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -393,11 +393,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer"]
 margin_left = 131.0
-margin_right = 191.0
+margin_right = 181.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Polygons" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -429,11 +429,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
 margin_left = 154.0
-margin_right = 214.0
+margin_right = 204.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -465,11 +465,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer"]
 margin_left = 190.0
-margin_right = 250.0
+margin_right = 240.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -501,11 +501,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer"]
 margin_left = 153.0
-margin_right = 213.0
+margin_right = 203.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Connections" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -537,11 +537,11 @@ margin_bottom = 20.0
 hint_tooltip = "Toggle animation"
 text = "Animate"
 
-[node name="Inverse" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer"]
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer"]
 margin_left = 186.0
-margin_right = 246.0
+margin_right = 236.0
 margin_bottom = 20.0
-text = "Inverse"
+text = "Invert"
 
 [node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Layered networks" groups=["ExampleContents"]]
 margin_top = 24.0
@@ -552,30 +552,30 @@ color = Color( 0.45098, 0.427451, 0.427451, 1 )
 script = ExtResource( 14 )
 
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
-[connection signal="pressed" from="VBoxContainer/Header/HeaderItems/InverseAll" to="." method="_on_InverseAll_pressed"]
+[connection signal="pressed" from="VBoxContainer/Header/HeaderItems/InvertAll" to="." method="_on_InvertAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Arrows/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Arrows/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Arrows/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Vectors/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Vectors/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Vectors/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Vectors/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Circles/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Circles/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Circles/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Circles/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Ellipses/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Ellipses/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Ellipses/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Ellipses/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Triangles/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Triangles/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Rectangles/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Rectangles/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Rectangles/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Polygons/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Polygons/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Polygons/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Candlestick charts/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Candlestick charts/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Candlestick charts/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Connections/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Connections/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Connections/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Layered networks/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer/Inverse" to="VBoxContainer/ScrollContainer/Rows/Layered networks/Content" method="_on_Inverse_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Layered networks/Content" method="_on_Invert_pressed"]

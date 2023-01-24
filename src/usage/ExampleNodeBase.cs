@@ -19,7 +19,7 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public bool Animate { get; set; }
 
-    public bool Inverse { get; set; }
+    public bool Invert { get; set; }
 
     public override void _Ready()
     {
@@ -100,12 +100,12 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public void _on_Animate_pressed() => Animate = !Animate;
 
-    public void _on_Inverse_pressed() => InverseColors();
+    public void _on_Invert_pressed() => InvertColors();
 
-    public void InverseColors()
+    public void InvertColors()
     {
-        Inverse = !Inverse;
-        if (!Inverse)
+        Invert = !Invert;
+        if (!Invert)
         {
             Color = ExampleList.LightBack;
             LineColor = ExampleList.DarkStroke;
