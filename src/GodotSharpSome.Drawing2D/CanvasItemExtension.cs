@@ -15,7 +15,7 @@
             bool antialiased = false)
         {
             canvas.DrawMultiline(Multiline.Dot(position), color, 1, antialiased);
-            
+
             return canvas;
         }
 
@@ -26,7 +26,7 @@
             bool antialiased = false)
         {
             canvas.DrawMultiline(Multiline.Dots(positions), color, 1, antialiased);
-            
+
             return canvas;
         }
 
@@ -37,7 +37,7 @@
             float lineWidth = 1, bool antialiased = false)
         {
             canvas.DrawArc(center, radius, 0, Pi * 2, (int)radius * 16, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -47,7 +47,7 @@
         public static CanvasItem DrawCircleRegion(this CanvasItem canvas, Vector2 center, float radius, Color areaColor)
         {
             canvas.DrawCircle(center, radius, areaColor);
-            
+
             return canvas;
         }
 
@@ -59,7 +59,7 @@
         {
             canvas.DrawCircleRegion(center, radius, areaColor);
             canvas.DrawCircleOutline(center, radius, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -81,7 +81,7 @@
             canvas.DrawSetTransformMatrix(t);
             canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
             canvas.DrawSetTransformMatrix(originTransform);
-            
+
             return canvas;
         }
 
@@ -102,7 +102,7 @@
             canvas.DrawSetTransformMatrix(t);
             canvas.DrawCircleRegion(Vector2.Zero, radiusA, areaColor);
             canvas.DrawSetTransformMatrix(originTransform);
-            
+
             return canvas;
         }
 
@@ -114,7 +114,7 @@
         {
             canvas.DrawEllipseRegion(center, radiusA, radiusB, angle, areaColor);
             canvas.DrawEllipseOutline(center, radiusA, radiusB, angle, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -127,7 +127,7 @@
             canvas.DrawMultiline(
                 Multiline.Triangle(a, b, c),
                 lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -139,7 +139,7 @@
             canvas.DrawPolygon(
                 Multiline.Triangle(a, b, c),
                 new Color[] { areaColor });
-            
+
             return canvas;
         }
 
@@ -151,7 +151,7 @@
         {
             canvas.DrawTriangleRegion(a, b, c, areaColor);
             canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -164,7 +164,7 @@
             canvas.DrawMultiline(
                 Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
                 lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -177,7 +177,7 @@
             canvas.DrawMultiline(
                 Multiline.Rectangle(vertex1, vertex2, height),
                 lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -189,7 +189,7 @@
             canvas.DrawPolygon(
                 Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
                 new Color[] { areaColor });
-            
+
             return canvas;
         }
 
@@ -201,7 +201,7 @@
             canvas.DrawPolygon(
                 Multiline.Rectangle(vertex1, vertex2, height),
                 new Color[] { areaColor });
-            
+
             return canvas;
         }
 
@@ -213,7 +213,7 @@
         {
             canvas.DrawRectangleRegion(center, length, width, rotationAngle, areaColor);
             canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -225,7 +225,7 @@
         {
             canvas.DrawRectangleRegion(vertex1, vertex2, height, areaColor);
             canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -238,7 +238,7 @@
             canvas.DrawMultiline(
                 Multiline.RegularConvexPolygon(center, radius, verticesCount, rotationAngle),
                 lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -251,7 +251,7 @@
                 Multiline.RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
                     .ToArray(),
                 new Color[] { areaColor });
-            
+
             return canvas;
         }
 
@@ -263,7 +263,7 @@
         {
             canvas.DrawRegularConvexPolygonRegion(center, radius, verticesCount, rotationAngle, areaColor);
             canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
@@ -284,7 +284,7 @@
             canvas.DrawMultiline(
                 Multiline.Candlestick(low, lowOffset, high, highOffset, halfWidth),
                 lineColor, lineWidth, antialiased);
-            
+
             return canvas;
         }
 
