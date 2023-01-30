@@ -36,9 +36,9 @@ public class Arrows : ExampleNodeBase
             Multiline.DoubleArrow(LeftBottom(3), RightTop(3), _headRadius, _arrowAngle),
             LineColor);
 
-        DrawTextRotation(Middle(4), "vadis?");
+        DrawTextRotation(Middle(4), "Relax");
 
-        DrawTextRotationCentered(Middle(5), "Quo vadis?");
+        DrawTextRotationCentered(Middle(5), "Enjoy");
 
         DrawDimensiong(Middle(6) + 15 * Vector2.Down);
     }
