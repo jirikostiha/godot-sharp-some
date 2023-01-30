@@ -31,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Header" type="Control" parent="VBoxContainer"]
-margin_right = 1024.0
+margin_right = 710.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 
@@ -60,7 +60,7 @@ text = "Invert All"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 24.0
-margin_right = 1024.0
+margin_right = 710.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
