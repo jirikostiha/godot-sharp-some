@@ -5,7 +5,6 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{8ABEA7BE-2CB6-499A-A09E-7D836F189422}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
 		directory.build.props = directory.build.props
@@ -13,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		..\participants.props = ..\participants.props
 		..\product.props = ..\product.props
 		..\product_version.props = ..\product_version.props
-		source code.ruleset = source code.ruleset
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D", "GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj", "{F36FE7E6-0989-4985-831D-C5B4D3B03343}"
