@@ -1,6 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
