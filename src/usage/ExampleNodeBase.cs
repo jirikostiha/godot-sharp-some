@@ -13,7 +13,7 @@ public class ExampleNodeBase : Godot.ColorRect
     protected static int RowHeight { get; set; } = 100;
     protected static int CellWidth { get; set; } = 100;
 
-    protected static Vector2 CellWidthVector => new Vector2(CellWidth, 0);
+    protected static Vector2 CellWidthVector => new (CellWidth, 0);
 
     protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 
@@ -37,13 +37,14 @@ public class ExampleNodeBase : Godot.ColorRect
 
     protected virtual void NextState(float delta) { }
 
-    public float NextUin() => Rng.Randf();
+    public static float NextUin() => Rng.Randf();
 
-    public float NextFloat(float inclusiveMin, float exclusiveMax) => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);
+    public static float NextFloat(float inclusiveMin, float exclusiveMax) 
+        => inclusiveMin + NextUin() * (exclusiveMax - inclusiveMin);
 
-    public int NextInt(int min, int max) => min + (int)(NextUin() * (max + 1 - min));
+    public static int NextInt(int min, int max) => min + (int)(NextUin() * (max + 1 - min));
 
-    public bool NextBool() => NextUin() >= 0.5f;
+    public static bool NextBool() => NextUin() >= 0.5f;
 
     public Color NextColor(int inclusiveMin, int exclusiveMax) => new(
         NextFloat(inclusiveMin, exclusiveMax),
@@ -56,15 +57,15 @@ public class ExampleNodeBase : Godot.ColorRect
         NextFloat(inclusiveMin, exclusiveMax),
         NextFloat(inclusiveMin, exclusiveMax));
 
-    public Vector2 NextVector(float xMin, float xMax, float yMin, float yMax) => new Vector2(
+    public static Vector2 NextVector(float xMin, float xMax, float yMin, float yMax) => new (
         NextFloat(xMin, xMax),
         NextFloat(yMin, yMax));
 
-    public Vector2 NextVectorBetween(Vector2 a, Vector2 b) => new Vector2(
+    public static Vector2 NextVectorBetween(Vector2 a, Vector2 b) => new (
         NextFloat(a.x, b.x),
         NextFloat(a.y, b.y));
 
-    public Vector2 NextVectorInsideCell(int column) => new Vector2(
+    public Vector2 NextVectorInsideCell(int column) => new (
         NextInt(Left(column), Right(column) + 1),
         NextInt(Bottom(), Top()));
 
@@ -80,23 +81,23 @@ public class ExampleNodeBase : Godot.ColorRect
 
     public int MiddleY() => Convert.ToInt32(0.5 * RowHeight);
 
-    public Vector2 LeftBottom(int column) => new Vector2(Left(column), Bottom());
+    public Vector2 LeftBottom(int column) => new (Left(column), Bottom());
 
-    public Vector2 LeftTop(int column) => new Vector2(Left(column), Top());
+    public Vector2 LeftTop(int column) => new (Left(column), Top());
 
-    public Vector2 RightBottom(int column) => new Vector2(Right(column), Bottom());
+    public Vector2 RightBottom(int column) => new (Right(column), Bottom());
 
-    public Vector2 RightTop(int column) => new Vector2(Right(column), Top());
+    public Vector2 RightTop(int column) => new (Right(column), Top());
 
-    public Vector2 LeftMiddle(int column) => new Vector2(Left(column), MiddleY());
+    public Vector2 LeftMiddle(int column) => new (Left(column), MiddleY());
 
-    public Vector2 RightMiddle(int column) => new Vector2(Right(column), MiddleY());
+    public Vector2 RightMiddle(int column) => new (Right(column), MiddleY());
 
-    public Vector2 MiddleTop(int column) => new Vector2(MiddleX(column), Top());
+    public Vector2 MiddleTop(int column) => new (MiddleX(column), Top());
 
-    public Vector2 MiddleBottom(int column) => new Vector2(MiddleX(column), Bottom());
+    public Vector2 MiddleBottom(int column) => new (MiddleX(column), Bottom());
 
-    public Vector2 Middle(int column) => new Vector2(MiddleX(column), MiddleY());
+    public Vector2 Middle(int column) => new (MiddleX(column), MiddleY());
 
     public void _on_Animate_pressed() => Animate = !Animate;
 
