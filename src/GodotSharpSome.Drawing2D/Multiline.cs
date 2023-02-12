@@ -87,6 +87,13 @@
             return this;
         }
 
+
+        public Multiline AppendLineFromRef(Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
+        {
+            AppendLineFromRef(_points, refPoint, start, angle, length, offset);
+            return this;
+        }
+
         public Multiline AppendCross(Vector2 center, float radius)
         {
             AppendCross(_points, center, radius);
@@ -266,6 +273,14 @@
         {
             var points = new List<Vector2>(2);
             AppendLine(points, start, startOffset, end, endOffset);
+            return points.ToArray();
+        }
+
+        /// <summary> Append a continuation line by angle and length and offset relative to the reference points. </summary>
+        public static Vector2[] LineFromRef(Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
+        {
+            var points = new List<Vector2>(2);
+            AppendLineFromRef(points, refPoint, start, angle, length, offset);
             return points.ToArray();
         }
 
@@ -503,6 +518,15 @@
         {
             points[index] = start;
             points[index + 1] = end;
+        }
+
+        /// <summary> Append a continuation line by angle and length and offset relative to the reference points. </summary>
+        public static void AppendLineFromRef(IList<Vector2> points, Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
+        {
+            var angle2 = (start - refPoint).Angle() + angle;
+            var start2 = start + (Vector2.Right * offset).Rotated(angle2);
+            points.Add(start2);
+            points.Add(start2 + (Vector2.Right * length).Rotated(angle2));
         }
 
         public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
