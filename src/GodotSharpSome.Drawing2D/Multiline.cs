@@ -487,7 +487,10 @@
         /// <summary> Append a continuation line from the last point. </summary>
         public static void AppendLine(IList<Vector2> points, Vector2 end)
         {
-            points.Add(points[points.Count - 1]);
+            var last = points[points.Count - 1];
+            points.Add(last);
+            points.Add(last + end);
+        }
             points.Add(end);
         }
 
