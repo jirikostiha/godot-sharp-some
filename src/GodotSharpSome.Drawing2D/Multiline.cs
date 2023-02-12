@@ -1,5 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -190,6 +191,16 @@
             if (bHeadRadius is not null)
                 AppendArrowHead(_points, aCenter.DirectionTo(bCenter), bCenter, bHeadRadius.Value);
 
+            return this;
+        }
+
+        public Multiline RemoveLast()
+        {
+            if (_points.Count > 1)
+            {
+                _points.RemoveAt(_points.Count - 1);
+                _points.RemoveAt(_points.Count - 1);
+            }
             return this;
         }
 
