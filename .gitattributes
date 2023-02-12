@@ -97,6 +97,7 @@
 *.png  binary
 *.jpg  binary
 *.gif  binary
+*.ico  binary
 
 # Fonts
 *.otf binary
@@ -137,11 +138,11 @@
 *.zip binary
 
 #---Godot---
-*.godot text merge=union
-*.gd text merge=union
-*.tres text merge=union
-*.png.import text merge=union
-
+*.godot text merge=union eol=lf
+*.gd text merge=union eol=lf
+*.tres text merge=union eol=lf
+*.png.import text merge=union eol=lf
+*.tscn text merge=union eol=lf
 
 ###############################
 # Git Large File System (LFS) #
