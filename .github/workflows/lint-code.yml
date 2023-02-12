@@ -24,3 +24,6 @@ jobs:
           dotnet_format_auto_fix: true
           auto_fix: true
           git_name: "C# linter"
+
+      - name: Run yaml linter
+        uses: ibiqlik/action-yamllint@v3
