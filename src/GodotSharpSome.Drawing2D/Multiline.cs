@@ -491,8 +491,6 @@
             points.Add(last);
             points.Add(last + end);
         }
-            points.Add(end);
-        }
 
         public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
             => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
