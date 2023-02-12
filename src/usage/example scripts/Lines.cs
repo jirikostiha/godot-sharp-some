@@ -26,6 +26,9 @@ public class Lines : ExampleNodeBase
 
         // II
         DrawContinuationLine(LeftBottom(2));
+
+        // III
+        DrawLineFromRef(LeftBottom(3));
     }
 
     private void DrawLineTypes(Vector2 origin, float ystep, float minLength, float maxLength)
@@ -59,6 +62,18 @@ public class Lines : ExampleNodeBase
             .Points;
             
         DrawMultiline(points, LineColor);
+    }
+
+    private void DrawLineFromRef(Vector2 start)
+    {
+        var refPoint = start + Vector2.Right * 25;
+        DrawMultiline(Multiline.Arrow(start, refPoint, 10, 0.3f), LineColor);
+
+        var ml = new Multiline(8 * 2);
+        for (int i = 0; i < 8; i++)
+            ml.AppendLineFromRef(start, refPoint, i * Pi/2f/7, 60);
+
+        DrawMultiline(ml.Points, LineColor);
     }
 
     public void Interpolate(float value)
