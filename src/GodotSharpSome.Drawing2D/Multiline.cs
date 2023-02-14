@@ -87,10 +87,29 @@
             return this;
         }
 
-
         public Multiline AppendLineFromRef(Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
         {
             AppendLineFromRef(_points, refPoint, start, angle, length, offset);
+            return this;
+        }
+
+        /// <summary> Append a continuation line parallel to line from given reference points. </summary>
+        public Multiline AppendParallelLine(Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float length = 0)
+        {
+            AppendParallelLine(_points, refStart, refEnd, distance, startOffset, length);
+            return this;
+        }
+
+        /// <summary> Append a continuation line parallel to line from two given points. </summary>
+        public Multiline AppendParallelLines(Vector2 start, Vector2 end, float distance, int count)
+        {
+            AppendParallelLines(_points, start, end, distance, count);
+            return this;
+        }
+
+        public Multiline AppendParallelLines(Vector2 refStart, Vector2 refEnd, List<float> distances)
+        {
+            AppendParallelLines(_points, refStart, refEnd, distances);
             return this;
         }
 
@@ -281,6 +300,27 @@
         {
             var points = new List<Vector2>(2);
             AppendLineFromRef(points, refPoint, start, angle, length, offset);
+            return points.ToArray();
+        }
+
+        public static Vector2[] ParallelLine(Vector2 start, Vector2 end, float distance, float startOffset = 0, float endOffset = 0)
+        {
+            var points = new List<Vector2>(2);
+            AppendParallelLine(points, start, end, distance, startOffset, endOffset);
+            return points.ToArray();
+        }
+
+        public static Vector2[] ParallelLines(Vector2 start, Vector2 end, float distance, int count)
+        {
+            var points = new List<Vector2>(2 * count);
+            AppendParallelLines(points, start, end, distance, count);
+            return points.ToArray();
+        }
+
+        public static Vector2[] ParallelLines(Vector2 refStart, Vector2 refEnd, IList<float> distances)
+        {
+            var points = new List<Vector2>(2 * distances.Count);
+            AppendParallelLines(points, refStart, refEnd, distances);
             return points.ToArray();
         }
 
@@ -527,6 +567,47 @@
             var start2 = start + (Vector2.Right * offset).Rotated(angle2);
             points.Add(start2);
             points.Add(start2 + (Vector2.Right * length).Rotated(angle2));
+        }
+
+
+        /// <summary> Append a continuation line parallel to reference line given by two points. </summary>
+        public static void AppendParallelLine(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float endOffset = 0)
+        {
+            var dir = refStart.DirectionTo(refEnd);
+            var normal = new Vector2(-dir.y, dir.x);
+
+            AppendLine(points,
+                refStart + dir * startOffset + normal * distance,
+                refEnd + dir * endOffset + normal * distance);
+        }
+
+        /// <summary> Append a continuation line parallel to line from given points. </summary>
+        public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, int count)
+        {
+            var dir = refStart.DirectionTo(refEnd);
+            var normal = new Vector2(-dir.y, dir.x);
+
+            for (int i = 0; i < count; i++)
+            {
+                AppendLine(points,
+                    refStart + normal * distance * i,
+                    refEnd + normal * distance * i);
+            }
+        }
+
+        public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, IList<float> distances)
+        {
+            var dir = refStart.DirectionTo(refEnd);
+            var normal = new Vector2(dir.y, -dir.x);
+
+            var distSum = 0f;
+            foreach (var distance in distances)
+            {
+                distSum += distance;
+                AppendLine(points,
+                    refStart + normal * distSum,
+                    refEnd + normal * distSum);
+            }
         }
 
         public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
