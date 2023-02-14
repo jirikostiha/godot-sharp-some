@@ -67,7 +67,7 @@ public class Lines : ExampleNodeBase
     private void DrawLineFromRef(Vector2 start)
     {
         var refPoint = start + Vector2.Right * 25;
-        DrawMultiline(Multiline.Arrow(start, refPoint, 10, 0.3f), LineColor);
+        DrawMultiline(Multiline.Line(start, refPoint), Color.ColorN("lightblue"));
 
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
