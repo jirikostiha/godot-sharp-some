@@ -288,6 +288,9 @@
             return canvas;
         }
 
+        /// <summary>
+        /// Draw a string in a position of left bottom point and with rotation angle.
+        /// </summary>
         public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
         {
             var originTransform = canvas.GetCanvasTransform();
@@ -305,6 +308,9 @@
             return canvas;
         }
 
+        /// <summary>
+        /// Draw a string in a position of text center and with rotation angle.
+        /// </summary>
         public static CanvasItem DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
         {
             var originTransform = canvas.GetCanvasTransform();
