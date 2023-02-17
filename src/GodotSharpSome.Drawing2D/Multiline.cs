@@ -1,6 +1,7 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -81,9 +82,18 @@
             return this;
         }
 
+        /// <summary> Append a continuation line from <paramref name="start"/> point to <paramref name="end"/> point 
+        /// with <paramref name="startOffset"/> shift from the start point and <paramref name="endOffset"/> shift from the end. 
+        /// </summary>
         public Multiline AppendLine(Vector2 start, float startOffset, Vector2 end, float endOffset)
         {
             AppendLine(_points, start, startOffset, end, endOffset);
+            return this;
+        }
+
+        public Multiline AppendLineFromRef(float angle, float length)
+        {
+            AppendLineFromRef(_points, angle, length);
             return this;
         }
 
@@ -529,6 +539,7 @@
         public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
         {
             var dir = start.DirectionTo(end);
+
             points.Add(start + dir * startOffset);
             points.Add(end - dir * endOffset);
         }
@@ -539,20 +550,8 @@
             points.Add(end);
         }
 
-        /// <summary> Append a continuation line from the last point. </summary>
-        public static void AppendLine(IList<Vector2> points, Vector2 end)
-        {
-            var last = points[points.Count - 1];
-            points.Add(last);
-            points.Add(last + end);
-        }
-
         public static void AppendLine(IList<Vector2> points, float startX, float startY, float endX, float endY)
-            => AppendLine(points, new Vector2(startX, startY), new Vector2(endX, endY));
-
-        /// <summary> Append a continuation line from the last point. </summary>
-        public static void AppendLine(IList<Vector2> points, float endX, float endY)
-            => AppendLine(points, new Vector2(endX, endY));
+            => AppendLine(points, new(startX, startY), new(endX, endY));
 
         private static void AppendLine(Vector2[] points, int index, Vector2 start, Vector2 end)
         {
@@ -560,11 +559,40 @@
             points[index + 1] = end;
         }
 
-        /// <summary> Append a continuation line by angle and length and offset relative to the reference points. </summary>
+        /// <summary>
+        /// Append a continuation line from the last point. 
+        /// </summary>
+        public static void AppendLine(IList<Vector2> points, Vector2 end)
+        {
+            var last = points[points.Count - 1];
+
+            points.Add(last);
+            points.Add(last + end);
+        }
+
+        /// <summary> 
+        /// Append a continuation line relative to the last line by angle and length. 
+        /// </summary>
+        /// <param name="points"> Points appending to. </param>
+        /// <param name="angle"> Relative angle to last line. </param>
+        /// <param name="length"> Line length. </param>
+        public static void AppendLineFromRef(IList<Vector2> points, float angle, float length)
+        {
+            var start = points[points.Count - 1];
+            var refLineAngle = points[points.Count - 2].DirectionTo(start).Angle();
+
+            points.Add(start);
+            points.Add(start + (Vector2.Right * length).Rotated(refLineAngle + angle));
+        }
+
+        /// <summary> 
+        /// Append a continuation line by angle and length and offset relative to the reference points. 
+        /// </summary>
         public static void AppendLineFromRef(IList<Vector2> points, Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
         {
             var angle2 = (start - refPoint).Angle() + angle;
             var start2 = start + (Vector2.Right * offset).Rotated(angle2);
+
             points.Add(start2);
             points.Add(start2 + (Vector2.Right * length).Rotated(angle2));
         }
@@ -666,6 +694,7 @@
         public static void AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
             var dir = direction.Normalized();
+
             AppendLine(points, start, start + dir * distances.Sum());
             AppendParallelLines(points, start, dir.LeftNormal() * 3, distances); //todo replace var by offset
         }
@@ -675,6 +704,7 @@
         {
             var dir = direction.Normalized();
             var segmentedPartEnd = start + dir * distances.Sum();
+
             AppendArrow(points, start, segmentedPartEnd + dir * 2 * headRadius, headRadius, arrowAngle);
             //todo replace var by offset
             AppendParallelLinesAlong(points, start, start + dir.LeftNormal() * 3, start.DirectionTo(segmentedPartEnd), distances);
