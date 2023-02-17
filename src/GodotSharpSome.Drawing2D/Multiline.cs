@@ -528,9 +528,9 @@
 
         public static void AppendLine(IList<Vector2> points, Vector2 start, float startOffset, Vector2 end, float endOffset)
         {
-            var dirVector = (end - start).Normalized();
-            points.Add(start + dirVector * startOffset);
-            points.Add(end - dirVector * endOffset);
+            var dir = start.DirectionTo(end);
+            points.Add(start + dir * startOffset);
+            points.Add(end - dir * endOffset);
         }
 
         public static void AppendLine(IList<Vector2> points, Vector2 start, Vector2 end)
@@ -569,12 +569,11 @@
             points.Add(start2 + (Vector2.Right * length).Rotated(angle2));
         }
 
-
         /// <summary> Append a continuation line parallel to reference line given by two points. </summary>
         public static void AppendParallelLine(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float endOffset = 0)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = new Vector2(-dir.y, dir.x);
+            var normal = dir.LeftNormal();
 
             AppendLine(points,
                 refStart + dir * startOffset + normal * distance,
@@ -585,7 +584,7 @@
         public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, int count)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = new Vector2(-dir.y, dir.x);
+            var normal = dir.LeftNormal();
 
             for (int i = 0; i < count; i++)
             {
@@ -598,7 +597,7 @@
         public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, IList<float> distances)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = new Vector2(dir.y, -dir.x);
+            var normal = dir.LeftNormal();
 
             var distSum = 0f;
             foreach (var distance in distances)
@@ -610,18 +609,19 @@
             }
         }
 
-        public static void AppendSeparators(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
+        /// <summary>
+        /// Append parallel lines alongside normal line determined by two points.
+        /// </summary>
+        public static void AppendParallelLinesAlong(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, Vector2 direction, IList<float> distances)
         {
             var dir = direction.Normalized();
-            var normal = new Vector2(dir.y, -dir.x);
-
             var distSum = 0f;
             foreach (var distance in distances)
             {
                 distSum += distance;
                 AppendLine(points,
-                    (start + dir * distSum) + normal * 2,
-                    (start + dir * distSum) - normal * 2);
+                    refStart + dir * distSum,
+                    refEnd + dir * distSum);
             }
         }
 
@@ -667,15 +667,17 @@
         {
             var dir = direction.Normalized();
             AppendLine(points, start, start + dir * distances.Sum());
-            AppendSeparators(points, start, dir, distances);
+            AppendParallelLines(points, start, dir.LeftNormal() * 3, distances); //todo replace var by offset
         }
 
         public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
             var dir = direction.Normalized();
-            AppendArrow(points, start, start + dir * (distances.Sum() + 2 * headRadius), headRadius, arrowAngle);
-            AppendSeparators(points, start, dir, distances);
+            var segmentedPartEnd = start + dir * distances.Sum();
+            AppendArrow(points, start, segmentedPartEnd + dir * 2 * headRadius, headRadius, arrowAngle);
+            //todo replace var by offset
+            AppendParallelLinesAlong(points, start, start + dir.LeftNormal() * 3, start.DirectionTo(segmentedPartEnd), distances);
         }
 
         public static void AppendVectorsRelatively(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors,
@@ -700,8 +702,7 @@
             var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
 
             AppendSegmentedArrow(points, origin, xDirection, xDistances, headRadius, arrowAngle);
-            var yDirection = new Vector2(-xDirection.y, xDirection.x);
-            AppendSegmentedArrow(points, origin, yDirection, yDistances, headRadius, arrowAngle);
+            AppendSegmentedArrow(points, origin, xDirection.LeftNormal(), yDistances, headRadius, arrowAngle);
         }
 
         /// <summary>
@@ -729,10 +730,10 @@
         /// <param name="height"> Distance of other side from base side. Positive is on left side of direction vertex/vector. </param>
         public static void AppendRectangle(IList<Vector2> points, Vector2 vertex1, Vector2 vertex2, float height)
         {
-            var dirVector = vertex1.DirectionTo(vertex2);
-            var normalVector = new Vector2(dirVector.y, -dirVector.x);
-            var vertex3 = vertex2 + normalVector * height;
-            var vertex4 = vertex1 + normalVector * height;
+            var dir = vertex1.DirectionTo(vertex2);
+            var normal = dir.RightNormal();
+            var vertex3 = vertex2 + normal * height;
+            var vertex4 = vertex1 + normal * height;
 
             AppendLine(points, vertex1, vertex2);
             AppendLine(points, vertex2, vertex3);
@@ -761,9 +762,9 @@
 
         public static void AppendCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
-            var dirVector = low.DirectionTo(high);
-            var rectBottom = low + dirVector * lowOffset;
-            var rectTop = high - dirVector * highOffset;
+            var dir = low.DirectionTo(high);
+            var rectBottom = low + dir * lowOffset;
+            var rectTop = high - dir * highOffset;
             var rectCenter = (rectBottom + rectTop) / 2;
 
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
@@ -771,9 +772,9 @@
 
         public static void AppendCrossedCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
         {
-            var dirVector = low.DirectionTo(high);
-            var rectBottom = low + dirVector * lowOffset;
-            var rectTop = high - dirVector * highOffset;
+            var dir = low.DirectionTo(high);
+            var rectBottom = low + dir * lowOffset;
+            var rectTop = high - dir * highOffset;
             var rectCenter = (rectBottom + rectTop) / 2;
 
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
