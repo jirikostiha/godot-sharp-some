@@ -78,7 +78,14 @@ public class Lines : ExampleNodeBase
 
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
-            ml.AppendLineFromRef(start, refPoint, i * Pi/2f/7, 60);
+            ml.AppendLineFromRef(start, refPoint, i * Pi/2f/7, 40);
+        
+        DrawMultiline(ml.Points, LineColor);
+
+        ml.Clear();
+        ml.AppendLine(start + Vector2.Down * 50, start + Vector2.Down * 50 + Vector2.Right * 25);
+        for (int i = 0; i < 8; i++)
+            ml.AppendLineFromRef((1 + i) * Pi / 12f, 15 - i);
 
         DrawMultiline(ml.Points, LineColor);
     }
