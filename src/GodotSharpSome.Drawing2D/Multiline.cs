@@ -107,7 +107,7 @@
             return this;
         }
 
-        public Multiline AppendParallelLines(Vector2 refStart, Vector2 refEnd, List<float> distances)
+        public Multiline AppendParallelLines(Vector2 refStart, Vector2 refEnd, IList<float> distances)
         {
             AppendParallelLines(_points, refStart, refEnd, distances);
             return this;
