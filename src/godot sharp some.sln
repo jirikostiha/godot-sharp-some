@@ -27,7 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\.github\dependabot.yml = ..\.github\dependabot.yml
 		..\.github\workflows\lint-code.yml = ..\.github\workflows\lint-code.yml
-		..\.github\workflows\git.yml = ..\.github\workflows\git.yml
 		..\.github\workflows\lint-commit.yml = ..\.github\workflows\lint-commit.yml
 	EndProjectSection
 EndProject

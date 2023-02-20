@@ -1,4 +1,4 @@
-name: Lint Commit Messages
+name: Lint Commit
 
 on:
   push:
@@ -14,4 +14,9 @@ jobs:
         with:
           fetch-depth: 0
       
-      - uses: wagoid/commitlint-github-action@v5
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v5
+
+      - name: Check no !fixup commits
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: 13rac1/block-fixup-merge-action@v2.0.0
