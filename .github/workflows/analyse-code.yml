@@ -1,4 +1,4 @@
-name: "Static Code Analysis"
+name: Static Code Analysis
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
       - 'src/**.cs'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/**.cs'
   schedule:
     - cron: '40 14 * * 6'
 
@@ -32,5 +34,5 @@ jobs:
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
 
-    - name: Run CodeQL analysis
+    - name: CodeQL analysis
       uses: github/codeql-action/analyze@v2
