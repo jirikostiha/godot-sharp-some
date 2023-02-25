@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\analyse-code.yml = ..\.github\workflows\analyse-code.yml
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
-		..\.github\dependabot.yml = ..\.github\dependabot.yml
 		..\.github\workflows\lint-code.yml = ..\.github\workflows\lint-code.yml
 		..\.github\workflows\lint-commit.yml = ..\.github\workflows\lint-commit.yml
+		..\.github\workflows\lint-docs.yml = ..\.github\workflows\lint-docs.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CAFF78B8-7F67-42A1-8BAC-04DB67CFCFC2}"
@@ -39,6 +39,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "usage", "usage", "{09E66851-03DE-4738-987B-043566FA2EEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Examples", "usage\GodotSharpSome.Examples.csproj", "{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{B55BA742-C72C-4E4C-A6CF-47C45E536768}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\dependabot.yml = ..\.github\dependabot.yml
+		..\.github\markdownlint.yml = ..\.github\markdownlint.yml
+		..\.github\spellcheck.yml = ..\.github\spellcheck.yml
+		..\.github\wordlist.txt = ..\.github\wordlist.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +73,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
+		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
