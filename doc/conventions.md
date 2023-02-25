@@ -1,12 +1,15 @@
-## Conventions  
+# Conventions
 
-### Versioning
+## Versioning
+
 Using [Semantic Versioning](https://semver.org/).
 
-### Commits
+## Commits
+
 Every commit to main branch follows [Conventional Commits](https://www.conventionalcommits.org/) conventions.
 
-### Folder structure  
-* src - source code  
+## Folder structure
+
+* src - source code
 * doc - documentation
 * cmd - auxiliary scripts

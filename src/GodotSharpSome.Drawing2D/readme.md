@@ -1,27 +1,32 @@
-## Godot Sharp Some - Drawing 2D
+# Godot Sharp Some - Drawing 2D
 
 Is set of general extensions for custom drawing API in Godot engine version 3.3 and higher.  
 
-### CanvasItemExtensions  
+## CanvasItemExtensions
+
 The CanvasItemExtensions type extends CanvasItem type by drawing methods of various objects from various parameters.
-Generaly there are three types of methods.  
+Generaly there are three types of methods.
 
 **Outline** postfix determines only outline (or perimeter) of the shape is drawn.
+
 ```cs
 Draw<Shape>Outline(..)
 ```
 \
 **Region** postfix determines only plane region (or area) is drawn.
+
 ```cs
 Draw<Shape>Region(..)
 ```
 \
 Without postfix the the outline and region is drawn.
+
 ```cs
 Draw<Shape>(..)
 ```
 
 _Example C1_ shows drawing of solid geometric object.  
+
 ```cs
 using Godot;
 using GodotSharpSome.Drawing2D;
@@ -37,11 +42,11 @@ public class ExampleC1 : ColorRect
 }
 ``` 
 
-### Multiline  
+### Multiline
 
 The multiline class is responsible for calculating coordinates of the points and memory alocations.
 There are three alternatives how to draw line-based figures via the multiline.  
-\
+
 **1) Quick**  
 Just call predefined compositions.  
 
@@ -53,6 +58,7 @@ pros: easy to use
 cons: bigger memory footprint
 
 _Example M1_ shows how to draw vectors from common origin and then draw sum of vectors.  
+
 ```cs
 using Godot;
 using GodotSharpSome.Drawing2D;
@@ -72,7 +78,7 @@ public class ExampleM1 : ColorRect
             Color.ColorN("blue"));
     }
 }
-```  
+```
 \
 **2) Builder**  
 Use the multiline as a builder.  
@@ -88,8 +94,8 @@ DrawMultiline(
 pros: low memory footprint  
 cons: more lines of code  
 
-
 _Example M2_ shows how to draw more complex line drawings as one multiline.  
+
 ```cs
 using Godot;
 using GodotSharpSome.Drawing2D;
@@ -106,7 +112,8 @@ public class ExampleM2 : ColorRect
         DrawMultiline(m.Points, Color.ColorN("black"));
     }
 }
-```  
+```
+
 \
 **3) Custom**  
 In this case you have full control over collection of points.
@@ -123,6 +130,7 @@ cons: longer code
 
 
 _Example M3_ shows how to use multiline in thread safe manner.  
+
 ```cs
 using Godot;
 using GodotSharpSome.Drawing2D;
