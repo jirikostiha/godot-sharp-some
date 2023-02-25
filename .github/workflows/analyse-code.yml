@@ -1,6 +1,7 @@
 name: Static Code Analysis
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:

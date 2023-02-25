@@ -1,6 +1,7 @@
 name: Documentation Lint
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
     paths:

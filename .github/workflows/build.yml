@@ -3,7 +3,8 @@ name: Build
 env:
   sln-path: "./src/godot sharp some.sln"
 
-on: 
+on:
+  workflow_dispatch:
   push:
     paths:
       - 'src/**'
