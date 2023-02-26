@@ -12,12 +12,14 @@ Generaly there are three types of methods.
 ```cs
 Draw<Shape>Outline(..)
 ```
+
 \
 **Region** postfix determines only plane region (or area) is drawn.
 
 ```cs
 Draw<Shape>Region(..)
 ```
+
 \
 Without postfix the the outline and region is drawn.
 
@@ -25,6 +27,7 @@ Without postfix the the outline and region is drawn.
 Draw<Shape>(..)
 ```
 
+\
 _Example C1_ shows drawing of solid geometric object.  
 
 ```cs
@@ -40,7 +43,7 @@ public class ExampleC1 : ColorRect
             .DrawMultiline(Multiline.Cross());
     }
 }
-``` 
+```
 
 ### Multiline
 
@@ -79,6 +82,7 @@ public class ExampleM1 : ColorRect
     }
 }
 ```
+
 \
 **2) Builder**  
 Use the multiline as a builder.  
