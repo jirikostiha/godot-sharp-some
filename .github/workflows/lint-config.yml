@@ -1,0 +1,24 @@
+name: Configuration Lint
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.yml'
+
+jobs:
+  run-linters:
+    name: Config linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Lint yaml
+        uses: ibiqlik/action-yamllint@v3
