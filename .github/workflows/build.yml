@@ -8,7 +8,7 @@ on:
   push:
     paths:
       - 'src/**'
-      - '!src/**.sln' #ignore sln changes
+      - '!src/**.sln' # ignore sln changes
 
 jobs:
   build:
