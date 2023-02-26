@@ -5,7 +5,7 @@ Is set of general extensions for custom drawing API in Godot engine version 3.3 
 ## CanvasItemExtensions
 
 The CanvasItemExtensions type extends CanvasItem type by drawing methods of various objects from various parameters.
-Generaly there are three types of methods.
+Generally there are three types of methods.
 
 **Outline** postfix determines only outline (or perimeter) of the shape is drawn.
 
@@ -47,7 +47,7 @@ public class ExampleC1 : ColorRect
 
 ### Multiline
 
-The multiline class is responsible for calculating coordinates of the points and memory alocations.
+The multiline class is responsible for calculating coordinates of the points and memory allocations.
 There are three alternatives how to draw line-based figures via the multiline.  
 
 **1) Quick**  
