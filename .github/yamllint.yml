@@ -3,11 +3,14 @@
 extends: default
 
 rules:
-  # 80 chars should be enough, but don't fail if a line is longer
   line-length:
     max: 80
     level: warning
-
   brackets:
     min-spaces-inside: 0
     max-spaces-inside: 1
+  comments:
+    min-spaces-from-content: 1
+  truthy: disable
+  document-start: disable
+
