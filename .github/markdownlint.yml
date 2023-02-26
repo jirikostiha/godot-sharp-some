@@ -8,7 +8,7 @@ MD013:
   # Number of characters for headings
   heading_line_length: 100
   # Number of characters for code blocks
-  code_block_line_length: 100
+  code_block_line_length: 1000
 
 # MD033/no-inline-html - Inline HTML
 MD033:
