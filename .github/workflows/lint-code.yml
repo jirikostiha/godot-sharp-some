@@ -6,10 +6,13 @@ on:
     branches: [ main ]
     paths:
       - '**.cs'
+      - '**.yml'
   pull_request:
     branches: [ main ]
     paths:
       - '**.cs'
+      - '**.yml'
+
 jobs:
   run-linters:
     name: Source code linters
