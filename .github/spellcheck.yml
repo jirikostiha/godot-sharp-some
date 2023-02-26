@@ -5,23 +5,23 @@ matrix:
       ignore-case: true
     dictionary:
       wordlists:
-      - .github/wordlist.txt
+        - .github/wordlist.txt
       encoding: utf-8
     pipeline:
-    - pyspelling.filters.url:
-    - pyspelling.filters.markdown:
+      - pyspelling.filters.url:
+      - pyspelling.filters.markdown:
         markdown_extensions:
-        - pymdownx.superfences:
-        - markdown.extensions.extra:
-    - pyspelling.filters.html:
+          - pymdownx.superfences:
+          - markdown.extensions.extra:
+      - pyspelling.filters.html:
         comments: false
         attributes:
-        - alt
+          - alt
         ignores:
-        - ':matches(code, pre)'
-        - 'code'
-        - 'pre'
-        - 'blockquote'
+          - ':matches(code, pre)'
+          - 'code'
+          - 'pre'
+          - 'blockquote'
     sources:
-    - '**/*.md'
+      - '**/*.md'
     default_encoding: utf-8
