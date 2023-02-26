@@ -6,3 +6,14 @@ namespace
 cli
 dotnet
 repo
+cmd
+NuGet
+nuget
+postfix
+CanvasItem
+CanvasItemExtensions
+Multiline
+DrawMultiline
+antialiased
+CanvasItem
+CanvasItemExtensions
