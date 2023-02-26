@@ -132,7 +132,6 @@ DrawMultiline(points, <Color>);
 pros: full control  
 cons: longer code  
 
-
 _Example M3_ shows how to use multiline in thread safe manner.  
 
 ```cs
