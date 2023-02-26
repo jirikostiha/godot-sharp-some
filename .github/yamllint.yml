@@ -1,0 +1,13 @@
+#doc: https://yamllint.readthedocs.io
+
+extends: default
+
+rules:
+  # 80 chars should be enough, but don't fail if a line is longer
+  line-length:
+    max: 80
+    level: warning
+
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 1

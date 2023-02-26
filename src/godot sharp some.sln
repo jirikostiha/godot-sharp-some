@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{B55B
 		..\.github\markdownlint.yml = ..\.github\markdownlint.yml
 		..\.github\spellcheck.yml = ..\.github\spellcheck.yml
 		..\.github\wordlist.txt = ..\.github\wordlist.txt
+		..\.github\yamllint.yml = ..\.github\yamllint.yml
 	EndProjectSection
 EndProject
 Global
