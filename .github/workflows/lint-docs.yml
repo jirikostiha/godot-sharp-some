@@ -22,13 +22,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
     
+      - name: Spellcheck
+        uses: rojopolis/spellcheck-github-actions@0.30.0
+        with:
+          config_path: .github/spellcheck.yml
+
       - name: Markdown lint
         uses: nosborn/github-action-markdown-cli@v3.2.0
         with:
           files: .
           config_file: ".github/markdownlint.yml"
-
-      - name: Spellcheck
-        uses: rojopolis/spellcheck-github-actions@0.30.0
-        with:
-          config_path: .github/spellcheck.yml 
