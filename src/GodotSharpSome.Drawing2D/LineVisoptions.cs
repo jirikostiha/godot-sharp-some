@@ -2,9 +2,12 @@
 {
     using Godot;
 
-    public record LineOptions
+    /// <summary>
+    /// Line visualization options.
+    /// </summary>
+    public record LineVisoptions
     {
-        public Color? Color { get; set; }
+        public Color Color { get; set; }
 
         public LineType Type { get; set; } = LineType.Solid;
 
