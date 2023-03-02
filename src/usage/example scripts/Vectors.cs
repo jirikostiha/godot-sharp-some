@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 
-public class Vectors : ExampleNodeBase
+public partial class Vectors : ExampleNodeBase
 {
     private const float DistanceInterpolationDelta = 2;
 
@@ -28,7 +28,7 @@ public class Vectors : ExampleNodeBase
             _targetVectors.Add(_vectors[i]);
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         for (int i = 0; i < _vectors.Count; i++)
         {

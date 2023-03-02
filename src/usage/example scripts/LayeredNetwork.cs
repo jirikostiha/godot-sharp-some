@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 
-public class LayeredNetwork : ExampleNodeBase
+public partial class LayeredNetwork : ExampleNodeBase
 {
     private int[] _layerSizes = new int[] { 12, 18, 13, 10 };
     private float _nodeRadius = 10;
@@ -48,7 +48,7 @@ public class LayeredNetwork : ExampleNodeBase
                     this.DrawCircleOutline(center, _nodeRadius, LineColor);
 
                 var value = _layers[layerIndex][nodeIndex] + NextInt(0, 2);
-                DrawString(GetFont(null), center + new Vector2(-5, 5), value.ToString(), TextColor);
+                DrawString(Font, center + new Vector2(-5, 5), value.ToString(), HorizontalAlignment.Left, -1, 16, TextColor);
             }
         }
     }

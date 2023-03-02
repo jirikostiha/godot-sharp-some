@@ -11,10 +11,9 @@
         /// <summary>
         /// Draw a single dot.
         /// </summary>
-        public static CanvasItem DrawDot(this CanvasItem canvas, Vector2 position, Color color,
-            bool antialiased = false)
+        public static CanvasItem DrawDot(this CanvasItem canvas, Vector2 position, Color color)
         {
-            canvas.DrawMultiline(Multiline.Dot(position), color, 1, antialiased);
+            canvas.DrawMultiline(Multiline.Dot(position), color, 1);
 
             return canvas;
         }
@@ -22,10 +21,9 @@
         /// <summary>
         /// Draw series of dots.
         /// </summary>
-        public static CanvasItem DrawDots(this CanvasItem canvas, IList<Vector2> positions, Color color,
-            bool antialiased = false)
+        public static CanvasItem DrawDots(this CanvasItem canvas, IList<Vector2> positions, Color color)
         {
-            canvas.DrawMultiline(Multiline.Dots(positions), color, 1, antialiased);
+            canvas.DrawMultiline(Multiline.Dots(positions), color, 1);
 
             return canvas;
         }
@@ -72,16 +70,16 @@
             var originTransform = canvas.GetCanvasTransform();
 
             Transform2D t = Transform2D.Identity;
-            t.origin = center;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-            t.y *= radiusB / radiusA;
+            t.Origin = center;
+            t.X.X = t.Y.Y = Cos(angle);
+            t.X.Y = t.Y.X = Sin(angle);
+            t.Y.X *= -1;
+            t.Y *= radiusB / radiusA;
 
             canvas.DrawSetTransformMatrix(t);
             canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
             canvas.DrawSetTransformMatrix(originTransform);
-
+            
             return canvas;
         }
 
@@ -93,11 +91,11 @@
             var originTransform = canvas.GetCanvasTransform();
 
             Transform2D t = Transform2D.Identity;
-            t.origin = center;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-            t.y *= radiusB / radiusA;
+            t.Origin = center;
+            t.X.X = t.Y.Y = Cos(angle);
+            t.X.Y = t.Y.X = Sin(angle);
+            t.Y.X *= -1;
+            t.Y *= radiusB / radiusA;
 
             canvas.DrawSetTransformMatrix(t);
             canvas.DrawCircleRegion(Vector2.Zero, radiusA, areaColor);
@@ -122,11 +120,11 @@
         /// Draw a perimeter of a triangle.
         /// </summary>
         public static CanvasItem DrawTriangleOutline(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawMultiline(
                 Multiline.Triangle(a, b, c),
-                lineColor, lineWidth, antialiased);
+                lineColor, lineWidth);
 
             return canvas;
         }
@@ -147,10 +145,10 @@
         /// Draw a perimeter and plane region of a triangle.
         /// </summary>
         public static CanvasItem DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color areaColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawTriangleRegion(a, b, c, areaColor);
-            canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth, antialiased);
+            canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth);
 
             return canvas;
         }
@@ -159,11 +157,11 @@
         /// Draw a perimeter of a rectangle.
         /// </summary>
         public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawMultiline(
                 Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
-                lineColor, lineWidth, antialiased);
+                lineColor, lineWidth);
 
             return canvas;
         }
@@ -172,11 +170,11 @@
         /// Draw a perimeter of a rectangle.
         /// </summary>
         public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawMultiline(
                 Multiline.Rectangle(vertex1, vertex2, height),
-                lineColor, lineWidth, antialiased);
+                lineColor, lineWidth);
 
             return canvas;
         }
@@ -209,10 +207,10 @@
         /// Draw a perimeter and plane region of a rectangle.
         /// </summary>
         public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color areaColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawRectangleRegion(center, length, width, rotationAngle, areaColor);
-            canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth, antialiased);
+            canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth);
 
             return canvas;
         }
@@ -221,10 +219,10 @@
         /// Draw a perimeter and plane region of a rectangle.
         /// </summary>
         public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color areaColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawRectangleRegion(vertex1, vertex2, height, areaColor);
-            canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth, antialiased);
+            canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth);
 
             return canvas;
         }
@@ -233,11 +231,11 @@
         /// Draw a perimeter of a regular convex polygon.
         /// </summary>
         public static CanvasItem DrawRegularConvexPolygonOutline(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawMultiline(
                 Multiline.RegularConvexPolygon(center, radius, verticesCount, rotationAngle),
-                lineColor, lineWidth, antialiased);
+                lineColor, lineWidth);
 
             return canvas;
         }
@@ -259,10 +257,10 @@
         /// Draw a perimeter and plane region of a regular convex polygon.
         /// </summary>
         public static CanvasItem DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color areaColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             canvas.DrawRegularConvexPolygonRegion(center, radius, verticesCount, rotationAngle, areaColor);
-            canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, antialiased);
+            canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth);
 
             return canvas;
         }
@@ -271,7 +269,7 @@
         /// Draw a candlestick shape.
         /// </summary>
         public static CanvasItem DrawCandlestick(this CanvasItem canvas, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, Color lineColor, Color bodyColor,
-            float lineWidth = 1, bool antialiased = false)
+            float lineWidth = 1)
         {
             var vector = high - low;
             canvas.DrawRectangleRegion(
@@ -283,7 +281,7 @@
 
             canvas.DrawMultiline(
                 Multiline.Candlestick(low, lowOffset, high, highOffset, halfWidth),
-                lineColor, lineWidth, antialiased);
+                lineColor, lineWidth);
 
             return canvas;
         }
@@ -296,13 +294,17 @@
             var originTransform = canvas.GetCanvasTransform();
 
             Transform2D t = Transform2D.Identity;
-            t.origin = position;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
+            t.Origin = position;
+            t.X.X = t.Y.Y = Cos(angle);
+            t.X.Y = t.Y.X = Sin(angle);
+            t.Y.X *= -1;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawString(font, Vector2.Zero, text, color);
+            if (color.HasValue)
+                canvas.DrawString(font, Vector2.Zero, text, HorizontalAlignment.Left, -1, 16, color);
+            else
+                canvas.DrawString(font, Vector2.Zero, text);
+
             canvas.DrawSetTransformMatrix(originTransform);
 
             return canvas;
@@ -317,13 +319,16 @@
             var textSize = font.GetStringSize(text);
 
             Transform2D t = Transform2D.Identity;
-            t.origin = position;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
+            t.Origin = position;
+            t.X.X = t.Y.Y = Cos(angle);
+            t.X.Y = t.Y.X = Sin(angle);
+            t.Y.X *= -1;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawString(font, new Vector2(-textSize.x / 2f, 0), text, color);
+            if (color.HasValue)
+                canvas.DrawString(font, new Vector2(-textSize.X / 2f, 0), text, HorizontalAlignment.Left, -1, 16, color);
+            else
+                canvas.DrawString(font, new Vector2(-textSize.X / 2f, 0), text);
             canvas.DrawSetTransformMatrix(originTransform);
 
             return canvas;

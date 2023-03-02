@@ -1,12 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Connections : ExampleNodeBase
+public partial class Connections : ExampleNodeBase
 {
-    private float _time;
+    private double _time;
     private float _r1, _r2, _r3, _r4, _r5;
 
     public Connections()
@@ -18,7 +18,7 @@ public class Connections : ExampleNodeBase
         _r5 = 13;
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _time += 0.1f;
     }
@@ -45,10 +45,10 @@ public class Connections : ExampleNodeBase
 
     private void DrawSingleConnection(Vector2 rotationCenter, float a, float ar, float b, float br)
     {
-        var aa = a + 4 * Sin(_time);
-        var bb = b + 6 * Sin(_time * 1.13f);
-        var acenter = rotationCenter + (aa * Vector2.Left).Rotated(_time);
-        var bcenter = rotationCenter + (bb * Vector2.Right).Rotated(_time);
+        var aa = a + 4 * Sin((float)_time);
+        var bb = b + 6 * Sin((float)_time * 1.13f);
+        var acenter = rotationCenter + (aa * Vector2.Left).Rotated((float)_time);
+        var bcenter = rotationCenter + (bb * Vector2.Right).Rotated((float)_time);
 
         this.DrawCircleOutline(acenter, ar, LineColor);
         this.DrawCircleOutline(bcenter, br, LineColor);
@@ -60,9 +60,9 @@ public class Connections : ExampleNodeBase
 
     private void DrawTriangleConnection(Vector2 a, float ar, Vector2 b, float br, Vector2 c, float cr)
     {
-        var crr = cr + 4 * Sin(_time);
-        var aa = a + 4 * Sin(_time * 1.1f) * Vector2.Right;
-        var bb = b + 10 * Sin(_time * 1.33f) * Vector2.Down;
+        var crr = cr + 4 * Sin((float)_time);
+        var aa = a + 4 * Sin((float)_time * 1.1f) * Vector2.Right;
+        var bb = b + 10 * Sin((float)_time * 1.33f) * Vector2.Down;
 
         this.DrawCircleOutline(aa, ar, LineColor);
         this.DrawCircleOutline(bb, br, LineColor);
@@ -84,9 +84,9 @@ public class Connections : ExampleNodeBase
     private void DrawChain(Vector2 start)
     {
         var v1 = start;
-        var v2 = v1 + new Vector2(_xOffset, Sin(_time) * 20);
-        var v3 = v1 + new Vector2(2 * _xOffset, Sin(_time) * 28);
-        var v4 = v1 + new Vector2(3 * _xOffset, Sin(_time) * 15);
+        var v2 = v1 + new Vector2(_xOffset, Sin((float)_time) * 20);
+        var v3 = v1 + new Vector2(2 * _xOffset, Sin((float)_time) * 28);
+        var v4 = v1 + new Vector2(3 * _xOffset, Sin((float)_time) * 15);
         var v5 = v1 + new Vector2(4 * _xOffset, 0);
 
         this.DrawCircle(v1, _r1, LineColor, AreaColor);

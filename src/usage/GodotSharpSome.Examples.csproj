@@ -1,13 +1,15 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
-    </ItemGroup>
-
+<Project Sdk="Godot.NET.Sdk/4.0.0">
+	
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<!--<TargetFramework>netstandard2.0</TargetFramework>-->
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+	</ItemGroup>
+	
 </Project>

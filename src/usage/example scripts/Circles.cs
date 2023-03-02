@@ -1,12 +1,12 @@
-﻿using Godot;
+using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Circles : ExampleNodeBase
+public partial class Circles : ExampleNodeBase
 {
-    private float _time;
+    private double _time;
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _time += delta;
     }
@@ -51,7 +51,7 @@ public class Circles : ExampleNodeBase
             var c = cmin + dist * Vector2.Right;
             var refDist = Abs(relDist - dist);
             var r = Max(3, baseRadius * (1 - refDist / (distance * 0.7f)));
-            this.DrawCircleOutline(c, r, LineColor);
+            this.DrawCircleOutline(c, (float)r, LineColor);
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Godot;
+using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Candlesticks : ExampleNodeBase
+public partial class Candlesticks : ExampleNodeBase
 {
     private float _size;
     private float _open = 20;
@@ -15,7 +15,7 @@ public class Candlesticks : ExampleNodeBase
         _size = Top() - Bottom();
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _openDelta = UpdateDelta(_open, _openDelta);
         _open += _openDelta;
@@ -50,7 +50,7 @@ public class Candlesticks : ExampleNodeBase
             Min(_size - _open, _size - _close),
             5,
             LineColor,
-            _open < _close ? Color.ColorN("green") : Color.ColorN("red"));
+            _open < _close ? new Color("green") : new Color("red"));
     }
 
     private float UpdateDelta(float value, float delta)

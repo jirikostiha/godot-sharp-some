@@ -1,11 +1,11 @@
-﻿using Godot;
+using Godot;
 using GodotSharpSome.Drawing2D;
 
-public class Polygons : ExampleNodeBase
+public partial class Polygons : ExampleNodeBase
 {
-    private float _time = 0;
+    private double _time = 0;
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _time += 0.1f;
     }
@@ -16,7 +16,7 @@ public class Polygons : ExampleNodeBase
         {
             var r = 5 + i * 10;
             var n = i + 3;
-            var angle = i % 2 == 0 ? _time : -_time;
+            var angle = i % 2 == 0 ? (float)_time : -(float)_time;
             var areaColor = AreaColor.Darkened(i * 0.1f);
 
             // I

@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
 
-public class Crosses : ExampleNodeBase
+public partial class Crosses : ExampleNodeBase
 {
     protected record Shot
     {
@@ -19,8 +19,8 @@ public class Crosses : ExampleNodeBase
     private Vector2 _cross1, _cross2;
     private Vector2 _origin1, _origin2;
     private Vector2 _target1, _target2;
-    private Color _color1 = Color.ColorN("blue");
-    private Color _color2 = Color.ColorN("red");
+    private Color _color1 = new Color("blue");
+    private Color _color2 = new Color("red");
     private int _time;
 
     public Crosses()
@@ -40,15 +40,15 @@ public class Crosses : ExampleNodeBase
         PathFollow = GetNode<PathFollow2D>("Path2D/PathFollow2D");
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
-        PathFollow.Offset = PathFollow.Offset + delta * MovementSpeed;
+        PathFollow.Progress = PathFollow.Progress + (float)(delta * MovementSpeed);
 
         //move shots
         for (int i = _shots.Count - 1; i >= 0; i--)
         {
             var shot = _shots[i];
-            shot.Position = shot.Position.LinearInterpolate(shot.Destination, 0.05f);
+            shot.Position = shot.Position.Lerp(shot.Destination, 0.05f);
             if (shot.Position.DistanceTo(shot.Destination) < 0.5f)
             {
                 _markers.Enqueue((shot.Position, shot.Type));
@@ -62,7 +62,7 @@ public class Crosses : ExampleNodeBase
         // Aim and fire 1
         if (_cross1.DistanceTo(_target1) > 0.5f)
             //move cross
-            _cross1 = _cross1.LinearInterpolate(_target1, 0.25f);
+            _cross1 = _cross1.Lerp(_target1, 0.25f);
         else
         {
             //fire
@@ -74,7 +74,7 @@ public class Crosses : ExampleNodeBase
 
         // Aim 2
         if (_cross2.DistanceTo(_target2) > 0.5f)
-            _cross2 = _cross2.LinearInterpolate(_target2, 0.1f);
+            _cross2 = _cross2.Lerp(_target2, 0.1f);
         else
             //new target 2
             _target2 = NextVectorBetween(LeftBottom(4), RightMiddle(4));
@@ -101,7 +101,7 @@ public class Crosses : ExampleNodeBase
     private void DrawCrossMovement(Vector2 offset)
     {
         var pos = PathFollow.Position;
-        var sizeCoef = Mathf.Abs(0.5f - PathFollow.UnitOffset);
+        var sizeCoef = Mathf.Abs(0.5f - PathFollow.ProgressRatio);
 
         // I
         DrawMultiline(

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Rectangles : ExampleNodeBase
+public partial class Rectangles : ExampleNodeBase
 {
     private const float Tolerance = 1;
 
@@ -20,7 +20,7 @@ public class Rectangles : ExampleNodeBase
         _angle = _nextAngle = Pi / 5.1f;
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         if (_tracking.Count > 10)
             _tracking.Dequeue();

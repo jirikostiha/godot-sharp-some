@@ -1,8 +1,8 @@
-﻿using Godot;
+using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Triangles : ExampleNodeBase
+public partial class Triangles : ExampleNodeBase
 {
     private const float Tolerance = 1;
 
@@ -18,7 +18,7 @@ public class Triangles : ExampleNodeBase
         _areaColor = _areaColorNext = AreaColor;
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         if (_p1.DistanceTo(_p1Next) < Tolerance)
             _p1Next = NextVectorInsideCell(1);
@@ -29,13 +29,13 @@ public class Triangles : ExampleNodeBase
         if (_p3.DistanceTo(_p3Next) < Tolerance)
             _p3Next = NextVectorInsideCell(1);
 
-        if (Abs(_areaColor.r - _areaColorNext.r) < 0.02)
+        if (Abs(_areaColor.R - _areaColorNext.R) < 0.02)
             _areaColorNext = NextColorWithAlpha(0.1f, 1);
 
-        _p1 = _p1.LinearInterpolate(_p1Next, 0.13f);
-        _p2 = _p2.LinearInterpolate(_p2Next, 0.20f);
-        _p3 = _p3.LinearInterpolate(_p3Next, 0.07f);
-        _areaColor = _areaColor.LinearInterpolate(_areaColorNext, 0.01f);
+        _p1 = _p1.Lerp(_p1Next, 0.13f);
+        _p2 = _p2.Lerp(_p2Next, 0.20f);
+        _p3 = _p3.Lerp(_p3Next, 0.07f);
+        _areaColor = _areaColor.Lerp(_areaColorNext, 0.01f);
     }
 
     public override void _Draw()

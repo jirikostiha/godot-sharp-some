@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Arrows : ExampleNodeBase
+public partial class Arrows : ExampleNodeBase
 {
-    private float _time;
+    private double _time;
     private int _iteration;
     private float _headRadius = 15;
     private float _arrowAngle = Pi * 0.1f;
+    private Font _font;
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _time += delta;
         _iteration++;
@@ -46,28 +47,27 @@ public class Arrows : ExampleNodeBase
     private void DrawTextRotation(Vector2 center, string text)
     {
         this.DrawCircleRegion(center, 1.5f, AreaColor);
-        this.DrawString(GetFont(default), center, text, _time * 2f, LineColor);
+        this.DrawString(Font, center, text, (float)_time * 2f, LineColor);
     }
 
     private void DrawTextRotationCentered(Vector2 center, string text)
     {
         this.DrawCircleRegion(center, 1.5f, AreaColor);
-        this.DrawCenteredString(GetFont(default), center, text, _time * 2f, LineColor);
+        this.DrawCenteredString(Font, center, text, (float)_time * 2f, LineColor);
     }
 
     private void DrawDimensiong(Vector2 center)
     {
-        var r = 17 + 5 * (1 + Sin(_time));
-        var font = GetFont(default);
-        var dimAngle = Sin(_time * 0.7f);
+        var r = 17 + 5 * (1 + Sin((float)_time));
+        var dimAngle = Sin((float)_time * 0.7f);
 
         var v1 = center + (r * Vector2.Left).Rotated(dimAngle);
         var v2 = center + (r * Vector2.Right).Rotated(dimAngle);
-        var h = r + font.GetAscent();
+        var h = r + Font.GetAscent();
         var hh = h + 4;
 
         var dirVector = v1.DirectionTo(v2);
-        var normalVector = new Vector2(dirVector.y, -dirVector.x);
+        var normalVector = new Vector2(dirVector.Y, -dirVector.X);
         var textCenter = v1 + ((v2 - v1) / 2f) + normalVector * hh;
 
         var dcolor = LineColor.Lightened(0.5f);
@@ -84,6 +84,6 @@ public class Arrows : ExampleNodeBase
             : r < 26 ? r.ToString("0.0")
             : r.ToString("0.00");
 
-        this.DrawCenteredString(font, textCenter, rtext, dimAngle, dcolor);
+        this.DrawCenteredString(Font, textCenter, rtext, dimAngle, dcolor);
     }
 }

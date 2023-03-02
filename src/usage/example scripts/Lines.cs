@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Lines : ExampleNodeBase
+public partial class Lines : ExampleNodeBase
 {
     private float[] _bounds = new float[] { 0f, 1f };
 
@@ -16,7 +16,7 @@ public class Lines : ExampleNodeBase
 
     public override void _Ready()
     {
-        Tween = GetNode<Tween>("Tween");
+        //Tween = new Tween();
         StartTween();
     }
 
@@ -74,7 +74,7 @@ public class Lines : ExampleNodeBase
     private void DrawLineFromRef(Vector2 start)
     {
         var refPoint = start + Vector2.Right * 25;
-        DrawMultiline(Multiline.Line(start, refPoint), Color.ColorN("lightblue"));
+        DrawMultiline(Multiline.Line(start, refPoint), new Color("lightblue"));
 
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
@@ -115,14 +115,14 @@ public class Lines : ExampleNodeBase
         DrawMultiline(
             Multiline.ParallelLines(
                 corner1,
-                corner1 + new Vector2(corner2.x - corner1.x, 0),
-                (corner2.y - corner1.y) / 7f,
+                corner1 + new Vector2(corner2.X - corner1.X, 0),
+                (corner2.Y - corner1.Y) / 7f,
                 8),
             LineColor);
 
         DrawMultiline(
             Multiline.ParallelLines(
-                corner1 + new Vector2(0, corner2.y - corner1.y),
+                corner1 + new Vector2(0, corner2.Y - corner1.Y),
                 corner1,
                 new float[] { 0, 10, 20, 30, 20 }),
             LineColor);
@@ -141,7 +141,8 @@ public class Lines : ExampleNodeBase
 
     private void StartTween()
     {
-        Tween.InterpolateMethod(this, nameof(Interpolate), _bounds[0], _bounds[1], 2f);
-        Tween.Start();
+        Tween = CreateTween();
+        Tween.TweenMethod(new Callable(this, nameof(Interpolate)), _bounds[0], _bounds[1], 2f);
+        //Tween.Start();
     }
 }

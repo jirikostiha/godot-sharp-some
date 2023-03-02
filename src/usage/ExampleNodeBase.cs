@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
+using System;
 using Godot;
 
-public class ExampleNodeBase : Godot.ColorRect
+public partial class ExampleNodeBase : Godot.ColorRect
 {
-    public Color TextColor = Color.ColorN("black");
-    public Color LineColor = Color.ColorN("black");
-    public Color LineColor2 = Color.ColorN("orange");
-    public Color AreaColor = Color.ColorN("gray");
+    public Color TextColor = new Color("black");
+    public Color LineColor = new Color("black");
+    public Color LineColor2 = new Color("orange");
+    public Color AreaColor = new Color("gray");
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;
@@ -17,6 +16,8 @@ public class ExampleNodeBase : Godot.ColorRect
 
     protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
 
+    protected Font Font { get; set; }
+
     public bool Animate { get; set; }
 
     public bool Invert { get; set; }
@@ -24,18 +25,19 @@ public class ExampleNodeBase : Godot.ColorRect
     public override void _Ready()
     {
         Color = ExampleList.LightBack;
+        Font = ThemeDB.FallbackFont;
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         if (Animate)
         {
             NextState(delta);
-            Update();
+            QueueRedraw();
         }
     }
 
-    protected virtual void NextState(float delta) { }
+    protected virtual void NextState(double delta) { }
 
     public static float NextUin() => Rng.Randf();
 
@@ -62,8 +64,8 @@ public class ExampleNodeBase : Godot.ColorRect
         NextFloat(yMin, yMax));
 
     public static Vector2 NextVectorBetween(Vector2 a, Vector2 b) => new (
-        NextFloat(a.x, b.x),
-        NextFloat(a.y, b.y));
+        NextFloat(a.X, b.X),
+        NextFloat(a.Y, b.Y));
 
     public Vector2 NextVectorInsideCell(int column) => new (
         NextInt(Left(column), Right(column) + 1),

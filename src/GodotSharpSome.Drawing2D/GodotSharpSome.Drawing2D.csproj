@@ -1,11 +1,12 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+﻿<Project Sdk="Godot.NET.Sdk/4.0.0">
 
     <Import Project="..\..\product.props" />
     <Import Project="..\..\product_version.props" />
     <Import Project="..\..\participants.props" />
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
         <LangVersion>latest</LangVersion>
         <AnalysisLevel>latest-recommended</AnalysisLevel>
         <Nullable>enable</Nullable>
@@ -27,15 +28,6 @@
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Update="GodotSharp">
-        <Private>True</Private>
-      </Reference>
-      <Reference Update="GodotSharpEditor">
-        <Private>True</Private>
-      </Reference>
     </ItemGroup>
 
 </Project>

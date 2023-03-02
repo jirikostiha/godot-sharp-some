@@ -1,9 +1,9 @@
-﻿using System.Linq;
+using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class Dots : ExampleNodeBase
+public partial class Dots : ExampleNodeBase
 {
     private float _time;
 
@@ -17,7 +17,7 @@ public class Dots : ExampleNodeBase
         _powerPointCount = _powerSamplePointsX.Length;
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _time += 0.02f;
 

@@ -444,7 +444,7 @@
             for (int i = 0; i < verticesCount; i++)
             {
                 angle = rotationAngle + segmentAngle * i;
-                yield return new Vector2(radius * Cos(angle) + center.x, radius * Sin(angle) + center.y);
+                yield return new Vector2(radius * Cos(angle) + center.X, radius * Sin(angle) + center.Y);
             }
         }
 
@@ -655,16 +655,16 @@
 
         public static void AppendCross(IList<Vector2> points, Vector2 center, float radius)
         {
-            AppendLine(points, center.x - radius, center.y, center.x + radius, center.y);
-            AppendLine(points, center.x, center.y - radius, center.x, center.y + radius);
+            AppendLine(points, center.X - radius, center.Y, center.X + radius, center.Y);
+            AppendLine(points, center.X, center.Y - radius, center.X, center.Y + radius);
         }
 
         public static void AppendCross2(IList<Vector2> points, Vector2 center, float outerRadius, float innerRadius)
         {
-            AppendLine(points, center.x - innerRadius, center.y, center.x - outerRadius, center.y);
-            AppendLine(points, center.x + innerRadius, center.y, center.x + outerRadius, center.y);
-            AppendLine(points, center.x, center.y - innerRadius, center.x, center.y - outerRadius);
-            AppendLine(points, center.x, center.y + innerRadius, center.x, center.y + outerRadius);
+            AppendLine(points, center.X - innerRadius, center.Y, center.X - outerRadius, center.Y);
+            AppendLine(points, center.X + innerRadius, center.Y, center.X + outerRadius, center.Y);
+            AppendLine(points, center.X, center.Y - innerRadius, center.X, center.Y - outerRadius);
+            AppendLine(points, center.X, center.Y + innerRadius, center.X, center.Y + outerRadius);
         }
 
         public static void AppendArrow(IList<Vector2> points, Vector2 start, Vector2 top,
@@ -811,13 +811,13 @@
             if (upDirrection)
             {
                 AppendLine(points,
-                    new Vector2(rectBottom.x - halfWidth, rectBottom.y),
-                    new Vector2(rectTop.x + halfWidth, rectTop.y));
+                    new Vector2(rectBottom.X - halfWidth, rectBottom.Y),
+                    new Vector2(rectTop.X + halfWidth, rectTop.Y));
             }
             else
                 AppendLine(points,
-                    new Vector2(rectBottom.x + halfWidth, rectBottom.y),
-                    new Vector2(rectTop.x - halfWidth, rectTop.y));
+                    new Vector2(rectBottom.X + halfWidth, rectBottom.Y),
+                    new Vector2(rectTop.X - halfWidth, rectTop.Y));
         }
 
         private static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, Vector2 top, Vector2 rectBottom, Vector2 rectCenter, Vector2 rectTop, float bodyHalfWidth)

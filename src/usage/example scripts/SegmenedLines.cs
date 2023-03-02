@@ -1,6 +1,6 @@
-﻿using GodotSharpSome.Drawing2D;
+using GodotSharpSome.Drawing2D;
 
-public class SegmenedLines : ExampleNodeBase
+public partial class SegmenedLines : ExampleNodeBase
 {
     public override void _Draw()
     {

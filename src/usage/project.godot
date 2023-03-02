@@ -6,21 +6,26 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="GodotSharpSome.Examples"
 run/main_scene="res://ExampleList.tscn"
+config/features=PackedStringArray("4.0", "C#")
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=710
+window/size/viewport_width=710
+
+[dotnet]
+
+project/assembly_name="GodotSharpSome.Examples"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PackedStringArray()
 
 [global]
 
@@ -40,5 +45,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0, 0, 0, 1 )
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_environment="res://default_env.tres"

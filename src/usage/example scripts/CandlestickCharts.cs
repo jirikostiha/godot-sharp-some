@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-public class CandlestickCharts : ExampleNodeBase
+public partial class CandlestickCharts : ExampleNodeBase
 {
     private Queue<(float Open, float Low, float High, float Close)> _frames = new();
     private int _countLimit = 40;
-    private float _speedCounter = 0;
+    private double _speedCounter = 0;
     private float _speedTreshold = 0.05f;
     private float _candleHalfWidth = 4f;
     private float _lastClose = 7;
@@ -23,7 +23,7 @@ public class CandlestickCharts : ExampleNodeBase
         }
     }
 
-    protected override void NextState(float delta)
+    protected override void NextState(double delta)
     {
         _speedCounter += delta;
         if (_speedCounter < _speedTreshold)
@@ -82,11 +82,11 @@ public class CandlestickCharts : ExampleNodeBase
                 highOffset: topOffset,
                 halfWidth: _candleHalfWidth,
                 lineColor: LineColor,
-                bodyColor: frame.Close > frame.Open ? Color.ColorN("green") : Color.ColorN("red"));
+                bodyColor: frame.Close > frame.Open ? new Color("green") : new Color("red"));
 
             i++;
         }
     }
 
-    private Vector2 FlipY(Vector2 position) => new(position.x, RectSize.y - position.y);
+    private Vector2 FlipY(Vector2 position) => new(position.X, Size.Y - position.Y);
 }
