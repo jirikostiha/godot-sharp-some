@@ -22,13 +22,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
+      - name: .NET Info
+        run: dotnet --info
+
       - name: Restore dependencies
         run: dotnet restore "${{ env.sln-path }}"
 
-      - name: Build
+      - name: Build debug
         run: dotnet build "${{ env.sln-path }}" --no-restore

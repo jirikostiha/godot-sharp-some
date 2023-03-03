@@ -1,4 +1,4 @@
-name: Source Code Lint and Fix
+name: Code Lint
 
 on:
   workflow_dispatch:

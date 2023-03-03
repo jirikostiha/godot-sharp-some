@@ -1,4 +1,4 @@
-#doc: https://yamllint.readthedocs.io
+# doc: https://yamllint.readthedocs.io
 
 extends: default
 

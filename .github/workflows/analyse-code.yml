@@ -1,4 +1,4 @@
-name: Static Code Analysis
+name: Code Analysis
 
 on:
   workflow_dispatch:
