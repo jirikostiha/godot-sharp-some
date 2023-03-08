@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  commitlint:
+  commit-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,3 +20,12 @@ jobs:
       - name: Check no !fixup commits
         if: ${{ github.event_name == 'pull_request' }}
         uses: 13rac1/block-fixup-merge-action@v2.0.0
+
+      - name: Delete workflow logs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          delete_workflow_pattern: ${{ github.workflow }}
+          retain_days: 3
+          keep_minimum_runs: 3
