@@ -2,6 +2,7 @@
 
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
 ![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/godot-sharp-some)  
+[![Build](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml)
 
 Is set of extensions for custom drawing API in Godot engine version 3.3 and higher. It simplifies script drawing.
 
