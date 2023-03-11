@@ -265,6 +265,7 @@
             return canvas;
         }
 
+        //todo move to charts
         /// <summary>
         /// Draw a candlestick shape.
         /// </summary>

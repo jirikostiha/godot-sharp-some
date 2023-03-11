@@ -149,12 +149,14 @@
             return this;
         }
 
+        //todo move to charts
         public Multiline AppendSegmentedLine(Vector2 start, Vector2 direction, IList<float> distances)
         {
             AppendSegmentedLine(_points, start, direction, distances);
             return this;
         }
 
+        //todo move to charts
         public Multiline AppendSegmentedArrow(Vector2 start, Vector2 direction, IList<float> distances,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -176,6 +178,7 @@
             return this;
         }
 
+        //todo move to charts
         public Multiline AppendAxes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -219,6 +222,7 @@
             return this;
         }
 
+        //todo move to graphs
         public Multiline AppendConnection(Vector2 aCenter, float aRadius, Vector2 bCenter, float bRadius, float? aHeadRadius = default, float? bHeadRadius = default)
         {
             AppendLine(_points, aCenter, aRadius, bCenter, bRadius);
@@ -364,6 +368,7 @@
             return points.ToArray();
         }
 
+        //todo move to charts
         public static Vector2[] SegmentedLine(Vector2 start, Vector2 end, int segmentCount)
         {
             var segmentLength = (end - start).Length() / segmentCount;
@@ -374,6 +379,7 @@
             return points.ToArray();
         }
 
+        //todo move to charts
         public static Vector2[] SegmentedArrow(Vector2 start, Vector2 top, float segmentLength,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -384,6 +390,7 @@
                 headRadius, arrowAngle);
         }
 
+        //todo move to charts
         public static Vector2[] SegmentedArrow(Vector2 start, Vector2 direction, IList<float> distances,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -408,6 +415,7 @@
             return points.ToArray();
         }
 
+        //todo move to charts
         public static Vector2[] Axes(Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -455,6 +463,7 @@
             return points.ToArray();
         }
 
+        //todo move to charts
         public static Vector2[] Candlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
             var points = new List<Vector2>(6 * 2);
@@ -462,6 +471,7 @@
             return points.ToArray();
         }
 
+        //todo move to charts
         public static Vector2[] CrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
         {
             var points = new List<Vector2>(7 * 2);
@@ -691,6 +701,7 @@
             AppendLine(points, top, top + direction.Rotated(Pi - arrowAngle) * headRadius);
         }
 
+        //todo move to charts
         public static void AppendSegmentedLine(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances)
         {
             var dir = direction.Normalized();
@@ -699,6 +710,7 @@
             AppendParallelLines(points, start, dir.LeftNormal() * 3, distances); //todo replace var by offset
         }
 
+        //todo move to charts
         public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -725,6 +737,7 @@
                 AppendArrow(points, zero, zero + vector, Clamp(vector.Length() / 4f, 14, 20), arrowAngle);
         }
 
+        //todo move to charts
         public static void AppendAxes(IList<Vector2> points, Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -790,6 +803,7 @@
             AppendLine(points, vertices[verticesCount - 1], vertices[0]);
         }
 
+        //todo move to charts
         public static void AppendCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth)
         {
             var dir = low.DirectionTo(high);
@@ -800,6 +814,7 @@
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
         }
 
+        //todo move to charts
         public static void AppendCrossedCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
         {
             var dir = low.DirectionTo(high);
@@ -820,6 +835,8 @@
                     new Vector2(rectTop.X - halfWidth, rectTop.Y));
         }
 
+
+        //todo move to charts
         private static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, Vector2 top, Vector2 rectBottom, Vector2 rectCenter, Vector2 rectTop, float bodyHalfWidth)
         {
             AppendLine(points, bottom, rectBottom);
