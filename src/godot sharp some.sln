@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B
 		..\.github\workflows\lint-commit.yml = ..\.github\workflows\lint-commit.yml
 		..\.github\workflows\lint-config.yml = ..\.github\workflows\lint-config.yml
 		..\.github\workflows\lint-docs.yml = ..\.github\workflows\lint-docs.yml
+		..\.github\workflows\release.yml = ..\.github\workflows\release.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CAFF78B8-7F67-42A1-8BAC-04DB67CFCFC2}"
