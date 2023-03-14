@@ -1,0 +1,48 @@
+name: Publish
+
+env:
+  sln-path: "./src/godot sharp some.sln"
+  package-dir: "packages"
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.tag }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.0'
+          source-url: https://api.nuget.org/v3/index.json
+        env:
+           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_TOKEN }}
+      
+      - name: Publish
+        run: dotnet publish "${{ env.sln-path }}" -c Release
+
+      - name: Pack
+        run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" --no-build
+
+      - name: Push Package to NuGet
+        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg
+
+      - name: Push to Asset Library
+        uses: deep-entertainment/godot-asset-lib-action@v0.4.0
+        with:
+          username: example
+          password: ${{ secrets.ASSET_STORE_PASSWORD }}
+          assetId: 12345
