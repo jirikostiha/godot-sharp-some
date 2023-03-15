@@ -15,5 +15,6 @@ CanvasItemExtensions
 Multiline
 DrawMultiline
 antialiased
+antialiasing
 CanvasItem
 CanvasItemExtensions
