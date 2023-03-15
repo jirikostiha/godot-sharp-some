@@ -34,7 +34,7 @@ jobs:
 
       - name: Restore
         run: dotnet restore "${{ env.sln-path }}"
-        
+
       - name: Build release
         run: dotnet build "${{ env.sln-path }}" --no-restore -o "${{ env.build-dir }}"
 

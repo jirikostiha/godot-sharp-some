@@ -29,8 +29,8 @@ jobs:
           dotnet-version: '6.0.0'
           source-url: https://api.nuget.org/v3/index.json
         env:
-           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_TOKEN }}
-      
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_TOKEN }}
+
       - name: Publish
         run: dotnet publish "${{ env.sln-path }}" -c Release
 
