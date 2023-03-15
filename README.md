@@ -5,15 +5,13 @@
 [![Build](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml)
 [![Code Analysis](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml)
 
-Is set of extensions for custom drawing API in Godot engine version 3.3 and higher. It simplifies script drawing.
+Is set of extensions for custom drawing API in Godot engine version 4.0 and higher. It simplifies script drawing.
 
 ## Features
 
 Includes CanvasItem extensions for drawing various plane shapes and Multiline class extending possibilities of drawing API.  
 
 ![pic](./doc/images/dots_and_lines_animation.gif)
-![pic](./doc/images/connections_animation.gif)
-![pic](./doc/images/candlesticks_animation.gif)
 ![pic](./doc/images/primitives_animation.gif)
 
 Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)
@@ -27,12 +25,13 @@ to your project.
 Godot project's `.csproj` file should look like this:
 
 ```xml
-<Project Sdk="Godot.NET.Sdk/3.3.0">
+<Project Sdk="Godot.NET.Sdk/4.0.0">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GodotSharpSome.Drawing2D" Version="0.19.0" />
+    <PackageReference Include="GodotSharpSome.Drawing2D" Version="0.20.0" />
   </ItemGroup>
 </Project>
 ```

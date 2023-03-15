@@ -1,6 +1,6 @@
 # Godot Sharp Some - Drawing 2D
 
-Is set of general extensions for custom drawing API in Godot engine version 3.3 and higher.  
+Is set of general extensions for custom drawing API in Godot engine version 4.0 and higher.  
 
 ## CanvasItemExtensions
 
