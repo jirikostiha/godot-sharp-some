@@ -14,14 +14,14 @@ matrix:
             - pymdownx.superfences:
             - markdown.extensions.extra:
       - pyspelling.filters.html:
-        comments: false
-        attributes:
-          - alt
-        ignores:
-          - ':matches(code, pre)'
-          - 'code'
-          - 'pre'
-          - 'blockquote'
+          comments: false
+          attributes:
+            - alt
+          ignores:
+            - ':matches(code, pre)'
+            - 'code'
+            - 'pre'
+            - 'blockquote'
     sources:
       - '**/*.md'
     default_encoding: utf-8
