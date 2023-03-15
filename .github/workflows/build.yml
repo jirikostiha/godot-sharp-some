@@ -31,3 +31,6 @@ jobs:
 
       - name: Build debug
         run: dotnet build "${{ env.sln-path }}" --no-restore
+
+      - name: Test
+        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" || true

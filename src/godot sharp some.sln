@@ -54,11 +54,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{B55B
 		..\.github\yamllint.yml = ..\.github\yamllint.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quality", "quality", "{5D4B944E-9859-41F9-A88C-7C731F5A43F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		ExportDebug|Any CPU = ExportDebug|Any CPU
 		ExportRelease|Any CPU = ExportRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -67,12 +72,24 @@ Global
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{F36FE7E6-0989-4985-831D-C5B4D3B03343}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +97,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
+		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
