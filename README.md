@@ -11,8 +11,6 @@ Is set of extensions for custom drawing API in Godot engine version 3.3 and high
 
 Includes CanvasItem extensions for drawing various plane shapes and Multiline class extending possibilities of drawing API.  
 
-**Note: Godot currently does not support parameters 'width' and 'antialiased' of 'DrawMultiline' method so they have no effect for now.**  
-\
 ![pic](./doc/images/dots_and_lines_animation.gif)
 ![pic](./doc/images/connections_animation.gif)
 ![pic](./doc/images/candlesticks_animation.gif)
