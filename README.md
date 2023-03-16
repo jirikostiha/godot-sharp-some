@@ -1,9 +1,12 @@
 # Godot Sharp Some
 
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
-![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/godot-sharp-some)  
+![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/godot-sharp-some)
+![GitHub code size](https://img.shields.io/github/languages/code-size/jirikostiha/godot-sharp-some)  
 [![Build](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/build.yml)
 [![Code Analysis](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml)
+[![Code Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml)
+[![Documentation Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml)
 
 Is set of extensions for custom drawing API in Godot engine version 4.0 and higher. It simplifies script drawing.
 
