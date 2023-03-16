@@ -27,5 +27,5 @@ jobs:
           dotnet_format: true
           dotnet_format_dir: src
           dotnet_format_auto_fix: true
-          auto_fix: true
+          auto_fix: ${{ github.event_name == 'pull_request' }}
           git_name: "C# linter"
