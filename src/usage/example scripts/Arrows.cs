@@ -9,7 +9,6 @@ public partial class Arrows : ExampleNodeBase
     private int _iteration;
     private float _headRadius = 15;
     private float _arrowAngle = Pi * 0.1f;
-    private Font _font;
 
     protected override void NextState(double delta)
     {

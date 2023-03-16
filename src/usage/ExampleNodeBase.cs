@@ -3,10 +3,10 @@ using Godot;
 
 public partial class ExampleNodeBase : Godot.ColorRect
 {
-    public Color TextColor = new Color("black");
-    public Color LineColor = new Color("black");
-    public Color LineColor2 = new Color("orange");
-    public Color AreaColor = new Color("gray");
+    public Color TextColor = Colors.Black;
+    public Color LineColor = Colors.Black;
+    public Color LineColor2 = Colors.Orange;
+    public Color AreaColor = Colors.Gray;
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;
@@ -14,9 +14,9 @@ public partial class ExampleNodeBase : Godot.ColorRect
 
     protected static Vector2 CellWidthVector => new (CellWidth, 0);
 
-    protected static RandomNumberGenerator Rng { get; set; } = new RandomNumberGenerator();
+    protected static RandomNumberGenerator Rng { get; set; } = new();
 
-    protected Font Font { get; set; }
+    protected Font Font { get; set; } = ThemeDB.FallbackFont;
 
     public bool Animate { get; set; }
 

@@ -3,12 +3,12 @@ using Godot;
 
 public sealed partial class ExampleList : Godot.Control
 {
-	public static readonly Color LightBack = new Color("white");
-	public static readonly Color DarkBack = new Color("black");
-	public static readonly Color LightStroke = new Color("white");
-	public static readonly Color DarkStroke = new Color("black");
-	public static readonly Color LightRegion = new Color("lightgray");
-	public static readonly Color DarkRegion = new Color("darkgray");
+	public static readonly Color LightBack = Colors.White;
+	public static readonly Color DarkBack = Colors.Black;
+	public static readonly Color LightStroke = Colors.White;
+	public static readonly Color DarkStroke = Colors.Black;
+	public static readonly Color LightRegion = Colors.LightGray;
+	public static readonly Color DarkRegion = Colors.DarkGray;
 
 	public bool AnimateAll { get; set; }
 
