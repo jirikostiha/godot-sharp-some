@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\analyse-code.yml = ..\.github\workflows\analyse-code.yml
+		..\.github\workflows\auto-approve.yml = ..\.github\workflows\auto-approve.yml
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\.github\workflows\clean-history.yml = ..\.github\workflows\clean-history.yml
 		..\.github\workflows\lint-code.yml = ..\.github\workflows\lint-code.yml
