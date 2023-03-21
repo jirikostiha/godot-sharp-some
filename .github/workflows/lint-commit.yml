@@ -9,6 +9,7 @@ on:
 jobs:
   commit-lint:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -22,6 +23,7 @@ jobs:
         uses: 13rac1/block-fixup-merge-action@v2.0.0
 
       - name: Delete workflow logs
+        if: ${{ github.event_name == 'push' }}
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ github.token }}
