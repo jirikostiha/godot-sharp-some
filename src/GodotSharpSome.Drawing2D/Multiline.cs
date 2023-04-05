@@ -609,7 +609,7 @@
         public static void AppendParallelLine(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float endOffset = 0)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = dir.LeftNormal();
+            var normal = dir.Normal1();
 
             AppendLine(points,
                 refStart + dir * startOffset + normal * distance,
@@ -620,7 +620,7 @@
         public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, float distance, int count)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = dir.LeftNormal();
+            var normal = dir.Normal1();
 
             for (int i = 0; i < count; i++)
             {
@@ -633,7 +633,7 @@
         public static void AppendParallelLines(IList<Vector2> points, Vector2 refStart, Vector2 refEnd, IList<float> distances)
         {
             var dir = refStart.DirectionTo(refEnd);
-            var normal = dir.LeftNormal();
+            var normal = dir.Normal1();
 
             var distSum = 0f;
             foreach (var distance in distances)
@@ -705,7 +705,7 @@
             var dir = direction.Normalized();
 
             AppendLine(points, start, start + dir * distances.Sum());
-            AppendParallelLines(points, start, dir.LeftNormal() * 3, distances); //todo replace var by offset
+            AppendParallelLines(points, start, dir.Normal1() * 3, distances); //todo replace var by offset
         }
 
         //todo move to charts
@@ -717,7 +717,7 @@
 
             AppendArrow(points, start, segmentedPartEnd + dir * 2 * headRadius, headRadius, arrowAngle);
             //todo replace var by offset
-            AppendParallelLinesAlong(points, start, start + dir.LeftNormal() * 3, start.DirectionTo(segmentedPartEnd), distances);
+            AppendParallelLinesAlong(points, start, start + dir.Normal1() * 3, start.DirectionTo(segmentedPartEnd), distances);
         }
 
         public static void AppendVectorsRelatively(IList<Vector2> points, Vector2 zero, IEnumerable<Vector2> vectors,
@@ -743,7 +743,7 @@
             var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
 
             AppendSegmentedArrow(points, origin, xDirection, xDistances, headRadius, arrowAngle);
-            AppendSegmentedArrow(points, origin, xDirection.LeftNormal(), yDistances, headRadius, arrowAngle);
+            AppendSegmentedArrow(points, origin, xDirection.Normal1(), yDistances, headRadius, arrowAngle);
         }
 
         /// <summary>
@@ -772,7 +772,7 @@
         public static void AppendRectangle(IList<Vector2> points, Vector2 vertex1, Vector2 vertex2, float height)
         {
             var dir = vertex1.DirectionTo(vertex2);
-            var normal = dir.RightNormal();
+            var normal = dir.Normal2();
             var vertex3 = vertex2 + normal * height;
             var vertex4 = vertex1 + normal * height;
 

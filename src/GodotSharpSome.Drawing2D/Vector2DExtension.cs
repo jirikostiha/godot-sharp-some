@@ -5,17 +5,15 @@
 
     public static class Vector2DExtension
     {
-        //todo to 1st or 2nd normal
         /// <summary>
-        /// Get left-handed normal vector to input vector.
+        /// First normal vector of an input vector. It is the first one in circular direction from (+)x-axis to (+)y-axis.
         /// </summary>
-        public static Vector2 LeftNormal(this Vector2 vector) => new(-vector.Y, vector.X);
+        public static Vector2 Normal1(this Vector2 vector) => new(-vector.Y, vector.X);
 
-        //todo to 1st or 2nd normal
         /// <summary>
-        /// Get right-handed normal vector to input vector.
+        /// Second normal vector of an input vector. It is the second one in circular direction from (+)x-axis to (+)y-axis.
         /// </summary>
-        public static Vector2 RightNormal(this Vector2 vector) => new (vector.Y, -vector.X);
+        public static Vector2 Normal2(this Vector2 vector) => new (vector.Y, -vector.X);
       
         /// <summary>
         /// Rotate vectors around center [0,0].
