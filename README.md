@@ -34,10 +34,11 @@ Godot project's `.csproj` file should look like this:
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GodotSharpSome.Drawing2D" Version="0.20.0" />
+    <PackageReference Include="GodotSharpSome.Drawing2D" Version="X.X.X" />
   </ItemGroup>
 </Project>
 ```
+Replace 'X.X.X' with a specific version.
 
 ## Contributing
 
