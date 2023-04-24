@@ -38,7 +38,8 @@ Godot project's `.csproj` file should look like this:
   </ItemGroup>
 </Project>
 ```
-Replace 'X.X.X' with a specific version.
+
+'X.X.X' is specific version.
 
 ## Contributing
 
