@@ -7,7 +7,7 @@ namespace GodotSharpSome.Drawing2D.Tests
         [Fact]
         public void AppendLine_TwoPoints()
         {
-            Assert.Equal(2, new Multiline().AppendLine(Vector2.Zero, Vector2.One).Points.Length);
+            Assert.Equal(2, new Multiline().AppendLine(Vector2.Zero, Vector2.One).Points().Length);
         }
     }
 }

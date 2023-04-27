@@ -60,7 +60,6 @@ public partial class LayeredNetwork : ExampleNodeBase
         for (int layerIndex = 1; layerIndex < _layers.Count; layerIndex++)
         {
             var sourceLayer = _layers[layerIndex - 1];
-            var destinationLayer = _layers[layerIndex];
             var offset = (maxNodes - _layers[layerIndex].Count) / 2f * nodeSpan;
             for (int destNodeIndex = 0; destNodeIndex < _layers[layerIndex].Count; destNodeIndex++)
             {
@@ -77,6 +76,6 @@ public partial class LayeredNetwork : ExampleNodeBase
             }
         }
 
-        DrawMultiline(m.Points, new Color(LineColor, 0.1f));
+        DrawMultiline(m.Points(), new Color(LineColor, 0.1f));
     }
 }

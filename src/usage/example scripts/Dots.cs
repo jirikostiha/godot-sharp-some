@@ -45,7 +45,7 @@ public partial class Dots : ExampleNodeBase
             .AppendDottedLine(origin + new Vector2(-30, 0), origin + new Vector2(30, 0), 8)
             .AppendDots(functionPoints);
 
-        DrawMultiline(m.Points, LineColor);
+        DrawMultiline(m.Points(), LineColor);
     }
 
     private void DrawSin(Vector2 start)

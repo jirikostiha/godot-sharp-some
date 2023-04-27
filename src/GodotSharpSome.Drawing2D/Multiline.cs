@@ -18,7 +18,7 @@
 
         private static readonly Vector2 DotVector = Vector2.Down;
 
-        private IList<Vector2> _points;
+        private readonly IList<Vector2> _points;
 
         public Multiline(int capacity)
         {
@@ -30,7 +30,7 @@
             _points = points ?? new List<Vector2>();
         }
 
-        public Vector2[] Points => _points.ToArray();
+        public Vector2[] Points() => _points.ToArray();
 
         #region instance as builder
 
@@ -80,8 +80,8 @@
             return this;
         }
 
-        /// <summary> Append a continuation line from <paramref name="start"/> point to <paramref name="end"/> point 
-        /// with <paramref name="startOffset"/> shift from the start point and <paramref name="endOffset"/> shift from the end. 
+        /// <summary> Append a continuation line from <paramref name="start"/> point to <paramref name="end"/> point
+        /// with <paramref name="startOffset"/> shift from the start point and <paramref name="endOffset"/> shift from the end.
         /// </summary>
         public Multiline AppendLine(Vector2 start, float startOffset, Vector2 end, float endOffset)
         {
@@ -250,7 +250,7 @@
 
         #endregion
 
-        #region static 
+        #region static
 
         public static Vector2[] Dot(Vector2 position)
         {
@@ -568,7 +568,7 @@
         }
 
         /// <summary>
-        /// Append a continuation line from the last point. 
+        /// Append a continuation line from the last point.
         /// </summary>
         public static void AppendLine(IList<Vector2> points, Vector2 end)
         {
@@ -578,8 +578,8 @@
             points.Add(last + end);
         }
 
-        /// <summary> 
-        /// Append a continuation line relative to the last line by angle and length. 
+        /// <summary>
+        /// Append a continuation line relative to the last line by angle and length.
         /// </summary>
         /// <param name="points"> Points appending to. </param>
         /// <param name="angle"> Relative angle to last line. </param>
@@ -593,8 +593,8 @@
             points.Add(start + (Vector2.Right * length).Rotated(refLineAngle + angle));
         }
 
-        /// <summary> 
-        /// Append a continuation line by angle and length and offset relative to the reference points. 
+        /// <summary>
+        /// Append a continuation line by angle and length and offset relative to the reference points.
         /// </summary>
         public static void AppendLineFromRef(IList<Vector2> points, Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
         {

@@ -16,14 +16,13 @@ public partial class Lines : ExampleNodeBase
 
     public override void _Ready()
     {
-        //Tween = new Tween();
         StartTween();
     }
 
     public override void _Draw()
     {
         // I
-        DrawLineTypes(LeftBottom(1), RowHeight / 3, CellWidth / 2, CellWidth);
+        DrawLineTypes(LeftBottom(1), RowHeight / 3f, CellWidth / 2f, CellWidth);
 
         // II
         DrawContinuationLine(LeftBottom(2));
@@ -66,8 +65,8 @@ public partial class Lines : ExampleNodeBase
             .AppendLine(Vector2.Down * 50)
             .AppendLine(new Vector2(-40, -10))
             .AppendLine(new Vector2(30, -20))
-            .Points;
-            
+            .Points();
+
         DrawMultiline(points, LineColor);
     }
 
@@ -79,15 +78,15 @@ public partial class Lines : ExampleNodeBase
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
             ml.AppendLineFromRef(start, refPoint, i * Pi/2f/7, 40);
-        
-        DrawMultiline(ml.Points, LineColor);
+
+        DrawMultiline(ml.Points(), LineColor);
 
         ml.Clear();
         ml.AppendLine(start + Vector2.Down * 50, start + Vector2.Down * 50 + Vector2.Right * 25);
         for (int i = 0; i < 8; i++)
             ml.AppendLineFromRef((1 + i) * Pi / 12f, 15 - i);
 
-        DrawMultiline(ml.Points, LineColor);
+        DrawMultiline(ml.Points(), LineColor);
     }
 
     private void DrawParallelLine(Vector2 start)
@@ -143,6 +142,5 @@ public partial class Lines : ExampleNodeBase
     {
         Tween = CreateTween();
         Tween.TweenMethod(new Callable(this, nameof(Interpolate)), _bounds[0], _bounds[1], 2f);
-        //Tween.Start();
     }
 }

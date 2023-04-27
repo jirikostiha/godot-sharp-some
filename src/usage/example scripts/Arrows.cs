@@ -80,8 +80,9 @@ public partial class Arrows : ExampleNodeBase
 
         var rtext = r < 22
             ? r.ToString("0")
-            : r < 26 ? r.ToString("0.0")
-            : r.ToString("0.00");
+            : r < 26
+                ? r.ToString("0.0")
+                : r.ToString("0.00");
 
         this.DrawCenteredString(Font, textCenter, rtext, dimAngle, dcolor);
     }
