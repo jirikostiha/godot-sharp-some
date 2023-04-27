@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class LayeredNetwork : ExampleNodeBase
 {

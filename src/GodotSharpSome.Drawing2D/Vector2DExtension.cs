@@ -1,7 +1,7 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
-    using System.Collections.Generic;
     using Godot;
+    using System.Collections.Generic;
 
     public static class Vector2DExtension
     {
@@ -13,8 +13,8 @@
         /// <summary>
         /// Second normal vector of an input vector. It is the second one in circular direction from (+)x-axis to (+)y-axis.
         /// </summary>
-        public static Vector2 Normal2(this Vector2 vector) => new (vector.Y, -vector.X);
-      
+        public static Vector2 Normal2(this Vector2 vector) => new(vector.Y, -vector.X);
+
         /// <summary>
         /// Rotate vectors around center [0,0].
         /// </summary>

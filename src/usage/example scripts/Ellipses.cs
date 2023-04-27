@@ -1,4 +1,3 @@
-using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 

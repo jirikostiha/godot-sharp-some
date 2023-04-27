@@ -1,6 +1,6 @@
-using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using System.Linq;
 using static Godot.Mathf;
 
 public partial class Dots : ExampleNodeBase

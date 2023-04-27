@@ -1,14 +1,15 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using Godot;
     using System.Collections.Generic;
     using System.Linq;
-    using Godot;
     using static Godot.Mathf;
 
     public class Multiline
     {
         //Default values
         private const float Arrow_HeadAngle = Pi / 14;
+
         private const float Arrow_HeadRadius = 20;
         private const float DottedLine_SpaceLength = 4;
         private const float DashedLine_DashLength = 12;
@@ -248,7 +249,7 @@
             return this;
         }
 
-        #endregion
+        #endregion instance as builder
 
         #region static
 
@@ -477,7 +478,7 @@
             return points.ToArray();
         }
 
-        #endregion
+        #endregion static
 
         #region static appending
 
@@ -833,7 +834,6 @@
                     new Vector2(rectTop.X - halfWidth, rectTop.Y));
         }
 
-
         //todo move to charts
         private static void AppendCandlestick(IList<Vector2> points, Vector2 bottom, Vector2 top, Vector2 rectBottom, Vector2 rectCenter, Vector2 rectTop, float bodyHalfWidth)
         {
@@ -842,6 +842,6 @@
             AppendRectangle(points, rectCenter, (rectCenter - rectBottom).Length(), bodyHalfWidth, bottom.DirectionTo(top).Angle());
         }
 
-        #endregion
+        #endregion static appending
     }
 }

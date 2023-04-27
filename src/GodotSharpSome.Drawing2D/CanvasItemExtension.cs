@@ -1,8 +1,8 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using Godot;
     using System.Collections.Generic;
     using System.Linq;
-    using Godot;
     using static Godot.Mathf;
 
     public static class CanvasItemExtension
@@ -78,7 +78,7 @@
             canvas.DrawSetTransformMatrix(t);
             canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
             canvas.DrawSetTransformMatrix(originTransform);
-            
+
             return canvas;
         }
 

@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using System;
 using static Godot.Mathf;
 
 public partial class Lines : ExampleNodeBase
@@ -77,7 +76,7 @@ public partial class Lines : ExampleNodeBase
 
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
-            ml.AppendLineFromRef(start, refPoint, i * Pi/2f/7, 40);
+            ml.AppendLineFromRef(start, refPoint, i * Pi / 2f / 7, 40);
 
         DrawMultiline(ml.Points(), LineColor);
 

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using System.Collections.Generic;
+using System.Linq;
 using static Godot.Mathf;
 
 public partial class CandlestickCharts : ExampleNodeBase

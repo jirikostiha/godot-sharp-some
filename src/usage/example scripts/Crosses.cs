@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Godot;
 using GodotSharpSome.Drawing2D;
+using System.Collections.Generic;
 
 public partial class Crosses : ExampleNodeBase
 {
@@ -139,10 +138,10 @@ public partial class Crosses : ExampleNodeBase
                 case 1:
                     this.DrawCircleRegion(shot.Position, 3, _color1);
                     break;
+
                 case 2:
                     DrawMultiline(Multiline.Dot(shot.Position), _color2);
                     break;
-
 
                 default: break;
             }
@@ -155,6 +154,7 @@ public partial class Crosses : ExampleNodeBase
                 case 1:
                     DrawMultiline(Multiline.Cross(marker.Position, 3), _color1);
                     break;
+
                 case 2:
                     DrawMultiline(Multiline.Dot(marker.Position), _color2);
                     break;
