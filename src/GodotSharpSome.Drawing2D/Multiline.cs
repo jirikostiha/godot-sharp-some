@@ -50,21 +50,21 @@
         public Multiline AppendDottedLine(Vector2 start, Vector2 end,
             float spaceLength = DottedLine_SpaceLength)
         {
-            AppendDottedLine(_points, start, end, spaceLength);
+            AppendDottedLineAdapted(_points, start, end, spaceLength);
             return this;
         }
 
         public Multiline AppendDashedLine(Vector2 start, Vector2 end,
             float dashLength = DashedLine_DashLength, float spaceLength = DashedLine_SpaceLength)
         {
-            AppendDashedLine(_points, start, end, dashLength, spaceLength);
+            AppendDashedLineAdapted(_points, start, end, dashLength, spaceLength);
             return this;
         }
 
         public Multiline AppendDashDottedLine(Vector2 start, Vector2 end,
             float dashLength = DashDottedLine_DashLength, float spaceLength = DashDottedLine_SpaceLength)
         {
-            AppendDashDottedLine(_points, start, end, dashLength, spaceLength);
+            AppendDashDottedLineAdapted(_points, start, end, dashLength, spaceLength);
             return this;
         }
 
@@ -274,7 +274,7 @@
         {
             var count = (end - start).Length() / (1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
-            AppendDottedLine(points, start, end, spaceLength);
+            AppendDottedLineAdapted(points, start, end, spaceLength);
             return points.ToArray();
         }
 
@@ -283,7 +283,7 @@
         {
             var count = (end - start).Length() / (1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
-            AppendDashedLine(points, start, end, dashLength, spaceLength);
+            AppendDashedLineAdapted(points, start, end, dashLength, spaceLength);
             return points.ToArray();
         }
 
@@ -292,7 +292,7 @@
         {
             var count = (end - start).Length() / (dashLength + spaceLength + 1 + spaceLength);
             var points = new List<Vector2>(2 * ((int)count + 1));
-            AppendDashDottedLine(points, start, end, dashLength, spaceLength);
+            AppendDashDottedLineAdapted(points, start, end, dashLength, spaceLength);
             return points.ToArray();
         }
 
@@ -500,6 +500,16 @@
         public static void AppendDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
             float spaceLength = DottedLine_SpaceLength)
         {
+            var dir = start.DirectionTo(end);
+            var count = (int)((end - start).Length() / spaceLength);
+
+            for (int i = 0; i <= count; i++)
+                AppendDot(points, start + dir * i * (1 + spaceLength));
+        }
+
+        public static void AppendDottedLineAdapted(IList<Vector2> points, Vector2 start, Vector2 end,
+            float spaceLength = DottedLine_SpaceLength)
+        {
             AdaptSubinterval((end - start).Length(), 1, ref spaceLength, out int count);
             var dir = start.DirectionTo(end);
 
@@ -508,6 +518,19 @@
         }
 
         public static void AppendDashedLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float dashLength = DashedLine_DashLength, float spaceLength = DashedLine_SpaceLength)
+        {
+            var count = (int)((end - start).Length() / (spaceLength + dashLength));
+            var dir = start.DirectionTo(end);
+
+            for (int i = 0; i < count; i++)
+            {
+                var segmentStart = start + dir * i * (dashLength + spaceLength);
+                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+            }
+        }
+
+        public static void AppendDashedLineAdapted(IList<Vector2> points, Vector2 start, Vector2 end,
             float dashLength = DashedLine_DashLength, float spaceLength = DashedLine_SpaceLength)
         {
             AdaptSubinterval((end - start).Length(), spaceLength, ref dashLength, out int count);
@@ -521,6 +544,22 @@
         }
 
         public static void AppendDashDottedLine(IList<Vector2> points, Vector2 start, Vector2 end,
+            float dashLength = DashDottedLine_DashLength, float spaceLength = DashDottedLine_SpaceLength)
+        {
+            var count = (int)((end - start).Length() / (spaceLength + 1 + spaceLength + dashLength));
+            var dir = start.DirectionTo(end);
+
+            for (int i = 0; i < count - 1; i++)
+            {
+                var segmentStart = start + dir * i * (dashLength + spaceLength + 1 + spaceLength);
+                AppendLine(points, segmentStart, segmentStart + dir * dashLength);
+                AppendDot(points, segmentStart + dir * (dashLength + spaceLength));
+            }
+
+            AppendLine(points, start + dir * (count - 1) * (dashLength + spaceLength + 1 + spaceLength), end);
+        }
+
+        public static void AppendDashDottedLineAdapted(IList<Vector2> points, Vector2 start, Vector2 end,
             float dashLength = DashDottedLine_DashLength, float spaceLength = DashDottedLine_SpaceLength)
         {
             AdaptSubinterval((end - start).Length(), spaceLength + 1 + spaceLength, ref dashLength, out int count);
