@@ -29,7 +29,7 @@ jobs:
           dotnet-version: '6.0.0'
           source-url: https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_ORG_TOKEN }}
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
 
       - name: Publish
         run: dotnet publish "${{ env.sln-path }}" -c Release
@@ -43,6 +43,7 @@ jobs:
       - name: Push to Asset Library
         uses: deep-entertainment/godot-asset-lib-action@v0.4.0
         with:
-          username: example
-          password: ${{ secrets.ASSET_STORE_PASSWORD }}
-          assetId: 12345
+          username: jiri
+          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
+          assetId: 7436
+          approveDirectly: "true"
