@@ -1,0 +1,37 @@
+name: "godot-ci export"
+on: push
+
+env:
+  GODOT_VERSION: 3.5.1
+  EXPORT_NAME: test-project
+  PROJECT_PATH: src/usage
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:3.5.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          cd $PROJECT_PATH
+          godot -v --build-solutions 
+
+      #- name: Upload Artifact
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: windows
+      #    path: build/windows
