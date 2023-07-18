@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.1.0">
+<Project Sdk="Godot.NET.Sdk/4.1.1">
 
     <Import Project="..\..\product.props" />
     <Import Project="..\..\product_version.props" />
