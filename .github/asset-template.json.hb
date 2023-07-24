@@ -2,7 +2,7 @@
   "title": "Godot Sharp Some - Drawing 2D",
   "description": "Is set of extensions for custom drawing API in Godot engine version 4.x. It simplifies script drawing.",
   "category_id": "6",
-  "godot_version": "4.0",
+  "godot_version": "4.1",
   "version_string": "{{ context.release.tag_name }}",
   "cost": "MIT",
   "download_provider": "GitHub",
