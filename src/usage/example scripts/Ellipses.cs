@@ -6,10 +6,7 @@ public partial class Ellipses : ExampleNodeBase
     private double _time;
     private float _radius = 40;
 
-    protected override void NextState(double delta)
-    {
-        _time += delta;
-    }
+    protected override void NextState(double delta) => _time += delta;
 
     public override void _Draw()
     {
