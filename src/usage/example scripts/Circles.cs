@@ -6,10 +6,7 @@ public partial class Circles : ExampleNodeBase
 {
     private double _time;
 
-    protected override void NextState(double delta)
-    {
-        _time += delta;
-    }
+    protected override void NextState(double delta) => _time += delta;
 
     public override void _Draw()
     {

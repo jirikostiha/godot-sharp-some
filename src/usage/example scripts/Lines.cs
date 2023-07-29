@@ -126,10 +126,7 @@ public partial class Lines : ExampleNodeBase
             LineColor);
     }
 
-    public void Interpolate(float value)
-    {
-        _value = value;
-    }
+    public void Interpolate(float value) => _value = value;
 
     public void _on_Tween_completed(object obj, NodePath path)
     {

@@ -17,10 +17,7 @@ public partial class Connections : ExampleNodeBase
         _r5 = 13;
     }
 
-    protected override void NextState(double delta)
-    {
-        _time += 0.1f;
-    }
+    protected override void NextState(double delta) => _time += 0.1f;
 
     public override void _Draw()
     {

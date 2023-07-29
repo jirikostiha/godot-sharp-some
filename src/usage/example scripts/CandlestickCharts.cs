@@ -39,10 +39,7 @@ public partial class CandlestickCharts : ExampleNodeBase
         _frames.Enqueue(frame);
     }
 
-    public override void _Draw()
-    {
-        DrawChart(LeftBottom(1));
-    }
+    public override void _Draw() => DrawChart(LeftBottom(1));
 
     private (float Open, float Low, float High, float Close) NextFrame(float open, float min, float max)
     {
