@@ -1,10 +1,9 @@
-﻿namespace GodotSharpSome.Drawing2D
+﻿namespace GodotSharpSome.Drawing2D;
+
+public enum LineType
 {
-    public enum LineType
-    {
-        Solid,
-        Dotted,
-        Dashed,
-        DashDotted
-    }
+    Solid,
+    Dotted,
+    Dashed,
+    DashDotted
 }
