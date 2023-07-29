@@ -18,8 +18,8 @@ public partial class Crosses : ExampleNodeBase
     private Vector2 _cross1, _cross2;
     private Vector2 _origin1, _origin2;
     private Vector2 _target1, _target2;
-    private Color _color1 = new Color("blue");
-    private Color _color2 = new Color("red");
+    private Color _color1 = new("blue");
+    private Color _color2 = new("red");
     private int _time;
 
     public Crosses()
