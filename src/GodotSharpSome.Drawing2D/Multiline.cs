@@ -253,7 +253,7 @@ public class Multiline
 
     #region static
 
-    public static Vector2[] Dot(Vector2 position) => 
+    public static Vector2[] Dot(Vector2 position) =>
         new Vector2[2] { position, position + DotVector };
 
     public static Vector2[] Dots(IList<Vector2> positions)
@@ -294,7 +294,7 @@ public class Multiline
         return points.ToArray();
     }
 
-    public static Vector2[] Line(Vector2 start, Vector2 end) => 
+    public static Vector2[] Line(Vector2 start, Vector2 end) =>
         new Vector2[2] { start, end };
 
     public static Vector2[] Line(Vector2 start, float startOffset, Vector2 end, float endOffset)
