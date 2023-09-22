@@ -5,7 +5,7 @@ using Godot;
 /// <summary>
 /// Line visualization options.
 /// </summary>
-public record LineVoptions
+public record LineVOptions
 {
     public Color Color { get; set; }
 
