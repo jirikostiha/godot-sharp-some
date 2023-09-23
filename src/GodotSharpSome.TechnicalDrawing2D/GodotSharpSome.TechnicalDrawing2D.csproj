@@ -1,0 +1,36 @@
+﻿<Project Sdk="Godot.NET.Sdk/4.0.3">
+
+	<Import Project="..\..\product.props" />
+	<Import Project="..\..\product_version.props" />
+	<Import Project="..\..\participants.props" />
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<LangVersion>latest</LangVersion>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<Nullable>enable</Nullable>
+		<NoWarn>CS1591</NoWarn>
+
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+		<Title>Godot Sharp Some - Technical Drawing 2D</Title>
+		<Description>Set of technical drawing extensions for Godot engine.</Description>
+		<PackageTags> godot; drawing; dimensions; csharp; 2D; game-dev</PackageTags>
+		<PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<None Include="icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>-->
+
+</Project>

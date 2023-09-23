@@ -30,5 +30,42 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+	<Import Project="..\..\product.props" />
+	<Import Project="..\..\product_version.props" />
+	<Import Project="..\..\participants.props" />
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+        <LangVersion>latest</LangVersion>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <Nullable>enable</Nullable>
+        <NoWarn>CS1591</NoWarn>
+        <SignAssembly>True</SignAssembly>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<LangVersion>latest</LangVersion>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<Nullable>enable</Nullable>
+		<NoWarn>CS1591</NoWarn>
+
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+		<Title>Godot Sharp 2D Drawing Extensions</Title>
+		<Description>Set of drawing extensions for Godot engine.</Description>
+		<PackageTags> godot; drawing; csharp; 2D; game-dev</PackageTags>
+		<PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

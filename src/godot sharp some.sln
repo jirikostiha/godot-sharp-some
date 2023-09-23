@@ -56,9 +56,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{B55B
 		..\.github\yamllint.yml = ..\.github\yamllint.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.TechnicalDrawing2D", "GodotSharpSome.TechnicalDrawing2D\GodotSharpSome.TechnicalDrawing2D.csproj", "{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quality", "quality", "{5D4B944E-9859-41F9-A88C-7C731F5A43F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.TechnicalDrawing2D.Tests", "quality\GodotSharpSome.TechnicalDrawing2D.Tests\GodotSharpSome.TechnicalDrawing2D.Tests.csproj", "{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,14 @@ Global
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{4A5A7FCE-4ECB-491C-9A8B-737C38EC6BD5}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -92,6 +104,14 @@ Global
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +120,7 @@ Global
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{F9F723BD-F0F3-4BDF-9DB8-9A858872B543} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
