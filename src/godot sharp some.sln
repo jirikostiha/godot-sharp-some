@@ -72,7 +72,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Benchmarks", "quality\GodotSharpSome.Drawing2D.Benchmarks\GodotSharpSome.Drawing2D.Benchmarks.csproj", "{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Grids2D.Tests", "quality\GodotSharpSome.Grids2D.Tests\GodotSharpSome.Grids2D.Tests.csproj", "{2853E169-35A2-48F4-856B-7DF8110696AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Charts2D", "GodotSharpSome.Charts2D\GodotSharpSome.Charts2D.csproj", "{9E938875-5ED5-42E4-81C4-8894391B04E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Charts2D.Tests", "quality\GodotSharpSome.Charts2D.Tests\GodotSharpSome.Charts2D.Tests.csproj", "{C51089EF-1603-4C53-9A26-78508BABFBA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,16 +135,34 @@ Global
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{9E938875-5ED5-42E4-81C4-8894391B04E1}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C51089EF-1603-4C53-9A26-78508BABFBA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{C40B03A5-B655-4E3D-8B42-1E8B87B1D43F} = {8ABEA7BE-2CB6-499A-A09E-7D836F189422}
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{2853E169-35A2-48F4-856B-7DF8110696AD} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{C51089EF-1603-4C53-9A26-78508BABFBA4} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}

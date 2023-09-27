@@ -1,0 +1,30 @@
+﻿<Project Sdk="Godot.NET.Sdk/4.1.2">
+
+  <Import Project="..\..\product.props" />
+  <Import Project="..\..\product_version.props" />
+  <Import Project="..\..\participants.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>latest</LangVersion>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <Nullable>enable</Nullable>
+    <NoWarn>CS1591</NoWarn>
+    <SignAssembly>True</SignAssembly>
+
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Title>Godot Sharp 2D Charts</Title>
+    <Description>Set of chart extensions for Godot engine.</Description>
+    <PackageTags>godot; drawing; charts; csharp; 2D; game-dev</PackageTags>
+    <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GodotSharpSome.Grids2D\GodotSharpSome.Grids2D.csproj" />
+  </ItemGroup>
+
+</Project>

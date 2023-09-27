@@ -9,4 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\GodotSharpSome.Grids2D\GodotSharpSome.Grids2D.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\GodotSharpSome.Charts2D\GodotSharpSome.Charts2D.csproj" />
+		<ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+		<ProjectReference Include="..\GodotSharpSome.Grids2D\GodotSharpSome.Grids2D.csproj" />
+	</ItemGroup>
+
 </Project>

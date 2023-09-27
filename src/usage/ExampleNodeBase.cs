@@ -5,10 +5,11 @@ namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class ExampleNodeBase : ColorRect
 {
-    public Color TextColor { get; set; } = Colors.Black;
-    public Color LineColor { get; set; } = Colors.Black;
-    public Color LineColor2 { get; set; } = Colors.Orange;
-    public Color AreaColor { get; set; } = Colors.Gray;
+    public ExampleNodeBase()
+    {
+        Font = default;
+    }
+
 
 
     protected static int Margin { get; set; } = 10;
