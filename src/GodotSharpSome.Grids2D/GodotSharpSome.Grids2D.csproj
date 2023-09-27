@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.1.2">
+﻿<Project Sdk="Godot.NET.Sdk/4.1.2">
 
   <Import Project="..\..\product.props" />
   <Import Project="..\..\product_version.props" />
@@ -16,19 +16,15 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-    <Title>Godot Sharp 2D Drawing Extensions</Title>
-    <Description>Set of drawing extensions for Godot engine.</Description>
-    <PackageTags>godot; drawing; csharp; 2D; game-dev</PackageTags>
+    <Title>Godot Sharp 2D Drawing Grids</Title>
+    <Description>Drawing of grids for Godot engine.</Description>
+    <PackageTags>godot; drawing; grids; csharp; 2D; game-dev</PackageTags>
     <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
-    <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
   </ItemGroup>
 
 </Project>

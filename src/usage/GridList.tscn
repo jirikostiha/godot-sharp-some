@@ -1,0 +1,198 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3ba3xb0yp2ux"]
+
+[ext_resource type="Script" path="res://grids/WiredGrids.cs" id="2_f71k6"]
+[ext_resource type="Script" path="res://Fps.gd" id="3"]
+[ext_resource type="Script" path="res://grids/Checkers.cs" id="3_6w40l"]
+[ext_resource type="Script" path="res://grids/FilledGrids.cs" id="3_ih7ds"]
+[ext_resource type="Script" path="res://grids/WiredIrregularGrids.cs" id="4_je1d1"]
+[ext_resource type="Script" path="res://grids/FilledIrregularGrids.cs" id="5_1n0m2"]
+
+[node name="GridList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="HeaderItems" type="HBoxContainer" parent="VBoxContainer/Header"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Fps" type="Label" parent="VBoxContainer/Header/HeaderItems"]
+layout_mode = 2
+text = "Fps:"
+script = ExtResource("3")
+
+[node name="AnimateAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
+visible = false
+layout_mode = 2
+text = "Animate All"
+
+[node name="InvertAll" type="Button" parent="VBoxContainer/Header/HeaderItems"]
+visible = false
+layout_mode = 2
+text = "Invert All"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Rows" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WiredGrids" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/WiredGrids"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/WiredGrids/HBoxContainer"]
+layout_mode = 2
+text = "Wired Grids"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/WiredGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/WiredGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/WiredGrids" groups=["content"]]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("2_f71k6")
+
+[node name="FilledGrids" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/FilledGrids"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/FilledGrids/HBoxContainer"]
+layout_mode = 2
+text = "Filled Grids"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/FilledGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/FilledGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/FilledGrids" groups=["content"]]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("3_ih7ds")
+
+[node name="WiredIrregularGrids" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids/HBoxContainer"]
+layout_mode = 2
+text = "Wired Irregular Grids"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids" groups=["content"]]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("4_je1d1")
+
+[node name="FilledIrregularGrids" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids/HBoxContainer"]
+layout_mode = 2
+text = "Filled Irregular Grids"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids" groups=["content"]]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("5_1n0m2")
+
+[node name="Checkers" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Checkers"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Checkers/HBoxContainer"]
+layout_mode = 2
+text = "Checkers
+"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Checkers/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Checkers/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Checkers" groups=["content"]]
+custom_minimum_size = Vector2(560, 560)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("3_6w40l")
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/WiredGrids/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/WiredGrids/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/FilledGrids/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/FilledGrids/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/WiredIrregularGrids/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/FilledIrregularGrids/Content" method="_on_Animate_pressed"]

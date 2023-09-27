@@ -92,8 +92,10 @@ public partial class Lines : ExampleNodeBase
     private void DrawLineFromRef(Vector2 origin)
     {
         var start = origin + Vector2.Right * 25;
-
         // create line directly by appender's static method
+        DrawMultiline(SolidLine.Line(origin, start), new Color("lightblue"));
+
+        // multi line as local variable -> always allocating memory -> not recommended
         DrawMultiline(SolidLine.Line(origin, start), new Color("lightblue"));
 
         // multi line as local variable -> always allocating memory -> not recommended

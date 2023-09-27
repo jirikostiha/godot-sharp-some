@@ -57,11 +57,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{B55B
 		..\.github\yamllint.yml = ..\.github\yamllint.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Grids2D", "GodotSharpSome.Grids2D\GodotSharpSome.Grids2D.csproj", "{5618DB7F-D2AE-47CD-9831-54FBC697D113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{E7CA0126-6E42-4F26-B149-760DC03C94EA}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\dependabot.yml = ..\.github\dependabot.yml
+		..\.github\markdownlint.yml = ..\.github\markdownlint.yml
+		..\.github\spellcheck.yml = ..\.github\spellcheck.yml
+		..\.github\wordlist.txt = ..\.github\wordlist.txt
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quality", "quality", "{5D4B944E-9859-41F9-A88C-7C731F5A43F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Benchmarks", "quality\GodotSharpSome.Drawing2D.Benchmarks\GodotSharpSome.Drawing2D.Benchmarks.csproj", "{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Grids2D.Tests", "quality\GodotSharpSome.Grids2D.Tests\GodotSharpSome.Grids2D.Tests.csproj", "{2853E169-35A2-48F4-856B-7DF8110696AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +98,14 @@ Global
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{5618DB7F-D2AE-47CD-9831-54FBC697D113}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -103,6 +122,14 @@ Global
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +139,7 @@ Global
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{2853E169-35A2-48F4-856B-7DF8110696AD} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
