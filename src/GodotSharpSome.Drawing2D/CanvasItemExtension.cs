@@ -1,7 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
-using Godot;
-using System.Collections.Generic;
 using System.Linq;
 using static Godot.Mathf;
 
@@ -12,7 +10,7 @@ public static class CanvasItemExtension
     /// </summary>
     public static CanvasItem DrawDot(this CanvasItem canvas, Vector2 position, Color color)
     {
-        canvas.DrawMultiline(Multiline.Dot(position), color, 1);
+        canvas.DrawMultiline(SolidLine.Dot(position), color, 1);
 
         return canvas;
     }
@@ -22,7 +20,7 @@ public static class CanvasItemExtension
     /// </summary>
     public static CanvasItem DrawDots(this CanvasItem canvas, IList<Vector2> positions, Color color)
     {
-        canvas.DrawMultiline(Multiline.Dots(positions), color, 1);
+        canvas.DrawMultiline(SolidLine.Dots(positions), color, 1);
 
         return canvas;
     }
@@ -41,9 +39,9 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a plane region of a circle or disc.
     /// </summary>
-    public static CanvasItem DrawCircleRegion(this CanvasItem canvas, Vector2 center, float radius, Color areaColor)
+    public static CanvasItem DrawCircleRegion(this CanvasItem canvas, Vector2 center, float radius, Color regionColor)
     {
-        canvas.DrawCircle(center, radius, areaColor);
+        canvas.DrawCircle(center, radius, regionColor);
 
         return canvas;
     }
@@ -51,10 +49,10 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a circumference and plane region of a circle.
     /// </summary>
-    public static CanvasItem DrawCircle(this CanvasItem canvas, Vector2 center, float radius, Color lineColor, Color areaColor,
+    public static CanvasItem DrawCircle(this CanvasItem canvas, Vector2 center, float radius, Color lineColor, Color regionColor,
         float lineWidth = 1, bool antialiased = false)
     {
-        canvas.DrawCircleRegion(center, radius, areaColor);
+        canvas.DrawCircleRegion(center, radius, regionColor);
         canvas.DrawCircleOutline(center, radius, lineColor, lineWidth, antialiased);
 
         return canvas;
@@ -85,7 +83,7 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a plane region of an ellipse.
     /// </summary>
-    public static CanvasItem DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color areaColor)
+    public static CanvasItem DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color regionColor)
     {
         var originTransform = canvas.GetCanvasTransform();
 
@@ -97,7 +95,7 @@ public static class CanvasItemExtension
         t.Y *= radiusB / radiusA;
 
         canvas.DrawSetTransformMatrix(t);
-        canvas.DrawCircleRegion(Vector2.Zero, radiusA, areaColor);
+        canvas.DrawCircleRegion(Vector2.Zero, radiusA, regionColor);
         canvas.DrawSetTransformMatrix(originTransform);
 
         return canvas;
@@ -106,10 +104,10 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a circumference and plane region of an ellipse.
     /// </summary>
-    public static CanvasItem DrawEllipse(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor, Color areaColor,
+    public static CanvasItem DrawEllipse(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor, Color regionColor,
         float lineWidth = 1, bool antialiased = false)
     {
-        canvas.DrawEllipseRegion(center, radiusA, radiusB, angle, areaColor);
+        canvas.DrawEllipseRegion(center, radiusA, radiusB, angle, regionColor);
         canvas.DrawEllipseOutline(center, radiusA, radiusB, angle, lineColor, lineWidth, antialiased);
 
         return canvas;
@@ -119,10 +117,12 @@ public static class CanvasItemExtension
     /// Draw a perimeter of a triangle.
     /// </summary>
     public static CanvasItem DrawTriangleOutline(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor,
-        float lineWidth = 1)
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
+        lineType ??= new SolidLine();
+
         canvas.DrawMultiline(
-            Multiline.Triangle(a, b, c),
+            new Multiline(3 * 2, lineType).AppendTriangle(a, b, c).Points(),
             lineColor, lineWidth);
 
         return canvas;
@@ -131,11 +131,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a plane region of a triangle.
     /// </summary>
-    public static CanvasItem DrawTriangleRegion(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color areaColor)
+    public static CanvasItem DrawTriangleRegion(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color regionColor)
     {
         canvas.DrawPolygon(
-            Multiline.Triangle(a, b, c),
-            new Color[] { areaColor });
+            new Multiline(3 * 2).AppendTriangle(a, b, c).Points(),
+            new Color[] { regionColor });
 
         return canvas;
     }
@@ -143,11 +143,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a perimeter and plane region of a triangle.
     /// </summary>
-    public static CanvasItem DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color areaColor,
-        float lineWidth = 1)
+    public static CanvasItem DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color regionColor,
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
-        canvas.DrawTriangleRegion(a, b, c, areaColor);
-        canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth);
+        canvas.DrawTriangleRegion(a, b, c, regionColor);
+        canvas.DrawTriangleOutline(a, b, c, lineColor, lineWidth, lineType);
 
         return canvas;
     }
@@ -156,10 +156,12 @@ public static class CanvasItemExtension
     /// Draw a perimeter of a rectangle.
     /// </summary>
     public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor,
-        float lineWidth = 1)
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
+        lineType ??= new SolidLine();
+
         canvas.DrawMultiline(
-            Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
+            new Multiline(4 * 2, lineType).AppendRectangle(center, length / 2, width / 2, rotationAngle).Points(),
             lineColor, lineWidth);
 
         return canvas;
@@ -169,10 +171,12 @@ public static class CanvasItemExtension
     /// Draw a perimeter of a rectangle.
     /// </summary>
     public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor,
-        float lineWidth = 1)
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
+        lineType ??= new SolidLine();
+
         canvas.DrawMultiline(
-            Multiline.Rectangle(vertex1, vertex2, height),
+            new Multiline(4 * 2, lineType).AppendRectangle(vertex1, vertex2, height).Points(),
             lineColor, lineWidth);
 
         return canvas;
@@ -181,11 +185,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a plane region of a rectangle.
     /// </summary>
-    public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color areaColor)
+    public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color regionColor)
     {
         canvas.DrawPolygon(
-            Multiline.Rectangle(center, length / 2, width / 2, rotationAngle),
-            new Color[] { areaColor });
+            new Multiline(4 * 2).AppendRectangle(center, length / 2, width / 2, rotationAngle).Points(),
+            new Color[] { regionColor });
 
         return canvas;
     }
@@ -193,11 +197,13 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a perimeter of a rectangle.
     /// </summary>
-    public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color areaColor)
+    public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color regionColor)
     {
         canvas.DrawPolygon(
-            Multiline.Rectangle(vertex1, vertex2, height),
-            new Color[] { areaColor });
+            new Multiline(4 * 2)
+            .AppendRectangle(vertex1, vertex2, height)
+            .Points(),
+            new Color[] { regionColor });
 
         return canvas;
     }
@@ -205,11 +211,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a perimeter and plane region of a rectangle.
     /// </summary>
-    public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color areaColor,
-        float lineWidth = 1)
+    public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color regionColor,
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
-        canvas.DrawRectangleRegion(center, length, width, rotationAngle, areaColor);
-        canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth);
+        canvas.DrawRectangleRegion(center, length, width, rotationAngle, regionColor);
+        canvas.DrawRectangleOutline(center, length, width, rotationAngle, lineColor, lineWidth, lineType);
 
         return canvas;
     }
@@ -217,11 +223,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a perimeter and plane region of a rectangle.
     /// </summary>
-    public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color areaColor,
-        float lineWidth = 1)
+    public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color regionColor,
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
-        canvas.DrawRectangleRegion(vertex1, vertex2, height, areaColor);
-        canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth);
+        canvas.DrawRectangleRegion(vertex1, vertex2, height, regionColor);
+        canvas.DrawRectangleOutline(vertex1, vertex2, height, lineColor, lineWidth, lineType);
 
         return canvas;
     }
@@ -230,10 +236,14 @@ public static class CanvasItemExtension
     /// Draw a perimeter of a regular convex polygon.
     /// </summary>
     public static CanvasItem DrawRegularConvexPolygonOutline(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor,
-        float lineWidth = 1)
+        float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
+        lineType ??= new SolidLine();
+
         canvas.DrawMultiline(
-            Multiline.RegularConvexPolygon(center, radius, verticesCount, rotationAngle),
+            new Multiline((verticesCount + 1) * 2, lineType)
+            .AppendRegularConvexPolygon(center, radius, verticesCount, rotationAngle)
+            .Points(),
             lineColor, lineWidth);
 
         return canvas;
@@ -242,12 +252,12 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a plane region of a regular convex polygon.
     /// </summary>
-    public static CanvasItem DrawRegularConvexPolygonRegion(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color areaColor)
+    public static CanvasItem DrawRegularConvexPolygonRegion(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color regionColor)
     {
         canvas.DrawPolygon(
             Multiline.RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
-                .ToArray(),
-            new Color[] { areaColor });
+            .ToArray(),
+            new Color[] { regionColor });
 
         return canvas;
     }
@@ -255,33 +265,11 @@ public static class CanvasItemExtension
     /// <summary>
     /// Draw a perimeter and plane region of a regular convex polygon.
     /// </summary>
-    public static CanvasItem DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color areaColor,
-        float lineWidth = 1)
+    public static CanvasItem DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color regionColor,
+            float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
-        canvas.DrawRegularConvexPolygonRegion(center, radius, verticesCount, rotationAngle, areaColor);
-        canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth);
-
-        return canvas;
-    }
-
-    //todo move to charts
-    /// <summary>
-    /// Draw a candlestick shape.
-    /// </summary>
-    public static CanvasItem DrawCandlestick(this CanvasItem canvas, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, Color lineColor, Color bodyColor,
-        float lineWidth = 1)
-    {
-        var vector = high - low;
-        canvas.DrawRectangleRegion(
-            center: low + vector.Normalized() * (vector.Length() + lowOffset - highOffset) / 2f,
-            length: vector.Length() - lowOffset - highOffset,
-            width: halfWidth * 2,
-            rotationAngle: vector.Angle(),
-            areaColor: bodyColor);
-
-        canvas.DrawMultiline(
-            Multiline.Candlestick(low, lowOffset, high, highOffset, halfWidth),
-            lineColor, lineWidth);
+        canvas.DrawRegularConvexPolygonRegion(center, radius, verticesCount, rotationAngle, regionColor);
+        canvas.DrawRegularConvexPolygonOutline(center, radius, verticesCount, rotationAngle, lineColor, lineWidth, lineType);
 
         return canvas;
     }
@@ -304,7 +292,6 @@ public static class CanvasItemExtension
             canvas.DrawString(font, Vector2.Zero, text, HorizontalAlignment.Left, -1, 16, color);
         else
             canvas.DrawString(font, Vector2.Zero, text);
-
         canvas.DrawSetTransformMatrix(originTransform);
 
         return canvas;

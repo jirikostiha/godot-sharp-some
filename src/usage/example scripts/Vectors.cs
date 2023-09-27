@@ -7,6 +7,8 @@ public partial class Vectors : ExampleNodeBase
 {
     private const float DistanceInterpolationDelta = 2;
 
+    private Multiline _multiline = new();
+
     private readonly List<Vector2> _vectors;
     private readonly List<Vector2> _targetVectors;
 
@@ -54,7 +56,7 @@ public partial class Vectors : ExampleNodeBase
     {
         // I
         DrawMultiline(
-            Multiline.VectorsAbsolutely(new Vector2(100, 200), _vectors),
+            _multiline.Clear().AppendVectorsAbsolutely(new Vector2(100, 200), _vectors).Points(),
             LineColor);
 
         // II
@@ -67,24 +69,24 @@ public partial class Vectors : ExampleNodeBase
     private void DrawVectorSummation(Vector2 origin)
     {
         DrawMultiline(
-           Multiline.VectorsRelatively(origin, _vectors),
-           LineColor);
+            _multiline.Clear().AppendVectorsRelatively(origin, _vectors).Points(),
+            LineColor);
 
         var sumVector = _vectors.Aggregate((a, b) => a + b);
         DrawMultiline(
-            Multiline.Arrow(origin, origin + sumVector),
+            _multiline.Clear().AppendArrow(origin, origin + sumVector).Points(),
             LineColor2);
     }
 
     private void DrawVectorSummationOrdered(Vector2 origin)
     {
         DrawMultiline(
-          Multiline.VectorsRelatively(origin, _vectors.OrderBy(x => x.Angle()).ToArray()),
-          LineColor);
+            _multiline.Clear().AppendVectorsRelatively(origin, _vectors.OrderBy(x => x.Angle()).ToArray()).Points(),
+            LineColor);
 
         var sumVector = _vectors.Aggregate((a, b) => a + b);
         DrawMultiline(
-            Multiline.Arrow(origin, origin + sumVector),
+            _multiline.Clear().AppendArrow(origin, origin + sumVector).Points(),
             LineColor2);
     }
 }

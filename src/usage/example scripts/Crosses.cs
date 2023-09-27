@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public partial class Crosses : ExampleNodeBase
 {
+    private Multiline _multiline1 = new();
+    private Multiline _multiline2 = new();
+    private Multiline _crossesMl = new();
+
     protected record Shot
     {
         public Vector2 Position;
@@ -104,25 +108,34 @@ public partial class Crosses : ExampleNodeBase
 
         // I
         DrawMultiline(
-            Multiline.Cross(
+            _crossesMl.
+            Clear().
+            AppendCross(
                 pos,
-                radius: 8 + sizeCoef * 10f),
+                radius: 8 + sizeCoef * 10f)
+            .Points(),
             LineColor);
 
         // II
         DrawMultiline(
-            Multiline.Cross2(
+            _crossesMl
+            .Clear()
+            .AppendCross2(
                 offset + pos,
                 outerRadius: 10 + sizeCoef * 8f,
-                innerRadius: 2 + sizeCoef * 4f),
+                innerRadius: 2 + sizeCoef * 4f)
+            .Points(),
             LineColor, width: 2);
     }
 
     private void DrawShooting()
     {
+        _multiline1.Clear();
+        _multiline2.Clear();
+
         //aiming crosses
-        DrawMultiline(Multiline.Cross2(_cross1, 10, 3), _color1);
-        DrawMultiline(Multiline.Cross2(_cross2, 7, 2), _color2);
+        _multiline1.AppendCross2(_cross1, 10, 3);
+        _multiline2.AppendCross2(_cross2, 7, 2);
 
         //guns
         if (_shots.Count != 0)
@@ -140,7 +153,7 @@ public partial class Crosses : ExampleNodeBase
                     break;
 
                 case 2:
-                    DrawMultiline(Multiline.Dot(shot.Position), _color2);
+                    _multiline2.AppendDot(shot.Position);
                     break;
 
                 default: break;
@@ -152,13 +165,16 @@ public partial class Crosses : ExampleNodeBase
             switch (marker.Type)
             {
                 case 1:
-                    DrawMultiline(Multiline.Cross(marker.Position, 3), _color1);
+                    _multiline1.AppendCross(marker.Position, 3);
                     break;
 
                 case 2:
-                    DrawMultiline(Multiline.Dot(marker.Position), _color2);
+                    _multiline2.AppendDot(marker.Position);
                     break;
             }
         }
+
+        DrawMultiline(_multiline1.Points(), _color1);
+        DrawMultiline(_multiline2.Points(), _color2);
     }
 }

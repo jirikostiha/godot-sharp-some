@@ -1,6 +1,6 @@
 # Godot Sharp Some - Drawing 2D
 
-Is set of general extensions for custom drawing API in Godot engine version 4.0 and higher.  
+Is set of general extensions for custom drawing API in Godot engine.  
 
 ## CanvasItemExtensions
 
@@ -10,21 +10,21 @@ Generally there are three types of methods.
 **Outline** postfix determines only outline (or perimeter) of the shape is drawn.
 
 ```cs
-Draw<Shape>Outline(..)
+Draw<<Shape>>Outline(..)
 ```
 
 \
 **Region** postfix determines only plane region (or area) is drawn.
 
 ```cs
-Draw<Shape>Region(..)
+Draw<<Shape>>Region(..)
 ```
 
 \
 Without postfix the outline and region is drawn.
 
 ```cs
-Draw<Shape>(..)
+Draw<<Shape>>(..)
 ```
 
 \
@@ -38,29 +38,18 @@ public class ExampleC1 : ColorRect
 {
     public override void _Draw()
     {
-        this.DrawCircleRegion(new Vector2(10, 10), new Vector2(100, 10), new Vector2(10, 100), Colors.Black)
-            .DrawEllipse()
-            .DrawMultiline(Multiline.Cross());
+        this.DrawCircleRegion(new Vector2(50, 50), 20, Colors.Blue)
+            .DrawEllipse(new Vector2(50, 50), 30, 15, Pi / 2, Colors.Black, Colors.Green)
+            .DrawMultiline(new Multiline().AppendCross(new Vector2(50, 50), 8).Points(), Colors.Gray);
     }
 }
 ```
 
 ### Multiline
 
-The multiline class is responsible for calculating coordinates of the points and memory allocations.
-There are three alternatives how to draw line-based figures via the multiline.  
+The multiline class is responsible for calculating coordinates of the points.  
 
-**1) Quick**  
-Just call predefined compositions.  
-
-```cs
-DrawMultiline(Multiline.<CompositionName>(..), <Color>);
-```
-
-pros: easy to use  
-cons: bigger memory footprint
-
-_Example M1_ shows how to draw vectors from common origin and then draw sum of vectors.  
+_Example M1_ shows how to draw multiple vectors from common origin and then draw sum of vectors.  
 
 ```cs
 using Godot;
@@ -72,33 +61,18 @@ public class ExampleM1 : ColorRect
 
     public override void _Draw()
     {
-        DrawMultiline(
-            Multiline.VectorsAbsolutely(new Vector2(100, 100), _vectors),
+       DrawMultiline(
+            new Multiline().AppendVectorsAbsolutely(new Vector2(100, 100), vectors).Points(),
             Colors.Gray);
 
         DrawMultiline(
-            Multiline.VectorsRelatively(new Vector2(300, 300), _vectors),
+            new Multiline().AppendVectorsRelatively(new Vector2(300, 300), vectors).Points(),
             Colors.Blue);
     }
 }
 ```
 
-\
-**2) Builder**  
-Use the multiline as a builder.  
-
-```cs
-DrawMultiline(
-    new Multiline()
-        .Append<CompositionName>(..)
-        .Append<CompositionName>(..),
-    <Color>);  
-```
-
-pros: low memory footprint  
-cons: more lines of code  
-
-_Example M2_ shows how to draw more complex line drawings as one multiline.  
+_Example M2_ shows how to draw multiple types of line as one multiline.  
 
 ```cs
 using Godot;
@@ -106,76 +80,26 @@ using GodotSharpSome.Drawing2D;
 
 public class ExampleM2 : ColorRect
 {
+    private Multiline _ml = new(("solid", new SolidLine()), ("dotted", new DottedLine()), ("dashed", new DashedLine()));
+    private DashDottedLine _ddLine = new(dashLength: 10, spaceLength: 4);
+
     public override void _Draw()
     {
-        var m = new Multiline()
-            .AppendRectangle(new Vector2(0,0), 50, 50, 0)
-            .AppendDashDottedLine(new Vector2(-60, 0), new Vector2(60, 0))
-            .AppendDashDottedLine(new Vector2(0, 60), new Vector2(0, -60));
+        var start = Vector2.Zero;
 
-        DrawMultiline(m.Points, Colors.Black);
-    }
-}
-```
+        var points = _ml
+            .Clear()
+            .SetPen("solid")
+            .AppendLine(start, start + Vector2.Right * 60)
+            .SetPen("dotted")
+            .AppendLine(start + Vector2.Right * 60 + Vector2.Down * 60)
+            .SetPen(2)
+            .AppendLine(start + Vector2.Down * 60)
+            .SetPen(_ddLine)
+            .AppendLine(start);
+            .Points();
 
-\
-**3) Custom**  
-In this case you have full control over collection of points.
-
-```cs
-var points = new List<Vector2>(20);
-Multiline.Append<CompositionName>(points, ..);
-Multiline.Append<CompositionName>(points, ..);
-DrawMultiline(points, <Color>);
-```
-
-pros: full control  
-cons: longer code  
-
-_Example M3_ shows how to use multiline in thread safe manner.  
-
-```cs
-using Godot;
-using GodotSharpSome.Drawing2D;
-
-public class ExampleM3 : ColorRect
-{
-    private ReaderWriterLockSlim _lock = new();
-    private List<Vector2> _points = new();
-    
-    public override void _Draw()
-    {
-        ClearPoints();
-
-        AppendMyFigure(_points, new Vector(50, 50));
-        AppendMyFigure(_points, new Vector(100, 50));
-
-        _lock.EnterWriteLock();
-        var pointsArray = _points.toArray();
-        _lock.Release();
-
-        DrawMultiline(pointsArray, Colors.Gray);
-    }
-
-    private void AppendMyFigure(IList<Vector2> points, Vector2 center)
-    {
-        _lock.EnterWriteLock();
-        try
-        {
-            Multiline.AppendRectangle(_points, ..);
-            Multiline.Append(_points, ..);
-        }
-        finally
-        {
-            _lock.Release();
-        }
-    }
-
-    private void ClearPoints()
-    {
-        _lock.EnterWriteLock();
-        _points.Clear();
-        _lock.Release();
+        DrawMultiline(points, Colors.Blue);
     }
 }
 ```

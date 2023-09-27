@@ -24,22 +24,22 @@ public partial class Arrows : ExampleNodeBase
     public override void _Draw()
     {
         DrawMultiline(
-            Multiline.Arrow(LeftBottom(1), RightTop(1), _headRadius, _arrowAngle),
+            new Multiline().AppendArrow(LeftBottom(1), RightTop(1), _headRadius, _arrowAngle).Points(),
             LineColor);
 
         DrawMultiline(
-            Multiline.Arrow(LeftBottom(2), Middle(2), _headRadius, Pi - _arrowAngle),
+            new Multiline().AppendArrow(LeftBottom(2), Middle(2), _headRadius, Pi - _arrowAngle).Points(),
             LineColor);
 
         DrawMultiline(
-            Multiline.DoubleArrow(LeftBottom(3), RightTop(3), _headRadius, _arrowAngle),
+            new Multiline().AppendDoubleArrow(LeftBottom(3), RightTop(3), _headRadius, _arrowAngle).Points(),
             LineColor);
 
         DrawTextRotation(Middle(4), "Relax");
 
         DrawTextRotationCentered(Middle(5), "Enjoy");
 
-        DrawDimensiong(Middle(6) + 15 * Vector2.Down);
+        DrawDimension(Middle(6) + 15 * Vector2.Down);
     }
 
     private void DrawTextRotation(Vector2 center, string text)
@@ -54,7 +54,7 @@ public partial class Arrows : ExampleNodeBase
         this.DrawCenteredString(Font, center, text, (float)_time * 2f, LineColor);
     }
 
-    private void DrawDimensiong(Vector2 center)
+    private void DrawDimension(Vector2 center)
     {
         var r = 17 + 5 * (1 + Sin((float)_time));
         var dimAngle = Sin((float)_time * 0.7f);
@@ -72,7 +72,7 @@ public partial class Arrows : ExampleNodeBase
         this.DrawLine(v1, v1 + normalVector * hh, dcolor);
         this.DrawLine(v2, v2 + normalVector * hh, dcolor);
         this.DrawMultiline(
-            Multiline.DoubleArrow(v1 + normalVector * h, v2 + normalVector * h, 11, 0.18f),
+            new Multiline().AppendDoubleArrow(v1 + normalVector * h, v2 + normalVector * h, 11, 0.18f).Points(),
             dcolor);
 
         this.DrawCircleOutline(center, r, LineColor);

@@ -7,6 +7,8 @@ public partial class Dots : ExampleNodeBase
 {
     private float _time;
 
+    private Multiline _multiline = new(30, new DottedLine());
+
     private float[] _sinSamplePointsX = Enumerable.Range(0, 150).Select(i => 2f * i).ToArray();
 
     private int[] _powerSamplePointsX = Enumerable.Range(-25, 51).ToArray();
@@ -40,12 +42,14 @@ public partial class Dots : ExampleNodeBase
         var functionPoints = _powerSamplePointsX.Take(_powerPointCount).Select(x => origin +
             new Vector2(x, (x / 10f) * (x / 10f) * 10));
 
-        var m = new Multiline()
-            .AppendDottedLine(origin + new Vector2(0, -4), origin + new Vector2(0, 70), 8)
-            .AppendDottedLine(origin + new Vector2(-30, 0), origin + new Vector2(30, 0), 8)
-            .AppendDots(functionPoints);
+        var points = _multiline
+            .Clear()
+            .AppendLine(origin + new Vector2(0, -4), origin + new Vector2(0, 70))
+            .AppendLine(origin + new Vector2(-30, 0), origin + new Vector2(30, 0))
+            .AppendDots(functionPoints)
+            .Points();
 
-        DrawMultiline(m.Points(), LineColor);
+        DrawMultiline(points, LineColor);
     }
 
     private void DrawSin(Vector2 start)

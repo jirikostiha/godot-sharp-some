@@ -1,8 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
-using Godot;
-using System.Collections.Generic;
-
 public static class Vector2DExtension
 {
     /// <summary>

@@ -1,17 +1,15 @@
 using Godot;
 using GodotSharpSome.Drawing2D;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using static Godot.Mathf;
 
 public partial class Lines : ExampleNodeBase
 {
-    private float[] _bounds = new float[] { 0f, 1f };
-
     private float _value;
 
-    private const float Step = 0.5f;
-
-    public Tween Tween { get; set; }
+    private Tween _tween;
 
     public override void _Ready()
     {
@@ -24,7 +22,7 @@ public partial class Lines : ExampleNodeBase
         DrawLineTypes(LeftBottom(1), RowHeight / 3f, CellWidth / 2f, CellWidth);
 
         // II
-        DrawContinuationLine(LeftBottom(2));
+        DrawContinuationLineByDiffTypes(LeftBottom(2));
 
         // III
         DrawLineFromRef(LeftBottom(3));
@@ -39,49 +37,67 @@ public partial class Lines : ExampleNodeBase
     private void DrawLineTypes(Vector2 origin, float ystep, float minLength, float maxLength)
     {
         DrawMultiline(
-            Multiline.DottedLine(
+            DottedLine.AppendLine(
+                new List<Vector2>(30),
                 origin,
-                origin + (minLength + _value * (maxLength - minLength)) * Vector2.Right),
+                origin + (minLength + _value * (maxLength - minLength)) * Vector2.Right)
+            .ToArray(),
             LineColor);
 
         DrawMultiline(
-            Multiline.DashedLine(
+            DashedLine.AppendLine(
+                new List<Vector2>(),
                 origin + ystep * Vector2.Down,
-                origin + ystep * Vector2.Down + (minLength + _value * (maxLength - minLength)) * Vector2.Right),
+                origin + ystep * Vector2.Down + (minLength + _value * (maxLength - minLength)) * Vector2.Right)
+            .ToArray(),
             LineColor);
 
         DrawMultiline(
-            Multiline.DashDottedLine(
+            DashDottedLine.AppendLine(
+                new List<Vector2>(30),
                 origin + 2 * ystep * Vector2.Down,
-                origin + 2 * ystep * Vector2.Down + (minLength + _value * (maxLength - minLength)) * Vector2.Right),
+                origin + 2 * ystep * Vector2.Down + (minLength + _value * (maxLength - minLength)) * Vector2.Right)
+            .ToArray(),
             LineColor);
     }
 
-    private void DrawContinuationLine(Vector2 start)
+    private Multiline _ml = new(("solid", new SolidLine()), ("dotted", new DottedLine()), ("dashed", new DashedLine()));
+    private DashDottedLine _ddLine = new(dashLength: 10, spaceLength: 4);
+
+    private void DrawContinuationLineByDiffTypes(Vector2 origin)
     {
-        var points = new Multiline(4 * 2)
+        var start = origin + 10 * Vector2.Right;
+
+        var points = _ml
+            .Clear()
+            .SetPen("solid")
             .AppendLine(start, start + Vector2.Right * 60)
-            .AppendLine(Vector2.Down * 50)
-            .AppendLine(new Vector2(-40, -10))
-            .AppendLine(new Vector2(30, -20))
+            .SetPen("dotted")
+            .AppendLine(start + Vector2.Right * 60 + Vector2.Down * 60)
+            .SetPen(2)
+            .AppendLine(start + Vector2.Down * 60)
+            .SetPen(_ddLine)
+            .AppendLine(start)
             .Points();
 
         DrawMultiline(points, LineColor);
     }
 
-    private void DrawLineFromRef(Vector2 start)
+    private void DrawLineFromRef(Vector2 origin)
     {
-        var refPoint = start + Vector2.Right * 25;
-        DrawMultiline(Multiline.Line(start, refPoint), new Color("lightblue"));
+        var start = origin + Vector2.Right * 25;
 
+        // create line directly by appender's static method
+        DrawMultiline(SolidLine.Line(origin, start), new Color("lightblue"));
+
+        // multi line as local variable -> always allocating memory -> not recommended
         var ml = new Multiline(8 * 2);
         for (int i = 0; i < 8; i++)
-            ml.AppendLineFromRef(start, refPoint, i * Pi / 2f / 7, 40);
+            ml.AppendLineFromRef(origin, start, i * Pi / 2f / 7, 40);
 
         DrawMultiline(ml.Points(), LineColor);
 
-        ml.Clear();
-        ml.AppendLine(start + Vector2.Down * 50, start + Vector2.Down * 50 + Vector2.Right * 25);
+        ml.Clear().AppendLine(origin + Vector2.Down * 50, origin + Vector2.Down * 50 + Vector2.Right * 25);
         for (int i = 0; i < 8; i++)
             ml.AppendLineFromRef((1 + i) * Pi / 12f, 15 - i);
 
@@ -91,52 +107,55 @@ public partial class Lines : ExampleNodeBase
     private void DrawParallelLine(Vector2 start)
     {
         var end = start + new Vector2(70, 20);
+
         DrawMultiline(
-            Multiline.Line(start, end),
+            SolidLine.Line(start, end),
             LineColor.Lightened(0.3f));
 
         DrawMultiline(
-            Multiline.ParallelLine(start, end, 10),
+            new Multiline().AppendParallelLine(start, end, 10).Points(),
             LineColor);
 
         DrawMultiline(
-            Multiline.ParallelLine(start, end, 20, 10, -10),
+            new Multiline().AppendParallelLine(start, end, 20, 10, -10).Points(),
             LineColor);
 
         DrawMultiline(
-            Multiline.ParallelLine(start, end, 30, -10, 10),
+            new Multiline().AppendParallelLine(start, end, 30, -10, 10).Points(),
             LineColor);
     }
 
     private void DrawParallelLines(Vector2 corner1, Vector2 corner2)
     {
         DrawMultiline(
-            Multiline.ParallelLines(
+            new Multiline()
+            .AppendParallelLines(
                 corner1,
                 corner1 + new Vector2(corner2.X - corner1.X, 0),
                 (corner2.Y - corner1.Y) / 7f,
-                8),
+                8)
+            .Points(),
             LineColor);
 
         DrawMultiline(
-            Multiline.ParallelLines(
+            new Multiline()
+            .AppendParallelLines(
                 corner1 + new Vector2(0, corner2.Y - corner1.Y),
                 corner1,
-                new float[] { 0, 10, 20, 30, 20 }),
+                new float[] { 0, 10, 20, 30, 20 })
+            .Points(),
             LineColor);
     }
 
-    public void Interpolate(float value) => _value = value;
-
-    public void _on_Tween_completed(object obj, NodePath path)
+    public void Interpolate(float value)
     {
-        Array.Reverse(_bounds);
-        StartTween();
+        _value = value;
     }
 
     private void StartTween()
     {
-        Tween = CreateTween();
-        Tween.TweenMethod(new Callable(this, nameof(Interpolate)), _bounds[0], _bounds[1], 2f);
+        _tween = CreateTween().SetLoops();
+        _tween.TweenMethod(new Callable(this, nameof(Interpolate)), 0f, 1f, 2f);
+        _tween.TweenMethod(new Callable(this, nameof(Interpolate)), 1f, 0f, 2f);
     }
 }

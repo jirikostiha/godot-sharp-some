@@ -1,7 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
-using Godot;
-
 /// <summary>
 /// Line visualization options.
 /// </summary>

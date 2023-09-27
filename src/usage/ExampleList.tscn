@@ -1,19 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://sihgimi7npo3"]
+[gd_scene load_steps=15 format=3 uid="uid://sihgimi7npo3"]
 
 [ext_resource type="Script" path="res://ExampleList.cs" id="1"]
 [ext_resource type="Script" path="res://example scripts/Rectangles.cs" id="2"]
 [ext_resource type="Script" path="res://example scripts/Vectors.cs" id="3"]
 [ext_resource type="Script" path="res://example scripts/Arrows.cs" id="4"]
-[ext_resource type="Script" path="res://example scripts/Candlesticks.cs" id="5"]
 [ext_resource type="Script" path="res://example scripts/Crosses.cs" id="6"]
 [ext_resource type="Script" path="res://example scripts/Dots.cs" id="7"]
 [ext_resource type="Script" path="res://example scripts/Polygons.cs" id="8"]
 [ext_resource type="Script" path="res://example scripts/Triangles.cs" id="9"]
 [ext_resource type="Script" path="res://example scripts/Connections.cs" id="10"]
 [ext_resource type="Script" path="res://example scripts/Circles.cs" id="11"]
-[ext_resource type="Script" path="res://example scripts/CandlestickCharts.cs" id="12"]
 [ext_resource type="Script" path="res://Fps.gd" id="13"]
-[ext_resource type="Script" path="res://example scripts/LayeredNetwork.cs" id="14"]
 [ext_resource type="Script" path="res://example scripts/Ellipses.cs" id="15"]
 [ext_resource type="Script" path="res://example scripts/Lines.cs" id="16"]
 
@@ -333,56 +330,6 @@ layout_mode = 2
 color = Color(0.45098, 0.427451, 0.427451, 1)
 script = ExtResource("8")
 
-[node name="Candlesticks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
-layout_mode = 2
-text = "Candlesticks"
-
-[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle animation"
-text = "Animate"
-
-[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer"]
-layout_mode = 2
-text = "Invert"
-
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlesticks" groups=["ExampleContents"]]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-color = Color(0.45098, 0.427451, 0.427451, 1)
-script = ExtResource("5")
-
-[node name="Candlestick charts" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer"]
-layout_mode = 2
-text = "Candlestick charts"
-
-[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle animation"
-text = "Animate"
-
-[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer"]
-layout_mode = 2
-text = "Invert"
-
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Candlestick charts" groups=["ExampleContents"]]
-custom_minimum_size = Vector2(100, 400)
-layout_mode = 2
-color = Color(0.45098, 0.427451, 0.427451, 1)
-script = ExtResource("12")
-
 [node name="Connections" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 layout_mode = 2
 
@@ -408,31 +355,6 @@ layout_mode = 2
 color = Color(0.45098, 0.427451, 0.427451, 1)
 script = ExtResource("10")
 
-[node name="Layered networks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Layered networks"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer"]
-layout_mode = 2
-text = "Layered networks"
-
-[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Toggle animation"
-text = "Animate"
-
-[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer"]
-layout_mode = 2
-text = "Invert"
-
-[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Layered networks" groups=["ExampleContents"]]
-custom_minimum_size = Vector2(100, 480)
-layout_mode = 2
-color = Color(0.45098, 0.427451, 0.427451, 1)
-script = ExtResource("14")
-
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/AnimateAll" to="." method="_on_AnimateAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/Header/HeaderItems/InvertAll" to="." method="_on_InvertAll_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Animate_pressed"]
@@ -455,11 +377,5 @@ script = ExtResource("14")
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Rectangles/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Rectangles/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Polygons/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Polygons/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Polygons/Content" method="_on_Invert_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlesticks/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Candlesticks/Content" method="_on_Invert_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Candlestick charts/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Candlestick charts/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Candlestick charts/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Connections/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Connections/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Connections/Content" method="_on_Invert_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Layered networks/Content" method="_on_Animate_pressed"]
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Layered networks/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Layered networks/Content" method="_on_Invert_pressed"]
