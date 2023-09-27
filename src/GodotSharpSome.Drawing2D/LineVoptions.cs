@@ -7,7 +7,7 @@ using Godot;
 /// </summary>
 public record LineVOptions
 {
-    public Color Color { get; set; }
+    public Color Color { get; set; } = Colors.Black;
 
     public LineType Type { get; set; } = LineType.Solid;
 
