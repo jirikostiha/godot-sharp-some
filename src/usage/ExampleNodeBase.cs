@@ -22,6 +22,7 @@ public partial class ExampleNodeBase : ColorRect
     protected static Vector2 RawCellSize => new(RawCellWidth, RawRowHeight);
     protected static Vector2 CellSize => new(CellWidth, RowHeight);
 
+
     protected static RandomNumberGenerator Rng { get; set; } = new();
 
     protected Font Font { get; set; } = ThemeDB.FallbackFont;

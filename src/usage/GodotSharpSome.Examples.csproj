@@ -9,4 +9,14 @@
   <ItemGroup>
     <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+    <ProjectReference Include="..\GodotSharpSome.Graphs2D\GodotSharpSome.Graphs2D.csproj" />
+  </ItemGroup>
 </Project>

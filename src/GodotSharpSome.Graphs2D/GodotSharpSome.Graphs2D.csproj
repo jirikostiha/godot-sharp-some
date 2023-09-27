@@ -1,0 +1,31 @@
+﻿<Project Sdk="Godot.NET.Sdk/4.1.2">
+
+  <Import Project="..\..\product.props" />
+  <Import Project="..\..\product_version.props" />
+  <Import Project="..\..\participants.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>latest</LangVersion>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <Nullable>enable</Nullable>
+    <NoWarn>CS1591</NoWarn>
+    <SignAssembly>True</SignAssembly>
+
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Title>Godot Sharp 2D Drawing Graphs Extensions</Title>
+    <Description>Set of graphs drawing extensions for Godot engine.</Description>
+    <PackageTags> godot; drawing; graph, csharp; 2D; game-dev</PackageTags>
+    <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+    <!--<PackageIcon>icon.png</PackageIcon>-->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GodotSharpSome.Drawing2D\GodotSharpSome.Drawing2D.csproj" />
+  </ItemGroup>
+
+</Project>

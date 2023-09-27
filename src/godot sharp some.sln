@@ -62,6 +62,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Benchmarks", "quality\GodotSharpSome.Drawing2D.Benchmarks\GodotSharpSome.Drawing2D.Benchmarks.csproj", "{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Graphs2D", "GodotSharpSome.Graphs2D\GodotSharpSome.Graphs2D.csproj", "{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Graphs2D.Tests", "quality\GodotSharpSome.Graphs2D.Tests\GodotSharpSome.Graphs2D.Tests.csproj", "{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +106,22 @@ Global
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{37C9D79C-09C7-4DE6-86E2-FF5AA11E9595}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +131,7 @@ Global
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{0F763BF8-26B4-4D85-9BB6-1549C1EC6456} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
