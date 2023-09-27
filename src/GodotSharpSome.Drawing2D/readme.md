@@ -21,7 +21,7 @@ Draw<Shape>Region(..)
 ```
 
 \
-Without postfix the the outline and region is drawn.
+Without postfix the outline and region is drawn.
 
 ```cs
 Draw<Shape>(..)
@@ -38,7 +38,7 @@ public class ExampleC1 : ColorRect
 {
     public override void _Draw()
     {
-        this.DrawCircleRegion(new Vector2(10, 10), new Vector2(100, 10), new Vector2(10, 100), Color.ColorN("black"))
+        this.DrawCircleRegion(new Vector2(10, 10), new Vector2(100, 10), new Vector2(10, 100), Colors.Black)
             .DrawEllipse()
             .DrawMultiline(Multiline.Cross());
     }
@@ -74,11 +74,11 @@ public class ExampleM1 : ColorRect
     {
         DrawMultiline(
             Multiline.VectorsAbsolutely(new Vector2(100, 100), _vectors),
-            Color.ColorN("gray"));
+            Colors.Gray);
 
         DrawMultiline(
             Multiline.VectorsRelatively(new Vector2(300, 300), _vectors),
-            Color.ColorN("blue"));
+            Colors.Blue);
     }
 }
 ```
@@ -113,7 +113,7 @@ public class ExampleM2 : ColorRect
             .AppendDashDottedLine(new Vector2(-60, 0), new Vector2(60, 0))
             .AppendDashDottedLine(new Vector2(0, 60), new Vector2(0, -60));
 
-        DrawMultiline(m.Points, Color.ColorN("black"));
+        DrawMultiline(m.Points, Colors.Black);
     }
 }
 ```
@@ -154,7 +154,7 @@ public class ExampleM3 : ColorRect
         var pointsArray = _points.toArray();
         _lock.Release();
 
-        DrawMultiline(pointsArray, Color.ColorN("gray"));
+        DrawMultiline(pointsArray, Colors.Gray);
     }
 
     private void AppendMyFigure(IList<Vector2> points, Vector2 center)
