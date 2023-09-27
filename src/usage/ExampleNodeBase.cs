@@ -10,6 +10,7 @@ public partial class ExampleNodeBase : ColorRect
     public Color LineColor2 { get; set; } = Colors.Orange;
     public Color AreaColor { get; set; } = Colors.Gray;
 
+
     protected static int Margin { get; set; } = 10;
     protected static int RawRowHeight { get; set; } = 100;
     protected static int RowHeight => RawRowHeight - 2 * Margin;
@@ -21,6 +22,8 @@ public partial class ExampleNodeBase : ColorRect
 
     protected static Vector2 RawCellSize => new(RawCellWidth, RawRowHeight);
     protected static Vector2 CellSize => new(CellWidth, RowHeight);
+
+    protected static Vector2 DrawableCellSize => new(CellWidth - Margin, RowHeight - Margin);
 
     protected static RandomNumberGenerator Rng { get; set; } = new();
 
