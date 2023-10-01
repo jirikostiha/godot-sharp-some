@@ -12,8 +12,12 @@
 
         private static readonly Vector2 DotVector = Vector2.Down;
 
-        public static Multiline FourTypes() =>
-            new Multiline(("solid", new SolidLine()), ("dotted", new DottedLine()), ("dashed", new DashedLine()), ("dash-dotted", new DashDottedLine()));
+        public static Multiline FourLineTypes() =>
+            new (
+                (nameof(LineType.Solid), new SolidLine()),
+                (nameof(LineType.Dotted), new DottedLine()),
+                (nameof(LineType.Dashed), new DashedLine()),
+                (nameof(LineType.DashDotted), new DashDottedLine()));
 
         private readonly IList<Vector2> _points;
 
@@ -35,7 +39,7 @@
         { }
 
         public Multiline(IList<Vector2> points)
-            : this(points, new SolidLine(), "solid")
+            : this(points, new SolidLine(), nameof(LineType.Solid))
         { }
 
         public Multiline(IStraightLineAppender pen, string? penKey = default)
@@ -417,7 +421,6 @@
             return this;
         }
 
-        //todo to smath
         public static IEnumerable<Vector2> RegularConvexPolygonVertices(Vector2 center, float radius, int verticesCount, float rotationAngle)
         {
             var segmentAngle = 2 * Pi / verticesCount;

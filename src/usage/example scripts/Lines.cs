@@ -1,6 +1,5 @@
 using Godot;
 using GodotSharpSome.Drawing2D;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Godot.Mathf;
@@ -61,7 +60,10 @@ public partial class Lines : ExampleNodeBase
             LineColor);
     }
 
-    private Multiline _ml = new(("solid", new SolidLine()), ("dotted", new DottedLine()), ("dashed", new DashedLine()));
+    private Multiline _ml = new(
+        (nameof(LineType.Solid), new SolidLine()),
+        (nameof(LineType.Dotted), new DottedLine()),
+        (nameof(LineType.Dashed), new DashedLine()));
     private DashDottedLine _ddLine = new(dashLength: 10, spaceLength: 4);
 
     private void DrawContinuationLineByDiffTypes(Vector2 origin)
@@ -70,9 +72,9 @@ public partial class Lines : ExampleNodeBase
 
         var points = _ml
             .Clear()
-            .SetPen("solid")
+            .SetPen("Solid")
             .AppendLine(start, start + Vector2.Right * 60)
-            .SetPen("dotted")
+            .SetPen(nameof(LineType.Dotted))
             .AppendLine(start + Vector2.Right * 60 + Vector2.Down * 60)
             .SetPen(2)
             .AppendLine(start + Vector2.Down * 60)
