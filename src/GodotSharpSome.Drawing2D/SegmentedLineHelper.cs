@@ -2,7 +2,7 @@
 
 using static Godot.Mathf;
 
-public static class SegmentedLineHelper
+internal static class SegmentedLineHelper
 {
     /// <summary>
     /// Get length of adaptable part of repeating pattern where tail is fixed.
@@ -11,7 +11,7 @@ public static class SegmentedLineHelper
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
     /// <param name="count"> Count of repetitions of the pattern. </param>
-    public static void AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
+    internal static void AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
     {
         float segmentLength = adaptingInterval + fixedInterval;
         float segmentCount = totalLength / segmentLength;
@@ -34,7 +34,7 @@ public static class SegmentedLineHelper
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
     /// <param name="count"> Count of repetitions of the pattern. </param>
-    public static void AdaptSubinterval2(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
+    internal static void AdaptSubinterval2(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
     {
         float segmentLength = adaptingInterval + fixedInterval;
         float segmentCount = (totalLength - adaptingInterval) / segmentLength;
