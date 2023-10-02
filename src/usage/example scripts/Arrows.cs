@@ -44,14 +44,17 @@ public partial class Arrows : ExampleNodeBase
 
     private void DrawTextRotation(Vector2 center, string text)
     {
-        this.DrawCircleRegion(center, 1.5f, AreaColor);
-        this.DrawString(Font, center, text, (float)_time * 2f, LineColor);
+        this.DrawCircleRegion(center, 1.5f, Colors.Red);
+        this.DrawString(Font, center, text, (float)_time * 2f, modulate: LineColor);
     }
 
     private void DrawTextRotationCentered(Vector2 center, string text)
     {
-        this.DrawCircleRegion(center, 1.5f, AreaColor);
-        this.DrawCenteredString(Font, center, text, (float)_time * 2f, LineColor);
+        this.DrawCircleRegion(center, 1.5f, Colors.Red);
+        this.DrawString(Font, center, text, (float)_time * 2f,
+            verticalAlignment: VerticalAlignment.Center,
+            textBoxHorizontalAlignment: HorizontalAlignment.Center,
+            modulate: LineColor);
     }
 
     private void DrawDimension(Vector2 center)
@@ -83,6 +86,6 @@ public partial class Arrows : ExampleNodeBase
                 ? r.ToString("0.0")
                 : r.ToString("0.00");
 
-        this.DrawCenteredString(Font, textCenter, rtext, dimAngle, dcolor);
+        this.DrawString(Font, textCenter, rtext, dimAngle, modulate: dcolor);
     }
 }

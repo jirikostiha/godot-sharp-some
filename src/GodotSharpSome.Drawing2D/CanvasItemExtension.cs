@@ -1,5 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
+using Godot;
 using System.Linq;
 using static Godot.Mathf;
 
@@ -275,32 +276,14 @@ public static class CanvasItemExtension
     }
 
     /// <summary>
-    /// Draw a string in a position of left bottom point and with rotation angle.
+    /// Draw text with rotation angle.
+    ///
     /// </summary>
-    public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
-    {
-        var originTransform = canvas.GetCanvasTransform();
-
-        Transform2D t = Transform2D.Identity;
-        t.Origin = position;
-        t.X.X = t.Y.Y = Cos(angle);
-        t.X.Y = t.Y.X = Sin(angle);
-        t.Y.X *= -1;
-
-        canvas.DrawSetTransformMatrix(t);
-        if (color.HasValue)
-            canvas.DrawString(font, Vector2.Zero, text, HorizontalAlignment.Left, -1, 16, color);
-        else
-            canvas.DrawString(font, Vector2.Zero, text);
-        canvas.DrawSetTransformMatrix(originTransform);
-
-        return canvas;
-    }
-
-    /// <summary>
-    /// Draw a string in a position of text center and with rotation angle.
-    /// </summary>
-    public static CanvasItem DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
+    public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
+        HorizontalAlignment textBoxHorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Bottom,
+        int fontSize = 16, Color? modulate = null,
+        TextServer.JustificationFlag justificationFlags = TextServer.JustificationFlag.Kashida | TextServer.JustificationFlag.WordBound,
+        TextServer.Direction direction = TextServer.Direction.Auto, TextServer.Orientation orientation = TextServer.Orientation.Horizontal)
     {
         var originTransform = canvas.GetCanvasTransform();
         var textSize = font.GetStringSize(text);
@@ -311,11 +294,20 @@ public static class CanvasItemExtension
         t.X.Y = t.Y.X = Sin(angle);
         t.Y.X *= -1;
 
+        var verticalOffset = verticalAlignment == VerticalAlignment.Bottom
+            ? 0f
+            : verticalAlignment == VerticalAlignment.Center
+                ? textSize.Y / 2f
+                : textSize.Y;
+
+        var horizontalOffset = textBoxHorizontalAlignment == HorizontalAlignment.Left
+            ? 0f
+            : textBoxHorizontalAlignment == HorizontalAlignment.Center
+                ? textSize.X / 2f
+                : textSize.X;
+
         canvas.DrawSetTransformMatrix(t);
-        if (color.HasValue)
-            canvas.DrawString(font, new Vector2(-textSize.X / 2f, 0), text, HorizontalAlignment.Left, -1, 16, color);
-        else
-            canvas.DrawString(font, new Vector2(-textSize.X / 2f, 0), text);
+        canvas.DrawString(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text, HorizontalAlignment.Left, -1, fontSize, modulate, justificationFlags, direction, orientation);
         canvas.DrawSetTransformMatrix(originTransform);
 
         return canvas;
