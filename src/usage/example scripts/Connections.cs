@@ -1,6 +1,5 @@
 using Godot;
 using GodotSharpSome.Drawing2D;
-using System.Collections.Generic;
 using static Godot.Mathf;
 
 public partial class Connections : ExampleNodeBase

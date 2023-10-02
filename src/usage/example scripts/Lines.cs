@@ -64,6 +64,7 @@ public partial class Lines : ExampleNodeBase
         (nameof(LineType.Solid), new SolidLine()),
         (nameof(LineType.Dotted), new DottedLine()),
         (nameof(LineType.Dashed), new DashedLine()));
+
     private DashDottedLine _ddLine = new(dashLength: 10, spaceLength: 4);
 
     private void DrawContinuationLineByDiffTypes(Vector2 origin)

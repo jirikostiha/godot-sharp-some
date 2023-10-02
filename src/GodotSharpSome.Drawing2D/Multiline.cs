@@ -13,7 +13,7 @@
         private static readonly Vector2 DotVector = Vector2.Down;
 
         public static Multiline FourLineTypes() =>
-            new (
+            new(
                 (nameof(LineType.Solid), new SolidLine()),
                 (nameof(LineType.Dotted), new DottedLine()),
                 (nameof(LineType.Dashed), new DashedLine()),
