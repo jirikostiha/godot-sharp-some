@@ -1,5 +1,8 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
+/// <summary>
+/// Dotted line appender.
+/// </summary>
 public sealed class DottedLine : IStraightLineAppender
 {
     private const float Default_SpaceLength = 3;

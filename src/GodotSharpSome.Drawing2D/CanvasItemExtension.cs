@@ -276,9 +276,18 @@ public static class CanvasItemExtension
     }
 
     /// <summary>
-    /// Draw text with rotation angle.
-    ///
+    /// Draw text with rotation angle vertical and horizontal alignment of text.
     /// </summary>
+    /// <param name="canvas"> Target of the drawing. </param>
+    /// <param name="font"> Text font. </param>
+    /// <param name="position"> position of text. </param>
+    /// <param name="text"> Text to draw. </param>
+    /// <param name="angle"> Text rotation. </param>
+    /// <param name="textBoxHorizontalAlignment"> Horizontal alignment of the text. It is different from original implementation.
+    /// This alignment is alignment of text box and text box is always fit to width of text, means width in native method is set to -1. </param>
+    /// <param name="verticalAlignment"> Vertical alignment of the text. </param>
+    /// <param name="fontSize"> Text font size. </param>
+    /// <returns></returns>
     public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
         HorizontalAlignment textBoxHorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Bottom,
         int fontSize = 16, Color? modulate = null,

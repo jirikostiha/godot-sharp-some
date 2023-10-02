@@ -1,5 +1,8 @@
 ﻿namespace GodotSharpSome.Drawing2D;
 
+/// <summary>
+/// Dashed line appender.
+/// </summary>
 public sealed class DashedLine : IStraightLineAppender
 {
     private const float Default_DashLength = 12;

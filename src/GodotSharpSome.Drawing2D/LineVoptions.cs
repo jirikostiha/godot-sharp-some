@@ -15,9 +15,18 @@ public record LineVOptions
     /// </summary>
     public static LineVOptions WhiteSolid1 => new() { LineType = LineType.Solid, Width = 1, Color = Colors.White };
 
+    /// <summary>
+    /// Color of the line.
+    /// </summary>
     public Color Color { get; set; } = Colors.Gray;
 
+    /// <summary>
+    /// Type of the line.
+    /// </summary>
     public LineType LineType { get; set; } = LineType.Solid;
 
+    /// <summary>
+    /// Wight of the line.
+    /// </summary>
     public float Width { get; set; } = 1;
 }
