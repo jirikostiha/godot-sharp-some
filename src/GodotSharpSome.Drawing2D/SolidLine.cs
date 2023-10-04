@@ -1,5 +1,7 @@
-﻿namespace GodotSharpSome.Drawing2D;
+﻿using System.Diagnostics;
 
+namespace GodotSharpSome.Drawing2D;
+[DebuggerDisplay("Solid")]
 public sealed class SolidLine : IStraightLineAppender
 {
     private static readonly Vector2 DefaultDotVector = Vector2.Down;

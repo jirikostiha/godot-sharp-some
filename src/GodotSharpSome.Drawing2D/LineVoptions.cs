@@ -1,8 +1,11 @@
-﻿namespace GodotSharpSome.Drawing2D;
+﻿using System.Diagnostics;
+
+namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
 /// Line visualization options.
 /// </summary>
+[DebuggerDisplay("{LineType}, {Color}, {Width}")]
 public record LineVOptions
 {
     /// <summary>

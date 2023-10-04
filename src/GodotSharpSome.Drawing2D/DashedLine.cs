@@ -1,8 +1,11 @@
-﻿namespace GodotSharpSome.Drawing2D;
+﻿using System.Diagnostics;
+
+namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
 /// Dashed line appender.
 /// </summary>
+[DebuggerDisplay("Dashed: dash={DashLength}, space={SpaceLength}")]
 public sealed class DashedLine : IStraightLineAppender
 {
     private const float Default_DashLength = 12;

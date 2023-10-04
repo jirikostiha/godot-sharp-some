@@ -1,8 +1,11 @@
-﻿namespace GodotSharpSome.Drawing2D;
+﻿using System.Diagnostics;
+
+namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
 /// Dashed-dotted line appender.
 /// </summary>
+[DebuggerDisplay("Dash-Dotted: dash={DashLength}, space={SpaceLength}")]
 public sealed class DashDottedLine : IStraightLineAppender
 {
     private const float Default_DashLength = 16;

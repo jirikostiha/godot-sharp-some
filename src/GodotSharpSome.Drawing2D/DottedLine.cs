@@ -1,8 +1,11 @@
-﻿namespace GodotSharpSome.Drawing2D;
+﻿using System.Diagnostics;
+
+namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
 /// Dotted line appender.
 /// </summary>
+[DebuggerDisplay("Dotted: space={SpaceLength}")]
 public sealed class DottedLine : IStraightLineAppender
 {
     private const float Default_SpaceLength = 3;

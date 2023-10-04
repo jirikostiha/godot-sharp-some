@@ -1,8 +1,10 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using System.Diagnostics;
     using System.Linq;
     using static Godot.Mathf;
 
+    [DebuggerDisplay("palette:{_penPalette.Count}, points:{_points.Count}")]
     public class Multiline
     {
         //Default values
