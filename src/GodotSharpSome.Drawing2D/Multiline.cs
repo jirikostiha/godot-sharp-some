@@ -4,16 +4,23 @@
     using System.Linq;
     using static Godot.Mathf;
 
+    /// <summary>
+    /// Multiline builder.
+    /// </summary>
     [DebuggerDisplay("palette:{_penPalette.Count}, points:{_points.Count}")]
     public class Multiline
     {
-        //Default values
+        /// <summary> Default angle value for arrow head. </summary>
         private const float Arrow_HeadAngle = Pi / 14;
 
+        /// <summary> Default length of an arrow head. </summary>
         private const float Arrow_HeadRadius = 20;
 
         private static readonly Vector2 DotVector = Vector2.Down;
 
+        /// <summary>
+        /// Create multiline instance with palette of four basic line types.
+        /// </summary>
         public static Multiline FourLineTypes() =>
             new(
                 (nameof(LineType.Solid), new SolidLine()),
@@ -95,6 +102,9 @@
         /// </summary>
         public IStraightLineAppender Pen => _pen;
 
+        /// <summary>
+        /// Current pen (line appender) key.
+        /// </summary>
         public string? PenKey => _penKey;
 
         /// <summary>
@@ -171,6 +181,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append straight line between two points with offset on both ends.
+        /// </summary>
         public void AppendLine(Vector2 start, float startOffset, Vector2 end, float endOffset)
         {
             var dir = start.DirectionTo(end);
@@ -232,6 +245,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append parallel lines in given distances from reference line determined by two points.
+        /// </summary>
         public Multiline AppendParallelLines(Vector2 refStart, Vector2 refEnd, IList<float> distances)
         {
             var dir = refStart.DirectionTo(refEnd);
@@ -267,6 +283,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append cross made by two orthogonal lines.
+        /// </summary>
         public Multiline AppendCross(Vector2 center, float radius)
         {
             Pen.AppendLine(_points,
@@ -279,6 +298,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append cross made by two orthogonal lines with empty center.
+        /// </summary>
         public Multiline AppendCross2(Vector2 center, float outerRadius, float innerRadius)
         {
             Pen.AppendLine(_points,
@@ -297,6 +319,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append an arrow from start point to end point with head in endpoint.
+        /// </summary>
         public Multiline AppendArrow(Vector2 start, Vector2 top,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -306,6 +331,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append arrow heads on both sides of line between two points.
+        /// </summary>
         public Multiline AppendDoubleArrow(Vector2 start, Vector2 top,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -316,6 +344,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append an arrow head from determined point and arrow direction.
+        /// </summary>
         public Multiline AppendArrowHead(Vector2 direction, Vector2 top,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
@@ -327,6 +358,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append multiple arrows as vectors summation from determined point.
+        /// </summary>
         public Multiline AppendVectorsRelatively(Vector2 zero, IEnumerable<Vector2> vectors,
             float arrowAngle = Arrow_HeadAngle)
         {
@@ -337,6 +371,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append arrows as vectors from determined point.
+        /// </summary>
         public Multiline AppendVectorsAbsolutely(Vector2 zero, IEnumerable<Vector2> vectors,
             float arrowAngle = Arrow_HeadAngle)
         {
@@ -384,6 +421,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append triangle determined by three points.
+        /// </summary>
         public Multiline AppendTriangle(Vector2 a, Vector2 b, Vector2 c)
         {
             Pen.AppendLine(_points, a, b);
@@ -393,6 +433,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Append regular convex polygon determined by center point, radius, number of vertices and initial rotation towards center.
+        /// </summary>
         public Multiline AppendRegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
         {
             var vertices = RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
@@ -407,6 +450,10 @@
             return this;
         }
 
+        /// <summary>
+        /// Remove last line (two points) from collection of points.
+        /// </summary>
+        /// <returns></returns>
         public Multiline RemoveLast()
         {
             if (_points.Count > 1)
@@ -417,12 +464,18 @@
             return this;
         }
 
+        /// <summary>
+        /// Remove all points from collection.
+        /// </summary>
         public Multiline Clear()
         {
             _points.Clear();
             return this;
         }
 
+        /// <summary>
+        /// Get position of vertices of regular convex polygon.
+        /// </summary>
         public static IEnumerable<Vector2> RegularConvexPolygonVertices(Vector2 center, float radius, int verticesCount, float rotationAngle)
         {
             var segmentAngle = 2 * Pi / verticesCount;

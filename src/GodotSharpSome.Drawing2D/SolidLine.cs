@@ -1,6 +1,10 @@
 ﻿using System.Diagnostics;
 
 namespace GodotSharpSome.Drawing2D;
+
+/// <summary>
+/// Straight solid line appender.
+/// </summary>
 [DebuggerDisplay("Solid")]
 public sealed class SolidLine : IStraightLineAppender
 {

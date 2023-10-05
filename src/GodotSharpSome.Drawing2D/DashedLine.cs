@@ -3,7 +3,7 @@
 namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
-/// Dashed line appender.
+/// Straight dashed line appender.
 /// </summary>
 [DebuggerDisplay("Dashed: dash={DashLength}, space={SpaceLength}")]
 public sealed class DashedLine : IStraightLineAppender
