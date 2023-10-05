@@ -285,7 +285,7 @@ public static class CanvasItemExtension
     /// <param name="angle"> Text rotation. </param>
     /// <param name="textBoxHorizontalAlignment"> Horizontal alignment of the text. It is different from original implementation.
     /// This alignment is alignment of text box and text box is always fit to width of text, means width in native method is set to -1. </param>
-    /// <param name="verticalAlignment"> Vertical alignment of the text. </param>
+    /// <param name="verticalAlignment"> Vertical alignment of the text. Note: VerticalAlignment.Fill has no effect. </param>
     /// <param name="fontSize"> Text font size. </param>
     /// <returns></returns>
     public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
@@ -303,17 +303,17 @@ public static class CanvasItemExtension
         t.X.Y = t.Y.X = Sin(angle);
         t.Y.X *= -1;
 
-        var verticalOffset = verticalAlignment == VerticalAlignment.Bottom
-            ? 0f
-            : verticalAlignment == VerticalAlignment.Center
-                ? textSize.Y / 2f
-                : textSize.Y;
+        float verticalOffset = 0;
+        if (verticalAlignment == VerticalAlignment.Center)
+            verticalOffset = textSize.Y / 2f;
+        else if (verticalAlignment == VerticalAlignment.Top)
+            verticalOffset = textSize.Y;
 
-        var horizontalOffset = textBoxHorizontalAlignment == HorizontalAlignment.Left
-            ? 0f
-            : textBoxHorizontalAlignment == HorizontalAlignment.Center
-                ? textSize.X / 2f
-                : textSize.X;
+        float horizontalOffset = 0;
+        if (textBoxHorizontalAlignment == HorizontalAlignment.Center)
+            horizontalOffset = textSize.X / 2f;
+        else if (textBoxHorizontalAlignment == HorizontalAlignment.Right)
+            horizontalOffset = textSize.X;
 
         canvas.DrawSetTransformMatrix(t);
         canvas.DrawString(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text, HorizontalAlignment.Left, -1, fontSize, modulate, justificationFlags, direction, orientation);
