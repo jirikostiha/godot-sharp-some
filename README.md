@@ -8,11 +8,12 @@
 [![Code Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml)
 [![Documentation Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml)
 
-Is set of extensions for custom drawing API in Godot engine version 4.0 and higher. It simplifies script drawing.
+Is set of extensions for custom drawing API in Godot engine. It simplifies script drawing.
 
 ## Features
 
 Includes CanvasItem extensions for drawing various plane shapes and Multiline class extending possibilities of drawing API.  
+List of [features](./doc/features.md).
 
 ![pic](./doc/images/dots_and_lines_animation.gif)
 ![pic](./doc/images/primitives_animation.gif)
@@ -28,7 +29,7 @@ to your project.
 Godot project's `.csproj` file should look like this:
 
 ```xml
-<Project Sdk="Godot.NET.Sdk/4.0.0">
+<Project Sdk="Godot.NET.Sdk/4.1.2">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -39,7 +40,7 @@ Godot project's `.csproj` file should look like this:
 </Project>
 ```
 
-'X.X.X' is specific version.
+'X.X.X' is required version.
 
 ## Contributing
 

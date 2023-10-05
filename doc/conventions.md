@@ -13,3 +13,5 @@ Every commit to main branch follows [Conventional Commits](https://www.conventio
 * src - source code
 * doc - documentation
 * cmd - auxiliary scripts
+* .github - workflows
+* asm (generated) - assemblies or binaries

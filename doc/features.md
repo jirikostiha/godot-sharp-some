@@ -2,8 +2,9 @@
 
 ## CanvasItem extensions
 
-triangle line, triangle area, rectangle line, rectangle area, polygon line, polygon area, circle line, circle area  
+circle line and region, ellipse line and region, triangle line and region, rectangle line and region, polygon line, regular convex polygon line and region, rotated string
 
 ## Multiline
 
-arrow, vector, axes, cross, dots, dotted line, dashed line, triangle, rectangle, polygon, candlestick
+dot(s), line, parallel lines, cross, arrow, vector, triangle, rectangle, regular convex polygon  
+All with predefined or custom line types (solid, dotted, dashed, dash-dotted)
