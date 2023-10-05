@@ -27,9 +27,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-          source-url: https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
 
       - name: Publish
         run: dotnet publish "${{ env.sln-path }}" -c Release
@@ -37,8 +34,8 @@ jobs:
       - name: Pack
         run: dotnet pack "${{ env.sln-path }}" -c Release -o "${{ env.package-dir }}" --no-build
 
-      - name: Push Package to NuGet
-        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg
+      - name: Publish to Nuget.org
+        run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json
 
       - name: Push to Asset Library
         uses: deep-entertainment/godot-asset-lib-action@v0.4.0
