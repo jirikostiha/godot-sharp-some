@@ -11,10 +11,16 @@ public partial class ExampleNodeBase : ColorRect
     public Color AreaColor { get; set; } = Colors.Gray;
 
     protected static int Margin { get; set; } = 10;
-    protected static int RowHeight { get; set; } = 100;
-    protected static int CellWidth { get; set; } = 100;
+    protected static int RawRowHeight { get; set; } = 100;
+    protected static int RowHeight => RawRowHeight - 2 * Margin;
+    protected static int RawCellWidth { get; set; } = 100;
+    protected static int CellWidth => RawCellWidth - 2 * Margin;
 
     protected static Vector2 CellWidthVector => new(CellWidth, 0);
+    protected static Vector2 RowHeightVector => new(0, RowHeight);
+
+    protected static Vector2 RawCellSize => new(RawCellWidth, RawRowHeight);
+    protected static Vector2 CellSize => new(CellWidth, RowHeight);
 
     protected static RandomNumberGenerator Rng { get; set; } = new();
 
@@ -74,15 +80,15 @@ public partial class ExampleNodeBase : ColorRect
         NextInt(Left(column), Right(column) + 1),
         NextInt(Bottom(), Top()));
 
-    public int Left(int column) => Margin + (column - 1) * CellWidth;
+    public int Left(int column) => Margin + (column - 1) * RawCellWidth;
 
-    public int Right(int column) => column * CellWidth - Margin;
+    public int Right(int column) => column * RawCellWidth - Margin;
 
     public int Top() => RowHeight - Margin;
 
     public int Bottom() => Margin;
 
-    public int MiddleX(int column) => Convert.ToInt32((column - 0.5) * CellWidth);
+    public int MiddleX(int column) => Convert.ToInt32((column - 0.5) * RawCellWidth);
 
     public int MiddleY() => Convert.ToInt32(0.5 * RowHeight);
 
