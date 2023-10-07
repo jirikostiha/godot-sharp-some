@@ -8,7 +8,15 @@
 [![Code Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml)
 [![Documentation Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml)
 
-Is set of extensions for custom drawing API in Godot engine. It simplifies script drawing.
+Is set of extensions for custom drawing API in [Godot engine](https://github.com/godotengine/godot). It simplifies script drawing.
+
+## Versions
+
+Godot .NET.Sdk | .Net           | Branch  | Version | Nuget (GodotSharpSome.)
+:------------: | :-------------:| :-----: | :-----: | -----------------------
+4.1            | net6.0         | main    | 0.22.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.22.0)
+4.0            | net6.0         | main    | 0.20.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.20.0)
+3.3            | netstandard2.0 | sdk_3.3 | 0.19.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.19.0)
 
 ## Features
 
