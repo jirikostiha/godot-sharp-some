@@ -3,6 +3,8 @@ using GodotSharpSome.Drawing2D;
 using System.Linq;
 using static Godot.Mathf;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Dots : ExampleNodeBase
 {
     private float _time;

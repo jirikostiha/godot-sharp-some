@@ -3,6 +3,8 @@ using GodotSharpSome.Drawing2D;
 using System.Collections.Generic;
 using static Godot.Mathf;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Rectangles : ExampleNodeBase
 {
     private const float Tolerance = 1;

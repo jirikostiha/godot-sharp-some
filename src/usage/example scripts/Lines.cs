@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using static Godot.Mathf;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Lines : ExampleNodeBase
 {
     private float _value;

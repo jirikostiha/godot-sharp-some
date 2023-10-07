@@ -2,6 +2,8 @@ using Godot;
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Circles : ExampleNodeBase
 {
     private double _time;

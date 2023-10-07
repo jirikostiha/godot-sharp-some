@@ -2,17 +2,19 @@ using Godot;
 using GodotSharpSome.Drawing2D;
 using System.Collections.Generic;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Crosses : ExampleNodeBase
 {
-    private Multiline _multiline1 = new();
-    private Multiline _multiline2 = new();
-    private Multiline _crossesMl = new();
+    private readonly Multiline _multiline1 = new();
+    private readonly Multiline _multiline2 = new();
+    private readonly Multiline _crossesMl = new();
 
     protected record Shot
     {
-        public Vector2 Position;
-        public Vector2 Destination;
-        public int Type;
+        public Vector2 Position { get; set; }
+        public Vector2 Destination { get; set; }
+        public int Type { get; set; }
     }
 
     private List<Shot> _shots = new();

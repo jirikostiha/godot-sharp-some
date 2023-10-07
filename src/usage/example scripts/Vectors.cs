@@ -3,6 +3,8 @@ using GodotSharpSome.Drawing2D;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Vectors : ExampleNodeBase
 {
     private const float DistanceInterpolationDelta = 2;

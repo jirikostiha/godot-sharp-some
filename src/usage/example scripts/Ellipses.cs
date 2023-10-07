@@ -1,6 +1,8 @@
 using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Ellipses : ExampleNodeBase
 {
     private double _time;

@@ -1,5 +1,7 @@
 using GodotSharpSome.Drawing2D;
 
+namespace GodotSharpSome.Examples;
+
 public partial class Polygons : ExampleNodeBase
 {
     private double _time = 0;

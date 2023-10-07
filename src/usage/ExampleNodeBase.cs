@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-public partial class ExampleNodeBase : Godot.ColorRect
+namespace GodotSharpSome.Examples;
+
+public partial class ExampleNodeBase : ColorRect
 {
     public Color TextColor = Colors.Black;
     public Color LineColor = Colors.Black;

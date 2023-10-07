@@ -1,7 +1,9 @@
 using Godot;
 using System.Linq;
 
-public sealed partial class ExampleList : Godot.Control
+namespace GodotSharpSome.Examples;
+
+public sealed partial class ExampleList : Control
 {
     public static readonly Color LightBack = Colors.White;
     public static readonly Color DarkBack = Colors.Black;
