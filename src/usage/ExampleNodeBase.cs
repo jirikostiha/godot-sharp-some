@@ -5,10 +5,10 @@ namespace GodotSharpSome.Examples;
 
 public partial class ExampleNodeBase : ColorRect
 {
-    public Color TextColor = Colors.Black;
-    public Color LineColor = Colors.Black;
-    public Color LineColor2 = Colors.Orange;
-    public Color AreaColor = Colors.Gray;
+    public Color TextColor { get; set; } = Colors.Black;
+    public Color LineColor { get; set; } = Colors.Black;
+    public Color LineColor2 { get; set; } = Colors.Orange;
+    public Color AreaColor { get; set; } = Colors.Gray;
 
     protected static int Margin { get; set; } = 10;
     protected static int RowHeight { get; set; } = 100;

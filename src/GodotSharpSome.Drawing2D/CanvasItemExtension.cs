@@ -287,6 +287,10 @@ public static class CanvasItemExtension
     /// This alignment is alignment of text box and text box is always fit to width of text, means width in native method is set to -1. </param>
     /// <param name="verticalAlignment"> Vertical alignment of the text. Note: VerticalAlignment.Fill has no effect. </param>
     /// <param name="fontSize"> Text font size. </param>
+    /// <param name="modulate"></param>
+    /// <param name="justificationFlags"></param>
+    /// <param name="direction"></param>
+    /// <param name="orientation"></param>
     /// <returns></returns>
     public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
         HorizontalAlignment textBoxHorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Bottom,
