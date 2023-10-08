@@ -1,8 +1,7 @@
 using Godot;
-using GodotSharpSome.Drawing2D;
 using static Godot.Mathf;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class Arrows : ExampleNodeBase
 {

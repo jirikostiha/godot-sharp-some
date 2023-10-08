@@ -1,6 +1,4 @@
-using GodotSharpSome.Drawing2D;
-
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class Polygons : ExampleNodeBase
 {

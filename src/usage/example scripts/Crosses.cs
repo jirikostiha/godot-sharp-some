@@ -1,8 +1,7 @@
 using Godot;
-using GodotSharpSome.Drawing2D;
 using System.Collections.Generic;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class Crosses : ExampleNodeBase
 {

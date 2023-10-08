@@ -1,9 +1,8 @@
 using Godot;
-using GodotSharpSome.Drawing2D;
 using System.Linq;
 using static Godot.Mathf;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class Dots : ExampleNodeBase
 {

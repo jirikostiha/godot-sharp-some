@@ -1,9 +1,8 @@
 using Godot;
-using GodotSharpSome.Drawing2D;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class Vectors : ExampleNodeBase
 {

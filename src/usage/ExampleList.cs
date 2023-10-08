@@ -1,7 +1,7 @@
 using Godot;
 using System.Linq;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public sealed partial class ExampleList : Control
 {

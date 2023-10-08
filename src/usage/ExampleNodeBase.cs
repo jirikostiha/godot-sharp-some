@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace GodotSharpSome.Examples;
+namespace GodotSharpSome.Drawing2D.Examples;
 
 public partial class ExampleNodeBase : ColorRect
 {
