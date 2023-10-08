@@ -18,3 +18,6 @@ antialiased
 antialiasing
 CanvasItem
 CanvasItemExtensions
+GodotSharpSome
+Sdk
+netstandard
