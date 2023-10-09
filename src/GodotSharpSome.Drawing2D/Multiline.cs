@@ -28,6 +28,16 @@
                 (nameof(LineType.Dashed), new DashedLine()),
                 (nameof(LineType.DashDotted), new DashDottedLine()));
 
+        /// <summary>
+        /// Create multiline instance with palette of four basic line types with custom parameters.
+        /// </summary>
+        public static Multiline FourLineTypes(float spaceLength, float dashLength) =>
+            new(
+                (nameof(LineType.Solid), new SolidLine()),
+                (nameof(LineType.Dotted), new DottedLine(spaceLength)),
+                (nameof(LineType.Dashed), new DashedLine(spaceLength, dashLength)),
+                (nameof(LineType.DashDotted), new DashDottedLine(spaceLength, dashLength)));
+
         private readonly IList<Vector2> _points;
 
         private IList<(string Key, IStraightLineAppender Pen)>? _penPalette;

@@ -14,7 +14,7 @@ public sealed class DashDottedLine : IStraightLineAppender
     public float DashLength { get; set; }
     public float SpaceLength { get; set; }
 
-    public DashDottedLine(float dashLength = Default_DashLength, float spaceLength = Default_SpaceLength)
+    public DashDottedLine(float spaceLength = Default_SpaceLength, float dashLength = Default_DashLength)
     {
         DashLength = dashLength;
         SpaceLength = spaceLength;
