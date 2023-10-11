@@ -84,13 +84,13 @@ public partial class ExampleNodeBase : ColorRect
 
     public int Right(int column) => column * RawCellWidth - Margin;
 
-    public int Top() => RowHeight - Margin;
+    public int Top() => RawRowHeight - Margin;
 
     public int Bottom() => Margin;
 
     public int MiddleX(int column) => Convert.ToInt32((column - 0.5) * RawCellWidth);
 
-    public int MiddleY() => Convert.ToInt32(0.5 * RowHeight);
+    public int MiddleY() => Convert.ToInt32(0.5 * RawRowHeight);
 
     public Vector2 LeftBottom(int column) => new(Left(column), Bottom());
 

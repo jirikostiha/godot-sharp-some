@@ -35,12 +35,6 @@ public partial class Arrows : ExampleNodeBase
         DrawMultiline(
             new Multiline().AppendDoubleArrow(LeftBottom(3), RightTop(3), _headRadius, _arrowAngle).Points(),
             LineColor);
-
-        DrawTextRotation(Middle(4), "Relax");
-
-        DrawTextRotationCentered(Middle(5), "Enjoy");
-
-        DrawDimension(Middle(6) + 15 * Vector2.Down);
     }
 
     private void DrawTextRotation(Vector2 center, string text)
