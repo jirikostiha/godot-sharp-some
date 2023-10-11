@@ -320,7 +320,61 @@ public static class CanvasItemExtension
             horizontalOffset = textSize.X;
 
         canvas.DrawSetTransformMatrix(t);
-        canvas.DrawString(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text, HorizontalAlignment.Left, -1, fontSize, modulate, justificationFlags, direction, orientation);
+        canvas.DrawString(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text,
+            HorizontalAlignment.Left, -1, fontSize, modulate, justificationFlags, direction, orientation);
+        canvas.DrawSetTransformMatrix(originTransform);
+
+        return canvas;
+    }
+
+    /// <summary>
+    /// Draw text with rotation angle vertical and horizontal alignment of text.
+    /// </summary>
+    /// <param name="canvas"> Target of the drawing. </param>
+    /// <param name="font"> Text font. </param>
+    /// <param name="position"> position of text. </param>
+    /// <param name="text"> Text to draw. </param>
+    /// <param name="angle"> Text rotation. </param>
+    /// <param name="textBoxHorizontalAlignment"> Horizontal alignment of the text. It is different from original implementation.
+    /// This alignment is alignment of text box and text box is always fit to width of text, means width in native method is set to -1. </param>
+    /// <param name="verticalAlignment"> Vertical alignment of the text. Note: VerticalAlignment.Fill has no effect. </param>
+    /// <param name="fontSize"> Text font size. </param>
+    /// <param name="size"></param>
+    /// <param name="modulate"></param>
+    /// <param name="justificationFlags"></param>
+    /// <param name="direction"></param>
+    /// <param name="orientation"></param>
+    /// <returns></returns>
+    public static CanvasItem DrawStringOutline(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
+        HorizontalAlignment textBoxHorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment verticalAlignment = VerticalAlignment.Bottom,
+        int fontSize = 16, int size = 1, Color? modulate = null,
+        TextServer.JustificationFlag justificationFlags = TextServer.JustificationFlag.Kashida | TextServer.JustificationFlag.WordBound,
+        TextServer.Direction direction = TextServer.Direction.Auto, TextServer.Orientation orientation = TextServer.Orientation.Horizontal)
+    {
+        var originTransform = canvas.GetCanvasTransform();
+        var textSize = font.GetStringSize(text);
+
+        Transform2D t = Transform2D.Identity;
+        t.Origin = position;
+        t.X.X = t.Y.Y = Cos(angle);
+        t.X.Y = t.Y.X = Sin(angle);
+        t.Y.X *= -1;
+
+        float verticalOffset = 0;
+        if (verticalAlignment == VerticalAlignment.Center)
+            verticalOffset = textSize.Y / 2f;
+        else if (verticalAlignment == VerticalAlignment.Top)
+            verticalOffset = textSize.Y;
+
+        float horizontalOffset = 0;
+        if (textBoxHorizontalAlignment == HorizontalAlignment.Center)
+            horizontalOffset = textSize.X / 2f;
+        else if (textBoxHorizontalAlignment == HorizontalAlignment.Right)
+            horizontalOffset = textSize.X;
+
+        canvas.DrawSetTransformMatrix(t);
+        canvas.DrawStringOutline(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text,
+            HorizontalAlignment.Left, -1, fontSize, size, modulate, justificationFlags, direction, orientation);
         canvas.DrawSetTransformMatrix(originTransform);
 
         return canvas;
