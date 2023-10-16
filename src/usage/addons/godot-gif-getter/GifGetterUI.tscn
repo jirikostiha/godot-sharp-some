@@ -1,0 +1,131 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxexe7c5rqmw7"]
+
+[ext_resource type="Script" path="res://addons/godot-gif-getter/GifGetterUI.gd" id="1"]
+
+[node name="GifGetterUI" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Options" type="MarginContainer" parent="Control"]
+layout_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Options"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="CaptureNowButton" type="Button" parent="Control/Options/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Capture now"
+
+[node name="CaptureInFiveSecondsButton" type="Button" parent="Control/Options/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Capture in 5 seconds"
+
+[node name="SaveLocationContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/SaveLocationContainer"]
+layout_mode = 2
+text = "Save location"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/SaveLocationContainer"]
+layout_mode = 2
+text = "result.gif"
+expand_to_text_length = true
+
+[node name="Button" type="Button" parent="Control/Options/VBoxContainer/SaveLocationContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Select path"
+
+[node name="RenderQualityContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/RenderQualityContainer"]
+layout_mode = 2
+text = "Render quality from 1 - 30 (1 is best quality)"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/RenderQualityContainer"]
+layout_mode = 2
+text = "10"
+
+[node name="FramesContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/FramesContainer"]
+layout_mode = 2
+text = "Frames"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/FramesContainer"]
+layout_mode = 2
+text = "60"
+
+[node name="FrameSkipContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/FrameSkipContainer"]
+layout_mode = 2
+text = "Frame skip"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/FrameSkipContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="FrameDelayContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/FrameDelayContainer"]
+layout_mode = 2
+text = "Frame delay (ms)"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/FrameDelayContainer"]
+layout_mode = 2
+text = "100"
+
+[node name="ThreadsContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/ThreadsContainer"]
+layout_mode = 2
+text = "Threads"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/ThreadsContainer"]
+layout_mode = 2
+text = "4"
+
+[node name="HotkeyContainer" type="HBoxContainer" parent="Control/Options/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Options/VBoxContainer/HotkeyContainer"]
+layout_mode = 2
+text = "Hide UI  action"
+
+[node name="LineEdit" type="LineEdit" parent="Control/Options/VBoxContainer/HotkeyContainer"]
+layout_mode = 2
+expand_to_text_length = true
+
+[node name="Button" type="Button" parent="Control/Options/VBoxContainer/HotkeyContainer"]
+layout_mode = 2
+text = "Set"
+
+[node name="Console" type="MarginContainer" parent="Control"]
+layout_mode = 0
+anchor_top = 0.8
+anchor_right = 0.3
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/Console"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Console/ScrollContainer"]
+layout_mode = 2
+alignment = 2
