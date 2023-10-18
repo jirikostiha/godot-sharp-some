@@ -289,9 +289,17 @@
         }
 
         /// <summary>
-        /// Draw a string in a position of left bottom point and with rotation angle.
+        /// Draw text with rotation angle.
         /// </summary>
-        public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
+        /// <param name="canvas"> Target of the drawing. </param>
+        /// <param name="font"> Text font. </param>
+        /// <param name="position"> position of text. </param>
+        /// <param name="text"> Text to draw. </param>
+        /// <param name="angle"> Text rotation. </param>
+        /// <param name="modulate"> Color. </param>
+        /// <param name="clipW"></param>
+        public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
+            Color? modulate = null, int clipW = -1)
         {
             var originTransform = canvas.GetCanvasTransform();
 
@@ -302,16 +310,24 @@
             t.y.x *= -1;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawString(font, Vector2.Zero, text, color);
+            canvas.DrawString(font, Vector2.Zero, text, modulate, clipW);
             canvas.DrawSetTransformMatrix(originTransform);
 
             return canvas;
         }
 
         /// <summary>
-        /// Draw a string in a position of text center and with rotation angle.
+        /// Draw a text in a position centered and with rotation angle.
         /// </summary>
-        public static CanvasItem DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle, Color? color = null)
+        /// <param name="canvas"> Target of the drawing. </param>
+        /// <param name="font"> Text font. </param>
+        /// <param name="position"> position of text. </param>
+        /// <param name="text"> Text to draw. </param>
+        /// <param name="angle"> Text rotation. </param>
+        /// <param name="modulate"> Color. </param>
+        /// <param name="clipW"></param>
+        public static CanvasItem DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
+            Color? modulate = null, int clipW = -1)
         {
             var originTransform = canvas.GetCanvasTransform();
             var textSize = font.GetStringSize(text);
@@ -323,7 +339,7 @@
             t.y.x *= -1;
 
             canvas.DrawSetTransformMatrix(t);
-            canvas.DrawString(font, new Vector2(-textSize.x / 2f, 0), text, color);
+            canvas.DrawString(font, new Vector2(-textSize.x / 2f, 0), text, modulate, clipW);
             canvas.DrawSetTransformMatrix(originTransform);
 
             return canvas;
