@@ -10,7 +10,7 @@ public sealed class DottedLine : IStraightLineAppender
 {
     private const float Default_SpaceLength = 3;
 
-    public float SpaceLength { get; set; }
+    public float SpaceLength { get; }
 
     public DottedLine(float spaceLength = Default_SpaceLength)
     {

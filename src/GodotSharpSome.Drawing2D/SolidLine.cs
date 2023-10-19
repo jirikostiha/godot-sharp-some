@@ -13,39 +13,44 @@ public sealed class SolidLine : IStraightLineAppender
     public Vector2 DotVector { get; set; } = DefaultDotVector;
 
     public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
+        => AppendStraightLine(points, a, b);
+
+    public static IList<Vector2> AppendStraightLine(IList<Vector2> points, Vector2 a, Vector2 b)
     {
         points.Add(a);
         points.Add(b);
+
+        return points;
     }
 
-    public static void AppendStraightLine(IList<Vector2> points, Vector2 a, Vector2 b)
-    {
-        points.Add(a);
-        points.Add(b);
-    }
-
-    public static void AppendStraightLine(Vector2[] points, int index, Vector2 start, Vector2 end)
+    public static Vector2[] AppendStraightLine(Vector2[] points, int index, Vector2 start, Vector2 end)
     {
         points[index] = start;
         points[index + 1] = end;
+
+        return points;
     }
 
     public static Vector2[] Line(Vector2 a, Vector2 b)
         => new Vector2[2] { a, b };
 
-    public static void AppendDot(IList<Vector2> points, Vector2 position)
+    public static IList<Vector2> AppendDot(IList<Vector2> points, Vector2 position)
     {
         points.Add(position);
         points.Add(position + DefaultDotVector);
+
+        return points;
     }
 
-    public static void AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
+    public static IList<Vector2> AppendDots(IList<Vector2> points, IEnumerable<Vector2> positions)
     {
         foreach (var position in positions)
         {
             points.Add(position);
             points.Add(position + DefaultDotVector);
         }
+
+        return points;
     }
 
     public static Vector2[] Dot(Vector2 position)
