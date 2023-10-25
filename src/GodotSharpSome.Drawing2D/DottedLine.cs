@@ -3,12 +3,14 @@
 namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
-/// Straight dotted line appender.
+/// Immutable straight dotted line appender.
 /// </summary>
 [DebuggerDisplay("Dotted: space={SpaceLength}")]
 public sealed class DottedLine : IStraightLineAppender
 {
     private const float Default_SpaceLength = 3;
+
+    public static readonly DottedLine Default = new();
 
     public float SpaceLength { get; }
 

@@ -3,13 +3,15 @@
 namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
-/// Straight dashed line appender.
+/// Immutable straight dashed line appender.
 /// </summary>
 [DebuggerDisplay("Dashed: dash={DashLength}, space={SpaceLength}")]
 public sealed class DashedLine : IStraightLineAppender
 {
     private const float Default_DashLength = 12;
     private const float Default_SpaceLength = 8;
+
+    public static readonly DashedLine Default = new();
 
     public float DashLength { get; }
     public float SpaceLength { get; }

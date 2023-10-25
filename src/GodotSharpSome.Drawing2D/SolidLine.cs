@@ -3,14 +3,16 @@
 namespace GodotSharpSome.Drawing2D;
 
 /// <summary>
-/// Straight solid line appender.
+/// Immutable straight solid line appender.
 /// </summary>
 [DebuggerDisplay("Solid")]
 public sealed class SolidLine : IStraightLineAppender
 {
     private static readonly Vector2 DefaultDotVector = Vector2.Down;
 
-    public Vector2 DotVector { get; set; } = DefaultDotVector;
+    public static readonly SolidLine Default = new();
+
+    public Vector2 DotVector { get; } = DefaultDotVector;
 
     public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
         => AppendStraightLine(points, a, b);

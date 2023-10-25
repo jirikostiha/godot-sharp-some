@@ -23,20 +23,31 @@
         /// </summary>
         public static Multiline FourLineTypes() =>
             new(
-                (nameof(LineType.Solid), new SolidLine()),
-                (nameof(LineType.Dotted), new DottedLine()),
-                (nameof(LineType.Dashed), new DashedLine()),
-                (nameof(LineType.DashDotted), new DashDottedLine()));
+                (nameof(LineType.Solid), SolidLine.Default),
+                (nameof(LineType.Dotted), DottedLine.Default),
+                (nameof(LineType.Dashed), DashedLine.Default),
+                (nameof(LineType.DashDotted), DashDottedLine.Default));
 
         /// <summary>
         /// Create multiline instance with palette of four basic line types with custom parameters.
         /// </summary>
         public static Multiline FourLineTypes(float spaceLength, float dashLength) =>
             new(
-                (nameof(LineType.Solid), new SolidLine()),
+                (nameof(LineType.Solid), SolidLine.Default),
                 (nameof(LineType.Dotted), new DottedLine(spaceLength)),
                 (nameof(LineType.Dashed), new DashedLine(spaceLength, dashLength)),
                 (nameof(LineType.DashDotted), new DashDottedLine(spaceLength, dashLength)));
+
+        /// <summary>
+        /// Create multiline instance with palette of four basic line types with custom appenders.
+        /// </summary>
+        public static Multiline FourLineTypes(SolidLine solid, DottedLine dotted, DashedLine dashed, DashDottedLine dashDotted) =>
+            new(
+                (nameof(LineType.Solid), solid),
+                (nameof(LineType.Dotted), dotted),
+                (nameof(LineType.Dashed), dashed),
+                (nameof(LineType.DashDotted), dashDotted));
+
 
         private readonly IList<Vector2> _points;
 
