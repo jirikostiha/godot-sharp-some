@@ -1,0 +1,60 @@
+name: Benchmarks
+
+env:
+  sln-path: "./src/godot sharp some.sln"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/code/**'
+      - '!src/**.sln' # ignore sln changes
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: .NET Info
+        run: dotnet --info
+
+      - name: Run benchmark
+        run: cd src/quality/SMath__Benchmarks && dotnet run -c Release --exporters json --filter '*'
+
+      - name: Find Summary File
+        id: find_summary_report_file
+        run: |
+            file_path=$(find . -type f -name "*report-full-compressed.json" -exec basename {} \; | head -n 1)
+            echo "file path: $file_path"
+            echo "file_path=$file_path" >> $GITHUB_OUTPUT
+
+      - name: Print File Path
+        run: |
+            echo "file: ${{steps.find_summary_report_file.outputs.file_path}}"
+            echo "path: benchmarks/results/${{ steps.find_summary_report_file.outputs.file_path }}"
+
+      - name: Store benchmark result
+        uses: rhysd/github-action-benchmark@v1
+        with:
+          name: Benchmark.Net
+          tool: 'benchmarkdotnet'
+          output-file-path: "benchmarks/results/${{steps.find_summary_report_file.outputs.file_path}}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          alert-threshold: '200%'
+          comment-on-alert: true
+          gh-pages-branch: main
+          benchmark-data-dir-path: docs/dev/bench

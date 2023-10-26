@@ -6,6 +6,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Bb]enchmarks/
 
 #---binaries---
 *.dll

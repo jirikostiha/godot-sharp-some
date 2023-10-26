@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\analyse-code.yml = ..\.github\workflows\analyse-code.yml
 		..\.github\workflows\auto-approve.yml = ..\.github\workflows\auto-approve.yml
+		..\.github\workflows\benchmark.yml = ..\.github\workflows\benchmark.yml
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 		..\.github\workflows\clean-history.yml = ..\.github\workflows\clean-history.yml
 		..\.github\workflows\lint-code.yml = ..\.github\workflows\lint-code.yml
@@ -60,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quality", "quality", "{5D4B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Benchmarks", "quality\GodotSharpSome.Drawing2D.Benchmarks\GodotSharpSome.Drawing2D.Benchmarks.csproj", "{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +95,14 @@ Global
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16751B82-5192-4AEE-A7AF-D787DF308B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +111,7 @@ Global
 		{1451B9D0-88A7-4F21-AE1D-8FB6D1423285} = {09E66851-03DE-4738-987B-043566FA2EEF}
 		{B55BA742-C72C-4E4C-A6CF-47C45E536768} = {C40B03A5-B655-4E3D-8B42-1E8B87B1D43F}
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
