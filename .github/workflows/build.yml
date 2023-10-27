@@ -34,3 +34,12 @@ jobs:
 
       - name: Test
         run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" || true
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Tests ${{ matrix.dotnet-version }}
+          path: "**/test-results.trx"
+          reporter: dotnet-trx
+          fail-on-error: true
