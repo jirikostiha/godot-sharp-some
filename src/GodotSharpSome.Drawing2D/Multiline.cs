@@ -69,7 +69,7 @@
         { }
 
         public Multiline(IList<Vector2> points)
-            : this(points, new SolidLine(), nameof(LineType.Solid))
+            : this(points, SolidLine.Default, nameof(LineType.Solid))
         { }
 
         public Multiline(IStraightLineAppender pen, string? penKey = default)
@@ -116,7 +116,7 @@
         }
 
         protected IList<(string Key, IStraightLineAppender Pen)> PenPalette =>
-            _penPalette ??= new List<(string Key, IStraightLineAppender Pen)>();
+            _penPalette ??= new List<(string Key, IStraightLineAppender Pen)>(4);
 
         /// <summary>
         /// Current pen (line appender).
