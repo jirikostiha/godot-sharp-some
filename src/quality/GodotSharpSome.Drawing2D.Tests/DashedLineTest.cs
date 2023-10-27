@@ -7,7 +7,7 @@ public class DashedLineTest
     {
         var points = new List<Vector2>();
 
-        new DashedLine(4, 2).AppendLine(points, Vector2.Zero, Vector2.Right * 10);
+        new DashedLine(2, 4).AppendLine(points, Vector2.Zero, Vector2.Right * 10);
 
         Assert.Equal(4, points.Count);
         Assert.Equal(4, points.ElementAt(1).X);
@@ -19,7 +19,7 @@ public class DashedLineTest
     {
         var points = new List<Vector2>();
 
-        new DashedLine(3, 2).AppendLine(points, Vector2.Zero, Vector2.Right * 12);
+        new DashedLine(2, 3).AppendLine(points, Vector2.Zero, Vector2.Right * 12);
 
         Assert.Equal(6, points.Count);
         Assert.Equal(12, points.ElementAt(5).X);
@@ -30,7 +30,7 @@ public class DashedLineTest
     {
         var points = new List<Vector2>();
 
-        new DashedLine(4, 2).AppendLine(points, Vector2.Zero, Vector2.Down * 10);
+        new DashedLine(2, 4).AppendLine(points, Vector2.Zero, Vector2.Down * 10);
 
         Assert.Equal(4, points.Count);
         Assert.Equal(4, points.ElementAt(1).Y);

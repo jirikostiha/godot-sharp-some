@@ -7,7 +7,7 @@ public class DashDottedLineTest
     {
         var points = new List<Vector2>();
 
-        new DashDottedLine(3, 2).AppendLine(points, Vector2.Zero, Vector2.Right * 11);
+        new DashDottedLine(2, 3).AppendLine(points, Vector2.Zero, Vector2.Right * 11);
 
         Assert.Equal(6, points.Count);
         Assert.Equal(3, points.ElementAt(1).X);
@@ -21,7 +21,7 @@ public class DashDottedLineTest
     {
         var points = new List<Vector2>();
 
-        new DashDottedLine(3, 2).AppendLine(points, Vector2.Zero, Vector2.Down * 11);
+        new DashDottedLine(2, 3).AppendLine(points, Vector2.Zero, Vector2.Down * 11);
 
         Assert.Equal(6, points.Count);
         Assert.Equal(3, points.ElementAt(1).Y);
