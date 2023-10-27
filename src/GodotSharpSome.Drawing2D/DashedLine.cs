@@ -22,13 +22,20 @@ public sealed class DashedLine : IStraightLineAppender
         SpaceLength = spaceLength;
     }
 
-    public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
-        => AppendLine(points, a, b, DashLength, SpaceLength);
+    public int AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
+        => AppendLinePrivate(points, a, b, DashLength, SpaceLength);
 
     public static IList<Vector2> AppendLine(IList<Vector2> points, Vector2 a, Vector2 b,
         float dashLength = Default_DashLength, float spaceLength = Default_SpaceLength)
     {
-        SegmentedLineHelper.AdaptSubinterval2((b - a).Length(), spaceLength, ref dashLength, out int count);
+        _ = AppendLinePrivate(points, a, b, dashLength, spaceLength);
+        return points;
+    }
+
+    private static int AppendLinePrivate(IList<Vector2> points, Vector2 a, Vector2 b,
+        float dashLength = Default_DashLength, float spaceLength = Default_SpaceLength)
+    {
+        var count = SegmentedLineHelper.AdaptSubinterval2((b - a).Length(), spaceLength, ref dashLength);
         var dir = a.DirectionTo(b);
 
         Vector2 segmentStart = a;
@@ -43,7 +50,7 @@ public sealed class DashedLine : IStraightLineAppender
         points.Add(segmentStart + dir * (dashLength + spaceLength));
         points.Add(segmentStart + dir * (dashLength + spaceLength) + dir * dashLength);
 
-        return points;
+        return count;
     }
 
     public static Vector2[] Line(Vector2 a, Vector2 b,
@@ -51,7 +58,7 @@ public sealed class DashedLine : IStraightLineAppender
     {
         var count = (b - a).Length() / (1 + spaceLength);
         var points = new List<Vector2>(2 * ((int)count + 1));
-        AppendLine(points, a, b, dashLength, spaceLength);
+        AppendLinePrivate(points, a, b, dashLength, spaceLength);
 
         return points.ToArray();
     }

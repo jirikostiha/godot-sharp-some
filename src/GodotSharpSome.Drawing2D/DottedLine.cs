@@ -19,25 +19,35 @@ public sealed class DottedLine : IStraightLineAppender
         SpaceLength = spaceLength;
     }
 
-    public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
-        => AppendLine(points, a, b, SpaceLength);
+    public int AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
+        => AppendLinePrivate(points, a, b, SpaceLength);
 
-    public static IList<Vector2> AppendLine(IList<Vector2> points, Vector2 a, Vector2 b, float spaceLength = Default_SpaceLength)
+    public static IList<Vector2> AppendLine(IList<Vector2> points, Vector2 a, Vector2 b,
+        float spaceLength = Default_SpaceLength)
     {
-        SegmentedLineHelper.AdaptSubinterval((a - b).Length(), 1, ref spaceLength, out int count);
+        _ = AppendLinePrivate(points, a, b, spaceLength);
+
+        return points;
+    }
+
+    private static int AppendLinePrivate(IList<Vector2> points, Vector2 a, Vector2 b,
+        float spaceLength = Default_SpaceLength)
+    {
+        var count = SegmentedLineHelper.AdaptSubinterval((a - b).Length(), 1, ref spaceLength);
         var dir = a.DirectionTo(b);
 
         for (int i = 0; i <= count; i++)
             SolidLine.AppendDot(points, a + dir * i * (1 + spaceLength));
 
-        return points;
+        return count;
     }
 
-    public static Vector2[] Line(Vector2 a, Vector2 b, float spaceLength = Default_SpaceLength)
+    public static Vector2[] Line(Vector2 a, Vector2 b,
+        float spaceLength = Default_SpaceLength)
     {
         var count = (b - a).Length() / (1 + spaceLength);
         var points = new List<Vector2>(2 * ((int)count + 1));
-        AppendLine(points, a, b, spaceLength);
+        AppendLinePrivate(points, a, b, spaceLength);
 
         return points.ToArray();
     }

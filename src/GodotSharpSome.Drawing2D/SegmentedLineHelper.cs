@@ -10,20 +10,21 @@ internal static class SegmentedLineHelper
     /// <param name="totalLength"> Total length. </param>
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
-    /// <param name="count"> Count of repetitions of the pattern. </param>
-    internal static void AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
+    /// <returns> Count of repetitions of the pattern </returns>
+    internal static int AdaptSubinterval(float totalLength, float fixedInterval, ref float adaptingInterval)
     {
         float segmentLength = adaptingInterval + fixedInterval;
         float segmentCount = totalLength / segmentLength;
-        count = RoundToInt(segmentCount);
-        if (count > 0)
+        var repetitionCount = RoundToInt(segmentCount);
+        if (repetitionCount > 0)
         {
-            float adaptedSegmentLength = (totalLength - fixedInterval) / count;
+            float adaptedSegmentLength = (totalLength - fixedInterval) / repetitionCount;
             adaptingInterval = adaptedSegmentLength - fixedInterval;
+            return repetitionCount;
         }
         else
         {
-            adaptingInterval = 0;
+            return 0;
         }
     }
 
@@ -33,13 +34,15 @@ internal static class SegmentedLineHelper
     /// <param name="totalLength"> Total length. </param>
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
-    /// <param name="count"> Count of repetitions of the pattern. </param>
-    internal static void AdaptSubinterval2(float totalLength, float fixedInterval, ref float adaptingInterval, out int count)
+    /// <returns> Count of repetitions of the pattern </returns>
+    internal static int AdaptSubinterval2(float totalLength, float fixedInterval, ref float adaptingInterval)
     {
         float segmentLength = adaptingInterval + fixedInterval;
         float segmentCount = (totalLength - adaptingInterval) / segmentLength;
-        count = RoundToInt(segmentCount);
-        float adaptedSegmentLength = (totalLength + fixedInterval) / (count + 1);
+        var repetitionCount = RoundToInt(segmentCount);
+        float adaptedSegmentLength = (totalLength + fixedInterval) / (repetitionCount + 1);
         adaptingInterval = adaptedSegmentLength - fixedInterval;
+
+        return repetitionCount;
     }
 }

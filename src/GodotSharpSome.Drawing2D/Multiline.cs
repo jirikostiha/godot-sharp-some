@@ -129,6 +129,12 @@
         public string? PenKey => _penKey;
 
         /// <summary>
+        /// <summary>
+        /// Number of line segments.
+        /// Note: For example, a dashed line is a single line consisting of n segments.
+        /// </summary>
+        public int Segments => _points.Count / 2;
+
         /// Set custom line type.
         /// </summary>
         public Multiline SetPen(IStraightLineAppender pen, string? penKey = null)

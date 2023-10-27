@@ -14,14 +14,12 @@ public sealed class SolidLine : IStraightLineAppender
 
     public Vector2 DotVector { get; } = DefaultDotVector;
 
-    public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
-        => AppendStraightLine(points, a, b);
+    public int AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
+        => AppendLinePrivate(points, a, b);
 
     public static IList<Vector2> AppendStraightLine(IList<Vector2> points, Vector2 a, Vector2 b)
     {
-        points.Add(a);
-        points.Add(b);
-
+        _ = AppendLinePrivate(points, a, b);
         return points;
     }
 
@@ -70,4 +68,13 @@ public sealed class SolidLine : IStraightLineAppender
         }
         return points;
     }
+
+    private static int AppendLinePrivate(IList<Vector2> points, Vector2 a, Vector2 b)
+    {
+        points.Add(a);
+        points.Add(b);
+
+        return 1;
+    }
+
 }

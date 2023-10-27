@@ -5,5 +5,5 @@
 /// </summary>
 public interface IStraightLineAppender //or pen or builder
 {
-    void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b);
+    int AppendLine(IList<Vector2> points, Vector2 a, Vector2 b);
 }

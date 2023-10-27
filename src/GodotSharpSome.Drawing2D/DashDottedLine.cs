@@ -22,13 +22,20 @@ public sealed class DashDottedLine : IStraightLineAppender
         SpaceLength = spaceLength;
     }
 
-    public void AppendLine(IList<Vector2> points, Vector2 a, Vector2 b)
-        => AppendLine(points, a, b, DashLength, SpaceLength);
+    public int AppendLine(IList<Vector2> points, Vector2 a, Vector2 b) =>
+        AppendLinePrivate(points, a, b, DashLength, SpaceLength);
 
     public static IList<Vector2> AppendLine(IList<Vector2> points, Vector2 a, Vector2 b,
         float dashLength = Default_DashLength, float spaceLength = Default_SpaceLength)
     {
-        SegmentedLineHelper.AdaptSubinterval2((b - a).Length(), spaceLength + 1 + spaceLength, ref dashLength, out int count);
+        _ = AppendLinePrivate(points, a, b, dashLength, spaceLength);
+        return points;
+    }
+
+    private static int AppendLinePrivate(IList<Vector2> points, Vector2 a, Vector2 b,
+        float dashLength = Default_DashLength, float spaceLength = Default_SpaceLength)
+    {
+        var count = SegmentedLineHelper.AdaptSubinterval2((b - a).Length(), spaceLength + 1 + spaceLength, ref dashLength);
         var dir = a.DirectionTo(b);
 
         for (int i = 0; i < count; i++)
@@ -41,6 +48,6 @@ public sealed class DashDottedLine : IStraightLineAppender
 
         SolidLine.AppendStraightLine(points, a + dir * count * (dashLength + spaceLength + 1 + spaceLength), b);
 
-        return points;
+        return count;
     }
 }
