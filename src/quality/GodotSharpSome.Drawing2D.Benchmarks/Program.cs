@@ -24,6 +24,8 @@ public class Program
             .WithOption(ConfigOptions.JoinSummary, true)
             .WithOption(ConfigOptions.DisableLogFile, true);
 
-        BenchmarkRunner.Run(typeof(Program).Assembly, config);
+        //BenchmarkRunner.Run(typeof(Program).Assembly, config);
+
+        BenchmarkRunner.Run<MultilineBenchmarks>(config);
     }
 }

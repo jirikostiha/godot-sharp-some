@@ -10,90 +10,36 @@ namespace GodotSharpSome.Drawing2D.Benchmarks;
 public class MultilineBenchmarks
 {
     private readonly List<Vector2> _lines = new(17);
-
-    [Params(1000, 10_000, 100_000)]
-    public int N { get; set; }
+    private readonly List<(string Key, IStraightLineAppender Pen)> _customPalette = new(7) {
+        new ("solid", new SolidLine()), new ("dashed", new DashedLine())};
 
     [Benchmark]
-    public Multiline? CreateDefault()
+    public Multiline CreateDefault()
     {
-        Multiline? ml = null;
-        for (int i = 0; i < N; i++)
-        {
-            ml = new Multiline();
-        }
-        return ml;
+        return new Multiline();
     }
 
     [Benchmark]
-    public Multiline? CreateDefaultWithList()
+    public Multiline CreateDefaultWithList()
     {
-        Multiline? ml = null;
-        for (int i = 0; i < N; i++)
-        {
-            ml = new Multiline(_lines);
-        }
-        return ml;
+        return new Multiline(_lines);
     }
 
     [Benchmark]
-    public Multiline? CreateDefaultFourLineTypes()
+    public Multiline CreateDefaultWithListAndPalette()
     {
-        Multiline? ml = null;
-        for (int i = 0; i < N; i++)
-        {
-            ml = Multiline.FourLineTypes();
-        }
-        return ml;
+        return new Multiline(_lines, _customPalette);
     }
 
     [Benchmark]
-    public Multiline? CreateCustomFourLineTypes()
+    public Multiline CreateDefaultFourLineTypes()
     {
-        Multiline? ml = null;
-        for (int i = 0; i < N; i++)
-        {
-            ml = Multiline.FourLineTypes(6, 8);
-        }
-        return ml;
+        return Multiline.FourLineTypes();
     }
 
     [Benchmark]
-    public Vector2[] AppendSolidLines()
+    public Multiline CreateCustomFourLineTypes()
     {
-        var ml = new Multiline();
-        for (int i = 0; i < N; i++)
-        {
-            ml.AppendLine(Vector2.Zero, Vector2.One);
-            ml.AppendTriangle(Vector2.Zero, Vector2.One, Vector2.Up);
-        }
-
-        return ml.Points();
-    }
-
-    [Benchmark]
-    public Vector2[] AppendDashedLines()
-    {
-        var ml = new Multiline(new DashedLine());
-        for (int i = 0; i < N; i++)
-        {
-            ml.AppendLine(Vector2.Zero, Vector2.One);
-            ml.AppendTriangle(Vector2.Zero, Vector2.One, Vector2.Up);
-        }
-
-        return ml.Points();
-    }
-
-    [Benchmark]
-    public Vector2[] AppendDashedLinesDefaultAppender()
-    {
-        var ml = new Multiline(DashedLine.Default);
-        for (int i = 0; i < N; i++)
-        {
-            ml.AppendLine(Vector2.Zero, Vector2.One);
-            ml.AppendTriangle(Vector2.Zero, Vector2.One, Vector2.Up);
-        }
-
-        return ml.Points();
+        return Multiline.FourLineTypes(6, 8);
     }
 }
