@@ -14,7 +14,7 @@ Is set of extensions for custom drawing API in [Godot engine](https://github.com
 
 Godot .NET.Sdk | .Net           | Branch  | Version | Nuget (GodotSharpSome.) | Support
 :------------: | :-------------:| :-----: | :-----: | :---------------------- | :------
-4.1            | net6.0         | main    | 0.22.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.22.0) | yes
+4.1            | net6.0         | main    | 0.23.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.23.0) | yes
 4.0            | net6.0         | main    | 0.20.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.20.0) | no
 3.3            | netstandard2.0 | sdk_3.3 | 0.19.1  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.19.1) | bug fixing only
 
