@@ -39,7 +39,7 @@ jobs:
         run: dotnet build "${{ env.sln-path }}" --no-restore -o "${{ env.build-dir }}"
 
       - name: Test
-        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test "${{ env.sln-path }}" --logger "trx;LogFileName=test-results.trx" || true
 
       - name: Test Report
         uses: dorny/test-reporter@v1
