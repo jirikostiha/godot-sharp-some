@@ -27,7 +27,9 @@ public partial class Crosses : ExampleNodeBase
     private Color _color2 = new("red");
     private int _time;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public Crosses()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         _origin1 = MiddleTop(3);
         _cross1 = _target1 = Middle(3);
