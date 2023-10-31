@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://jnd8l5d71aul"]
+
+[ext_resource type="PackedScene" uid="uid://dxexe7c5rqmw7" path="res://addons/godot-gif-getter/GifGetterUI.tscn" id="1_aebr0"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 459.0
+offset_top = 55.0
+offset_right = 679.0
+offset_bottom = 169.0
+text = "cgf"
+
+[node name="GifGetterUI" parent="." instance=ExtResource("1_aebr0")]
+
+[node name="TextEdit2" type="TextEdit" parent="."]
+offset_left = 386.0
+offset_top = 325.0
+offset_right = 606.0
+offset_bottom = 439.0
+text = "fgf"
