@@ -14,32 +14,17 @@ public class MultilineBenchmarks
         new ("solid", new SolidLine()), new ("dashed", new DashedLine())};
 
     [Benchmark]
-    public Multiline CreateDefault()
-    {
-        return new Multiline();
-    }
+    public Multiline CreateDefault() =>  new Multiline();
 
     [Benchmark]
-    public Multiline CreateDefaultWithList()
-    {
-        return new Multiline(_lines);
-    }
+    public Multiline CreateDefaultWithList() => new Multiline(_lines);
 
     [Benchmark]
-    public Multiline CreateDefaultWithListAndPalette()
-    {
-        return new Multiline(_lines, _customPalette);
-    }
+    public Multiline CreateDefaultWithListAndPalette() =>  new Multiline(_lines, _customPalette);
 
     [Benchmark]
-    public Multiline CreateDefaultFourLineTypes()
-    {
-        return Multiline.FourLineTypes();
-    }
+    public Multiline CreateDefaultFourLineTypes() => Multiline.FourLineTypes();
 
     [Benchmark]
-    public Multiline CreateCustomFourLineTypes()
-    {
-        return Multiline.FourLineTypes(6, 8);
-    }
+    public Multiline CreateCustomFourLineTypes() => Multiline.FourLineTypes(6, 8);
 }
