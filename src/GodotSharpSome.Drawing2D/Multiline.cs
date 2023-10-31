@@ -7,7 +7,7 @@
     /// <summary>
     /// Multiline builder.
     /// </summary>
-    [DebuggerDisplay("palette:{_penPalette.Count}, points:{_points.Count}")]
+    [DebuggerDisplay("palette:{_penPalette.Count}, segments:{Segments}, penkey:{PenKey}")]
     public class Multiline
     {
         /// <summary> Default angle value for arrow head. </summary>
@@ -111,6 +111,7 @@
         {
             _points = points ?? new List<Vector2>();
             _penPalette = palette;
+            Debug.Assert(palette.Count > 0, "Palette must have at least one item.");
             _pen = palette[0].Pen;
             _penKey = palette[0].Key;
         }
@@ -510,7 +511,7 @@
             for (int i = 0; i < verticesCount; i++)
             {
                 angle = rotationAngle + segmentAngle * i;
-                yield return new Vector2(radius * Cos(angle) + center.X, radius * Sin(angle) + center.Y);
+                yield return new(radius * Cos(angle) + center.X, radius * Sin(angle) + center.Y);
             }
         }
     }
