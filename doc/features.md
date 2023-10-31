@@ -6,5 +6,5 @@ circle line and region, ellipse line and region, triangle line and region, recta
 
 ## Multiline
 
-dot(s), line, parallel lines, cross, arrow, vector, triangle, rectangle, regular convex polygon  
+dot(s), line, parallel lines, cross, arrow, vector, triangle, rectangle, regular convex polygon, mirroring, rotating  
 All with predefined or custom line types (solid, dotted, dashed, dash-dotted)
