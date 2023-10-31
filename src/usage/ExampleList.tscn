@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://sihgimi7npo3"]
+[gd_scene load_steps=17 format=3 uid="uid://sihgimi7npo3"]
 
 [ext_resource type="Script" path="res://ExampleList.cs" id="1"]
 [ext_resource type="Script" path="res://drawings/Rectangles.cs" id="2"]
 [ext_resource type="Script" path="res://drawings/Vectors.cs" id="3"]
 [ext_resource type="Script" path="res://drawings/Arrows.cs" id="4"]
+[ext_resource type="Script" path="res://drawings/Mirroring.cs" id="5_8s8xu"]
 [ext_resource type="Script" path="res://drawings/Crosses.cs" id="6"]
 [ext_resource type="Script" path="res://drawings/Dots.cs" id="7"]
 [ext_resource type="Script" path="res://drawings/Strings.cs" id="7_7db07"]
@@ -116,6 +117,32 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 color = Color(0.45098, 0.427451, 0.427451, 1)
 script = ExtResource("16")
+
+[node name="Mirroring" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/Rows/Mirroring"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer/ScrollContainer/Rows/Mirroring/HBoxContainer"]
+layout_mode = 2
+text = "Mirroring and Rotating"
+
+[node name="Animate" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Mirroring/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Toggle animation"
+text = "Animate"
+
+[node name="Invert" type="Button" parent="VBoxContainer/ScrollContainer/Rows/Mirroring/HBoxContainer"]
+layout_mode = 2
+text = "Invert"
+
+[node name="Content" type="ColorRect" parent="VBoxContainer/ScrollContainer/Rows/Mirroring" groups=["ExampleContents"]]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+color = Color(0.45098, 0.427451, 0.427451, 1)
+script = ExtResource("5_8s8xu")
 
 [node name="Crosses" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/Rows"]
 layout_mode = 2
@@ -387,6 +414,8 @@ script = ExtResource("10")
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Dots/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Dots/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Lines/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Lines/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Lines/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Lines/Content" method="_on_Invert_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Mirroring/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Mirroring/Content" method="_on_Animate_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Mirroring/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Mirroring/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Animate_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Crosses/HBoxContainer/Invert" to="VBoxContainer/ScrollContainer/Rows/Crosses/Content" method="_on_Invert_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/Rows/Arrows/HBoxContainer/Animate" to="VBoxContainer/ScrollContainer/Rows/Arrows/Content" method="_on_Animate_pressed"]

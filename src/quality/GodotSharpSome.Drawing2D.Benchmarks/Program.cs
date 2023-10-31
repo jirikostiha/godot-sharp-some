@@ -15,7 +15,7 @@ public class Program
         string outputFolder = @"./../../../benchmarks";
         if (!Directory.GetCurrentDirectory().EndsWith(typeof(Program).Assembly.GetName().Name ?? string.Empty))
         {
-            // workaround for executing from VS because the output path of binaries is in different folder than usual
+            //HACK: workaround for executing from VS because the output path of binaries is in different folder than usual
             Directory.SetCurrentDirectory(Path.GetDirectoryName(GetSourceFilePathName()) ?? string.Empty);
             Console.WriteLine("changed to: " + Directory.GetCurrentDirectory());
         }

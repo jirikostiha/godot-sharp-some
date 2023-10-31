@@ -1,5 +1,6 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
+    using System;
     using System.Diagnostics;
     using System.Linq;
     using static Godot.Mathf;
@@ -57,8 +58,6 @@
         private IStraightLineAppender _pen;
 
         private string? _penKey;
-
-        public Vector2[] Points() => _points.ToArray();
 
         public Multiline()
             : this(new List<Vector2>())
@@ -130,12 +129,14 @@
         public string? PenKey => _penKey;
 
         /// <summary>
-        /// <summary>
         /// Number of line segments.
         /// Note: For example, a dashed line is a single line consisting of n segments.
         /// </summary>
         public int Segments => _points.Count / 2;
 
+        public Vector2[] Points() => _points.ToArray();
+
+        /// <summary>
         /// Set custom line type.
         /// </summary>
         public Multiline SetPen(IStraightLineAppender pen, string? penKey = null)
@@ -165,6 +166,19 @@
         {
             _pen = PenPalette[index].Pen;
             _penKey = PenPalette[index].Key;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Append other multiline.
+        /// </summary>
+        public Multiline Append(Multiline other)
+        {
+            Debug.Assert(other._points.Count % 2 == 0, "Multiline has odd number of points. It must have even.");
+
+            for (int i = 0; i < other._points.Count; i++)
+                _points.Add(other._points[i]);
 
             return this;
         }
@@ -479,6 +493,111 @@
         }
 
         /// <summary>
+        /// Mirror all points to line parallel to x-axis.
+        /// </summary>
+        /// <param name="y"> Y coordinate of a mirror line. </param>
+        public Multiline MirrorX(float y)
+        {
+            var count = _points.Count;
+            for (int i = 0; i < count; i++)
+                _points.Add(_points[i].MirrorX(y));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Mirror all points to line parallel to y-axis.
+        /// </summary>
+        /// <param name="x"> X coordinate of a mirror line. </param>
+        public Multiline MirrorY(float x)
+        {
+            var count = _points.Count;
+            for (int i = 0; i < count; i++)
+                _points.Add(_points[i].MirrorY(x));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Mirror all points to line determined by one point and direction vector.
+        /// </summary>
+        /// <param name="mirrorPoint"> Point of mirror line. </param>
+        /// <param name="mirrorLineDir"> Direction vector of mirror line. </param>
+        public Multiline MirrorByDirection(Vector2 mirrorPoint, Vector2 mirrorLineDir)
+        {
+            var count = _points.Count;
+            for (int i = 0; i < count; i++)
+                _points.Add(_points[i].MirrorByDirection(mirrorPoint, mirrorLineDir));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Mirror all points to line determined by one point and direction vector.
+        /// </summary>
+        /// <param name="mirrorPointA"> First point of mirror line. </param>
+        /// <param name="mirrorPointB"> Second point of mirror line. </param>
+        public Multiline MirrorByPoints(Vector2 mirrorPointA, Vector2 mirrorPointB)
+        {
+            var count = _points.Count;
+            for (int i = 0; i < count; i++)
+                _points.Add(_points[i].MirrorByPoints(mirrorPointA, mirrorPointB));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Rotate all points around given center.
+        /// </summary>
+        /// <param name="center"> Rotation center. </param>
+        /// <param name="angle"> Rotation angle. </param>
+        public Multiline Rotate(Vector2 center, float angle)
+        {
+            var count = _points.Count;
+            for (int i = 0; i < count; i++)
+                _points.Add(_points[i].Rotated(center, angle));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Rotate all points around given center and angles.
+        /// </summary>
+        /// <param name="center"> Rotation center. </param>
+        /// <param name="angle"> Rotation angle. </param>
+        /// <param name="repeatCount"> Number of a rotation repetition. </param>
+        public Multiline Rotate(Vector2 center, float angle, int repeatCount)
+        {
+            var count = _points.Count;
+            var currentAngle = 0f;
+            for (int j = 0; j < repeatCount; j++)
+            {
+                currentAngle += angle;
+                for (int i = 0; i < count; i++)
+                    _points.Add(_points[i].Rotated(center, currentAngle));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Rotate all points around given center and angles.
+        /// </summary>
+        /// <param name="center"> Rotation center. </param>
+        /// <param name="angles"> Rotation angles. </param>
+        public Multiline Rotate(Vector2 center, params float[] angles)
+        {
+            var count = _points.Count;
+            for (int angle = 0; angle < angles.Length; angle++)
+            {
+                for (int i = 0; i < count; i++)
+                    _points.Add(_points[i].Rotated(center, angle));
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Remove last line (two points) from collection of points.
         /// </summary>
         /// <returns></returns>
@@ -514,5 +633,7 @@
                 yield return new(radius * Cos(angle) + center.X, radius * Sin(angle) + center.Y);
             }
         }
+
+        public static Multiline operator +(Multiline a, Multiline b) => a.Append(b);
     }
 }
