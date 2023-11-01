@@ -53,9 +53,9 @@ public partial class WiredIrregularGrids : ExampleNodeBase
 			Overlap = 10,
 		};
 
-		_oneByOneGrid = new() { ColumnSpans = new float[0], RowSpans = new float[0] };
+		_oneByOneGrid = new() { ColumnSpansPrio = new float[0], RowSpansPrio = new float[0] };
 
-		_someGrid = new() { ColumnSpans = new[] { 10f, 25 }, RowSpans = new[] { 10f, 20, 20 } };
+		_someGrid = new() { ColumnSpansPrio = new[] { 10f, 25 }, RowSpansPrio = new[] { 10f, 20, 20 } };
 	}
 
 	public override void _Draw()
