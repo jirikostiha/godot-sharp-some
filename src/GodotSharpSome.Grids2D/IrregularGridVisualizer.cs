@@ -2,7 +2,9 @@
 {
     using Godot;
     using GodotSharpSome.Drawing2D;
+    using System;
     using System.Data.Common;
+    using System.Linq;
 
     /// <summary>
     /// Irregular orthogonal grid visualizer.
@@ -27,38 +29,40 @@
         public OrthogonalGridVOptions VOptions { get; set; }
 
         public void Draw(IrregularGridOptions options) =>
-            Draw(options.ColumnSpans, options.RowSpans);
+            Draw(options.ColumnSpansPrio, options.RowSpansPrio);
 
-        public void Draw(float[] columnSpans, float[] rowSpans, OrthogonalGridVOptions? voptions = null)
+        public void Draw(float[] columnSpansPrio, float[] rowSpansPrio, OrthogonalGridVOptions? voptions = null)
         {
             voptions ??= VOptions;
+            var columnPrioSize = columnSpansPrio.Sum();
+            var rowPrioSize = rowSpansPrio.Sum();
 
             if (voptions.EvenRows is not null || voptions.OddRows is not null)
             {
                 // cells
                 var y = Position.Y + VOptions.Overlap;
-                for (int row = 0; row < rowSpans.Length; row++)
+                for (int row = 0; row < rowSpansPrio.Length; row++)
                 {
                     var x = Position.X + VOptions.Overlap;
-                    for (int column = 0; column < columnSpans.Length; column++)
+                    for (int column = 0; column < columnSpansPrio.Length; column++)
                     {
                         if (row % 2 == 0)
                         {
                             if (column % 2 == 0)
-                                Canvas.DrawRect(new Rect2(x, y, columnSpans[column], rowSpans[row]), voptions.OddRows.OddCellColor, true);
+                                Canvas.DrawRect(new Rect2(x, y, columnSpansPrio[column], rowSpansPrio[row]), voptions.OddRows.OddCellColor, true);
                             else
-                                Canvas.DrawRect(new Rect2(x, y, columnSpans[column], rowSpans[row]), voptions.OddRows.EvenCellColor, true);
+                                Canvas.DrawRect(new Rect2(x, y, columnSpansPrio[column], rowSpansPrio[row]), voptions.OddRows.EvenCellColor, true);
                         }
                         else
                         {
                             if (column % 2 == 0)
-                                Canvas.DrawRect(new Rect2(x, y, columnSpans[column], rowSpans[row]), voptions.EvenRows.OddCellColor, true);
+                                Canvas.DrawRect(new Rect2(x, y, columnSpansPrio[column], rowSpansPrio[row]), voptions.EvenRows.OddCellColor, true);
                             else
-                                Canvas.DrawRect(new Rect2(x, y, columnSpans[column], rowSpans[row]), voptions.EvenRows.EvenCellColor, true);
+                                Canvas.DrawRect(new Rect2(x, y, columnSpansPrio[column], rowSpansPrio[row]), voptions.EvenRows.EvenCellColor, true);
                         }
-                        x += columnSpans[column];
+                        x += (columnSpansPrio[column] / columnPrioSize) * Size.X - 2 * VOptions.Overlap;
                     }
-                    y += rowSpans[row];
+                    y += (rowSpansPrio[row] / rowPrioSize) * (Size.Y - 2 * VOptions.Overlap);
                 }
             }
 
@@ -76,7 +80,7 @@
                 .AppendParallelLines(
                     new(Position.X, Position.Y + voptions.Overlap),
                     new(end.X, Position.Y + voptions.Overlap),
-                    rowSpans)
+                    rowSpansPrio)
                 .AppendLine(
                     new(Position.X, end.Y - voptions.Overlap),
                     new(end.X, end.Y - voptions.Overlap));
@@ -92,7 +96,7 @@
                 .AppendParallelLines(
                     new(Position.X + voptions.Overlap, end.Y),
                     new(Position.X + voptions.Overlap, Position.Y),
-                    columnSpans)
+                    columnSpansPrio)
                 .AppendLine(
                     new(end.X - voptions.Overlap, end.Y),
                     new(end.X - voptions.Overlap, Position.Y));

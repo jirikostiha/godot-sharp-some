@@ -14,7 +14,7 @@
     /// </summary>
     public record IrregularGridOptions
     {
-        public float[] RowSpans { get; set; }
-        public float[] ColumnSpans { get; set; }
+        public float[] RowSpansPrio { get; set; }
+        public float[] ColumnSpansPrio { get; set; }
     }
 }

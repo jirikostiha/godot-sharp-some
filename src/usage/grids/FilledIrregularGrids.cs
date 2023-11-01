@@ -41,7 +41,7 @@ public partial class FilledIrregularGrids : ExampleNodeBase
 		_checkGridOverlapedVoptions.YLine.Color = LineColor;
 		_checkGridOverlapedVoptions.Overlap = 10;
 
-		_someGrid = new() { ColumnSpans = new[] { 8f, 12, 18, 22 }, RowSpans = new[] { 10f, 15, 20 } };
+		_someGrid = new() { ColumnSpansPrio = new[] { 8f, 12, 18, 22 }, RowSpansPrio = new[] { 10f, 15, 20 } };
 	}
 
 	public override void _Draw()

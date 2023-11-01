@@ -21,14 +21,14 @@
             Resized += SetDrawingSize;
         }
 
-        public IrregularGridOptions Options { get; set; } = new() { ColumnSpans = new[] { 40f, 60 }, RowSpans = new[] { 30f, 50 } };
+        public IrregularGridOptions Options { get; set; } = new() { ColumnSpansPrio = new[] { 40f, 60 }, RowSpansPrio = new[] { 30f, 50 } };
 
         public OrthogonalGridVOptions VOptions { get => _vizer.VOptions; set => _vizer.VOptions = value; }
 
         #region export
 
-        [Export] public float[] ColumnSpans { get => Options.ColumnSpans; set => Options.ColumnSpans = value; }
-        [Export] public float[] RowSpans { get => Options.RowSpans; set => Options.RowSpans = value; }
+        [Export] public float[] ColumnSpans { get => Options.ColumnSpansPrio; set => Options.ColumnSpansPrio = value; }
+        [Export] public float[] RowSpans { get => Options.RowSpansPrio; set => Options.RowSpansPrio = value; }
 
         [Export] public float Margin { get; set; } = 10f;
 
