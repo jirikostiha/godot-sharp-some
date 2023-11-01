@@ -44,3 +44,4 @@ jobs:
           password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
           assetId: 7436
           approveDirectly: "true"
+          assetTemplate: .github/asset-template.json.hb
