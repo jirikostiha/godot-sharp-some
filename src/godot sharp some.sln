@@ -72,7 +72,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Tests", "quality\GodotSharpSome.Drawing2D.Tests\GodotSharpSome.Drawing2D.Tests.csproj", "{16751B82-5192-4AEE-A7AF-D787DF308B93}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Drawing2D.Benchmarks", "quality\GodotSharpSome.Drawing2D.Benchmarks\GodotSharpSome.Drawing2D.Benchmarks.csproj", "{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Grids2D.Tests", "quality\GodotSharpSome.Grids2D.Tests\GodotSharpSome.Grids2D.Tests.csproj", "{2853E169-35A2-48F4-856B-7DF8110696AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GodotSharpSome.Grids2D.Benchmarks", "quality\GodotSharpSome.Grids2D.Benchmarks\GodotSharpSome.Grids2D.Benchmarks.csproj", "{4D784500-BC5F-4B08-A6F2-84C83312DBC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +133,14 @@ Global
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2853E169-35A2-48F4-856B-7DF8110696AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +151,7 @@ Global
 		{16751B82-5192-4AEE-A7AF-D787DF308B93} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{83145396-1EA4-4AB3-A6CA-1D5FEF0545F8} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 		{2853E169-35A2-48F4-856B-7DF8110696AD} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
+		{4D784500-BC5F-4B08-A6F2-84C83312DBC5} = {5D4B944E-9859-41F9-A88C-7C731F5A43F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE703196-5935-41FB-83E8-8DC5D4797DCF}
