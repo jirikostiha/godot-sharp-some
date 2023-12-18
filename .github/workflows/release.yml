@@ -51,7 +51,7 @@ jobs:
           fail-on-error: true
 
       - name: Upload artifact - binaries
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: binaries
           path: "${{ env.build-dir }}"
