@@ -11,6 +11,6 @@ jobs:
 
     steps:
       - name: Approve
-        uses: hmarr/auto-approve-action@v3
+        uses: hmarr/auto-approve-action@v4
         with:
           review-message: "Auto approved"
