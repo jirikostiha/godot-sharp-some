@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint commit message
-        uses: wagoid/commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v6
 
       - name: Check no !fixup commits
         if: ${{ github.event_name == 'pull_request' }}
