@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="\src\GodotSharpSome.Drawing2D\icon.png" alt="Icon" width="50"/>
+</p>
+
 # Godot Sharp Some
 
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
