@@ -38,7 +38,7 @@ jobs:
         run: dotnet nuget push "${{ env.package-dir }}"/**/*.nupkg --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json
 
       - name: Push to Asset Library
-        uses: deep-entertainment/godot-asset-lib-action@v0.5.0
+        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
         with:
           username: jiri
           password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
