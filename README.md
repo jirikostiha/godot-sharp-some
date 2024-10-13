@@ -58,8 +58,8 @@ Godot project's `.csproj` file should look like this:
 
 Any ideas, contributions and bug reports are welcome!
 
-For new idea create an [issue](https://github.com/jirikostiha/lexicon/issues/new/choose).  
-For bug report create an [issue](https://github.com/jirikostiha/lexicon/issues/new/choose).  
+For new idea create an [issue](https://github.com/jirikostiha/godot-sharp-some/issues/new/choose).  
+For bug report create an [issue](https://github.com/jirikostiha/godot-sharp-some/issues/new/choose).  
 For contribution create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).  
 
 [Conventions](./doc/conventions.md)  
