@@ -32,23 +32,14 @@ jobs:
       - name: .Net Info
         run: dotnet --info
 
-      - name: Restore
+      - name: Restore dependencies
         run: dotnet restore "${{ env.sln-path }}"
 
-      - name: Build release
-        run: dotnet build "${{ env.sln-path }}" --no-restore -o "${{ env.build-dir }}"
-
       - name: Test
-        run: dotnet test "${{ env.sln-path }}" --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test "${{ env.sln-path }}" --no-restore -c Release
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: Tests ${{ matrix.dotnet-version }}
-          path: "**/test-results.trx"
-          reporter: dotnet-trx
-          fail-on-error: true
+      - name: Build release
+        run: dotnet build "${{ env.sln-path }}" --no-restore -c Release -o "${{ env.build-dir }}"
 
       - name: Upload artifact - binaries
         uses: actions/upload-artifact@v4
