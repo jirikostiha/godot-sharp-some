@@ -42,7 +42,7 @@ jobs:
         run: dotnet build "${{ env.sln-path }}" --no-restore -c Release -o "${{ env.build-dir }}"
 
       - name: Upload artifact - binaries
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: binaries
           path: "${{ env.build-dir }}"
