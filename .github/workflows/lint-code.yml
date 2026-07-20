@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Lint C# with auto fix
-        uses: wearerequired/lint-action@v2
+        uses: wearerequired/lint-action@v3
         with:
           commit_message: "style(code): code style issues with ${linter}"
           dotnet_format: true
