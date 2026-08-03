@@ -696,7 +696,8 @@
             var dir = direction.Normalized();
 
             AppendLine(points, start, start + dir * distances.Sum());
-            AppendParallelLines(points, start, dir.LeftNormal() * 3, distances); //todo replace var by offset
+            //todo replace var by offset
+            AppendParallelLinesAlong(points, start, start + dir.LeftNormal() * 3, direction, distances);
         }
 
         public static void AppendSegmentedArrow(IList<Vector2> points, Vector2 start, Vector2 direction, IList<float> distances,
