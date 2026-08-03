@@ -104,9 +104,9 @@
         }
 
         /// <summary> Append a continuation line parallel to line from given reference points. </summary>
-        public Multiline AppendParallelLine(Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float length = 0)
+        public Multiline AppendParallelLine(Vector2 refStart, Vector2 refEnd, float distance, float startOffset = 0, float endOffset = 0)
         {
-            AppendParallelLine(_points, refStart, refEnd, distance, startOffset, length);
+            AppendParallelLine(_points, refStart, refEnd, distance, startOffset, endOffset);
             return this;
         }
 
