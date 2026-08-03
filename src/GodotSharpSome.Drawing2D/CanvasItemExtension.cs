@@ -69,18 +69,9 @@
         public static CanvasItem DrawEllipseOutline(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
             float lineWidth = 1, bool antialiased = false)
         {
-            var originTransform = canvas.GetCanvasTransform();
-
-            Transform2D t = Transform2D.Identity;
-            t.origin = center;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-            t.y *= radiusB / radiusA;
-
-            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawSetTransform(center, angle, new Vector2(1, radiusB / radiusA));
             canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
-            canvas.DrawSetTransformMatrix(originTransform);
+            canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
             return canvas;
         }
@@ -90,18 +81,9 @@
         /// </summary>
         public static CanvasItem DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color areaColor)
         {
-            var originTransform = canvas.GetCanvasTransform();
-
-            Transform2D t = Transform2D.Identity;
-            t.origin = center;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-            t.y *= radiusB / radiusA;
-
-            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawSetTransform(center, angle, new Vector2(1, radiusB / radiusA));
             canvas.DrawCircleRegion(Vector2.Zero, radiusA, areaColor);
-            canvas.DrawSetTransformMatrix(originTransform);
+            canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
             return canvas;
         }
@@ -301,17 +283,9 @@
         public static CanvasItem DrawString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
             Color? modulate = null, int clipW = -1)
         {
-            var originTransform = canvas.GetCanvasTransform();
-
-            Transform2D t = Transform2D.Identity;
-            t.origin = position;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-
-            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawSetTransform(position, angle, Vector2.One);
             canvas.DrawString(font, Vector2.Zero, text, modulate, clipW);
-            canvas.DrawSetTransformMatrix(originTransform);
+            canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
             return canvas;
         }
@@ -329,18 +303,11 @@
         public static CanvasItem DrawCenteredString(this CanvasItem canvas, Font font, Vector2 position, string text, float angle,
             Color? modulate = null, int clipW = -1)
         {
-            var originTransform = canvas.GetCanvasTransform();
             var textSize = font.GetStringSize(text);
 
-            Transform2D t = Transform2D.Identity;
-            t.origin = position;
-            t.x.x = t.y.y = Cos(angle);
-            t.x.y = t.y.x = Sin(angle);
-            t.y.x *= -1;
-
-            canvas.DrawSetTransformMatrix(t);
+            canvas.DrawSetTransform(position, angle, Vector2.One);
             canvas.DrawString(font, new Vector2(-textSize.x / 2f, 0), text, modulate, clipW);
-            canvas.DrawSetTransformMatrix(originTransform);
+            canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
             return canvas;
         }
