@@ -65,18 +65,9 @@ public static class CanvasItemExtension
     public static CanvasItem DrawEllipseOutline(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
         float lineWidth = 1, bool antialiased = false)
     {
-        var originTransform = canvas.GetCanvasTransform();
-
-        Transform2D t = Transform2D.Identity;
-        t.Origin = center;
-        t.X.X = t.Y.Y = Cos(angle);
-        t.X.Y = t.Y.X = Sin(angle);
-        t.Y.X *= -1;
-        t.Y *= radiusB / radiusA;
-
-        canvas.DrawSetTransformMatrix(t);
+        canvas.DrawSetTransform(center, angle, new Vector2(1, radiusB / radiusA));
         canvas.DrawCircleOutline(Vector2.Zero, radiusA, lineColor, lineWidth, antialiased);
-        canvas.DrawSetTransformMatrix(originTransform);
+        canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
         return canvas;
     }
@@ -86,18 +77,9 @@ public static class CanvasItemExtension
     /// </summary>
     public static CanvasItem DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color regionColor)
     {
-        var originTransform = canvas.GetCanvasTransform();
-
-        Transform2D t = Transform2D.Identity;
-        t.Origin = center;
-        t.X.X = t.Y.Y = Cos(angle);
-        t.X.Y = t.Y.X = Sin(angle);
-        t.Y.X *= -1;
-        t.Y *= radiusB / radiusA;
-
-        canvas.DrawSetTransformMatrix(t);
+        canvas.DrawSetTransform(center, angle, new Vector2(1, radiusB / radiusA));
         canvas.DrawCircleRegion(Vector2.Zero, radiusA, regionColor);
-        canvas.DrawSetTransformMatrix(originTransform);
+        canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
         return canvas;
     }
@@ -298,14 +280,7 @@ public static class CanvasItemExtension
         TextServer.JustificationFlag justificationFlags = TextServer.JustificationFlag.Kashida | TextServer.JustificationFlag.WordBound,
         TextServer.Direction direction = TextServer.Direction.Auto, TextServer.Orientation orientation = TextServer.Orientation.Horizontal)
     {
-        var originTransform = canvas.GetCanvasTransform();
         var textSize = font.GetStringSize(text);
-
-        Transform2D t = Transform2D.Identity;
-        t.Origin = position;
-        t.X.X = t.Y.Y = Cos(angle);
-        t.X.Y = t.Y.X = Sin(angle);
-        t.Y.X *= -1;
 
         float verticalOffset = 0;
         if (verticalAlignment == VerticalAlignment.Center)
@@ -319,10 +294,10 @@ public static class CanvasItemExtension
         else if (textBoxHorizontalAlignment == HorizontalAlignment.Right)
             horizontalOffset = textSize.X;
 
-        canvas.DrawSetTransformMatrix(t);
+        canvas.DrawSetTransform(position, angle, Vector2.One);
         canvas.DrawString(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text,
             HorizontalAlignment.Left, -1, fontSize, modulate, justificationFlags, direction, orientation);
-        canvas.DrawSetTransformMatrix(originTransform);
+        canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
         return canvas;
     }
@@ -351,14 +326,7 @@ public static class CanvasItemExtension
         TextServer.JustificationFlag justificationFlags = TextServer.JustificationFlag.Kashida | TextServer.JustificationFlag.WordBound,
         TextServer.Direction direction = TextServer.Direction.Auto, TextServer.Orientation orientation = TextServer.Orientation.Horizontal)
     {
-        var originTransform = canvas.GetCanvasTransform();
         var textSize = font.GetStringSize(text);
-
-        Transform2D t = Transform2D.Identity;
-        t.Origin = position;
-        t.X.X = t.Y.Y = Cos(angle);
-        t.X.Y = t.Y.X = Sin(angle);
-        t.Y.X *= -1;
 
         float verticalOffset = 0;
         if (verticalAlignment == VerticalAlignment.Center)
@@ -372,10 +340,10 @@ public static class CanvasItemExtension
         else if (textBoxHorizontalAlignment == HorizontalAlignment.Right)
             horizontalOffset = textSize.X;
 
-        canvas.DrawSetTransformMatrix(t);
+        canvas.DrawSetTransform(position, angle, Vector2.One);
         canvas.DrawStringOutline(font, new Vector2(-horizontalOffset, verticalOffset / 2f), text,
             HorizontalAlignment.Left, -1, fontSize, size, modulate, justificationFlags, direction, orientation);
-        canvas.DrawSetTransformMatrix(originTransform);
+        canvas.DrawSetTransform(Vector2.Zero, 0, Vector2.One);
 
         return canvas;
     }

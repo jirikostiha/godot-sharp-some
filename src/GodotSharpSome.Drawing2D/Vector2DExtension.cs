@@ -1,18 +1,16 @@
-﻿using System.Drawing;
-
-namespace GodotSharpSome.Drawing2D;
+﻿namespace GodotSharpSome.Drawing2D;
 
 public static class Vector2DExtension
 {
     /// <summary>
     /// First normal vector of an input vector. It is the first one in circular direction from (+)x-axis to (+)y-axis.
     /// </summary>
-    public static Vector2 Normal1(this Vector2 vector) => new(-vector.Y, vector.X);
+    public static Vector2 Normal1(this Vector2 vector) => -vector.Orthogonal();
 
     /// <summary>
     /// Second normal vector of an input vector. It is the second one in circular direction from (+)x-axis to (+)y-axis.
     /// </summary>
-    public static Vector2 Normal2(this Vector2 vector) => new(vector.Y, -vector.X);
+    public static Vector2 Normal2(this Vector2 vector) => vector.Orthogonal();
 
     /// <summary>
     /// Rotate vector around given center.
@@ -48,15 +46,8 @@ public static class Vector2DExtension
     /// <param name="vector"> Vector to mirror. </param>
     /// <param name="directionVector"> Direction vector of mirror line. </param>
     /// <returns> Vector with mirrored coordinates. </returns>
-    public static Vector2 MirrorByDirection(this Vector2 vector, Vector2 directionVector)
-    {
-        var normalizedDir = directionVector.Normalized();
-        float dotProduct = vector.X * normalizedDir.X + vector.Y * normalizedDir.Y;
-
-        return new(
-            2 * dotProduct * normalizedDir.X - vector.X,
-            2 * dotProduct * normalizedDir.Y - vector.Y);
-    }
+    public static Vector2 MirrorByDirection(this Vector2 vector, Vector2 directionVector) =>
+        vector.Reflect(directionVector.Normalized());
 
     /// <summary>
     /// Mirror vector to line determined by one point and direction vector.
@@ -65,15 +56,8 @@ public static class Vector2DExtension
     /// <param name="mirrorPoint"> Point of mirror line. </param>
     /// <param name="directionVector"> Direction vector of mirror line. </param>
     /// <returns> Vector with mirrored coordinates. </returns>
-    public static Vector2 MirrorByDirection(this Vector2 vector, Vector2 mirrorPoint, Vector2 directionVector)
-    {
-        var normalizedDir = directionVector.Normalized();
-        float dotProduct = (vector.X - mirrorPoint.X) * normalizedDir.X + (vector.Y - mirrorPoint.Y) * normalizedDir.Y;
-
-        return new (
-            2 * (mirrorPoint.X + dotProduct * normalizedDir.X) - vector.X,
-            2 * (mirrorPoint.Y + dotProduct * normalizedDir.Y) - vector.Y);
-    }
+    public static Vector2 MirrorByDirection(this Vector2 vector, Vector2 mirrorPoint, Vector2 directionVector) =>
+        (vector - mirrorPoint).Reflect(directionVector.Normalized()) + mirrorPoint;
 
     /// <summary>
     /// Mirror vector to line determined by two points.
@@ -84,20 +68,11 @@ public static class Vector2DExtension
     /// <returns> Vector with mirrored coordinates. </returns>
     public static Vector2 MirrorByPoints(this Vector2 vector, Vector2 mirrorPointA, Vector2 mirrorPointB)
     {
-        var dx = mirrorPointB.X - mirrorPointA.X;
-        var dy = mirrorPointB.Y - mirrorPointA.Y;
+        var direction = mirrorPointB - mirrorPointA;
 
-        if (dx == 0 && dy == 0)
-        {
-            return new(2 * mirrorPointA.X - vector.X, 2 * mirrorPointA.Y - vector.Y);
-        }
-        else
-        {
-            float t = ((vector.X - mirrorPointA.X) * dx + (vector.Y - mirrorPointA.Y) * dy) / (dx * dx + dy * dy);
-
-            return new(
-                2 * (mirrorPointA.X + t * dx) - vector.X,
-                2 * (mirrorPointA.Y + t * dy) - vector.Y);
-        }
+        // The two points coincide, so they define no line. Mirror through the point itself.
+        return direction == Vector2.Zero
+            ? mirrorPointA * 2 - vector
+            : vector.MirrorByDirection(mirrorPointA, direction);
     }
 }
