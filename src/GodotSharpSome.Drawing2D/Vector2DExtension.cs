@@ -35,7 +35,7 @@
         public static IEnumerable<Vector2> Rotate(this IEnumerable<Vector2> vectors, Vector2 center, float angle)
         {
             foreach (var vector in vectors)
-                yield return (vector + center).Rotated(angle) - center;
+                yield return (vector - center).Rotated(angle) + center;
         }
     }
 }
