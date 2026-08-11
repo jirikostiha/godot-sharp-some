@@ -379,8 +379,14 @@
         {
             var segmentCount = (int)((top - start).Length() / segmentLength);
 
+            // Fewer than two segments leaves no distances for the direction-based overload,
+            // which would then derive the tip from an empty sum (start + dir * 2 * headRadius)
+            // instead of ending at 'top'. Fall back to a plain arrow of the requested length.
+            if (segmentCount < 2)
+                return Arrow(start, top, headRadius, arrowAngle);
+
             return SegmentedArrow(start, start.DirectionTo(top),
-                Enumerable.Repeat(segmentLength, Math.Max(0, segmentCount - 1)).ToArray(),
+                Enumerable.Repeat(segmentLength, segmentCount - 1).ToArray(),
                 headRadius, arrowAngle);
         }
 
@@ -502,8 +508,14 @@
             float dashLength = DashedLine_DashLength, float spaceLength = DashedLine_SpaceLength)
         {
             AdaptSubinterval((end - start).Length(), spaceLength, ref dashLength, out int count);
-            var dir = start.DirectionTo(end);
+            if (count < 1)
+            {
+                // Too short for a dash pattern; draw the whole segment solid.
+                AppendLine(points, start, end);
+                return;
+            }
 
+            var dir = start.DirectionTo(end);
             for (int i = 0; i < count; i++)
             {
                 var segmentStart = start + dir * i * (dashLength + spaceLength);
@@ -515,8 +527,14 @@
             float dashLength = DashDottedLine_DashLength, float spaceLength = DashDottedLine_SpaceLength)
         {
             AdaptSubinterval((end - start).Length(), spaceLength + 1 + spaceLength, ref dashLength, out int count);
-            var dir = start.DirectionTo(end);
+            if (count < 1)
+            {
+                // Too short for a dash-dot pattern; draw the whole segment solid.
+                AppendLine(points, start, end);
+                return;
+            }
 
+            var dir = start.DirectionTo(end);
             for (int i = 0; i < count - 1; i++)
             {
                 var segmentStart = start + dir * i * (dashLength + spaceLength + 1 + spaceLength);
@@ -531,7 +549,15 @@
         {
             float segmentLength = adaptingInterval + fixedInterval;
             float segmentCount = totalLength / segmentLength;
-            count = Math.Max(1, RoundToInt(segmentCount));
+            count = RoundToInt(segmentCount);
+            if (count < 1)
+            {
+                // The line is shorter than a single segment. Leave adaptingInterval
+                // untouched (avoids a divide-by-zero) and let the caller draw the
+                // degenerate short line however suits its line style.
+                count = 0;
+                return;
+            }
             float adaptedSegmentLength = (totalLength + fixedInterval) / count;
             adaptingInterval = adaptedSegmentLength - fixedInterval;
         }
