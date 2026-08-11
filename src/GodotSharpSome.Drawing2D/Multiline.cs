@@ -380,7 +380,7 @@
             var segmentCount = (int)((top - start).Length() / segmentLength);
 
             return SegmentedArrow(start, start.DirectionTo(top),
-                Enumerable.Repeat(segmentLength, segmentCount - 1).ToArray(),
+                Enumerable.Repeat(segmentLength, Math.Max(0, segmentCount - 1)).ToArray(),
                 headRadius, arrowAngle);
         }
 
@@ -531,7 +531,7 @@
         {
             float segmentLength = adaptingInterval + fixedInterval;
             float segmentCount = totalLength / segmentLength;
-            count = RoundToInt(segmentCount);
+            count = Math.Max(1, RoundToInt(segmentCount));
             float adaptedSegmentLength = (totalLength + fixedInterval) / count;
             adaptingInterval = adaptedSegmentLength - fixedInterval;
         }
