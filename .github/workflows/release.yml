@@ -41,6 +41,8 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    with:
+      version: ${{ inputs.tag || github.ref_name }}
 
   release:
     needs: build
