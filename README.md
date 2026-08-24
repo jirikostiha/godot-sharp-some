@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="\src\GodotSharpSome.Drawing2D\icon.png" alt="Icon" width="50"/>
+  <img src="src/GodotSharpSome.Drawing2D/icon.png" alt="Icon" width="50"/>
 </p>
 
 # Godot Sharp Some
@@ -25,10 +25,10 @@ Godot .NET.Sdk | .Net           | Branch  | Version | Nuget (GodotSharpSome.) | 
 ## Features
 
 Includes CanvasItem extensions for drawing various plane shapes and Multiline class extending possibilities of drawing API.  
-List of [features](./doc/features.md).
+List of [features](./docs/features.md).
 
-![pic](./doc/images/dots_and_lines_animation.gif)
-![pic](./doc/images/primitives_animation.gif)
+![pic](./docs/images/dots_and_lines_animation.gif)
+![pic](./docs/images/primitives_animation.gif)
 
 Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)
 and [more](./src/usage/)?
@@ -62,7 +62,7 @@ For new idea create an [issue](https://github.com/jirikostiha/godot-sharp-some/i
 For bug report create an [issue](https://github.com/jirikostiha/godot-sharp-some/issues/new/choose).  
 For contribution create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).  
 
-[Conventions](./doc/conventions.md)  
+[Conventions](./docs/conventions.md)  
 
 ## License
 

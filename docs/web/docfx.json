@@ -1,0 +1,79 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../../src/GodotSharpSome.Drawing2D",
+          "files": [
+            "GodotSharpSome.Drawing2D.csproj"
+          ]
+        }
+      ],
+      "dest": "api",
+      "includePrivateMembers": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "toc.yml",
+          "index.md"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      },
+      {
+        "src": "..",
+        "files": [
+          "features.md",
+          "conventions.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "src": "../../src/GodotSharpSome.Drawing2D",
+        "files": [
+          "icon.png"
+        ]
+      },
+      {
+        "files": [
+          "public/**"
+        ]
+      },
+      {
+        "src": "../images",
+        "files": [
+          "**"
+        ],
+        "dest": "images"
+      }
+    ],
+    "output": "_site",
+    "globalMetadata": {
+      "_appName": "Godot Sharp Some",
+      "_appTitle": "Godot Sharp Some Documentation",
+      "_appLogoPath": "icon.png",
+      "_appFaviconPath": "icon.png",
+      "_enableSearch": true,
+      "_gitContribute": {
+        "repo": "https://github.com/jirikostiha/godot-sharp-some",
+        "branch": "main"
+      }
+    },
+    "template": [
+      "default",
+      "modern"
+    ]
+  }
+}

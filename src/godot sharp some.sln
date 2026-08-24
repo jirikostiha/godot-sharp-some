@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
@@ -36,10 +36,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C40B03A5-B
 		..\.github\workflows\release.yml = ..\.github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CAFF78B8-7F67-42A1-8BAC-04DB67CFCFC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CAFF78B8-7F67-42A1-8BAC-04DB67CFCFC2}"
 	ProjectSection(SolutionItems) = preProject
-		..\doc\conventions.md = ..\doc\conventions.md
-		..\doc\features.md = ..\doc\features.md
+		..\docs\conventions.md = ..\docs\conventions.md
+		..\docs\features.md = ..\docs\features.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
