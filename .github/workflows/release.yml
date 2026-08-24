@@ -18,6 +18,7 @@ jobs:
       ref: ${{ inputs.tag || github.ref_name }}
       artifacts: true
       binaries-path: artf/GodotSharpSome.Drawing2D/bin
+      dotnet-version: "8.0.x"
 
   release:
     needs: build

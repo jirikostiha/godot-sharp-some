@@ -26,3 +26,4 @@ jobs:
     with:
       solution: "./src/godot sharp some.sln"
       configuration: ${{ inputs.configuration || 'Debug' }}
+      dotnet-version: "8.0.x"

@@ -20,3 +20,4 @@ jobs:
     with:
       project: src/quality/GodotSharpSome.Drawing2D.Benchmarks
       results-dir: benchmarks/results
+      dotnet-version: "8.0.x"

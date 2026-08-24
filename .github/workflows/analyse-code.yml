@@ -27,3 +27,4 @@ jobs:
       security-events: write
     with:
       language: csharp
+      dotnet-version: "8.0.x"
