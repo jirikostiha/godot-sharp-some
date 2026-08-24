@@ -1,8 +1,13 @@
 .navbar-brand #logo,
 .navbar-brand img,
+.navbar-brand .svg,
+.navbar-brand svg,
 #logo {
-    height: 2rem;
-    max-height: 2rem;
-    width: auto;
-    margin-right: 0.5rem;
+    height: 2rem !important;
+    max-height: 2rem !important;
+    width: auto !important;
+    max-width: 100% !important;
+    margin-right: 0.5rem !important;
+    vertical-align: middle !important;
+    display: inline-block !important;
 }
