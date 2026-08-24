@@ -19,7 +19,7 @@
     <Title>Godot Sharp 2D Drawing Extensions</Title>
     <Description>Set of drawing extensions for Godot engine.</Description>
     <PackageTags> godot; drawing; csharp; 2D; game-dev</PackageTags>
-    <PackageProjectUrl>https://github.com/jirikostiha/godot-sharp-some</PackageProjectUrl>
+    <PackageProjectUrl>https://jirikostiha.github.io/godot-sharp-some/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>

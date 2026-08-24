@@ -11,8 +11,13 @@
 [![Code Analysis](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/analyse-code.yml)
 [![Code Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-code.yml)
 [![Documentation Lint](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml/badge.svg)](https://github.com/jirikostiha/godot-sharp-some/actions/workflows/lint-docs.yml)
+[![Documentation](https://img.shields.io/badge/docs-DocFX-blue.svg)](https://jirikostiha.github.io/godot-sharp-some/)
 
 Is set of extensions for custom drawing API in [Godot engine](https://github.com/godotengine/godot). It simplifies script drawing.
+
+## Documentation
+
+Full API reference, guides, and performance benchmarks are available on the [Documentation Website](https://jirikostiha.github.io/godot-sharp-some/).
 
 ## Versions
 
