@@ -8,6 +8,7 @@
 [Rr]elease/
 [Rr]eleases/
 [Bb]enchmarks/
+BenchmarkDotNet.Artifacts/
 
 #---binaries---
 *.dll
@@ -33,7 +34,6 @@
 *.DotSettings.user
 *.csproj.DotSettings
 *.sln.DotSettings
-*.csproj.old
 
 # User-specific files
 *.suo
@@ -41,13 +41,16 @@
 *.userosscache
 *.sln.docstates
 
+
 #---Visual Studio Code---
 .vscode/
+
 
 #---ReSharper---
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+
 
 #---Nuget---
 [Pp]ackages/
@@ -59,17 +62,10 @@ _ReSharper*/
 project.lock.json
 project.assets.json
 
-#---Godot---
-.godot/
-.import/
-export.cfg
-export_presets.cfg
-*.translation
-.mono/
-data_*/
-mono_crash.*.json
-
 #---docfx---
 docs/web/_site/
 docs/web/api/*.yml
 docs/web/api/.manifest
+.mono/
+.godot/
+.import/

@@ -1,11 +1,9 @@
 # Benchmarks
 
-Interactive performance benchmarks and historical regression charts:
+Performance and execution metrics tracked across commits via [BenchmarkDotNet](https://benchmarkdotnet.org/).
 
-<p><a class="btn btn-primary" href="benchmarks/index.html">📊 Open Interactive Benchmark Dashboard</a></p>
+<iframe src="benchmarks/index.html" title="Performance Benchmarks Dashboard" style="width: 100%; height: 750px; border: 1px solid rgba(128,128,128,0.2); border-radius: 8px;"></iframe>
 
----
-
-## Overview
-
-Performance tests and micro-benchmarks are executed via [BenchmarkDotNet](https://benchmarkdotnet.org/) on GitHub Actions to continuously track execution times, memory allocations, and throughput.
+<p class="mt-2">
+  <small>💡 <a href="benchmarks/index.html" target="_blank" rel="noopener noreferrer">Open dashboard in a new tab ↗</a></small>
+</p>
