@@ -17,7 +17,7 @@ jobs:
       configuration: Release
       ref: ${{ inputs.tag || github.ref_name }}
       artifacts: true
-      binaries-path: src/GodotSharpSome.Drawing2D/bin
+      binaries-path: artf/GodotSharpSome.Drawing2D/bin
 
   release:
     needs: build
