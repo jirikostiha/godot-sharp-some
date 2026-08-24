@@ -1,16 +1,13 @@
 name: Auto Approve
 
-on: pull_request_target
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
   auto-approve:
-    runs-on: ubuntu-latest
+    uses: jirikostiha/ci/.github/workflows/auto-approve.yml@v1
     permissions:
       pull-requests: write
-    if: github.actor == 'dependabot[bot]' || github.actor == 'Lint Action'
-
-    steps:
-      - name: Approve
-        uses: hmarr/auto-approve-action@v4
-        with:
-          review-message: "Auto approved"
+    with:
+      actors: "dependabot[bot],github-actions[bot]"

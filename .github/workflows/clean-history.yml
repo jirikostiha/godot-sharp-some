@@ -3,17 +3,10 @@ name: History Cleanup
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: "0 0 * * 1"
 
 jobs:
   cleanup:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Delete workflow logs
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 30
-          keep_minimum_runs: 6
+    uses: jirikostiha/ci/.github/workflows/clean-history.yml@v1
+    permissions:
+      actions: write

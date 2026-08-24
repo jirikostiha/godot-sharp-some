@@ -1,45 +1,28 @@
 name: Build
 
-env:
-  sln-path: "./src/godot sharp some.sln"
-
 on:
   workflow_dispatch:
+    inputs:
+      configuration:
+        description: "Build configuration"
+        type: choice
+        options: [Debug, Release]
+        default: Debug
   push:
     paths:
-      - 'src/**'
-      - '!src/**.sln' # ignore sln changes
+      - "src/**"
+      - "!src/**.sln"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.configuration || 'Debug' }}
+  cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: '7.0.x'
-
-      - name: .NET Info
-        run: dotnet --info
-
-      - name: Restore dependencies
-        run: dotnet restore "${{ env.sln-path }}"
-
-      - name: Build debug
-        run: dotnet build "${{ env.sln-path }}" -c Debug --no-restore
-
-      - name: Test
-        run: dotnet test "${{ env.sln-path }}" --no-build --logger "trx;LogFileName=test-results.trx" || true
-
-      - name: Test Report
-        uses: dorny/test-reporter@v3
-        if: always()
-        with:
-          name: Tests ${{ matrix.dotnet-version }}
-          path: "**/test-results.trx"
-          reporter: dotnet-trx
-          fail-on-error: true
+    uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
+    permissions:
+      contents: read
+      checks: write
+    with:
+      solution: "./src/godot sharp some.sln"
+      configuration: ${{ inputs.configuration || 'Debug' }}
