@@ -1,10 +1,14 @@
 name: Release
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag"
+        required: true
 
 jobs:
   build:
@@ -20,6 +24,24 @@ jobs:
       binaries-path: artf/GodotSharpSome.Drawing2D/bin
       dotnet-version: "8.0.x"
 
+  benchmark:
+    needs: build
+    uses: jirikostiha/ci/.github/workflows/benchmark.yml@v1
+    permissions:
+      contents: write
+      deployments: write
+    with:
+      project: src/quality/GodotSharpSome.Drawing2D.Benchmarks
+      dotnet-version: "8.0.x"
+
+  docs:
+    needs: [build, benchmark]
+    uses: jirikostiha/ci/.github/workflows/docs.yml@v1
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
   release:
     needs: build
     uses: jirikostiha/ci/.github/workflows/gh-release.yml@v1
@@ -27,3 +49,32 @@ jobs:
       contents: write
     with:
       tag: ${{ inputs.tag || github.ref_name }}
+
+  publish:
+    needs: [release, docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Pack
+        run: dotnet pack "./src/godot sharp some.sln" -c Release -o "packages"
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "packages/**/*.nupkg" --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Push to Asset Library
+        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
+        with:
+          username: jiri
+          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
+          assetId: 7436
+          approveDirectly: "true"
+          assetTemplate: .github/asset-template.json.hb
