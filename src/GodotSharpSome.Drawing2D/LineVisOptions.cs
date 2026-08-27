@@ -5,7 +5,7 @@
     /// <summary>
     /// Line visualization options.
     /// </summary>
-    public record LineVisoptions
+    public record LineVisOptions
     {
         public Color Color { get; set; }
 

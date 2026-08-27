@@ -13,8 +13,8 @@
         /// <summary>
         /// Get right-handed normal vector to input vector.
         /// </summary>
-        public static Vector2 RightNormal(this Vector2 vector) => new (vector.y, -vector.x);
-      
+        public static Vector2 RightNormal(this Vector2 vector) => new(vector.y, -vector.x);
+
         /// <summary>
         /// Rotate vectors around center [0,0].
         /// </summary>

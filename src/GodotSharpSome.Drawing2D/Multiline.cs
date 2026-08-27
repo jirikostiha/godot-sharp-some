@@ -1,7 +1,5 @@
 ﻿namespace GodotSharpSome.Drawing2D
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Godot;
@@ -213,9 +211,9 @@
             return this;
         }
 
-        public Multiline AppendCrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        public Multiline AppendCrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirection)
         {
-            AppendCrossedCandlestick(_points, low, lowOffset, high, highOffset, halfWidth, upDirrection);
+            AppendCrossedCandlestick(_points, low, lowOffset, high, highOffset, halfWidth, upDirection);
             return this;
         }
 
@@ -468,10 +466,10 @@
             return points.ToArray();
         }
 
-        public static Vector2[] CrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        public static Vector2[] CrossedCandlestick(Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirection)
         {
             var points = new List<Vector2>(7 * 2);
-            AppendCrossedCandlestick(points, low, lowOffset, high, highOffset, halfWidth, upDirrection);
+            AppendCrossedCandlestick(points, low, lowOffset, high, highOffset, halfWidth, upDirection);
             return points.ToArray();
         }
 
@@ -755,8 +753,8 @@
         public static void AppendAxes(IList<Vector2> points, Vector2 origin, Vector2 xDirection, float xUnitLength, int xUnitCount, float yUnitLength, int yUnitCount,
             float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
         {
-            var xDistances = Enumerable.Range(0, xUnitCount).Select(i => xUnitLength).ToArray();
-            var yDistances = Enumerable.Range(0, yUnitCount).Select(i => yUnitLength).ToArray();
+            var xDistances = Enumerable.Repeat(xUnitLength, xUnitCount).ToArray();
+            var yDistances = Enumerable.Repeat(yUnitLength, yUnitCount).ToArray();
 
             AppendSegmentedArrow(points, origin, xDirection, xDistances, headRadius, arrowAngle);
             AppendSegmentedArrow(points, origin, xDirection.LeftNormal(), yDistances, headRadius, arrowAngle);
@@ -827,7 +825,7 @@
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
         }
 
-        public static void AppendCrossedCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirrection)
+        public static void AppendCrossedCandlestick(IList<Vector2> points, Vector2 low, float lowOffset, Vector2 high, float highOffset, float halfWidth, bool upDirection)
         {
             var dir = low.DirectionTo(high);
             var rectBottom = low + dir * lowOffset;
@@ -835,7 +833,7 @@
             var rectCenter = (rectBottom + rectTop) / 2;
 
             AppendCandlestick(points, low, high, rectBottom, rectCenter, rectTop, halfWidth);
-            if (upDirrection)
+            if (upDirection)
             {
                 AppendLine(points,
                     new Vector2(rectBottom.x - halfWidth, rectBottom.y),
