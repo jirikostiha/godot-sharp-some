@@ -1,12 +1,13 @@
-namespace GodotSharpSome.Drawing2D
-{
-    using System.Diagnostics;
-    using System.Linq;
-    using static Godot.Mathf;
+namespace GodotSharpSome.Drawing2D;
 
-    /// <summary>
-    /// Multiline builder.
-    /// </summary>
+using System;
+using System.Diagnostics;
+using System.Linq;
+using static Godot.Mathf;
+
+/// <summary>
+/// Multiline builder.
+/// </summary>
     [DebuggerDisplay("palette:{_penPalette.Count}, segments:{Segments}, penkey:{PenKey}")]
     public class Multiline
     {
@@ -635,4 +636,3 @@ namespace GodotSharpSome.Drawing2D
 
         public static Multiline operator +(Multiline a, Multiline b) => a.Append(b);
     }
-}

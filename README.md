@@ -1,8 +1,8 @@
-<p align="center">
-  <img src="src/GodotSharpSome.Drawing2D/icon.png" alt="Icon" width="50"/>
-</p>
-
 # Godot Sharp Some
+
+<div align="center">
+  <img src="src/GodotSharpSome.Drawing2D/icon.png" alt="Icon" width="50"/>
+</div>
 
 [![NuGet Downloads](https://img.shields.io/nuget/dt/GodotSharpSome.Drawing2D.svg)](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/)
 ![GitHub repo size](https://img.shields.io/github/repo-size/jirikostiha/godot-sharp-some)
@@ -21,11 +21,15 @@ Full API reference, guides, and performance benchmarks are available on the [Doc
 
 ## Versions
 
-Godot .NET.Sdk | .Net           | Branch  | Version | Nuget (GodotSharpSome.) | Support
-:------------: | :-------------:| :-----: | :-----: | :---------------------- | :------
-4.1            | net8.0         | main    | 0.23.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.23.0) | yes
-4.0            | net6.0         | main    | 0.20.0  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.20.0) | no
-3.3            | netstandard2.0 | sdk_3.3 | 0.19.1  | [Drawing2D](https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.19.1) | bug fixing only
+| Godot .NET.Sdk | .Net           | Branch  | Version | Nuget (GodotSharpSome.) | Support         |
+| :------------: | :------------: | :-----: | :-----: | :---------------------- | :-------------- |
+| 4.1            | net8.0         | main    | 0.23.0  | [Drawing2D][d2d-023]    | yes             |
+| 4.0            | net6.0         | main    | 0.20.0  | [Drawing2D][d2d-020]    | no              |
+| 3.3            | netstandard2.0 | sdk_3.3 | 0.19.1  | [Drawing2D][d2d-019]    | bug fixing only |
+
+[d2d-023]: https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.23.0
+[d2d-020]: https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.20.0
+[d2d-019]: https://www.nuget.org/packages/GodotSharpSome.Drawing2D/0.19.1
 
 ## Features
 
@@ -35,8 +39,8 @@ List of [features](./docs/features.md).
 ![pic](./docs/images/dots_and_lines_animation.gif)
 ![pic](./docs/images/primitives_animation.gif)
 
-Would you like to know [more](./src/GodotSharpSome.Drawing2D/readme.md)
-and [more](./src/usage/)?
+Would you like to know [more about Drawing2D](./src/GodotSharpSome.Drawing2D/readme.md)
+and [see usage examples](./src/usage/)?
 
 ## Setup
 
