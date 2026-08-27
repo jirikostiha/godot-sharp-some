@@ -14,5 +14,6 @@ jobs:
     uses: jirikostiha/ci/.github/workflows/lint-commit.yml@v1
     permissions:
       contents: read
+      pull-requests: read
     with:
       config: .github/commitlint_config.mjs
