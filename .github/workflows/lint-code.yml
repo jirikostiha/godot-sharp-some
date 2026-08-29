@@ -2,7 +2,7 @@ name: Code Lint
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches: [main]
     paths:
       - "**.cs"
