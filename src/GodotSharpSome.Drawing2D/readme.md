@@ -57,7 +57,7 @@ using GodotSharpSome.Drawing2D;
 
 public class ExampleM1 : ColorRect
 {
-    private Vector2[] __vectors = new Vector2[] { new(40, 40), new(70, 60), new(80, 120), new(40, -40), new(0, 30) };
+    private Vector2[] _vectors = new Vector2[] { new(40, 40), new(70, 60), new(80, 120), new(40, -40), new(0, 30) };
 
     public override void _Draw()
     {
