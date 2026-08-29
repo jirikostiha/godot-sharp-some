@@ -20,10 +20,13 @@ All with predefined or custom line types (solid, dotted, dashed, dash-dotted).
 ## Visual Previews
 
 ### Primitives & Shapes
+
 ![Primitives](images/primitives_animation.gif)
 
 ### Dots & Lines
+
 ![Dots and Lines](images/dots_and_lines_animation.gif)
 
 ### Vectors & Connections
+
 ![Vectors](images/vectors_animation.gif)

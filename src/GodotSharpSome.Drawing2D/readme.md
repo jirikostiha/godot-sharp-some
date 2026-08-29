@@ -57,16 +57,16 @@ using GodotSharpSome.Drawing2D;
 
 public class ExampleM1 : ColorRect
 {
-    private _vectors = new Vector2[] { new(40, 40), new(70, 60), new(80, 120), new(40, -40), new(0, 30) };
+    private Vector2[] _vectors = new Vector2[] { new(40, 40), new(70, 60), new(80, 120), new(40, -40), new(0, 30) };
 
     public override void _Draw()
     {
        DrawMultiline(
-            new Multiline().AppendVectorsAbsolutely(new Vector2(100, 100), vectors).Points(),
+            new Multiline().AppendVectorsAbsolutely(new Vector2(100, 100), _vectors).Points(),
             Colors.Gray);
 
         DrawMultiline(
-            new Multiline().AppendVectorsRelatively(new Vector2(300, 300), vectors).Points(),
+            new Multiline().AppendVectorsRelatively(new Vector2(300, 300), _vectors).Points(),
             Colors.Blue);
     }
 }
@@ -96,7 +96,7 @@ public class ExampleM2 : ColorRect
             .SetPen(2)
             .AppendLine(start + Vector2.Down * 60)
             .SetPen(_ddLine)
-            .AppendLine(start);
+            .AppendLine(start)
             .Points();
 
         DrawMultiline(points, Colors.Blue);
