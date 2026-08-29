@@ -1,6 +1,5 @@
-﻿namespace GodotSharpSome.Drawing2D
+namespace GodotSharpSome.Drawing2D
 {
-    using System;
     using System.Diagnostics;
     using System.Linq;
     using static Godot.Mathf;

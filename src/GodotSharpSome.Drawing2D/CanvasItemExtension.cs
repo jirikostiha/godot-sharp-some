@@ -1,4 +1,4 @@
-﻿namespace GodotSharpSome.Drawing2D;
+namespace GodotSharpSome.Drawing2D;
 
 using Godot;
 using System.Linq;
