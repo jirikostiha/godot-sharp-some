@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787588859759,
+  "lastUpdate": 1787992058097,
   "repoUrl": "https://github.com/jirikostiha/godot-sharp-some",
   "entries": {
     "Benchmark.Net": [
@@ -54,6 +54,60 @@ window.BENCHMARK_DATA = {
             "value": 57.04777689861215,
             "unit": "ns",
             "range": "± 1.5298193603769281"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ijkdata@gmail.com",
+            "name": "Jiri Kostiha",
+            "username": "jirikostiha"
+          },
+          "committer": {
+            "email": "ijkdata@gmail.com",
+            "name": "Jiri Kostiha",
+            "username": "jirikostiha"
+          },
+          "distinct": true,
+          "id": "295c93e6feed39ce1af7f12d71fd1200e7644107",
+          "message": "Merge remote-tracking branch 'origin/sdk_3.3'\n\n# Conflicts:\n#\tsrc/GodotSharpSome.Drawing2D/CanvasItemExtension.cs\n#\tsrc/GodotSharpSome.Drawing2D/LineVisOptions.cs\n#\tsrc/GodotSharpSome.Drawing2D/Multiline.cs\n#\tsrc/GodotSharpSome.Drawing2D/Vector2DExtension.cs\n#\tsrc/usage/drawings/Crosses.cs\n#\tsrc/usage/example scripts/LayeredNetwork.cs",
+          "timestamp": "2026-08-29T10:18:57+02:00",
+          "tree_id": "0aa2c7db2cc93e934a4a47e5299eaa871aa6fd38",
+          "url": "https://github.com/jirikostiha/godot-sharp-some/commit/295c93e6feed39ce1af7f12d71fd1200e7644107"
+        },
+        "date": 1787992057392,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefault",
+            "value": 16.003461007475853,
+            "unit": "ns",
+            "range": "± 1.2324806477487613"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultWithList",
+            "value": 10.09764489847071,
+            "unit": "ns",
+            "range": "± 0.6912720711604096"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultWithListAndPalette",
+            "value": 15.794751391266331,
+            "unit": "ns",
+            "range": "± 0.8572158534325188"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultFourLineTypes",
+            "value": 39.659849391264075,
+            "unit": "ns",
+            "range": "± 2.0158545483950645"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateCustomFourLineTypes",
+            "value": 49.97667267042048,
+            "unit": "ns",
+            "range": "± 2.1117467874274496"
           }
         ]
       }
