@@ -25,7 +25,7 @@ public class DashedLineBenchmark
     public void CreateDefaultWithListAndPalette()
     {
         _points.Clear();
-        _dashedLine.AppendLine(_points, Vector2.Zero, new (0, 100));
+        _dashedLine.AppendLine(_points, Vector2.Zero, new(0, 100));
     }
 
     [Benchmark]
