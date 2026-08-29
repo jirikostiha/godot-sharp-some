@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1787992058097,
+  "lastUpdate": 1787993019974,
   "repoUrl": "https://github.com/jirikostiha/godot-sharp-some",
   "entries": {
     "Benchmark.Net": [
@@ -108,6 +108,60 @@ window.BENCHMARK_DATA = {
             "value": 49.97667267042048,
             "unit": "ns",
             "range": "± 2.1117467874274496"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "48102962+jirikostiha@users.noreply.github.com",
+            "name": "jirikostiha",
+            "username": "jirikostiha"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f9ba7f63e9129368bfad742367107580bcf5f2ec",
+          "message": "fix: resolve code and documentation lint issues",
+          "timestamp": "2026-08-29T10:37:00+02:00",
+          "tree_id": "c675d4412758d91f2bc1a5278a7f400031fbb910",
+          "url": "https://github.com/jirikostiha/godot-sharp-some/commit/f9ba7f63e9129368bfad742367107580bcf5f2ec"
+        },
+        "date": 1787993019323,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefault",
+            "value": 15.155509267775518,
+            "unit": "ns",
+            "range": "± 0.7229646192611202"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultWithList",
+            "value": 11.426672624690193,
+            "unit": "ns",
+            "range": "± 0.09665232710423646"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultWithListAndPalette",
+            "value": 15.209446879369873,
+            "unit": "ns",
+            "range": "± 0.21919534773996904"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateDefaultFourLineTypes",
+            "value": 44.70173830986023,
+            "unit": "ns",
+            "range": "± 0.34704561615627"
+          },
+          {
+            "name": "GodotSharpSome.Drawing2D.Benchmarks.MultilineBenchmarks.CreateCustomFourLineTypes",
+            "value": 54.36961633712053,
+            "unit": "ns",
+            "range": "± 1.1248106544227383"
           }
         ]
       }
