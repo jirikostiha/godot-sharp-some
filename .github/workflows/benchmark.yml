@@ -1,12 +1,9 @@
 name: Benchmarks
 
 on:
+  release:
+    types: [published]
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "src/GodotSharpSome.Drawing2D/**"
-      - "!src/**.sln"
 
 concurrency:
   group: ${{ github.workflow }}
