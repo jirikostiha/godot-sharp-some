@@ -29,7 +29,7 @@ public record LineVOptions
     public LineType LineType { get; set; } = LineType.Solid;
 
     /// <summary>
-    /// Weight of the line.
+    /// Width of the line.
     /// </summary>
     public float Width { get; set; } = 1;
 }
