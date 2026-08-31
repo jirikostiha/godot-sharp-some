@@ -1,4 +1,8 @@
 export default {
+    // Dependabot autogenerates "<type>: Bump <dep> from x to y" with a capital "Bump";
+    // its casing is not configurable, so skip those commits. Human commits use a
+    // lowercase "bump" (per the commit-message rules) and stay fully linted.
+    ignores: [(message) => /^[a-z]+(\([^)]+\))?!?: Bump /.test(message)],
     rules: {
         "body-leading-blank": [1, "always"],
         "body-max-line-length": [2, "always", 160],
