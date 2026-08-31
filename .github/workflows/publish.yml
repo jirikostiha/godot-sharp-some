@@ -1,0 +1,60 @@
+name: Publish
+
+env:
+  project-path: "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj"
+  package-dir: "packages"
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag"
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.event.release.tag_name }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Provide Godot API assemblies
+        env:
+          godot-url: "https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_mono_linux_headless_64.zip"
+        run: |
+          wget -q -O godot-mono.zip "${{ env.godot-url }}"
+          unzip -q godot-mono.zip
+          api="Godot_v3.6-stable_mono_linux_headless_64/GodotSharp/Api/Debug"
+          for proj in src/GodotSharpSome.Drawing2D src/usage; do
+            mkdir -p "$proj/.mono/assemblies/Debug"
+            mkdir -p "$proj/.mono/assemblies/Release"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Debug/"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Release/"
+          done
+
+      - name: Pack
+        run: dotnet pack "${{ env.project-path }}" -c Release -o "${{ env.package-dir }}"
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "${{ env.package-dir }}/**/*.nupkg" --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Push to Asset Library
+        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
+        env:
+          VERSION: ${{ inputs.tag || github.event.release.tag_name || github.ref_name }}
+        with:
+          username: jiri
+          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
+          assetId: 7436
+          approveDirectly: "true"
+          assetTemplate: .github/asset-template.json.hb

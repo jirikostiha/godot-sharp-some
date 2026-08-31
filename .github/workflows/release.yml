@@ -1,0 +1,108 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+
+      - name: Setup .NET Core SDK 6.0.x
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Provide Godot API assemblies
+        env:
+          godot-url: "https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_mono_linux_headless_64.zip"
+        run: |
+          wget -q -O godot-mono.zip "${{ env.godot-url }}"
+          unzip -q godot-mono.zip
+          api="Godot_v3.6-stable_mono_linux_headless_64/GodotSharp/Api/Debug"
+          for proj in src/GodotSharpSome.Drawing2D src/usage; do
+            mkdir -p "$proj/.mono/assemblies/Debug"
+            mkdir -p "$proj/.mono/assemblies/Release"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Debug/"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Release/"
+          done
+
+      - name: Build library
+        run: dotnet build "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj" -c Release
+
+      - name: Build examples
+        run: dotnet build "src/usage/GodotSharpSome.Examples.csproj" -c Release
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          name: ${{ inputs.tag || github.ref_name }}
+          prerelease: false
+          draft: false
+          generate_release_notes: true
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Provide Godot API assemblies
+        env:
+          godot-url: "https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_mono_linux_headless_64.zip"
+        run: |
+          wget -q -O godot-mono.zip "${{ env.godot-url }}"
+          unzip -q godot-mono.zip
+          api="Godot_v3.6-stable_mono_linux_headless_64/GodotSharp/Api/Debug"
+          for proj in src/GodotSharpSome.Drawing2D src/usage; do
+            mkdir -p "$proj/.mono/assemblies/Debug"
+            mkdir -p "$proj/.mono/assemblies/Release"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Debug/"
+            cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Release/"
+          done
+
+      - name: Pack
+        run: dotnet pack "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj" -c Release -o "packages"
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "packages/**/*.nupkg" --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Push to Asset Library
+        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
+        env:
+          VERSION: ${{ inputs.tag || github.ref_name }}
+        with:
+          username: jiri
+          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
+          assetId: 7436
+          approveDirectly: "true"
+          assetTemplate: .github/asset-template.json.hb
