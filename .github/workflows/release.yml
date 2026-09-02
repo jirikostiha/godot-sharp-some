@@ -83,21 +83,11 @@ jobs:
 
   asset-library:
     needs: publish
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.tag || github.ref_name }}
-
-      - name: Push to Asset Library
-        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
-        env:
-          VERSION: ${{ inputs.tag || github.ref_name }}
-        with:
-          username: jiri
-          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
-          assetId: 7436
-          approveDirectly: "true"
-          assetTemplate: .github/asset-template.json.hb
+    uses: jirikostiha/ci/.github/workflows/godot-asset-lib.yml@v1
+    with:
+      username: jiri
+      asset-id: "7436"
+      asset-template: .github/asset-template.json.hb
+      ref: ${{ inputs.tag || github.ref_name }}
+    secrets:
+      password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
