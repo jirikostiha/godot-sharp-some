@@ -12,7 +12,6 @@
         <NoWarn>CS1591</NoWarn>
         
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
         <Title>Godot Sharp 2D Drawing Extensions</Title>
         <Description>Set of drawing extensions for Godot engine.</Description>
