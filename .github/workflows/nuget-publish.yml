@@ -1,9 +1,12 @@
-name: Release
+name: Publish
+
+env:
+  project-path: "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj"
+  package-dir: "packages"
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       tag:
@@ -11,7 +14,7 @@ on:
         required: true
 
 jobs:
-  build:
+  pack:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.tag || github.ref_name }}
+          ref: ${{ inputs.tag || github.event.release.tag_name }}
 
-      - name: Setup .NET Core SDK 6.0.x
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "6.0.x"
@@ -41,39 +44,17 @@ jobs:
             cp "$api/GodotSharp.dll" "$api/GodotSharpEditor.dll" "$proj/.mono/assemblies/Release/"
           done
 
-      - name: Build library
-        run: dotnet build "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj" -c Release
-
-      - name: Build examples
-        run: dotnet build "src/usage/GodotSharpSome.Examples.csproj" -c Release
-
       - name: Pack
-        run: dotnet pack "src/GodotSharpSome.Drawing2D/GodotSharpSome.Drawing2D.csproj" -c Release -o "packages"
+        run: dotnet pack "${{ env.project-path }}" -c Release -o "${{ env.package-dir }}"
 
       - name: Upload artifact - packages
         uses: actions/upload-artifact@v7
         with:
           name: packages
-          path: packages
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ inputs.tag || github.ref_name }}
-          name: ${{ inputs.tag || github.ref_name }}
-          prerelease: false
-          draft: false
-          generate_release_notes: true
+          path: ${{ env.package-dir }}
 
   publish:
-    needs: [build, release]
+    needs: pack
     uses: jirikostiha/ci/.github/workflows/nuget-publish.yml@v1
     permissions:
       contents: read
@@ -83,11 +64,11 @@ jobs:
 
   asset-library:
     needs: publish
-    uses: jirikostiha/ci/.github/workflows/godot-asset-lib.yml@v1
+    uses: jirikostiha/ci/.github/workflows/godot-publish.yml@v1
     with:
       username: jiri
       asset-id: "7436"
       asset-template: .github/asset-template.json.hb
-      ref: ${{ inputs.tag || github.ref_name }}
+      ref: ${{ inputs.tag || github.event.release.tag_name }}
     secrets:
       password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
