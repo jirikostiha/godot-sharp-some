@@ -63,7 +63,7 @@ jobs:
       user: jiri
 
   asset-library:
-    needs: pack
+    needs: publish
     runs-on: ubuntu-latest
 
     steps:

@@ -82,7 +82,7 @@ jobs:
       user: jiri
 
   asset-library:
-    needs: release
+    needs: publish
     runs-on: ubuntu-latest
 
     steps:
