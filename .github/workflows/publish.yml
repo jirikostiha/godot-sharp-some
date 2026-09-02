@@ -14,10 +14,9 @@ on:
         required: true
 
 jobs:
-  publish:
+  pack:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # required for NuGet trusted publishing (OIDC)
       contents: read
 
     steps:
@@ -48,14 +47,30 @@ jobs:
       - name: Pack
         run: dotnet pack "${{ env.project-path }}" -c Release -o "${{ env.package-dir }}"
 
-      - name: NuGet login (trusted publishing)
-        id: login
-        uses: NuGet/login@v1
+      - name: Upload artifact - packages
+        uses: actions/upload-artifact@v7
         with:
-          user: jirikostiha # nuget.org account username that owns the trusted publishing policy
+          name: packages
+          path: ${{ env.package-dir }}
 
-      - name: Publish to NuGet
-        run: dotnet nuget push "${{ env.package-dir }}/**/*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+  publish:
+    needs: pack
+    uses: jirikostiha/ci/.github/workflows/nuget-publish.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      user: jiri
+
+  asset-library:
+    needs: pack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.event.release.tag_name }}
 
       - name: Push to Asset Library
         uses: deep-entertainment/godot-asset-lib-action@v0.6.0
