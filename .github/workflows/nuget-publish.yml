@@ -1,0 +1,56 @@
+name: Publish
+
+# Self-contained nuget.org publish (OIDC trusted publishing). Inlined, never a
+# cross-repo reusable: nuget.org binds the OIDC token's repository + job_workflow_ref
+# to the same repo, so the login + push must live here (see ci PIPE-02).
+# Trust policy on nuget.org: owner jirikostiha, this repo, workflow nuget-publish.yml,
+# environment production.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build and publish"
+        required: true
+
+jobs:
+  build:
+    uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
+    permissions:
+      contents: read
+      checks: write
+    with:
+      solution: "./src/godot sharp some.sln"
+      configuration: Release
+      ref: ${{ inputs.tag || github.ref }}
+      artifacts: true
+      binaries-path: artf/GodotSharpSome.Drawing2D/bin
+      dotnet-version: "8.0.x"
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production # matches the nuget.org trust policy (env: production)
+    permissions:
+      contents: read
+      id-token: write # OIDC, no long-lived key
+    steps:
+      - name: Download artifact - packages
+        uses: actions/download-artifact@v8
+        with:
+          name: packages
+          path: packages
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: jiri
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "packages/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

@@ -46,37 +46,26 @@ jobs:
 
   release:
     needs: build
-    uses: jirikostiha/ci/.github/workflows/gh-release.yml@v1
+    uses: jirikostiha/ci/.github/workflows/github-release.yml@v1
     permissions:
       contents: write
     with:
       tag: ${{ inputs.tag || github.ref_name }}
 
   publish:
-    needs: [release, docs]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.tag || github.ref_name }}
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/nuget-publish.yml
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: "8.0.x"
-
-      - name: Pack
-        run: dotnet pack "./src/godot sharp some.sln" -c Release -o "packages"
-
-      - name: Publish to NuGet
-        run: dotnet nuget push "packages/**/*.nupkg" --api-key ${{ secrets.NUGET_AUTH_TOKEN }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Push to Asset Library
-        uses: deep-entertainment/godot-asset-lib-action@v0.6.0
-        with:
-          username: jiri
-          password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
-          assetId: 7436
-          approveDirectly: "true"
-          assetTemplate: .github/asset-template.json.hb
+  asset-library:
+    needs: publish
+    uses: jirikostiha/ci/.github/workflows/godot-publish.yml@v1
+    with:
+      username: jiri
+      asset-id: "7436"
+      asset-template: .github/asset-template.json.hb
+      ref: ${{ inputs.tag || github.ref_name }}
+    secrets:
+      password: ${{ secrets.GODOT_ASSET_STORE_PASSWORD }}
