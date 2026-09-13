@@ -1,23 +1,47 @@
+<#
+.SYNOPSIS
+Removes build output folders.
+
+.DESCRIPTION
+Searches for obj, bin and artf folders recursively under the given root and
+removes them, so the next build starts from a clean state.
+
+.PARAMETER Root
+The directory to search. Defaults to the repository root, independent of the
+current working directory.
+
+.EXAMPLE
+.\Clean-Binaries.ps1
+Removes all build output folders in the repository.
+
+.EXAMPLE
+.\Clean-Binaries.ps1 -WhatIf
+Lists the folders that would be removed without touching them.
+#>
+<#---
+name: Clean-Binaries
+kind: cmd
+description: Removes obj, bin and artf folders so the next build starts clean. Supports -WhatIf.
+profiles: [dotnet]
+version: 2.0
+---#>
 [CmdletBinding(SupportsShouldProcess)]
-param()
+param(
+    [string] $Root = (Join-Path $PSScriptRoot "..")
+)
 
-# Set the path to the upper directory
-$Root = (Get-Item .).Parent.FullName
+. (Join-Path $PSScriptRoot "Common.ps1")
 
-# Find and remove all 'obj' folders
-Get-ChildItem -Path $Root -Recurse -Directory -Filter obj | ForEach-Object {
-    Write-Host "Removing folder: $($_.FullName)" -ForegroundColor Yellow
-    Remove-Item -Force -Recurse -Path $_.FullName
-}
+if ([string]::IsNullOrWhiteSpace($Root)) { $Root = (Join-Path $PSScriptRoot "..") }
 
-# Find and remove all 'bin' folders
-Get-ChildItem -Path $Root -Recurse -Directory -Filter bin | ForEach-Object {
-    Write-Host "Removing folder: $($_.FullName)" -ForegroundColor Yellow
-    Remove-Item -Force -Recurse -Path $_.FullName
-}
+foreach ($name in @("obj", "bin", "artf")) {
+    Write-Host "Searching for '$name' folders under $Root..." -ForegroundColor Magenta
 
-# Find and remove all 'asm' folders
-Get-ChildItem -Path $Root -Recurse -Directory -Filter asm | ForEach-Object {
-    Write-Host "Removing folder: $($_.FullName)" -ForegroundColor Yellow
-    Remove-Item -Force -Recurse -Path $_.FullName
+    Get-ChildItem -LiteralPath $Root -Recurse -Directory -Filter $name -ErrorAction SilentlyContinue |
+        ForEach-Object {
+            if ($PSCmdlet.ShouldProcess($_.FullName, "Remove folder")) {
+                Write-Host "Removing folder: $($_.FullName)" -ForegroundColor Yellow
+                Remove-Item -LiteralPath $_.FullName -Recurse -Force
+            }
+        }
 }
