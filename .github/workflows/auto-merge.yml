@@ -2,7 +2,9 @@ name: Auto Merge
 
 on:
   workflow_run:
-    workflows: [ "Build" ]
+    # Auto Approve runs on every PR; Build is path-filtered and may not run at all.
+    # The reusable workflow waits for every PR check (Build included) before merging.
+    workflows: [ "Auto Approve" ]
     types: [ completed ]
 
 jobs:
@@ -12,5 +14,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: read
+      checks: read
+      statuses: read
     with:
       head-branch: ${{ github.event.workflow_run.head_branch }}
