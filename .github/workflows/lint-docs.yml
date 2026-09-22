@@ -2,16 +2,16 @@ name: Documentation Lint
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-    paths:
-      - 'docs/**'
-      - '**.md'
+  workflow_call: # release gate
+    inputs:
+      ref:
+        type: string
+        default: ""
   pull_request:
-    branches: [ main ]
+    branches: ["release/**"]
     paths:
-      - 'docs/**'
-      - '**.md'
+      - "docs/**"
+      - "**.md"
 
 jobs:
   run-linters:
@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Spellcheck
         uses: rojopolis/spellcheck-github-actions@0.66.0

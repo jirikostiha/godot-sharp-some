@@ -11,7 +11,31 @@ on:
         required: true
 
 jobs:
+  lint-code: # release gate: lint the exact ref being released
+    uses: ./.github/workflows/lint-code.yml
+    permissions:
+      contents: write
+      checks: write
+    with:
+      check-only: true
+      ref: ${{ inputs.tag }}
+
+  lint-docs: # release gate: lint the exact ref being released
+    uses: ./.github/workflows/lint-docs.yml
+    permissions:
+      contents: read
+    with:
+      ref: ${{ inputs.tag }}
+
+  lint-config: # release gate: lint the exact ref being released
+    uses: ./.github/workflows/lint-config.yml
+    permissions:
+      contents: read
+    with:
+      ref: ${{ inputs.tag }}
+
   build:
+    needs: [lint-code, lint-docs, lint-config]
     uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
     permissions:
       contents: read

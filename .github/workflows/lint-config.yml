@@ -2,14 +2,15 @@ name: Configuration Lint
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-    paths:
-      - '**.yml'
+  workflow_call: # release gate
+    inputs:
+      ref:
+        type: string
+        default: ""
   pull_request:
-    branches: [ main ]
+    branches: ["release/**"]
     paths:
-      - '**.yml'
+      - "**.yml"
 
 jobs:
   run-linters:
@@ -19,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Lint yaml
         uses: ibiqlik/action-yamllint@v3
