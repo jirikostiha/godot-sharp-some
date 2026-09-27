@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-    Discovers C# test projects, scans initial test counts, compiles and runs them in parallel,
-    logging build starts, completions, and test execution durations.
+    Discovers C# test projects, scans initial test counts, compiles them one at a time and runs
+    their tests in parallel, logging build starts, completions, and test execution durations.
 .PARAMETER RootPath
     Root directory to scan for test projects (Default: current directory).
 .PARAMETER Configuration
@@ -17,13 +17,20 @@
     from source-level test attributes and do NOT expand data-driven cases
     (e.g. a single [Theory] with multiple [InlineData] rows counts as one).
     Commented-out attributes are ignored.
+
+    Inside a git repository only the projects git tracks or would track are run, so
+    git-ignored copies (for example .claude/worktrees/*) are skipped.
+
+    Works with either dotnet test runner: in Microsoft.Testing.Platform mode (selected by
+    global.json, see Test-MtpTestRunner in Common.ps1) projects are passed with --project
+    and the TRX comes from --report-trx; otherwise the VSTest positional path and trx logger.
 #>
 <#---
 name: Test-Csprojs
 kind: cmd
 description: Discovers C# test projects and runs them in parallel with per-project build and test timing. The default test runner; needs no solution file. Use Test-Sln for solution-level dotnet test.
 profiles: [dotnet]
-version: 2.2.0
+version: 2.2.1
 ---#>
 [CmdletBinding()]
 param(
@@ -63,10 +70,11 @@ $cBlue    = "`e[94m"
 Write-Host "`n${cBold}${cCyan}=== [ C# Test Runner & Parallel Orchestrator ] ===${cReset}"
 Write-Host "${cDim}Scanning for test projects in: $RootPath${cReset}"
 
-# 1. Discover test projects
-$projectFiles = Get-ChildItem -Path $RootPath -Filter *.csproj -Recurse -File | Where-Object {
-    $_.FullName -notmatch '[\\/](obj|bin|\.git)[\\/]'
-}
+$resolvedRoot = (Resolve-Path $RootPath).Path.TrimEnd('\', '/')
+
+# 1. Discover test projects. Git-ignored copies such as .claude/worktrees/* are skipped:
+# they double the projects and lock each other's build outputs.
+$projectFiles = @(Get-RepositoryFile -Extension ".csproj" -Root $resolvedRoot)
 
 # A project is considered a test project when it references any known test SDK,
 # framework or adapter, either via <PackageReference> or <ProjectReference>.
@@ -95,12 +103,11 @@ $testProjects = @(foreach ($proj in $projectFiles) {
 $totalProjects = @($testProjects).Count
 if ($totalProjects -eq 0) {
     Write-Host "${cYellow}No test projects found.${cReset}`n"
-    return
+    exit 0
 }
 
 # --- LIST DISCOVERED TEST PROJECTS WITH ESTIMATED TEST COUNTS ---
 Write-Host "`n${cBold}--- DISCOVERED TEST PROJECTS ($totalProjects) ---${cReset}"
-$resolvedRoot = (Resolve-Path $RootPath).Path.TrimEnd('\', '/')
 for ($i = 0; $i -lt $totalProjects; $i++) {
     $proj = $testProjects[$i]
     $projDir = $proj.DirectoryName
@@ -136,6 +143,10 @@ $null = New-Item -ItemType Directory -Path $tempResultsDir -Force
 # Verbose detection via the shared helper, so this matches Test-Sln and the rest.
 $isVerbose = Test-VerboseRequested
 
+# dotnet test picks its runner from the global.json nearest its working directory, so
+# every dotnet process below runs from the root the runner is detected for.
+$isMtp = Test-MtpTestRunner -Path $resolvedRoot
+
 # Thread-safe shared state
 $syncState = [hashtable]::Synchronized(@{
     StartedBuilds  = 0
@@ -144,6 +155,9 @@ $syncState = [hashtable]::Synchronized(@{
     TotalCount     = $totalProjects
     IsCancelled    = $false
     RunningPids    = [System.Collections.Generic.List[int]]::new()
+    # Builds run one at a time: test projects share ProjectReferences, and concurrent
+    # builds of the same project race on its obj output (CS2012). Tests stay parallel.
+    BuildLock      = [object]::new()
 })
 
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
@@ -158,6 +172,8 @@ try {
         $verbose        = $using:isVerbose
         $totalProjCount = $using:totalProjects
         $timeoutSec     = $using:TimeoutSec
+        $isMtp          = $using:isMtp
+        $workDir        = $using:resolvedRoot
 
         $cReset     = "`e[0m"
         $cRed       = "`e[91m"
@@ -173,7 +189,7 @@ try {
         # enforcing an optional per-phase timeout (in seconds; 0 = wait forever).
         # Returns a hashtable: ExitCode, StdOut, StdErr, TimedOut, Cancelled.
         function Invoke-ProcessWithTimeout {
-            param($Arguments, $SharedState, $TimeoutSeconds)
+            param($Arguments, $SharedState, $TimeoutSeconds, $WorkingDirectory)
 
             $psi = New-Object System.Diagnostics.ProcessStartInfo
             $psi.FileName               = "dotnet"
@@ -182,6 +198,7 @@ try {
             $psi.RedirectStandardError  = $true
             $psi.UseShellExecute        = $false
             $psi.CreateNoWindow         = $true
+            $psi.WorkingDirectory       = $WorkingDirectory
 
             $proc = [System.Diagnostics.Process]::Start($psi)
 
@@ -236,28 +253,29 @@ try {
         $trxPath     = Join-Path $tempDir $trxName
         $threadBadge = "${cMagenta}[T#$threadId]${cReset}"
 
-        # --- NOTIFY: BUILD STARTED ---
-        [System.Threading.Monitor]::Enter($state.SyncRoot)
+        # Held from the build-start notice to the end of the build, so the reported
+        # timings cover this project's own build rather than the wait for the lock.
+        [System.Threading.Monitor]::Enter($state.BuildLock)
         try {
-            $state.StartedBuilds++
-            $currentStarted = $state.StartedBuilds
+            # --- NOTIFY: BUILD STARTED --- (the build lock already serializes this counter)
+            $currentStarted = ++$state.StartedBuilds
+
+            $buildStartHeader = '[{0,2}/{1,2}]' -f $currentStarted, $totalProjCount
+            [Console]::WriteLine("$cDim$buildStartHeader$cReset ${cYellow}[BUILDING]${cReset} $threadBadge ${cWhite}$($proj.BaseName)${cReset} ${cDim}(compiling...)${cReset}")
+
+            $overallTimer = [System.Diagnostics.Stopwatch]::StartNew()
+
+            # ----------------------------------------------------
+            # STEP 1: EXPLICIT BUILD STEP
+            # ----------------------------------------------------
+            $buildTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            $buildArgs  = "build `"$($proj.FullName)`" -c $configuration --nologo -v quiet -clp:NoSummary"
+            $buildRun   = Invoke-ProcessWithTimeout -Arguments $buildArgs -SharedState $state -TimeoutSeconds $timeoutSec -WorkingDirectory $workDir
+            $buildTimer.Stop()
         }
         finally {
-            [System.Threading.Monitor]::Exit($state.SyncRoot)
+            [System.Threading.Monitor]::Exit($state.BuildLock)
         }
-
-        $buildStartHeader = '[{0,2}/{1,2}]' -f $currentStarted, $totalProjCount
-        [Console]::WriteLine("$cDim$buildStartHeader$cReset ${cYellow}[BUILDING]${cReset} $threadBadge ${cWhite}$($proj.BaseName)${cReset} ${cDim}(compiling...)${cReset}")
-
-        $overallTimer = [System.Diagnostics.Stopwatch]::StartNew()
-
-        # ----------------------------------------------------
-        # STEP 1: EXPLICIT BUILD STEP
-        # ----------------------------------------------------
-        $buildTimer = [System.Diagnostics.Stopwatch]::StartNew()
-        $buildArgs  = "build `"$($proj.FullName)`" -c $configuration --nologo -v quiet -clp:NoSummary"
-        $buildRun   = Invoke-ProcessWithTimeout -Arguments $buildArgs -SharedState $state -TimeoutSeconds $timeoutSec
-        $buildTimer.Stop()
 
         if ($buildRun.Cancelled -or $state.IsCancelled) { return }
 
@@ -348,8 +366,12 @@ try {
         # STEP 2: TEST EXECUTION (--no-build)
         # ----------------------------------------------------
         $testTimer = [System.Diagnostics.Stopwatch]::StartNew()
-        $testArgsBase = "test `"$($proj.FullName)`" -c $configuration --nologo -v quiet --logger `"trx;LogFileName=$trxName`" --results-directory `"$tempDir`""
-        $testRun = Invoke-ProcessWithTimeout -Arguments "$testArgsBase --no-build" -SharedState $state -TimeoutSeconds $timeoutSec
+        # MTP mode takes --project and --report-trx, and forwards options it does not know
+        # (such as --nologo) to the test application, which then runs nothing.
+        $target = if ($isMtp) { "--project `"$($proj.FullName)`"" } else { "`"$($proj.FullName)`" --nologo" }
+        $trx    = if ($isMtp) { "--report-trx --report-trx-filename `"$trxName`"" } else { "--logger `"trx;LogFileName=$trxName`"" }
+        $testArgsBase = "test $target -c $configuration -v quiet $trx --results-directory `"$tempDir`""
+        $testRun = Invoke-ProcessWithTimeout -Arguments "$testArgsBase --no-build" -SharedState $state -TimeoutSeconds $timeoutSec -WorkingDirectory $workDir
 
         if ($testRun.Cancelled -or $state.IsCancelled) { return }
 
@@ -357,7 +379,14 @@ try {
         # no produced TRX. Retry once WITH a build so results are not silently lost.
         if (-not $testRun.TimedOut -and $testRun.ExitCode -ne 0 -and -not (Test-Path $trxPath)) {
             [Console]::WriteLine("$cDim[  retry ]$cReset ${cYellow}[RE-RUN]${cReset}   $threadBadge ${cWhite}$($proj.BaseName)${cReset} ${cDim}(--no-build failed, retrying with build...)${cReset}")
-            $testRun = Invoke-ProcessWithTimeout -Arguments $testArgsBase -SharedState $state -TimeoutSeconds $timeoutSec
+            # This run builds too, so it takes the build lock like step 1.
+            [System.Threading.Monitor]::Enter($state.BuildLock)
+            try {
+                $testRun = Invoke-ProcessWithTimeout -Arguments $testArgsBase -SharedState $state -TimeoutSeconds $timeoutSec -WorkingDirectory $workDir
+            }
+            finally {
+                [System.Threading.Monitor]::Exit($state.BuildLock)
+            }
             if ($testRun.Cancelled -or $state.IsCancelled) { return }
         }
 
@@ -681,3 +710,7 @@ finally {
         Remove-Item -Path $tempResultsDir -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
+
+# Explicit, so a native command's leftover exit code (such as git's during discovery)
+# never becomes this script's result.
+exit 0

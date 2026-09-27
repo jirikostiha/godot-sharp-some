@@ -14,13 +14,16 @@ Orchestrates the existing scripts in this folder in one pass:
   4. The product version is set from the branch type (see below).
   5. Commit-Version.ps1 commits the version file.
   6. Tag-Commit.ps1 tags the commit.
-  7. The branch and the tags are pushed.
+  7. The branch and the tags are pushed, and main too when the release was cut from it.
+     A push that fails - an unreachable remote, for example - does not stop the run:
+     every local step is kept, the remaining pushes are still tried, the failed ones are
+     listed as commands to retry, and the script exits with code 7 (Git).
 
 Version rules by branch:
 
   -Version            Sets the numeric part outright; the suffix still follows the
                       rules below.
-  rel/* or release/*  The suffix is empty (a clean release). The patch part is
+  rel/* or release/*  The suffix is empty (a clean release; dev below 1.0). The patch part is
                       raised until the version outranks every version tag reachable
                       from HEAD, so a fresh release branch keeps its prefix and a
                       re-run moves to the next patch.
@@ -28,11 +31,19 @@ Version rules by branch:
                       version is above the last release tag and above every
                       version tag reachable from HEAD.
 
-On main the run does not build a dev version: it cuts a release. rel/X.Y is opened at
-the current commit, with X.Y taken from -Version or, without it, from the minor main
-carries, and the release then proceeds on that branch. When rel/X.Y already exists main
-still holds a version that has been taken, so main is first advanced one minor with -dev
-(reusing Bump-Version and Commit-Version) and rel/(X.Y+1) is cut instead.
+On main the run does not build a dev version: it cuts a release. Steps 1-3 run on main
+first, so a failing build, test or lint leaves no branch and no version bump behind, and
+any lint fixes are committed to main. rel/X.Y is then opened at that commit, with X.Y
+taken from -Version or, without it, from the minor main carries, and the release proceeds
+on that branch. When rel/X.Y already exists main still holds a version that has been
+taken, so main is first advanced one minor with -dev (reusing Bump-Version and
+Commit-Version) and rel/(X.Y+1) is cut instead.
+
+Below 1.0 (major 0) there is no release branch and no clean release. The version is always
+suffixed dev, on any branch; on main the run stays on main, bumps the version by the rules of
+"anything else" above and tags it, so v0.6.0-dev is followed by v0.7.0-dev. Whether the
+release is below 1.0 is judged from -Version when it is given, otherwise from the version
+main carries, so -Version 1.0.0 on main carrying 0.9.0-dev cuts rel/1.0 as usual.
 
 The version is read from <repo root>\product_version.props. When that file does
 not exist, the projects listed in the solution are searched instead and every
@@ -90,7 +101,7 @@ name: Publish-Release
 kind: cmd
 description: Runs the release pipeline end to end - build, test, lint, version bump by branch type, commit, tag and push. Use to cut a release.
 profiles: [dotnet]
-version: 3.1.0
+version: 3.3.1
 ---#>
 [CmdletBinding(SupportsShouldProcess)]
 param(
@@ -549,8 +560,9 @@ function Get-TargetVersion {
             if ($branchVersion -gt $prefix) { $prefix = $branchVersion }
         }
 
-        # A release branch always ships a clean, unsuffixed release.
-        $suffix = ""
+        # A release branch ships a clean, unsuffixed release - except below 1.0, where every
+        # version stays dev.
+        $suffix = if ($prefix.Major -eq 0) { "dev" } else { "" }
 
         $nextPrefix = { param($p) [version] ("{0}.{1}.{2}" -f $p.Major, $p.Minor, ($p.Build + 1)) }
     }
@@ -665,7 +677,41 @@ function Test-BranchExists {
     if (@(Invoke-Git -Arguments "branch", "--remotes", "--list", ("origin/{0}" -f $Name) | Where-Object { $_ }).Count -gt 0) { return $true }
 
     $remote = @(Invoke-Git -Arguments "ls-remote", "--heads", "origin", $Name -AllowFailure | Where-Object { $_ })
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning ("The remote could not be checked for {0} (git exit code: {1}); relying on local refs only." -f $Name, $LASTEXITCODE)
+        return $false
+    }
     return $remote.Count -gt 0
+}
+
+function Invoke-GitPush {
+    <#
+    .SYNOPSIS
+    Pushes to the remote and reports a failure as a warning instead of throwing.
+
+    .DESCRIPTION
+    Everything before the push is local and already done, so an unreachable remote must
+    not throw it away. Returns $true when the push succeeded and $false otherwise, so the
+    caller can list the failed push for a retry.
+
+    .PARAMETER Arguments
+    The arguments after "git push", one array element per argument.
+
+    .EXAMPLE
+    Invoke-GitPush -Arguments "origin", "--tags"
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string[]] $Arguments
+    )
+
+    $output = @(Invoke-Git -Arguments (@("push") + $Arguments) -AllowFailure)
+    if ($LASTEXITCODE -eq 0) { return $true }
+
+    Write-Warning ("git push {0} failed (exit code: {1}).{2}{3}" -f ($Arguments -join " "), $LASTEXITCODE, [Environment]::NewLine, ($output -join [Environment]::NewLine))
+    return $false
 }
 
 function Save-WorkingTreeChange {
@@ -792,46 +838,24 @@ try {
     Write-Verbose ("Version file(s): {0}" -f ($carriers -join ", "))
 
     # Publishing a release from main means cutting a release branch, not building a dev
-    # version: rel/X.Y is opened at the current commit for the version main carries. When
-    # that branch already exists main still holds a version that has been taken, so main is
-    # advanced one minor (kept -dev) and the next line is cut instead. A release branch and
-    # any other branch fall through unchanged (clean release / dev build). Each git-state
-    # change reuses an existing script (COD-10): Bump-Version advances main, Commit-Version
-    # commits that bump.
-    $createdReleaseBranch = $false
+    # version. The release line is settled here, before the build, so a refused -Version
+    # fails fast; the branch itself is cut only after build, test and lint have passed, so
+    # a failing check leaves main without a stray branch or version bump. Below 1.0 nothing
+    # is branched off: the run stays on main, which is bumped and tagged as a dev version.
+    $cutReleaseBranch = $false
+    $advanceMain = $false
     if ($branch -eq "main") {
-        Write-Step "Release branch"
         $line = Get-ReleaseLine -Current $current -Version $Version
-        $relBranch = "rel/{0}.{1}" -f $line.Major, $line.Minor
-
-        if (Test-BranchExists -Name $relBranch) {
-            if (-not [string]::IsNullOrWhiteSpace($Version)) {
-                throw ("Release branch '{0}' already exists; release on it, or pass a different -Version." -f $relBranch)
-            }
-
-            Write-Host ("  {0} exists; main still carries that version. Advancing main one minor." -f $relBranch) -ForegroundColor Yellow
-            foreach ($carrier in $carriers) {
-                & (Join-Path $PSScriptRoot "Bump-Version.ps1") -VersionFile $carrier -Minor -Suffix dev -Confirm:$false
-            }
-            foreach ($carrier in @($carriers | Select-Object -Skip 1)) {
-                if ($PSCmdlet.ShouldProcess($carrier, "git add")) { Invoke-Git -Arguments "add", "--", $carrier | Out-Null }
-            }
-            & (Join-Path $PSScriptRoot "Commit-Version.ps1") -VersionFile $carriers[0] -NoPush:$NoPush
-
-            $current = Get-ProductVersion -Path $carriers[0]
-            $advanced = ConvertTo-ThreePartVersion $current.Prefix
-            $relBranch = "rel/{0}.{1}" -f $advanced.Major, $advanced.Minor
+        if ($line.Major -gt 0) {
+            $cutReleaseBranch = $true
+            $relBranch = "rel/{0}.{1}" -f $line.Major, $line.Minor
             if (Test-BranchExists -Name $relBranch) {
-                throw ("The advanced release branch '{0}' also exists; resolve the release branches manually." -f $relBranch)
+                if (-not [string]::IsNullOrWhiteSpace($Version)) {
+                    throw ("Release branch '{0}' already exists; release on it, or pass a different -Version." -f $relBranch)
+                }
+                $advanceMain = $true
             }
         }
-
-        if ($PSCmdlet.ShouldProcess($relBranch, "git checkout -b at the current commit")) {
-            Invoke-Git -Arguments "checkout", "-b", $relBranch | Out-Null
-            $createdReleaseBranch = $true
-        }
-        Write-Host ("  Release branch: {0} (cut from main at the current commit)." -f $relBranch) -ForegroundColor Green
-        $branch = $relBranch
     }
 
     Write-Step "1/7 Build and test"
@@ -870,6 +894,61 @@ try {
     Invoke-OtherLint
     Save-WorkingTreeChange -Message "style: apply lint fixes" | Out-Null
 
+    # rel/X.Y is opened at the checked commit, so any lint fixes land on main as well. When
+    # that branch already exists main still holds a version that has been taken, so main is
+    # advanced one minor (kept -dev) and the next line is cut instead. Each git-state change
+    # reuses an existing script (COD-10): Bump-Version advances main, Commit-Version commits
+    # that bump. The bump is pushed with everything else in step 7, so an unreachable remote
+    # cannot stop the run halfway.
+    $createdReleaseBranch = $false
+    if ($branch -eq "main") {
+        Write-Step "Release branch"
+    }
+
+    if ($branch -eq "main" -and -not $cutReleaseBranch) {
+        Write-Host ("  {0}.{1} is below 1.0: no release branch; main is bumped and tagged as a dev version." -f $line.Major, $line.Minor) -ForegroundColor Yellow
+    }
+    elseif ($cutReleaseBranch) {
+        if ($advanceMain) {
+            Write-Host ("  {0} exists; main still carries that version. Advancing main one minor." -f $relBranch) -ForegroundColor Yellow
+            foreach ($carrier in $carriers) {
+                & (Join-Path $PSScriptRoot "Bump-Version.ps1") -VersionFile $carrier -Minor -Suffix dev -Confirm:$false
+            }
+            foreach ($carrier in @($carriers | Select-Object -Skip 1)) {
+                if ($PSCmdlet.ShouldProcess($carrier, "git add")) { Invoke-Git -Arguments "add", "--", $carrier | Out-Null }
+            }
+            & (Join-Path $PSScriptRoot "Commit-Version.ps1") -VersionFile $carriers[0] -NoPush
+
+            # Under -WhatIf the bump above only reported itself, so re-reading the file would
+            # return the taken version; the advance is derived the way Bump-Version -Minor does it.
+            if ($WhatIfPreference) {
+                $prefix = [version] ("{0}.{1}.0" -f $line.Major, ($line.Minor + 1))
+                $current = [pscustomobject]@{
+                    Path    = $current.Path
+                    Prefix  = $prefix
+                    Suffix  = "dev"
+                    Style   = $current.Style
+                    Display = "$prefix-dev"
+                }
+            }
+            else {
+                $current = Get-ProductVersion -Path $carriers[0]
+            }
+            $advanced = ConvertTo-ThreePartVersion $current.Prefix
+            $relBranch = "rel/{0}.{1}" -f $advanced.Major, $advanced.Minor
+            if (Test-BranchExists -Name $relBranch) {
+                throw ("The advanced release branch '{0}' also exists; resolve the release branches manually." -f $relBranch)
+            }
+        }
+
+        if ($PSCmdlet.ShouldProcess($relBranch, "git checkout -b at the current commit")) {
+            Invoke-Git -Arguments "checkout", "-b", $relBranch | Out-Null
+            $createdReleaseBranch = $true
+        }
+        Write-Host ("  Release branch: {0} (cut from main at the current commit)." -f $relBranch) -ForegroundColor Green
+        $branch = $relBranch
+    }
+
     Write-Step "4/7 Version"
     $target = Get-TargetVersion -Branch $branch -Current $current -Version $Version
     Write-Host ("  {0} -> {1}" -f $current.Display, $target.Display) -ForegroundColor Yellow
@@ -903,24 +982,39 @@ try {
     & (Join-Path $PSScriptRoot "Tag-Commit.ps1") -VersionFile $carriers[0] -NoPush
 
     Write-Step "7/7 Push"
+    $pushes = [System.Collections.Generic.List[string[]]]::new()
+    # A release cut from main also pushes main: it may carry the version advance.
+    if ($createdReleaseBranch) { $pushes.Add(@("origin", "main")) }
+    # --set-upstream always: a release branch cut on a run whose push failed has no upstream yet.
+    $pushes.Add(@("--set-upstream", "origin", $branch))
+    $pushes.Add(@("origin", "--tags"))
+
+    $pending = [System.Collections.Generic.List[string[]]]::new()
+    $pushFailed = $false
     if ($NoPush) {
         Write-Host ("  -NoPush: the branch and the tag {0} stay local." -f $target.Tag) -ForegroundColor Yellow
+        $pending.AddRange($pushes)
     }
     elseif ($PSCmdlet.ShouldProcess(("{0} and tag {1}" -f $branch, $target.Tag), "git push")) {
-        # A freshly cut release branch has no upstream yet; set one on the first push.
-        if ($createdReleaseBranch) {
-            Invoke-Git -Arguments "push", "--set-upstream", "origin", $branch | Out-Null
+        # Each push is tried even when an earlier one failed; the failed ones are retried by hand.
+        foreach ($push in $pushes) {
+            if (-not (Invoke-GitPush -Arguments $push)) { $pending.Add($push) }
         }
-        else {
-            Invoke-Git -Arguments "push" | Out-Null
-        }
-        Invoke-Git -Arguments "push", "origin", "--tags" | Out-Null
-        Write-Host "  Pushed." -ForegroundColor Green
+        $pushFailed = $pending.Count -gt 0
+        if (-not $pushFailed) { Write-Host "  Pushed." -ForegroundColor Green }
     }
 
     Write-Host ""
-    Write-Host ("Released {0} on {1} as tag {2}." -f $target.Display, $branch, $target.Tag) -ForegroundColor Green
+    if ($pending.Count -eq 0) {
+        Write-Host ("Released {0} on {1} as tag {2}." -f $target.Display, $branch, $target.Tag) -ForegroundColor Green
+    }
+    else {
+        Write-Host ("Released {0} on {1} as tag {2} locally. To publish it, run:" -f $target.Display, $branch, $target.Tag) -ForegroundColor Yellow
+        $pending | ForEach-Object { Write-Host ("  git push {0}" -f ($_ -join " ")) -ForegroundColor Yellow }
+    }
 }
 finally {
     Pop-Location
 }
+
+if ($pushFailed) { exit (Get-AiKitExitCode Git) }

@@ -28,9 +28,11 @@ name: Build-Sln
 kind: cmd
 description: Builds the repository solution with dotnet build. Use to compile the whole repository locally.
 profiles: [dotnet]
-version: 2.2.0
+version: 2.3.0
 ---#>
-[CmdletBinding()]
+# PositionalBinding off: -Configuration and -Solution bind only by name, so a bare
+# argument such as --no-build reaches $AdditionalArgs instead of a parameter slot.
+[CmdletBinding(PositionalBinding = $false)]
 param(
     [string] $Configuration = "Debug",
     [string] $Solution,

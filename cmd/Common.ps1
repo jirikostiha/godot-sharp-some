@@ -16,6 +16,8 @@ Provided helpers:
 - Get-VersionFile      Resolves the file that carries the product version.
 - Get-ProductVersion   Reads the version prefix and suffix from that file.
 - Set-ProductVersion   Writes the version prefix and suffix back.
+- Read-JsonFile        Reads an optional JSON file, or nothing when it cannot.
+- Test-MtpTestRunner   Tells whether dotnet test runs in Microsoft.Testing.Platform mode.
 
 A repository may add its own helpers in Common.local.ps1 beside this file; it is
 dot-sourced at the end if present. Put repository-specific functions there, not
@@ -30,7 +32,7 @@ Write-Host ("Building {0}" -f (Get-Hyperlink -Path $slnPath))
 name: Common
 kind: cmd
 description: Shared helpers dot-sourced by the other scripts in cmd.
-version: 2.4.0
+version: 2.5.2
 ---#>
 
 # Note: this file is dot-sourced, so it runs in the caller's scope. It therefore
@@ -200,26 +202,47 @@ function Get-RepositoryConfig {
     [OutputType([hashtable])]
     param()
 
-    $empty = @{}
-    $configPath = Join-Path (Get-RepositoryRoot) ".aikit.json"
-    if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) { return $empty }
+    $parsed = Read-JsonFile -Path (Join-Path (Get-RepositoryRoot) ".aikit.json")
+    if (-not $parsed -or -not $parsed.PSObject.Properties["repo"] -or -not $parsed.repo) { return @{} }
+
+    $result = @{}
+    foreach ($property in $parsed.repo.PSObject.Properties) {
+        $result[$property.Name] = $property.Value
+    }
+    return $result
+}
+
+function Read-JsonFile {
+    <#
+    .SYNOPSIS
+    Reads a JSON file, or returns nothing when it is missing, empty or unreadable.
+
+    .DESCRIPTION
+    For optional configuration whose callers all have a fallback, so a bad file is
+    not an error; the reason it could not be read goes to the verbose stream.
+
+    .PARAMETER Path
+    The JSON file to read.
+
+    .EXAMPLE
+    $globalJson = Read-JsonFile -Path "global.json"
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
 
     try {
-        $json = Get-Content -LiteralPath $configPath -Raw -ErrorAction Stop
-        if ([string]::IsNullOrWhiteSpace($json)) { return $empty }
-
-        $parsed = $json | ConvertFrom-Json -ErrorAction Stop
-        if ($parsed.PSObject.Properties.Name -notcontains "repo") { return $empty }
-
-        $result = @{}
-        foreach ($property in $parsed.repo.PSObject.Properties) {
-            $result[$property.Name] = $property.Value
-        }
-        return $result
+        $json = Get-Content -LiteralPath $Path -Raw -ErrorAction Stop
+        if ([string]::IsNullOrWhiteSpace($json)) { return $null }
+        return $json | ConvertFrom-Json -ErrorAction Stop
     }
     catch {
-        Write-Verbose ("Cannot read '{0}': {1}" -f $configPath, $_.Exception.Message)
-        return $empty
+        Write-Verbose ("Cannot read '{0}': {1}" -f $Path, $_.Exception.Message)
+        return $null
     }
 }
 
@@ -229,12 +252,18 @@ function Get-RepositoryFile {
     Enumerates repository files with the given extensions, skipping generated folders.
 
     .DESCRIPTION
-    Shared by solution and version discovery. The exclusions matter more than they
-    look: .vs holds a copy of the solution under its own name, and bin and obj hold
-    copies of project files, so searching without them finds the wrong file first.
+    Shared by solution, version and test project discovery. Inside git, only files git
+    tracks or would track are candidates, so git-ignored copies (for example
+    .claude/worktrees/*) never count; outside git, the folder is scanned. Either way
+    the excluded folders are skipped, and they matter more than they look: .vs holds a
+    copy of the solution under its own name, and bin and obj hold copies of project
+    files, so searching without them finds the wrong file first.
 
     .PARAMETER Extension
     The extensions to accept, including the leading dot.
+
+    .PARAMETER Root
+    The folder to search. Defaults to the repository root.
 
     .EXAMPLE
     Get-RepositoryFile -Extension ".slnx", ".sln"
@@ -243,13 +272,46 @@ function Get-RepositoryFile {
     [OutputType([System.IO.FileInfo])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $Extension
+        [string[]] $Extension,
+
+        [string] $Root = (Get-RepositoryRoot)
     )
 
-    $root = Get-RepositoryRoot
+    $root = (Get-Item -LiteralPath $Root -ErrorAction Stop).FullName
     $excluded = @(".vs", ".git", ".ai", "bin", "obj", "artf", "node_modules", "worktrees", "packages")
 
-    Get-ChildItem -LiteralPath $root -Recurse -File -ErrorAction SilentlyContinue |
+    $gitListing = $null
+    if (Get-Command git -CommandType Application -ErrorAction SilentlyContinue) {
+        # Read as UTF-8, which git writes paths in: decoded with the console code page,
+        # non-ASCII names would be mangled and then dropped by Get-Item below. A process
+        # rather than the call operator, since setting the console encoding fails where
+        # there is no console.
+        $gitInfo = [System.Diagnostics.ProcessStartInfo]::new("git")
+        foreach ($argument in @("-C", $root, "ls-files", "-z", "--cached", "--others", "--exclude-standard", "--") + @($Extension | ForEach-Object { ":(icase)*$_" })) {
+            $gitInfo.ArgumentList.Add($argument)
+        }
+        $gitInfo.RedirectStandardOutput = $true
+        $gitInfo.RedirectStandardError = $true
+        $gitInfo.StandardOutputEncoding = [System.Text.UTF8Encoding]::new($false)
+        $gitInfo.UseShellExecute = $false
+
+        # "Not a git repository" is a normal outcome here: its stderr is drained, not shown.
+        $git = [System.Diagnostics.Process]::Start($gitInfo)
+        $null = $git.StandardError.ReadToEndAsync()
+        $gitOutput = $git.StandardOutput.ReadToEnd()
+        $git.WaitForExit()
+        if ($git.ExitCode -eq 0) { $gitListing = $gitOutput }
+    }
+
+    $files = if ($null -ne $gitListing) {
+        $gitListing -split "`0" | Where-Object { $_ } |
+            ForEach-Object { Get-Item -LiteralPath (Join-Path $root $_) -ErrorAction Ignore }
+    }
+    else {
+        Get-ChildItem -LiteralPath $root -Recurse -File -ErrorAction SilentlyContinue
+    }
+
+    $files |
         Where-Object { $_.Extension -in $Extension } |
         Where-Object {
             $relative = [IO.Path]::GetRelativePath($root, $_.DirectoryName)
@@ -539,7 +601,11 @@ function Set-ProductVersion {
 
     $current = Get-ProductVersion -Path $Path
     $file = $current.Path
-    $xml = [xml](Get-Content -LiteralPath $file -Raw -ErrorAction Stop)
+    # Preserving whitespace keeps the file's own layout; without it Save re-indents
+    # and splits an emptied VersionSuffix over two lines.
+    $xml = [xml]::new()
+    $xml.PreserveWhitespace = $true
+    $xml.LoadXml((Get-Content -LiteralPath $file -Raw -ErrorAction Stop))
 
     if (-not $PSCmdlet.ShouldProcess($file, ("Set version to {0}" -f $Prefix))) { return }
 
@@ -569,8 +635,12 @@ function Set-ProductVersion {
         if ($null -eq $suffixNode) {
             if ($Suffix) {
                 $suffixNode = $xml.CreateElement("VersionSuffix")
-                $owner.AppendChild($suffixNode) | Out-Null
                 $suffixNode.InnerText = $Suffix
+                $owner.InsertAfter($suffixNode, $prefixNode) | Out-Null
+                $indent = $prefixNode.PreviousSibling
+                if ($null -ne $indent -and $indent.NodeType -eq [System.Xml.XmlNodeType]::Whitespace) {
+                    $owner.InsertAfter($xml.CreateWhitespace($indent.Value), $prefixNode) | Out-Null
+                }
             }
         }
         else {
@@ -610,6 +680,57 @@ function Resolve-SolutionPath {
     }
 
     try { return Get-SolutionPath } catch { return $null }
+}
+
+function Test-MtpTestRunner {
+    <#
+    .SYNOPSIS
+    Tells whether dotnet test runs in Microsoft.Testing.Platform (MTP) mode.
+
+    .DESCRIPTION
+    From the .NET 10 SDK, dotnet test selects its runner from "test.runner" in the
+    global.json nearest to the working directory; a recognised DOTNET_TEST_RUNNER
+    environment variable (.NET 11 and later) overrides it. The two modes take
+    different arguments (MTP: --solution, --project, --report-trx; VSTest: a
+    positional path, --logger), so callers build their arguments from this.
+
+    Mirrors the SDK: the first global.json found walking up from -Path decides, and
+    no selection means VSTest.
+
+    .PARAMETER Path
+    The folder dotnet test runs from, or a file in it. Defaults to the repository root.
+
+    .EXAMPLE
+    if (Test-MtpTestRunner) { "dotnet test --solution x.slnx" } else { "dotnet test x.slnx" }
+    #>
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [string] $Path = (Get-RepositoryRoot)
+    )
+
+    $mtp = "Microsoft.Testing.Platform"
+
+    # -in and -eq compare case-insensitively, as the SDK does for this variable.
+    if ($env:DOTNET_TEST_RUNNER -in @("VSTest", $mtp)) {
+        return $env:DOTNET_TEST_RUNNER -eq $mtp
+    }
+
+    $item = Get-Item -LiteralPath $Path -ErrorAction Stop
+    $folder = if ($item -is [IO.DirectoryInfo]) { $item } else { $item.Directory }
+
+    for (; $null -ne $folder; $folder = $folder.Parent) {
+        $globalJson = Join-Path $folder.FullName "global.json"
+        if (-not (Test-Path -LiteralPath $globalJson -PathType Leaf)) { continue }
+
+        # The first global.json decides even when unreadable, as for the SDK. Lookups are
+        # guarded because "test" and "runner" are optional and callers may be strict.
+        $parsed = Read-JsonFile -Path $globalJson
+        $test = if ($parsed -and $parsed.PSObject.Properties["test"]) { $parsed.test }
+        return [bool]($test -and $test.PSObject.Properties["runner"] -and $test.runner -eq $mtp)
+    }
+
+    return $false
 }
 
 function Get-AiKitExitCode {
@@ -762,6 +883,10 @@ function Invoke-Tool {
 
     # Function-local: a non-zero native exit must not throw here — the exit code is inspected.
     $PSNativeCommandUseErrorActionPreference = $false
+
+    # An unbound pass-through parameter arrives here as an empty string, which the tool
+    # would receive as a real argument (MTP-mode dotnet test then runs no tests).
+    $Arguments = @($Arguments | Where-Object { -not [string]::IsNullOrEmpty($_) })
 
     if (Test-VerboseRequested) {
         & $FilePath @Arguments
