@@ -80,6 +80,7 @@ jobs:
     needs: build
     permissions:
       contents: read
+      checks: write # nested build job in nuget-publish.yml publishes test results
       id-token: write
     uses: ./.github/workflows/nuget-publish.yml
 
