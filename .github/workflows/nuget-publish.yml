@@ -8,6 +8,11 @@ name: Publish
 
 on:
   workflow_call:
+    inputs:
+      reuse-artifacts:
+        description: "Push the caller's 'packages' artifact instead of building here"
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       tag:
@@ -16,6 +21,7 @@ on:
 
 jobs:
   build:
+    if: ${{ !inputs.reuse-artifacts }}
     uses: jirikostiha/ci/.github/workflows/dotnet-build.yml@v1
     permissions:
       contents: read
@@ -30,6 +36,7 @@ jobs:
 
   publish:
     needs: build
+    if: ${{ !cancelled() && !failure() }} # also runs when build is skipped by reuse-artifacts
     runs-on: ubuntu-latest
     environment: production # matches the nuget.org trust policy (env: production)
     permissions:

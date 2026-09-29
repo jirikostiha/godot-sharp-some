@@ -55,11 +55,12 @@ jobs:
       contents: write
       deployments: write
     with:
+      ref: ${{ inputs.tag || github.ref_name }}
       project: src/quality/GodotSharpSome.Drawing2D.Benchmarks
       dotnet-version: "8.0.x"
 
   docs:
-    needs: [build, benchmark]
+    needs: benchmark
     uses: jirikostiha/ci/.github/workflows/docs.yml@v1
     permissions:
       contents: read
@@ -67,6 +68,7 @@ jobs:
       id-token: write
     with:
       version: ${{ inputs.tag || github.ref_name }}
+      ref: ${{ inputs.tag || github.ref_name }}
 
   release:
     needs: build
@@ -76,13 +78,15 @@ jobs:
     with:
       tag: ${{ inputs.tag || github.ref_name }}
 
-  publish:
-    needs: build
+  publish: # last: a nuget.org push cannot be undone, so it waits for the GitHub release
+    needs: release
     permissions:
       contents: read
-      checks: write # nested build job in nuget-publish.yml publishes test results
+      checks: write # required statically by the (skipped) build job in nuget-publish.yml
       id-token: write
     uses: ./.github/workflows/nuget-publish.yml
+    with:
+      reuse-artifacts: true # push the packages built above, not a second build
 
   asset-library:
     needs: publish
