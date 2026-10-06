@@ -15,5 +15,3 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    with:
-      config: .github/commitlint_config.mjs
