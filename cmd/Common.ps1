@@ -32,7 +32,7 @@ Write-Host ("Building {0}" -f (Get-Hyperlink -Path $slnPath))
 name: Common
 kind: cmd
 description: Shared helpers dot-sourced by the other scripts in cmd.
-version: 2.5.2
+version: 2.6.1
 ---#>
 
 # Note: this file is dot-sourced, so it runs in the caller's scope. It therefore
@@ -491,6 +491,31 @@ function Get-VersionFile {
     throw ("Several files carry a product version: {0}. Set repo.versionFile in .aikit.json." -f $list)
 }
 
+function ConvertTo-ThreePartVersion {
+    <#
+    .SYNOPSIS
+    Normalises a version to exactly three parts.
+
+    .DESCRIPTION
+    A tag such as v2.4 parses to a version whose build part is -1, which does not
+    compare usefully against 2.4.0. Missing parts become zero.
+
+    .PARAMETER Version
+    The version to normalise.
+
+    .EXAMPLE
+    ConvertTo-ThreePartVersion -Version ([version]"2.4")
+    #>
+    [CmdletBinding()]
+    [OutputType([version])]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [version] $Version
+    )
+
+    return [version] ("{0}.{1}.{2}" -f $Version.Major, $Version.Minor, [Math]::Max($Version.Build, 0))
+}
+
 function Get-ProductVersion {
     <#
     .SYNOPSIS
@@ -607,7 +632,8 @@ function Set-ProductVersion {
     $xml.PreserveWhitespace = $true
     $xml.LoadXml((Get-Content -LiteralPath $file -Raw -ErrorAction Stop))
 
-    if (-not $PSCmdlet.ShouldProcess($file, ("Set version to {0}" -f $Prefix))) { return }
+    $display = if ($Suffix) { "$Prefix-$Suffix" } else { "$Prefix" }
+    if (-not $PSCmdlet.ShouldProcess($file, ("Set version to {0}" -f $display))) { return }
 
     if ($current.Style -eq "single") {
         $node = $null
@@ -615,7 +641,7 @@ function Set-ProductVersion {
             if ($null -eq $group) { continue }
             if ($null -eq $node) { $node = $group.SelectSingleNode("Version") }
         }
-        $node.InnerText = if ($Suffix) { "$Prefix-$Suffix" } else { "$Prefix" }
+        $node.InnerText = $display
     }
     else {
         $prefixNode = $null
