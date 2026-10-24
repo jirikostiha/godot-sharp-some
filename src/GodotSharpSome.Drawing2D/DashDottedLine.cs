@@ -2,9 +2,7 @@
 
 namespace GodotSharpSome.Drawing2D;
 
-/// <summary>
-/// Immutable straight dashed-dotted line appender.
-/// </summary>
+/// <summary>Immutable straight dashed-dotted line appender.</summary>
 [DebuggerDisplay("Dash-Dotted: dash={DashLength}, space={SpaceLength}")]
 public sealed class DashDottedLine : IStraightLineAppender
 {

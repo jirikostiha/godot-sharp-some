@@ -2,9 +2,7 @@
 
 namespace GodotSharpSome.Drawing2D;
 
-/// <summary>
-/// Immutable straight dotted line appender.
-/// </summary>
+/// <summary>Immutable straight dotted line appender.</summary>
 [DebuggerDisplay("Dotted: space={SpaceLength}")]
 public sealed class DottedLine : IStraightLineAppender
 {

@@ -6,9 +6,7 @@ using static Godot.Mathf;
 
 public static class CanvasItemExtension
 {
-    /// <summary>
-    /// Draw a single dot.
-    /// </summary>
+    /// <summary>Draw a single dot.</summary>
     public static CanvasItem DrawDot(this CanvasItem canvas, Vector2 position, Color color)
     {
         canvas.DrawMultiline(SolidLine.Dot(position), color, 1);
@@ -16,9 +14,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw series of dots.
-    /// </summary>
+    /// <summary>Draw series of dots.</summary>
     public static CanvasItem DrawDots(this CanvasItem canvas, IList<Vector2> positions, Color color)
     {
         canvas.DrawMultiline(SolidLine.Dots(positions), color, 1);
@@ -26,9 +22,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a circumference of a circle.
-    /// </summary>
+    /// <summary>Draw a circumference of a circle.</summary>
     public static CanvasItem DrawCircleOutline(this CanvasItem canvas, Vector2 center, float radius, Color lineColor,
         float lineWidth = 1, bool antialiased = false)
     {
@@ -37,9 +31,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a plane region of a circle or disc.
-    /// </summary>
+    /// <summary>Draw a plane region of a circle or disc.</summary>
     public static CanvasItem DrawCircleRegion(this CanvasItem canvas, Vector2 center, float radius, Color regionColor)
     {
         canvas.DrawCircle(center, radius, regionColor);
@@ -47,9 +39,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a circumference and plane region of a circle.
-    /// </summary>
+    /// <summary>Draw a circumference and plane region of a circle.</summary>
     public static CanvasItem DrawCircle(this CanvasItem canvas, Vector2 center, float radius, Color lineColor, Color regionColor,
         float lineWidth = 1, bool antialiased = false)
     {
@@ -59,9 +49,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a circumference of an ellipse.
-    /// </summary>
+    /// <summary>Draw a circumference of an ellipse.</summary>
     public static CanvasItem DrawEllipseOutline(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor,
         float lineWidth = 1, bool antialiased = false)
     {
@@ -72,9 +60,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a plane region of an ellipse.
-    /// </summary>
+    /// <summary>Draw a plane region of an ellipse.</summary>
     public static CanvasItem DrawEllipseRegion(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color regionColor)
     {
         canvas.DrawSetTransform(center, angle, new Vector2(1, radiusB / radiusA));
@@ -84,9 +70,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a circumference and plane region of an ellipse.
-    /// </summary>
+    /// <summary>Draw a circumference and plane region of an ellipse.</summary>
     public static CanvasItem DrawEllipse(this CanvasItem canvas, Vector2 center, float radiusA, float radiusB, float angle, Color lineColor, Color regionColor,
         float lineWidth = 1, bool antialiased = false)
     {
@@ -96,9 +80,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter of a triangle.
-    /// </summary>
+    /// <summary>Draw a perimeter of a triangle.</summary>
     public static CanvasItem DrawTriangleOutline(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -111,9 +93,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a plane region of a triangle.
-    /// </summary>
+    /// <summary>Draw a plane region of a triangle.</summary>
     public static CanvasItem DrawTriangleRegion(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color regionColor)
     {
         canvas.DrawPolygon(
@@ -123,9 +103,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter and plane region of a triangle.
-    /// </summary>
+    /// <summary>Draw a perimeter and plane region of a triangle.</summary>
     public static CanvasItem DrawTriangle(this CanvasItem canvas, Vector2 a, Vector2 b, Vector2 c, Color lineColor, Color regionColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -135,9 +113,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter of a rectangle.
-    /// </summary>
+    /// <summary>Draw a perimeter of a rectangle.</summary>
     public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -150,9 +126,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter of a rectangle.
-    /// </summary>
+    /// <summary>Draw a perimeter of a rectangle.</summary>
     public static CanvasItem DrawRectangleOutline(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -165,9 +139,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a plane region of a rectangle.
-    /// </summary>
+    /// <summary>Draw a plane region of a rectangle.</summary>
     public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color regionColor)
     {
         canvas.DrawPolygon(
@@ -177,9 +149,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter of a rectangle.
-    /// </summary>
+    /// <summary>Draw a perimeter of a rectangle.</summary>
     public static CanvasItem DrawRectangleRegion(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color regionColor)
     {
         canvas.DrawPolygon(
@@ -191,9 +161,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter and plane region of a rectangle.
-    /// </summary>
+    /// <summary>Draw a perimeter and plane region of a rectangle.</summary>
     public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 center, float length, float width, float rotationAngle, Color lineColor, Color regionColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -203,9 +171,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter and plane region of a rectangle.
-    /// </summary>
+    /// <summary>Draw a perimeter and plane region of a rectangle.</summary>
     public static CanvasItem DrawRectangle(this CanvasItem canvas, Vector2 vertex1, Vector2 vertex2, float height, Color lineColor, Color regionColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -215,9 +181,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter of a regular convex polygon.
-    /// </summary>
+    /// <summary>Draw a perimeter of a regular convex polygon.</summary>
     public static CanvasItem DrawRegularConvexPolygonOutline(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor,
         float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -232,9 +196,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a plane region of a regular convex polygon.
-    /// </summary>
+    /// <summary>Draw a plane region of a regular convex polygon.</summary>
     public static CanvasItem DrawRegularConvexPolygonRegion(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color regionColor)
     {
         canvas.DrawPolygon(
@@ -245,9 +207,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw a perimeter and plane region of a regular convex polygon.
-    /// </summary>
+    /// <summary>Draw a perimeter and plane region of a regular convex polygon.</summary>
     public static CanvasItem DrawRegularConvexPolygon(this CanvasItem canvas, Vector2 center, float radius, int verticesCount, float rotationAngle, Color lineColor, Color regionColor,
             float lineWidth = 1, IStraightLineAppender? lineType = null)
     {
@@ -257,9 +217,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw text with rotation angle vertical and horizontal alignment of text.
-    /// </summary>
+    /// <summary>Draw text with rotation angle vertical and horizontal alignment of text.</summary>
     /// <param name="canvas"> Target of the drawing. </param>
     /// <param name="font"> Text font. </param>
     /// <param name="position"> position of text. </param>
@@ -302,9 +260,7 @@ public static class CanvasItemExtension
         return canvas;
     }
 
-    /// <summary>
-    /// Draw text with rotation angle vertical and horizontal alignment of text.
-    /// </summary>
+    /// <summary>Draw text with rotation angle vertical and horizontal alignment of text.</summary>
     /// <param name="canvas"> Target of the drawing. </param>
     /// <param name="font"> Text font. </param>
     /// <param name="position"> position of text. </param>

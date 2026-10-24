@@ -2,23 +2,15 @@
 
 public enum LineType
 {
-    /// <summary>
-    /// Solid line type.
-    /// </summary>
+    /// <summary>Solid line type.</summary>
     Solid,
 
-    /// <summary>
-    /// Dotted line type.
-    /// </summary>
+    /// <summary>Dotted line type.</summary>
     Dotted,
 
-    /// <summary>
-    /// Dashed line type.
-    /// </summary>
+    /// <summary>Dashed line type.</summary>
     Dashed,
 
-    /// <summary>
-    /// Dash-dotted line type.
-    /// </summary>
+    /// <summary>Dash-dotted line type.</summary>
     DashDotted
 }

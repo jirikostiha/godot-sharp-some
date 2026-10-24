@@ -2,9 +2,7 @@
 
 namespace GodotSharpSome.Drawing2D;
 
-/// <summary>
-/// Immutable straight solid line appender.
-/// </summary>
+/// <summary>Immutable straight solid line appender.</summary>
 [DebuggerDisplay("Solid")]
 public sealed class SolidLine : IStraightLineAppender
 {

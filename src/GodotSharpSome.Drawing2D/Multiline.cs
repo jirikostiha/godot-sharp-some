@@ -5,9 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using static Godot.Mathf;
 
-/// <summary>
-/// Multiline builder.
-/// </summary>
+/// <summary>Multiline builder.</summary>
 [DebuggerDisplay("palette:{_penPalette.Count}, segments:{Segments}, penkey:{PenKey}")]
 public class Multiline
 {
@@ -19,9 +17,7 @@ public class Multiline
 
     private static readonly Vector2 DotVector = Vector2.Down;
 
-    /// <summary>
-    /// Create multiline instance with palette of four basic line types.
-    /// </summary>
+    /// <summary>Create multiline instance with palette of four basic line types.</summary>
     public static Multiline FourLineTypes() =>
         new(
             (nameof(LineType.Solid), SolidLine.Default),
@@ -29,9 +25,7 @@ public class Multiline
             (nameof(LineType.Dashed), DashedLine.Default),
             (nameof(LineType.DashDotted), DashDottedLine.Default));
 
-    /// <summary>
-    /// Create multiline instance with palette of four basic line types with custom parameters.
-    /// </summary>
+    /// <summary>Create multiline instance with palette of four basic line types with custom parameters.</summary>
     public static Multiline FourLineTypes(float spaceLength, float dashLength) =>
         new(
             (nameof(LineType.Solid), SolidLine.Default),
@@ -39,9 +33,7 @@ public class Multiline
             (nameof(LineType.Dashed), new DashedLine(spaceLength, dashLength)),
             (nameof(LineType.DashDotted), new DashDottedLine(spaceLength, dashLength)));
 
-    /// <summary>
-    /// Create multiline instance with palette of four basic line types with custom appenders.
-    /// </summary>
+    /// <summary>Create multiline instance with palette of four basic line types with custom appenders.</summary>
     public static Multiline FourLineTypes(SolidLine solid, DottedLine dotted, DashedLine dashed, DashDottedLine dashDotted) =>
         new(
             (nameof(LineType.Solid), solid),
@@ -118,14 +110,10 @@ public class Multiline
     protected IList<(string Key, IStraightLineAppender Pen)> PenPalette =>
         _penPalette ??= new List<(string Key, IStraightLineAppender Pen)>(4);
 
-    /// <summary>
-    /// Current pen (line appender).
-    /// </summary>
+    /// <summary>Current pen (line appender).</summary>
     public IStraightLineAppender Pen => _pen;
 
-    /// <summary>
-    /// Current pen (line appender) key.
-    /// </summary>
+    /// <summary>Current pen (line appender) key.</summary>
     public string? PenKey => _penKey;
 
     /// <summary>
@@ -136,9 +124,7 @@ public class Multiline
 
     public Vector2[] Points() => _points.ToArray();
 
-    /// <summary>
-    /// Set custom line type.
-    /// </summary>
+    /// <summary>Set custom line type.</summary>
     public Multiline SetPen(IStraightLineAppender pen, string? penKey = null)
     {
         _pen = pen;
@@ -147,9 +133,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Set line type by key in palette.
-    /// </summary>
+    /// <summary>Set line type by key in palette.</summary>
     public Multiline SetPen(string key)
     {
         var item = PenPalette.First(x => x.Key == key);
@@ -159,9 +143,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Set line type by index in palette.
-    /// </summary>
+    /// <summary>Set line type by index in palette.</summary>
     public Multiline SetPen(int index)
     {
         _pen = PenPalette[index].Pen;
@@ -170,9 +152,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append other multiline.
-    /// </summary>
+    /// <summary>Append other multiline.</summary>
     public Multiline Append(Multiline other)
     {
         Debug.Assert(other._points.Count % 2 == 0, "Multiline has odd number of points. It must have even.");
@@ -183,9 +163,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append single dot to position vector.
-    /// </summary>
+    /// <summary>Append single dot to position vector.</summary>
     public Multiline AppendDot(Vector2 position)
     {
         Pen.AppendLine(_points, position, position + DotVector);
@@ -193,9 +171,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append multiple dots to given positions.
-    /// </summary>
+    /// <summary>Append multiple dots to given positions.</summary>
     public Multiline AppendDots(IEnumerable<Vector2> positions)
     {
         foreach (var position in positions)
@@ -204,9 +180,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append straight line between two points.
-    /// </summary>
+    /// <summary>Append straight line between two points.</summary>
     public Multiline AppendLine(Vector2 start, Vector2 end)
     {
         Pen.AppendLine(_points, start, end);
@@ -223,18 +197,14 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append straight line between two points with offset on both ends.
-    /// </summary>
+    /// <summary>Append straight line between two points with offset on both ends.</summary>
     public void AppendLine(Vector2 start, float startOffset, Vector2 end, float endOffset)
     {
         var dir = start.DirectionTo(end);
         Pen.AppendLine(_points, start + dir * startOffset, end - dir * endOffset);
     }
 
-    /// <summary>
-    /// Append a continuation line relative to the last line by angle and length.
-    /// </summary>
+    /// <summary>Append a continuation line relative to the last line by angle and length.</summary>
     /// <param name="angle"> Relative angle to last line. </param>
     /// <param name="length"> Line length. </param>
     public Multiline AppendLineFromRef(float angle, float length)
@@ -246,9 +216,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append a continuation line by angle and length and offset relative to the reference points.
-    /// </summary>
+    /// <summary>Append a continuation line by angle and length and offset relative to the reference points.</summary>
     public Multiline AppendLineFromRef(Vector2 refPoint, Vector2 start, float angle, float length, float offset = 0)
     {
         var angle2 = (start - refPoint).Angle() + angle;
@@ -287,9 +255,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append parallel lines in given distances from reference line determined by two points.
-    /// </summary>
+    /// <summary>Append parallel lines in given distances from reference line determined by two points.</summary>
     public Multiline AppendParallelLines(Vector2 refStart, Vector2 refEnd, IList<float> distances)
     {
         var dir = refStart.DirectionTo(refEnd);
@@ -307,9 +273,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append parallel lines alongside normal line determined by two points.
-    /// </summary>
+    /// <summary>Append parallel lines alongside normal line determined by two points.</summary>
     public Multiline AppendParallelLinesAlong(Vector2 refStart, Vector2 refEnd, Vector2 direction, IList<float> distances)
     {
         var dir = direction.Normalized();
@@ -325,9 +289,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append cross made by two orthogonal lines.
-    /// </summary>
+    /// <summary>Append cross made by two orthogonal lines.</summary>
     public Multiline AppendCross(Vector2 center, float radius)
     {
         Pen.AppendLine(_points,
@@ -340,9 +302,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append cross made by two orthogonal lines with empty center.
-    /// </summary>
+    /// <summary>Append cross made by two orthogonal lines with empty center.</summary>
     public Multiline AppendCross2(Vector2 center, float outerRadius, float innerRadius)
     {
         Pen.AppendLine(_points,
@@ -361,9 +321,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append an arrow from start point to end point with head in endpoint.
-    /// </summary>
+    /// <summary>Append an arrow from start point to end point with head in endpoint.</summary>
     public Multiline AppendArrow(Vector2 start, Vector2 top,
         float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
     {
@@ -373,9 +331,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append arrow heads on both sides of line between two points.
-    /// </summary>
+    /// <summary>Append arrow heads on both sides of line between two points.</summary>
     public Multiline AppendDoubleArrow(Vector2 start, Vector2 top,
         float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
     {
@@ -386,9 +342,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append an arrow head from determined point and arrow direction.
-    /// </summary>
+    /// <summary>Append an arrow head from determined point and arrow direction.</summary>
     public Multiline AppendArrowHead(Vector2 direction, Vector2 top,
         float headRadius = Arrow_HeadRadius, float arrowAngle = Arrow_HeadAngle)
     {
@@ -400,9 +354,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append multiple arrows as vectors summation from determined point.
-    /// </summary>
+    /// <summary>Append multiple arrows as vectors summation from determined point.</summary>
     public Multiline AppendVectorsRelatively(Vector2 zero, IEnumerable<Vector2> vectors,
         float arrowAngle = Arrow_HeadAngle)
     {
@@ -413,9 +365,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append arrows as vectors from determined point.
-    /// </summary>
+    /// <summary>Append arrows as vectors from determined point.</summary>
     public Multiline AppendVectorsAbsolutely(Vector2 zero, IEnumerable<Vector2> vectors,
         float arrowAngle = Arrow_HeadAngle)
     {
@@ -425,9 +375,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append rectangle by center, half sizes and orientation.
-    /// </summary>
+    /// <summary>Append rectangle by center, half sizes and orientation.</summary>
     /// <param name="center"> Rectangle center. </param>
     /// <param name="halfLength"> Half size of rectangle length. </param>
     /// <param name="halfWidth"> Half size of rectangle width. </param>
@@ -442,9 +390,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append rectangle by two vertices and height.
-    /// </summary>
+    /// <summary>Append rectangle by two vertices and height.</summary>
     /// <param name="vertex1"> Primary vertex. </param>
     /// <param name="vertex2"> Secondary vertex setting up base side of the rectangle. </param>
     /// <param name="height"> Distance of other side from base side. Positive is on left side of direction vertex/vector. </param>
@@ -463,9 +409,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append triangle determined by three points.
-    /// </summary>
+    /// <summary>Append triangle determined by three points.</summary>
     public Multiline AppendTriangle(Vector2 a, Vector2 b, Vector2 c)
     {
         Pen.AppendLine(_points, a, b);
@@ -475,9 +419,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Append regular convex polygon determined by center point, radius, number of vertices and initial rotation towards center.
-    /// </summary>
+    /// <summary>Append regular convex polygon determined by center point, radius, number of vertices and initial rotation towards center.</summary>
     public Multiline AppendRegularConvexPolygon(Vector2 center, float radius, int verticesCount, float rotationAngle)
     {
         var vertices = RegularConvexPolygonVertices(center, radius, verticesCount, rotationAngle)
@@ -492,9 +434,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Mirror all points to line parallel to x-axis.
-    /// </summary>
+    /// <summary>Mirror all points to line parallel to x-axis.</summary>
     /// <param name="y"> Y coordinate of a mirror line. </param>
     public Multiline MirrorX(float y)
     {
@@ -505,9 +445,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Mirror all points to line parallel to y-axis.
-    /// </summary>
+    /// <summary>Mirror all points to line parallel to y-axis.</summary>
     /// <param name="x"> X coordinate of a mirror line. </param>
     public Multiline MirrorY(float x)
     {
@@ -518,9 +456,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Mirror all points to line determined by one point and direction vector.
-    /// </summary>
+    /// <summary>Mirror all points to line determined by one point and direction vector.</summary>
     /// <param name="mirrorPoint"> Point of mirror line. </param>
     /// <param name="mirrorLineDir"> Direction vector of mirror line. </param>
     public Multiline MirrorByDirection(Vector2 mirrorPoint, Vector2 mirrorLineDir)
@@ -532,9 +468,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Mirror all points to line determined by one point and direction vector.
-    /// </summary>
+    /// <summary>Mirror all points to line determined by one point and direction vector.</summary>
     /// <param name="mirrorPointA"> First point of mirror line. </param>
     /// <param name="mirrorPointB"> Second point of mirror line. </param>
     public Multiline MirrorByPoints(Vector2 mirrorPointA, Vector2 mirrorPointB)
@@ -546,9 +480,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Rotate all points around given center.
-    /// </summary>
+    /// <summary>Rotate all points around given center.</summary>
     /// <param name="center"> Rotation center. </param>
     /// <param name="angle"> Rotation angle. </param>
     public Multiline Rotate(Vector2 center, float angle)
@@ -560,9 +492,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Rotate all points around given center and angles.
-    /// </summary>
+    /// <summary>Rotate all points around given center and angles.</summary>
     /// <param name="center"> Rotation center. </param>
     /// <param name="angle"> Rotation angle. </param>
     /// <param name="repeatCount"> Number of a rotation repetition. </param>
@@ -580,9 +510,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Rotate all points around given center and angles.
-    /// </summary>
+    /// <summary>Rotate all points around given center and angles.</summary>
     /// <param name="center"> Rotation center. </param>
     /// <param name="angles"> Rotation angles. </param>
     public Multiline Rotate(Vector2 center, params float[] angles)
@@ -597,9 +525,7 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Remove last line (two points) from collection of points.
-    /// </summary>
+    /// <summary>Remove last line (two points) from collection of points.</summary>
     /// <returns></returns>
     public Multiline RemoveLast()
     {
@@ -611,18 +537,14 @@ public class Multiline
         return this;
     }
 
-    /// <summary>
-    /// Remove all points from collection.
-    /// </summary>
+    /// <summary>Remove all points from collection.</summary>
     public Multiline Clear()
     {
         _points.Clear();
         return this;
     }
 
-    /// <summary>
-    /// Get position of vertices of regular convex polygon.
-    /// </summary>
+    /// <summary>Get position of vertices of regular convex polygon.</summary>
     public static IEnumerable<Vector2> RegularConvexPolygonVertices(Vector2 center, float radius, int verticesCount, float rotationAngle)
     {
         var segmentAngle = 2 * Pi / verticesCount;

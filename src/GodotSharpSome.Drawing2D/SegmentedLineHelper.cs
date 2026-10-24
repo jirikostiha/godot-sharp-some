@@ -4,9 +4,7 @@ using static Godot.Mathf;
 
 internal static class SegmentedLineHelper
 {
-    /// <summary>
-    /// Get length of adaptable part of repeating pattern where tail is fixed.
-    /// </summary>
+    /// <summary>Get length of adaptable part of repeating pattern where tail is fixed.</summary>
     /// <param name="totalLength"> Total length. </param>
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
@@ -28,9 +26,7 @@ internal static class SegmentedLineHelper
         }
     }
 
-    /// <summary>
-    /// Get length of adaptable part of repeating pattern where tail is flexible.
-    /// </summary>
+    /// <summary>Get length of adaptable part of repeating pattern where tail is flexible.</summary>
     /// <param name="totalLength"> Total length. </param>
     /// <param name="fixedInterval"> Length of fixed part of repeating pattern. </param>
     /// <param name="adaptingInterval"> Length of adaptable part of repeating pattern. </param>
