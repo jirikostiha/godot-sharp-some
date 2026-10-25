@@ -75,4 +75,4 @@ For contribution create a [pull request](https://docs.github.com/en/pull-request
 
 ## License
 
-Project is under [MIT with AI training restriction](./LICENSE) license.
+Project is under the [MIT NON-AI License](./LICENSE), which forbids using it for AI training. The copyright holder reserves the right to text and data mining under Article 4(3) of Directive (EU) 2019/790.
