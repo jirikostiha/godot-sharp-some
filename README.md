@@ -75,4 +75,4 @@ For contribution create a [pull request](https://docs.github.com/en/pull-request
 
 ## License
 
-Project is under [MIT](./LICENSE) license.
+Project is under [MIT with AI training restriction](./LICENSE) license.
