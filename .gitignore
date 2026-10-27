@@ -69,3 +69,6 @@ docs/web/api/.manifest
 .mono/
 .godot/
 .import/
+[Aa]rtifacts/
+.rtk/
+.claude/settings.local.json
