@@ -42,7 +42,7 @@ name: Bump-Version
 kind: cmd
 description: Increments the product version and sets or clears the stage suffix. Use when preparing a release.
 profiles: [dotnet]
-version: 2.0
+version: 2.0.1
 ---#>
 [CmdletBinding(SupportsShouldProcess)]
 param(
@@ -50,7 +50,7 @@ param(
     [switch] $NoBump,
     [string] $Suffix,
     [switch] $ClearSuffix,
-    [string] $VersionFile = (Join-Path $PSScriptRoot ".." "product_version.props")
+    [string] $VersionFile
 )
 
 . (Join-Path $PSScriptRoot "Common.ps1")

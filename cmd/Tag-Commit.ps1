@@ -34,13 +34,13 @@ name: Tag-Commit
 kind: cmd
 description: Tags the current commit with the product version and pushes the tag. Use when publishing a release.
 profiles: [dotnet]
-version: 2.1.1
+version: 2.1.3
 ---#>
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [version] $Prefix,
     [string] $Suffix,
-    [string] $VersionFile = (Join-Path $PSScriptRoot ".." "product_version.props"),
+    [string] $VersionFile,
     [switch] $NoPush
 )
 
@@ -59,7 +59,8 @@ if ($PSCmdlet.ShouldProcess($current.Path, "Publish tag $tag")) {
     if ($LASTEXITCODE -ne 0) { throw ("git tag failed (exit code: {0})." -f $LASTEXITCODE) }
 
     if (-not $NoPush) {
-        git push origin --tags
+        # Only the new tag: --tags would also publish every unrelated local-only tag.
+        git push origin "refs/tags/$tag"
         if ($LASTEXITCODE -ne 0) { throw ("git push failed (exit code: {0})." -f $LASTEXITCODE) }
     }
 }

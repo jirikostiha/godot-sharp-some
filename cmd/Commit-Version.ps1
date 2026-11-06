@@ -35,13 +35,13 @@ name: Commit-Version
 kind: cmd
 description: Commits and pushes the file carrying the product version. Use after bumping a version.
 profiles: [dotnet]
-version: 2.1.1
+version: 2.1.2
 ---#>
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [version] $Prefix,
     [string] $Suffix,
-    [string] $VersionFile = (Join-Path $PSScriptRoot ".." "product_version.props"),
+    [string] $VersionFile,
     [switch] $NoPush
 )
 

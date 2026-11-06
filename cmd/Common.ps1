@@ -32,7 +32,7 @@ Write-Host ("Building {0}" -f (Get-Hyperlink -Path $slnPath))
 name: Common
 kind: cmd
 description: Shared helpers dot-sourced by the other scripts in cmd.
-version: 2.6.1
+version: 3.0.2
 ---#>
 
 # Note: this file is dot-sourced, so it runs in the caller's scope. It therefore
@@ -363,7 +363,9 @@ function Get-SolutionPath {
     $candidates = @(Get-RepositoryFile -Extension ".slnx", ".sln")
 
     if ($candidates.Count -eq 0) {
-        throw ("No solution file found under '{0}'. Set repo.solution in .aikit.json." -f $root)
+        # A distinct type, so Resolve-SolutionPath can tell "none" from a tie or a bad config.
+        throw [System.IO.FileNotFoundException]::new(
+            ("No solution file found under '{0}'. Set repo.solution in .aikit.json." -f $root))
     }
 
     $depth = { ([IO.Path]::GetRelativePath($root, $args[0].FullName) -split "/|\\").Count }
@@ -480,7 +482,9 @@ function Get-VersionFile {
     $carriers = @($searched | Where-Object { Test-VersionCarrier -Path $_.FullName })
 
     if ($carriers.Count -eq 0) {
-        throw ("No file carrying a product version found under '{0}'. Set repo.versionFile in .aikit.json." -f $root)
+        # Typed, like the tie below, so a caller can fall back on these two and nothing else.
+        throw [System.IO.FileNotFoundException]::new(
+            ("No file carrying a product version found under '{0}'. Set repo.versionFile in .aikit.json." -f $root))
     }
 
     $shared = @($carriers | Where-Object { $_.Name -eq "Directory.Build.props" })
@@ -488,7 +492,8 @@ function Get-VersionFile {
     if ($carriers.Count -eq 1) { return $carriers[0].FullName }
 
     $list = ($carriers | ForEach-Object { [IO.Path]::GetRelativePath($root, $_.FullName) }) -join ", "
-    throw ("Several files carry a product version: {0}. Set repo.versionFile in .aikit.json." -f $list)
+    throw [System.Reflection.AmbiguousMatchException]::new(
+        ("Several files carry a product version: {0}. Set repo.versionFile in .aikit.json." -f $list))
 }
 
 function ConvertTo-ThreePartVersion {
@@ -705,7 +710,8 @@ function Resolve-SolutionPath {
         return Get-SolutionPath -Path $Path
     }
 
-    try { return Get-SolutionPath } catch { return $null }
+    # Only "no solution at all" is a fallback; a tie or a broken repo.solution must surface.
+    try { return Get-SolutionPath } catch [System.IO.FileNotFoundException] { return $null }
 }
 
 function Test-MtpTestRunner {
@@ -835,23 +841,96 @@ function Stop-Script {
     exit (Get-AiKitExitCode -Name $Reason)
 }
 
-function Test-VerboseRequested {
+function Get-ToolVerbosity {
     <#
     .SYNOPSIS
-    Determines whether the caller asked for verbose output.
+    Maps the caller's -Verbose / -Debug switches to one of three output levels.
 
     .DESCRIPTION
-    True when -Verbose was passed (or $VerbosePreference is not SilentlyContinue). Scripts use it
-    to keep output quiet by default and let the underlying tools inherit the verbosity.
+    PowerShell has no graded verbosity: -Verbose and -Debug are independent switches. This is
+    the single place that turns them into a level, so every script and tool call agrees:
+
+      quiet        default       dotnet -v quiet      git --quiet
+      detailed     -Verbose      dotnet -v normal     git (no flag)
+      diagnostic   -Debug        dotnet -v diagnostic git GIT_TRACE
+
+    -Debug wins over -Verbose. The preference variables are read through dynamic scope, so the
+    level follows the switch of the script that dot-sourced this file.
 
     .EXAMPLE
-    $args = if (Test-VerboseRequested) { @() } else { @("-v", "quiet") }
+    if ((Get-ToolVerbosity) -ne "quiet") { & dotnet build }
     #>
     [CmdletBinding()]
-    [OutputType([bool])]
+    [OutputType([string])]
     param()
 
-    return $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
+    $silent = [System.Management.Automation.ActionPreference]::SilentlyContinue
+    if ($DebugPreference -ne $silent) { return "diagnostic" }
+    if ($VerbosePreference -ne $silent) { return "detailed" }
+    return "quiet"
+}
+
+function Get-DotnetVerbosityLevel {
+    <#
+    .SYNOPSIS
+    Returns the dotnet `-v` value for the current level: quiet, normal or diagnostic.
+
+    .DESCRIPTION
+    The one mapping from Get-ToolVerbosity to dotnet. Callers that build a command line as a
+    string (Test-Csprojs workers) use it directly; the rest use Get-DotnetVerbosityArgs.
+    #>
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    switch (Get-ToolVerbosity) {
+        "diagnostic" { return "diagnostic" }
+        "detailed" { return "normal" }
+        default { return "quiet" }
+    }
+}
+
+function Get-DotnetVerbosityArgs {
+    <#
+    .SYNOPSIS
+    Returns the dotnet verbosity arguments for the current level (see Get-ToolVerbosity).
+
+    .PARAMETER NoLogo
+    Also adds --nologo at the quiet level. Leave it off for MTP-mode `dotnet test` and for
+    `dotnet format`, which would receive or reject the unknown option.
+
+    .EXAMPLE
+    Invoke-Tool -FilePath dotnet -Arguments (@("build", $sln) + (Get-DotnetVerbosityArgs -NoLogo)) -FailReason Build -FailMessage "dotnet build failed"
+    #>
+    [CmdletBinding()]
+    [OutputType([string[]])]
+    param([switch] $NoLogo)
+
+    $level = Get-DotnetVerbosityLevel
+    if ($NoLogo -and $level -eq "quiet") { return @("--nologo", "-v", $level) }
+    return @("-v", $level)
+}
+
+function Get-ChildVerbosityArgs {
+    <#
+    .SYNOPSIS
+    Returns the -Verbose / -Debug switches to hand to a child pwsh process.
+
+    .DESCRIPTION
+    A child process inherits no preference variables, so the level must be passed explicitly.
+
+    .EXAMPLE
+    pwsh -NoProfile -File $script @(Get-ChildVerbosityArgs)
+    #>
+    [CmdletBinding()]
+    [OutputType([string[]])]
+    param()
+
+    switch (Get-ToolVerbosity) {
+        "diagnostic" { return @("-Verbose", "-Debug") }
+        "detailed" { return @("-Verbose") }
+        default { return @() }
+    }
 }
 
 function Invoke-Tool {
@@ -863,7 +942,8 @@ function Invoke-Tool {
     Keeps output asymmetric — near-silent on success, informative on failure — so an agent pays
     tokens only when something breaks:
 
-      -Verbose        streams the tool live (for a human watching).
+      -Verbose/-Debug streams the tool live (for a human watching); pass the matching
+                      level to the tool itself with Get-DotnetVerbosityArgs.
       default         captures the output. On success it is discarded (silence). On a non-zero
                       exit, the diagnostically relevant lines (those naming an error or a failure,
                       or the tail when none match) are written to stderr, then the script stops
@@ -914,7 +994,7 @@ function Invoke-Tool {
     # would receive as a real argument (MTP-mode dotnet test then runs no tests).
     $Arguments = @($Arguments | Where-Object { -not [string]::IsNullOrEmpty($_) })
 
-    if (Test-VerboseRequested) {
+    if ((Get-ToolVerbosity) -ne "quiet") {
         & $FilePath @Arguments
         $code = $LASTEXITCODE
     }

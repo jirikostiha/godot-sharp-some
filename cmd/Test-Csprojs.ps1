@@ -18,6 +18,9 @@
     (e.g. a single [Theory] with multiple [InlineData] rows counts as one).
     Commented-out attributes are ignored.
 
+    A project whose own file shows no test reference is evaluated with MSBuild (no restore
+    needed), so test references added by a Directory.Build.props or .targets count too.
+
     Inside a git repository only the projects git tracks or would track are run, so
     git-ignored copies (for example .claude/worktrees/*) are skipped.
 
@@ -30,7 +33,7 @@ name: Test-Csprojs
 kind: cmd
 description: Discovers C# test projects and runs them in parallel with per-project build and test timing. The default test runner; needs no solution file. Use Test-Sln for solution-level dotnet test.
 profiles: [dotnet]
-version: 2.2.1
+version: 2.4.0
 ---#>
 [CmdletBinding()]
 param(
@@ -80,6 +83,34 @@ $projectFiles = @(Get-RepositoryFile -Extension ".csproj" -Root $resolvedRoot)
 # framework or adapter, either via <PackageReference> or <ProjectReference>.
 $testRefPattern = 'Microsoft\.NET\.Test\.Sdk|Microsoft\.Testing\.Platform|xunit|NUnit|MSTest\.TestFramework|MSTest\.TestAdapter'
 
+# References that a Directory.Build.props or .targets adds are not in the project file, so a
+# project whose file shows none is evaluated with MSBuild, which applies those imports.
+# Returns $null when the evaluation fails, so the caller keeps the verdict from the file.
+function Test-EvaluatedTestProject {
+    param(
+        [Parameter(Mandatory)][string]$ProjectPath,
+        [Parameter(Mandatory)][string]$RefPattern
+    )
+
+    $output = & dotnet msbuild $ProjectPath "-getItem:PackageReference,ProjectReference" "-getProperty:IsTestProject" 2>$null
+    if ($LASTEXITCODE -ne 0) { return $null }
+
+    # The JSON can follow SDK notices on stdout, so parse from the first brace.
+    $text = $output -join "`n"
+    $start = $text.IndexOf('{')
+    if ($start -lt 0) { return $null }
+    try { $evaluated = $text.Substring($start) | ConvertFrom-Json }
+    catch { return $null }
+
+    $isTestProperty = $evaluated.Properties.PSObject.Properties['IsTestProject']
+    if ($isTestProperty -and $isTestProperty.Value -eq 'true') { return $true }
+
+    foreach ($itemType in $evaluated.Items.PSObject.Properties) {
+        if (@($itemType.Value | Where-Object { $_.Identity -match $RefPattern }).Count -gt 0) { return $true }
+    }
+    return $false
+}
+
 $testProjects = @(foreach ($proj in $projectFiles) {
     try {
         [xml]$xml = Get-Content $proj.FullName -Raw
@@ -95,6 +126,13 @@ $testProjects = @(foreach ($proj in $projectFiles) {
     )
 
     $isTest = @($refValues | Where-Object { $_ -match $testRefPattern }).Count -gt 0
+    if (-not $isTest) {
+        $evaluatedVerdict = Test-EvaluatedTestProject -ProjectPath $proj.FullName -RefPattern $testRefPattern
+        if ($null -eq $evaluatedVerdict) {
+            Write-Host "${cYellow}Warning: could not evaluate '$($proj.FullName)'; judged by its project file only.${cReset}"
+        }
+        $isTest = $evaluatedVerdict -eq $true
+    }
     if ($isTest) {
         $proj
     }
@@ -140,8 +178,10 @@ Write-Host "${cBold}--- EXECUTION PROGRESS ---${cReset}"
 $tempResultsDir = Join-Path ([System.IO.Path]::GetTempPath()) ("DotnetTests_" + [Guid]::NewGuid().ToString("N"))
 $null = New-Item -ItemType Directory -Path $tempResultsDir -Force
 
-# Verbose detection via the shared helper, so this matches Test-Sln and the rest.
-$isVerbose = Test-VerboseRequested
+# Level via the shared helper, so this matches Test-Sln and the rest. The workers run in
+# separate runspaces without the caller's preference variables, so the level is passed in.
+$dotnetLevel = Get-DotnetVerbosityLevel
+$isVerbose = (Get-ToolVerbosity) -ne "quiet"
 
 # dotnet test picks its runner from the global.json nearest its working directory, so
 # every dotnet process below runs from the root the runner is detected for.
@@ -170,6 +210,7 @@ try {
         $state          = $using:syncState
         $configuration  = $using:Configuration
         $verbose        = $using:isVerbose
+        $dotnetLevel    = $using:dotnetLevel
         $totalProjCount = $using:totalProjects
         $timeoutSec     = $using:TimeoutSec
         $isMtp          = $using:isMtp
@@ -269,7 +310,7 @@ try {
             # STEP 1: EXPLICIT BUILD STEP
             # ----------------------------------------------------
             $buildTimer = [System.Diagnostics.Stopwatch]::StartNew()
-            $buildArgs  = "build `"$($proj.FullName)`" -c $configuration --nologo -v quiet -clp:NoSummary"
+            $buildArgs  = "build `"$($proj.FullName)`" -c $configuration --nologo -v $dotnetLevel -clp:NoSummary"
             $buildRun   = Invoke-ProcessWithTimeout -Arguments $buildArgs -SharedState $state -TimeoutSeconds $timeoutSec -WorkingDirectory $workDir
             $buildTimer.Stop()
         }
@@ -370,7 +411,7 @@ try {
         # (such as --nologo) to the test application, which then runs nothing.
         $target = if ($isMtp) { "--project `"$($proj.FullName)`"" } else { "`"$($proj.FullName)`" --nologo" }
         $trx    = if ($isMtp) { "--report-trx --report-trx-filename `"$trxName`"" } else { "--logger `"trx;LogFileName=$trxName`"" }
-        $testArgsBase = "test $target -c $configuration -v quiet $trx --results-directory `"$tempDir`""
+        $testArgsBase = "test $target -c $configuration -v $dotnetLevel $trx --results-directory `"$tempDir`""
         $testRun = Invoke-ProcessWithTimeout -Arguments "$testArgsBase --no-build" -SharedState $state -TimeoutSeconds $timeoutSec -WorkingDirectory $workDir
 
         if ($testRun.Cancelled -or $state.IsCancelled) { return }

@@ -26,7 +26,7 @@ name: Lint-Code
 kind: cmd
 description: Formats the solution with dotnet format, or verifies formatting without changing files.
 profiles: [dotnet]
-version: 2.2.0
+version: 2.3.0
 ---#>
 [CmdletBinding()]
 param(
@@ -38,8 +38,8 @@ param(
 
 try { $slnPath = Get-SolutionPath -Path $Solution } catch { Stop-Script -Reason Precondition -Message $_.Exception.Message }
 
-# Quiet on success, the offending files on failure; -Verbose streams full formatter detail.
-$verbosityArgs = if (Test-VerboseRequested) { @("-v", "diagnostic") } else { @("-v", "quiet") }
+# Quiet on success, the offending files on failure; -Verbose / -Debug raise the level.
+$verbosityArgs = Get-DotnetVerbosityArgs
 
 if ($Verify) {
     Write-Verbose ("Verifying code formatting for: {0}" -f $slnPath)

@@ -117,12 +117,12 @@ name: Publish-Release
 kind: cmd
 description: Runs the release pipeline end to end - build, test, lint, version bump by branch type, commit, tag, merge into main and push. Use to cut a release.
 profiles: [dotnet]
-version: 3.4.0
+version: 3.5.1
 ---#>
 [CmdletBinding(SupportsShouldProcess)]
 param(
     [string] $Solution,
-    [string] $VersionFile = (Join-Path $PSScriptRoot ".." "product_version.props"),
+    [string] $VersionFile,
     [ValidatePattern('(?i)^v?\d+(\.\d+){1,3}$')]
     [string] $Version,
     [string] $Configuration = "Release",
@@ -197,12 +197,9 @@ function Invoke-Step {
         [Parameter(Mandatory)] [string] $FailMessage
     )
 
-    # A child process inherits no preference variables, so -Verbose has to be passed on
+    # A child process inherits no preference variables, so the level has to be passed on
     # explicitly or the called script stays silent about how it decided.
-    $childArguments = @($Arguments)
-    if ($VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue) {
-        $childArguments += "-Verbose"
-    }
+    $childArguments = @($Arguments) + @(Get-ChildVerbosityArgs)
 
     Write-Verbose ("Running {0} {1}" -f $Script, ($childArguments -join " "))
     pwsh -NoProfile -File (Join-Path $PSScriptRoot $Script) @childArguments
@@ -222,6 +219,11 @@ function Invoke-Git {
     .PARAMETER AllowFailure
     Returns the output of a failed call instead of throwing.
 
+    .PARAMETER Quiet
+    Adds --quiet after the git command at the default level (see Get-ToolVerbosity). For
+    fetch, checkout, commit and similar; not for `rev-parse --verify --quiet`, where --quiet
+    changes the meaning rather than the verbosity.
+
     .EXAMPLE
     Invoke-Git -Arguments "rev-parse", "--abbrev-ref", "HEAD"
     #>
@@ -231,11 +233,36 @@ function Invoke-Git {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Arguments,
 
-        [switch] $AllowFailure
+        [switch] $AllowFailure,
+
+        [switch] $Quiet
     )
 
+    if ($Quiet -and (Get-ToolVerbosity) -eq "quiet") {
+        $Arguments = @($Arguments[0], "--quiet") + @($Arguments | Select-Object -Skip 1)
+    }
+
     Write-Verbose ("git {0}" -f ($Arguments -join " "))
-    $output = @(& git @Arguments 2>&1 | ForEach-Object { "$_" })
+
+    # GIT_TRACE goes to stderr, which this function folds into the returned output. Send it
+    # to a file instead and replay it, so callers that parse the output see no trace lines.
+    $traceFile = $null
+    $previousTrace = $env:GIT_TRACE
+    if ((Get-ToolVerbosity) -eq "diagnostic") {
+        $traceFile = [System.IO.Path]::GetTempFileName()
+        $env:GIT_TRACE = $traceFile
+    }
+
+    try {
+        $output = @(& git @Arguments 2>&1 | ForEach-Object { "$_" })
+    }
+    finally {
+        $env:GIT_TRACE = $previousTrace
+        if ($traceFile) {
+            Get-Content -LiteralPath $traceFile | ForEach-Object { [Console]::Error.WriteLine($_) }
+            Remove-Item -LiteralPath $traceFile -Force -ErrorAction SilentlyContinue
+        }
+    }
 
     if ($LASTEXITCODE -ne 0 -and -not $AllowFailure) {
         throw ("git {0} failed (exit code: {1}).{2}{3}" -f ($Arguments -join " "), $LASTEXITCODE, [Environment]::NewLine, ($output -join [Environment]::NewLine))
@@ -323,10 +350,11 @@ function Get-VersionCarrierPath {
     # Honour .aikit.json config and the product_version.props convention via the
     # canonical resolver. Fall through to the multi-project path only when no
     # single file is identified (multiple carriers, or none at all).
+    # A missing or broken repo.versionFile is not one of these and must surface.
     try {
         return @(Get-VersionFile)
     }
-    catch { }
+    catch [System.IO.FileNotFoundException], [System.Reflection.AmbiguousMatchException] { }
 
     $slnPath = Get-SolutionPath -Path $Solution
     $carriers = @(Get-SolutionProjectPath -Path $slnPath | Where-Object { Test-VersionCarrier -Path $_ })
@@ -897,7 +925,7 @@ function Merge-ReleaseIntoMain {
     }
 
     # An unreachable remote is tolerated here as for the push: the local main is merged as it is.
-    Invoke-Git -Arguments "fetch", "--quiet", "origin", "main" -AllowFailure | Out-Null
+    Invoke-Git -Arguments "fetch", "origin", "main" -Quiet -AllowFailure | Out-Null
     $hasRemoteMain = Test-Git "rev-parse", "--verify", "--quiet", "refs/remotes/origin/main"
     $hasLocalMain = Test-Git "rev-parse", "--verify", "--quiet", "refs/heads/main"
     if ($hasRemoteMain) {
@@ -921,7 +949,7 @@ function Merge-ReleaseIntoMain {
         return "UpToDate"
     }
 
-    Invoke-Git -Arguments "checkout", "--quiet", "main" | Out-Null
+    Invoke-Git -Arguments "checkout", "main" -Quiet | Out-Null
     try {
         $mainVersion = Get-ProductVersion -Path $Carriers[0]
         $prefix = if ($mainVersion.Prefix -gt $next) { $mainVersion.Prefix } else { $next }
@@ -952,12 +980,12 @@ function Merge-ReleaseIntoMain {
             Set-ProductVersion -Path $carrier -Prefix $prefix -Suffix dev -Confirm:$false
         }
         Invoke-Git -Arguments (@("add", "--") + $Carriers) | Out-Null
-        Invoke-Git -Arguments "commit", "--quiet", "--no-edit" | Out-Null
+        Invoke-Git -Arguments "commit", "--no-edit" -Quiet | Out-Null
         Write-Host ("  Merged {0} into main; main now carries {1}-dev." -f $Branch, $prefix) -ForegroundColor Green
         return "Merged"
     }
     finally {
-        Invoke-Git -Arguments "checkout", "--quiet", $Branch | Out-Null
+        Invoke-Git -Arguments "checkout", $Branch -Quiet | Out-Null
     }
 }
 

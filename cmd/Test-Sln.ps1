@@ -41,7 +41,7 @@ name: Test-Sln
 kind: cmd
 description: Runs the whole test suite with dotnet test on the solution. Use to verify a solution-based repository before committing or releasing; for a repository without a solution use Test-Csprojs.
 profiles: [dotnet]
-version: 2.5.0
+version: 2.6.0
 ---#>
 # PositionalBinding off: -Configuration and -Solution bind only by name, so a bare
 # argument such as --no-build reaches $AdditionalArgs instead of a parameter slot.
@@ -77,8 +77,8 @@ $isMtp = Test-MtpTestRunner -Path $slnFolder
 # applications, which then run nothing; VSTest mode has no --solution.
 $targetArgs = if ($isMtp) { @("--solution", $slnPath) } else { @($slnPath) }
 
-# Quiet on success, failing tests on failure; -Verbose streams the full test run.
-$verbosityArgs = if (Test-VerboseRequested) { @() } elseif ($isMtp) { @("-v", "quiet") } else { @("--nologo", "-v", "quiet") }
+# Quiet on success, failing tests on failure; -Verbose / -Debug raise the level.
+$verbosityArgs = Get-DotnetVerbosityArgs -NoLogo:(-not $isMtp)
 
 Push-Location -LiteralPath $slnFolder
 try {
