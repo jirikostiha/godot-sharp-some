@@ -17,5 +17,5 @@ Every commit to main branch follows [Conventional Commits](https://www.conventio
 * cmd - auxiliary scripts
 * .github - configuration of workflow actions
   * workflows - definition of workflows
-* asm (generated) - assemblies or binaries
+* artf (generated) - assemblies or binaries
 * benchmarks (generated) - benchmarks results
